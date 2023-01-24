@@ -1,0 +1,28 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-85:/values-v13/values-v13.xml",
+            "map": [
+                {
+                    "source": "/Users/user/Desktop/AndroidStudioProjects/Ngalo/app/src/main/res/values-v13/splashscreen.xml",
+                    "from": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "56",
+                        "endLines": "17",
+                        "endColumns": "12",
+                        "endOffsets": "868"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "15",
+                        "endColumns": "12",
+                        "endOffsets": "521"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "241682691747",
+    "firebase_url": "https://ngalo-2d916-default-rtdb.firebaseio.com",
+    "project_id": "ngalo-2d916",
+    "storage_bucket": "ngalo-2d916.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:241682691747:android:7adb9355069cbd58f47116",
+        "android_client_info": {
+          "package_name": "com.aisc.ngalo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "241682691747-36pah3ljqvi8i8khbohggp6mrkkdp3v0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAukVqs-djwOxBK-cIcpL47yufheB6YzaQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "241682691747-36pah3ljqvi8i8khbohggp6mrkkdp3v0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ngalo_logo"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ngalo_logo"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Ngalo.NoActionBar">
+        <activity
+            android:name=".HomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BikesScreen"
+            android:exported="false"
+            android:label="@string/title_activity_bikes_options"
+            android:theme="@style/Theme.Ngalo.NoActionBar" />
+        <activity
+            android:name=".BikeDetails"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.UploadImages"
+            android:exported="false" />
+        <activity
+            android:name=".BikesOptions"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.BikeHireScreen"
+            android:exported="false"
+            android:label="@string/title_activity_bike_hire_screen"
+            android:theme="@style/Theme.Ngalo">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".SignUp"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".SplashScreen"
+            android:exported="false"
+            android:label="@string/main_screen"
+            android:theme="@style/Theme.AppCompat" />
+        <activity
+            android:name=".models.BikeHireModel"
+            android:exported="false"
+            android:label="@string/title_activity_hire_bike"
+            android:theme="@style/Theme.Ngalo" />
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+    </application>
+
+</manifest>

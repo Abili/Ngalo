@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">241682691747-36pah3ljqvi8i8khbohggp6mrkkdp3v0.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://ngalo-2d916-default-rtdb.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">241682691747</string>
+    <string name="google_api_key" translatable="false">AIzaSyAukVqs-djwOxBK-cIcpL47yufheB6YzaQ</string>
+    <string name="google_app_id" translatable="false">1:241682691747:android:7adb9355069cbd58f47116</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAukVqs-djwOxBK-cIcpL47yufheB6YzaQ</string>
+    <string name="google_storage_bucket" translatable="false">ngalo-2d916.appspot.com</string>
+    <string name="project_id" translatable="false">ngalo-2d916</string>
+</resources>
