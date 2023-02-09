@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".admin.UploadImages">
+    tools:context=".admin.UploadBikeImages">
 
     <ImageView
         android:id="@+id/addimageView"
@@ -30,13 +30,12 @@
         <EditText
             android:id="@+id/enterbikeName"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="70dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="27dp"
             android:layout_marginEnd="10dp"
-            android:gravity="top"
-            android:hint="Bike Name"
-            android:padding="10dp" />
+            android:gravity="bottom"
+            android:hint="Bike Name" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -52,13 +51,12 @@
         <EditText
             android:id="@+id/enterPrice"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="70dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="21dp"
             android:layout_marginEnd="10dp"
-            android:gravity="top"
-            android:hint="Bike price"
-            android:padding="10dp" />
+            android:gravity="bottom"
+            android:hint="Bike price" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -77,9 +75,8 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="21dp"
             android:layout_marginEnd="10dp"
-            android:gravity="top"
+            android:gravity="center_vertical"
             android:hint="Description"
-            android:padding="10dp"
             android:textColor="@color/ngalo_green" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -121,7 +118,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/white"
-        android:text="Add Image"
+        android:text="Add Bike"
         android:textColor="@color/ngalo_green"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

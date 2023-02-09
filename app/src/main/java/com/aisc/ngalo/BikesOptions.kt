@@ -4,13 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.aisc.ngalo.admin.UploadImages
+import com.aisc.ngalo.admin.UploadItems
 import com.aisc.ngalo.databinding.ActivityBikesOptionsBinding
 
 class BikesOptions : AppCompatActivity() {
@@ -28,9 +27,20 @@ class BikesOptions : AppCompatActivity() {
         // binding.tabs.setTabTextColors(R.color.ngalo_green,R.color.ngalo_green)
         setSupportActionBar(binding.optionstoolbar)
 
+        when (intent.getIntExtra("position", 0)) {
+            0 -> {
+                binding.viewPager.setCurrentItem(0,false)
+            }
+            1 -> {
+                binding.viewPager.setCurrentItem(1, false)
+            }
+            else -> {
+                binding.viewPager.setCurrentItem(2, false)
+            }
+        }
 
         binding.fabAddBike.setOnClickListener {
-            startActivity(Intent(this@BikesOptions, UploadImages::class.java))
+            startActivity(Intent(this@BikesOptions, UploadItems::class.java))
         }
 
     }
@@ -63,8 +73,7 @@ class BikesOptions : AppCompatActivity() {
             R.id.action_settings -> {
                 startActivity(
                     Intent(
-                        this@BikesOptions,
-                        SettingsActivity::class.java
+                        this@BikesOptions, SettingsActivity::class.java
                     )
                 )
                 true
@@ -80,25 +89,26 @@ class BikesOptions : AppCompatActivity() {
     }
 }
 
-class PagerAdapter(fragmentManager: FragmentManager) :
-    FragmentStatePagerAdapter(fragmentManager) {
+class PagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> BikeForPurchaseFragment()
             1 -> BikesForHireFragment()
+            2 -> BikePartsFragment()
             else -> Fragment()
         }
     }
 
     override fun getCount(): Int {
-        return 2
+        return 3
     }
 
     override fun getPageTitle(position: Int): CharSequence {
         return when (position) {
-            0 -> "Bike for Purchase"
-            1 -> "Bikes for Hire"
+            0 -> "Buy Bikes"
+            1 -> "Hire Bikes"
+            2 -> "Bike Parts"
             else -> ""
         }
     }

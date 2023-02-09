@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.aisc.ngalo.admin.UploadImages
+import com.aisc.ngalo.admin.UploadBikeImages
 import com.aisc.ngalo.databinding.ActivityBikesScreenBinding
 import com.aisc.ngalo.models.Bike
 import com.google.firebase.FirebaseApp
@@ -92,7 +92,7 @@ class BikesScreen() :
 
         }
         binding.fbAddBike.setOnClickListener {
-            startActivity(Intent(this@BikesScreen, UploadImages::class.java))
+            startActivity(Intent(this@BikesScreen, UploadBikeImages::class.java))
         }
     }
 

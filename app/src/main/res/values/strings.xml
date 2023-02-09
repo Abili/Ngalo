@@ -37,4 +37,5 @@
     3. Hiring of bicycles
     5. Bicycle tours/rides</string>
     <string name="add_to_cart">Add to Cart</string>
+    <string name="title_activity_upload_items">UploadItems</string>
 </resources>

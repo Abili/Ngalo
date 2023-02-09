@@ -33,10 +33,21 @@
         android:testOnly="true"
         android:theme="@style/Theme.Ngalo.NoActionBar" >
         <activity
+            android:name="com.aisc.ngalo.admin.AddBicyclePart"
+            android:exported="false" />
+        <activity
+            android:name="com.aisc.ngalo.admin.UploadItems"
+            android:exported="false"
+            android:label="@string/title_activity_upload_items"
+            android:theme="@style/Theme.Ngalo.NoActionBar" />
+        <activity
             android:name="com.aisc.ngalo.HomeActivity"
             android:exported="false" />
         <activity
             android:name="com.aisc.ngalo.SettingsActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.aisc.ngalo.admin.CreateAdvert"
             android:exported="false" />
         <activity
             android:name="com.aisc.ngalo.BikesScreen"
@@ -50,7 +61,7 @@
             android:name="com.aisc.ngalo.MainActivity"
             android:exported="false" />
         <activity
-            android:name="com.aisc.ngalo.admin.UploadImages"
+            android:name="com.aisc.ngalo.admin.UploadBikeImages"
             android:exported="false" />
         <activity
             android:name="com.aisc.ngalo.BikesOptions"

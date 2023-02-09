@@ -2897,6 +2897,7 @@ drawable mtrl_switch_track
 drawable mtrl_switch_track_decoration
 drawable mtrl_tabs_default_indicator
 drawable navigation_empty_icon
+drawable ngalo_ad
 drawable ngalo_logo
 drawable ngalobg
 drawable notification_action_background
@@ -3005,8 +3006,10 @@ id activity_chooser_view_content
 id add
 id addImageBtn
 id addimageView
+id addpart
 id adjust_height
 id adjust_width
+id advertIMageView
 id alertTitle
 id aligned
 id all
@@ -3035,6 +3038,7 @@ id bikeImage
 id bikeRecyclerView
 id bikehireRecyclerView
 id bikeparts
+id bikepartsRecyclerView
 id bikepurchaseRecyclerView
 id blocking
 id bottom
@@ -3302,6 +3306,7 @@ id navigation_header_container
 id never
 id neverCompleteToEnd
 id neverCompleteToStart
+id ngalo_ad
 id noScroll
 id noState
 id none
@@ -3325,6 +3330,8 @@ id parent
 id parentPanel
 id parentRelative
 id parent_matrix
+id partname
+id partprice
 id password_toggle
 id path
 id pathRelative
@@ -3658,6 +3665,7 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
+layout activity_add_bicycle_part
 layout activity_bike_details
 layout activity_bikes_options
 layout activity_bikes_screen
@@ -3665,6 +3673,7 @@ layout activity_home
 layout activity_settings
 layout activity_sign_up
 layout activity_upload_images
+layout activity_uploads
 layout bike_item
 layout browser_actions_context_menu_page
 layout browser_actions_context_menu_row
@@ -3686,6 +3695,7 @@ layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout expand_button
 layout fragment_bike_for_purchase
+layout fragment_bike_parts
 layout fragment_bikes_for_hire
 layout fragment_bikes_options
 layout image_frame
@@ -4010,6 +4020,7 @@ string title_activity_bike_hire
 string title_activity_bike_hire_screen
 string title_activity_bikes_options
 string title_activity_hire_bike
+string title_activity_upload_items
 string ucrop_error_input_data_is_absent
 string ucrop_label_edit_photo
 string ucrop_label_original

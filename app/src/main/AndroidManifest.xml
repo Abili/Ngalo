@@ -9,10 +9,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ngalo.NoActionBar">
         <activity
+            android:name=".admin.AddBicyclePart"
+            android:exported="false" />
+        <activity
+            android:name=".admin.UploadItems"
+            android:exported="false"
+            android:label="@string/title_activity_upload_items"
+            android:theme="@style/Theme.Ngalo.NoActionBar" />
+        <activity
             android:name=".HomeActivity"
             android:exported="false" />
         <activity
             android:name=".SettingsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.CreateAdvert"
             android:exported="false" />
         <activity
             android:name=".BikesScreen"
@@ -26,7 +37,7 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".admin.UploadImages"
+            android:name=".admin.UploadBikeImages"
             android:exported="false" />
         <activity
             android:name=".BikesOptions"

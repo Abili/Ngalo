@@ -8,10 +8,8 @@ import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.core.content.ContextCompat
-import androidx.core.net.toFile
 import com.aisc.ngalo.R
 import com.aisc.ngalo.databinding.ActivityUploadImagesBinding
 import com.aisc.ngalo.models.Bike
@@ -22,11 +20,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.yalantis.ucrop.UCrop
-import kotlinx.coroutines.delay
 import java.io.File
 import java.util.*
 
-class UploadImages : AppCompatActivity() {
+class UploadBikeImages : AppCompatActivity() {
     private lateinit var binding: ActivityUploadImagesBinding
     private var activityResultLauncher: ActivityResultLauncher<Intent>? = null
     private val imageUri = mutableStateOf<Uri?>(null)
