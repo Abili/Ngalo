@@ -4,7 +4,7 @@ package com.aisc.ngalo.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.AutoCompleteTextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
@@ -21,15 +21,15 @@ public final class SearchviewBinding implements ViewBinding {
   private final ConstraintLayout rootView;
 
   @NonNull
-  public final ListView searchRecyclerView;
+  public final AutoCompleteTextView autoCompleteTv;
 
   @NonNull
   public final SearchView searchView;
 
   private SearchviewBinding(@NonNull ConstraintLayout rootView,
-      @NonNull ListView searchRecyclerView, @NonNull SearchView searchView) {
+      @NonNull AutoCompleteTextView autoCompleteTv, @NonNull SearchView searchView) {
     this.rootView = rootView;
-    this.searchRecyclerView = searchRecyclerView;
+    this.autoCompleteTv = autoCompleteTv;
     this.searchView = searchView;
   }
 
@@ -60,9 +60,9 @@ public final class SearchviewBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.search_recycler_view;
-      ListView searchRecyclerView = ViewBindings.findChildViewById(rootView, id);
-      if (searchRecyclerView == null) {
+      id = R.id.autoCompleteTv;
+      AutoCompleteTextView autoCompleteTv = ViewBindings.findChildViewById(rootView, id);
+      if (autoCompleteTv == null) {
         break missingId;
       }
 
@@ -72,7 +72,7 @@ public final class SearchviewBinding implements ViewBinding {
         break missingId;
       }
 
-      return new SearchviewBinding((ConstraintLayout) rootView, searchRecyclerView, searchView);
+      return new SearchviewBinding((ConstraintLayout) rootView, autoCompleteTv, searchView);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

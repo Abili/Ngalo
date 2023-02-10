@@ -3012,6 +3012,7 @@ id action_settings
 id action_text
 id actions
 id activity_chooser_view_content
+id adName
 id add
 id addImageBtn
 id addimageView
@@ -3037,6 +3038,7 @@ id auto
 id autoComplete
 id autoCompleteToEnd
 id autoCompleteToStart
+id autoCompleteTv
 id automatic
 id barrier
 id baseline
@@ -3148,6 +3150,8 @@ id easeIn
 id easeInOut
 id easeOut
 id east
+id edbikeimages
+id editProfileImage
 id editTextEmail
 id editTextPassword
 id editTextPhone
@@ -3163,7 +3167,6 @@ id end_padder
 id enterAlways
 id enterAlwaysCollapsed
 id enterPrice
-id enterbikeName
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
@@ -3364,6 +3367,7 @@ id preferences_detail
 id preferences_header
 id preferences_sliding_pane_layout
 id pressed
+id profileProgressBbar
 id profile_create_button
 id progressBar
 id progress_circular
@@ -3406,7 +3410,6 @@ id search_edit_frame
 id search_go_btn
 id search_mag_icon
 id search_plate
-id search_recycler_view
 id search_src_text
 id search_view
 id search_voice_btn

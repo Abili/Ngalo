@@ -34,10 +34,10 @@ public final class ActivityUploadImagesBinding implements ViewBinding {
   public final EditText description;
 
   @NonNull
-  public final EditText enterPrice;
+  public final EditText edbikeimages;
 
   @NonNull
-  public final EditText enterbikeName;
+  public final EditText enterPrice;
 
   @NonNull
   public final ProgressBar progressBar;
@@ -59,7 +59,7 @@ public final class ActivityUploadImagesBinding implements ViewBinding {
 
   private ActivityUploadImagesBinding(@NonNull ConstraintLayout rootView,
       @NonNull Button addImageBtn, @NonNull ImageView addimageView, @NonNull EditText description,
-      @NonNull EditText enterPrice, @NonNull EditText enterbikeName,
+      @NonNull EditText edbikeimages, @NonNull EditText enterPrice,
       @NonNull ProgressBar progressBar, @NonNull RadioButton radioBuy,
       @NonNull RadioButton radioHire, @NonNull TextInputLayout tilBikename,
       @NonNull TextInputLayout tilBikeprice, @NonNull TextInputLayout tilDesc) {
@@ -67,8 +67,8 @@ public final class ActivityUploadImagesBinding implements ViewBinding {
     this.addImageBtn = addImageBtn;
     this.addimageView = addimageView;
     this.description = description;
+    this.edbikeimages = edbikeimages;
     this.enterPrice = enterPrice;
-    this.enterbikeName = enterbikeName;
     this.progressBar = progressBar;
     this.radioBuy = radioBuy;
     this.radioHire = radioHire;
@@ -122,15 +122,15 @@ public final class ActivityUploadImagesBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.enterPrice;
-      EditText enterPrice = ViewBindings.findChildViewById(rootView, id);
-      if (enterPrice == null) {
+      id = R.id.edbikeimages;
+      EditText edbikeimages = ViewBindings.findChildViewById(rootView, id);
+      if (edbikeimages == null) {
         break missingId;
       }
 
-      id = R.id.enterbikeName;
-      EditText enterbikeName = ViewBindings.findChildViewById(rootView, id);
-      if (enterbikeName == null) {
+      id = R.id.enterPrice;
+      EditText enterPrice = ViewBindings.findChildViewById(rootView, id);
+      if (enterPrice == null) {
         break missingId;
       }
 
@@ -171,7 +171,7 @@ public final class ActivityUploadImagesBinding implements ViewBinding {
       }
 
       return new ActivityUploadImagesBinding((ConstraintLayout) rootView, addImageBtn, addimageView,
-          description, enterPrice, enterbikeName, progressBar, radioBuy, radioHire, tilBikename,
+          description, edbikeimages, enterPrice, progressBar, radioBuy, radioHire, tilBikename,
           tilBikeprice, tilDesc);
     }
     String missingId = rootView.getResources().getResourceName(id);

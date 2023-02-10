@@ -40,4 +40,6 @@
     <string name="title_activity_upload_items">UploadItems</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
+    <string name="channel_name">ngalo_channel</string>
+    <string name="channel_description">ngalo_advert</string>
 </resources>

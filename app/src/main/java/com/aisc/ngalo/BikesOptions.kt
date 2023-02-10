@@ -62,24 +62,24 @@ class BikesOptions : AppCompatActivity() {
         searchView.queryHint = "Search..."
 
         // Inflate the custom layout for the SearchView
-        val searchBinding = SearchviewBinding.inflate(layoutInflater)
-        searchView.apply {
-            setIconifiedByDefault(false)
-            setContentView(searchBinding.root)
-            // Other customizations for the SearchView
-        }
+//        val searchBinding = SearchviewBinding.inflate(layoutInflater)
+//        searchView.apply {
+//            setIconifiedByDefault(false)
+//            setContentView(searchBinding.root)
+//            // Other customizations for the SearchView
+//        }
 
-        val searchResults = ArrayList<String>()
-        val adapter =
-            ArrayAdapter(this, android.R.layout.simple_list_item_1, searchResults)
-        val listView = searchBinding.searchRecyclerView
-        listView.adapter = adapter
-        val layout = LinearLayout(this)
-        layout.orientation = LinearLayout.VERTICAL
-        layout.removeView(listView)
-        layout.addView(searchView)
-        layout.addView(listView)
-        setContentView(layout)
+//        val searchResults = ArrayList<String>()
+//        val adapter =
+//            ArrayAdapter(this, android.R.layout.simple_list_item_1, searchResults)
+//        val listView = searchBinding.autoCompleteTv
+////        listView.adapter = adapter
+//        val layout = LinearLayout(this)
+//        layout.orientation = LinearLayout.VERTICAL
+//        layout.removeView(listView)
+//        layout.addView(searchView)
+//        layout.addView(listView)
+//        setContentView(layout)
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
@@ -95,11 +95,11 @@ class BikesOptions : AppCompatActivity() {
                                 val result = postSnapshot.child("name")
                                     .getValue(String::class.java)
                                 // Add the result to your list or adapter to display in the RecyclerView
-                                searchResults.clear()
-                                searchResults.add(result!!)
+//                                searchResults.clear()
+//                                searchResults.add(result!!)
 
                                 // Add items to the searchResults list based on the text entered in the SearchView
-                                adapter.notifyDataSetChanged()
+                                //adapter.notifyDataSetChanged()
                             }
                         }
 

@@ -74,7 +74,7 @@ class UploadBikeImages : AppCompatActivity() {
     }
 
     private fun uploadToFirebase(downloadUrl: Uri) {
-        val bikesName = binding.enterbikeName.text.toString()
+        val bikesName = binding.edbikeimages.text.toString()
         val price = binding.enterPrice.text.toString()
         val description = binding.description.text.toString()
         val category = if (binding.radioBuy.isChecked) {
@@ -107,7 +107,7 @@ class UploadBikeImages : AppCompatActivity() {
                 }.addOnFailureListener {
                     Snacker(it.toString())
                 }
-            } else if(binding.radioHire.isChecked) {
+            } else if (binding.radioHire.isChecked) {
                 val imagesRef =
                     FirebaseDatabase.getInstance().reference.child("bikes").child("hire").push()
                         .setValue(bike)
@@ -121,7 +121,7 @@ class UploadBikeImages : AppCompatActivity() {
                     Snacker(it.toString())
                 }
             }
-        }else{
+        } else {
             Snacker("Fields Required")
         }
 

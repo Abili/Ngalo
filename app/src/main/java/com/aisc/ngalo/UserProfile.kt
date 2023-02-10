@@ -109,7 +109,7 @@ class UserProfile : AppCompatActivity() {
         private const val TAG = "HomeActivity"
     }
 
-    private fun uploadImage(imageUri: Uri) {
+    private fun uploadImage(downloadUri: Uri) {
         val firstName = binding.editTextTextPersonFirstName.text.toString()
         //var imageUrl = binding.imageView.setImageURI(imageUri.value)
         val lastName = binding.editTextTextPersonLastName.text.toString()
@@ -118,7 +118,7 @@ class UserProfile : AppCompatActivity() {
         val username = "$firstName $lastName"
         val user = User(
             FirebaseAuth.getInstance().currentUser!!.uid,
-            downloadUrl.toString(),
+            downloadUri.toString(),
             username,
             phone,
             email
@@ -132,7 +132,7 @@ class UserProfile : AppCompatActivity() {
                     || email.isEmpty()
                     || phone.isEmpty())
         ) {
-            usrRef.child(userId).push().setValue(user)
+            usrRef.child(userId).setValue(user)
                 .addOnCompleteListener {
                     Snackbar.make(
                         binding.root,
@@ -146,7 +146,7 @@ class UserProfile : AppCompatActivity() {
                         handler.postDelayed({
                             binding.progressBar.visibility = View.VISIBLE
                             startActivity(Intent(this@UserProfile, HomeActivity::class.java))
-                        }, 5000)
+                        },0)
                     }
 
                 }.addOnFailureListener {

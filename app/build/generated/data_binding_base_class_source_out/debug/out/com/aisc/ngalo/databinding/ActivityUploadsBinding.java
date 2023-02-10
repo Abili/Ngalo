@@ -24,13 +24,13 @@ public final class ActivityUploadsBinding implements ViewBinding {
   private final ConstraintLayout rootView;
 
   @NonNull
+  public final EditText adName;
+
+  @NonNull
   public final Button addImageBtn;
 
   @NonNull
   public final ImageView advertIMageView;
-
-  @NonNull
-  public final EditText enterbikeName;
 
   @NonNull
   public final ProgressBar progressBar;
@@ -44,14 +44,14 @@ public final class ActivityUploadsBinding implements ViewBinding {
   @NonNull
   public final TextInputLayout tilDesc;
 
-  private ActivityUploadsBinding(@NonNull ConstraintLayout rootView, @NonNull Button addImageBtn,
-      @NonNull ImageView advertIMageView, @NonNull EditText enterbikeName,
+  private ActivityUploadsBinding(@NonNull ConstraintLayout rootView, @NonNull EditText adName,
+      @NonNull Button addImageBtn, @NonNull ImageView advertIMageView,
       @NonNull ProgressBar progressBar, @NonNull TextInputLayout tilBikename,
       @NonNull TextInputLayout tilBikeprice, @NonNull TextInputLayout tilDesc) {
     this.rootView = rootView;
+    this.adName = adName;
     this.addImageBtn = addImageBtn;
     this.advertIMageView = advertIMageView;
-    this.enterbikeName = enterbikeName;
     this.progressBar = progressBar;
     this.tilBikename = tilBikename;
     this.tilBikeprice = tilBikeprice;
@@ -85,6 +85,12 @@ public final class ActivityUploadsBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.adName;
+      EditText adName = ViewBindings.findChildViewById(rootView, id);
+      if (adName == null) {
+        break missingId;
+      }
+
       id = R.id.addImageBtn;
       Button addImageBtn = ViewBindings.findChildViewById(rootView, id);
       if (addImageBtn == null) {
@@ -94,12 +100,6 @@ public final class ActivityUploadsBinding implements ViewBinding {
       id = R.id.advertIMageView;
       ImageView advertIMageView = ViewBindings.findChildViewById(rootView, id);
       if (advertIMageView == null) {
-        break missingId;
-      }
-
-      id = R.id.enterbikeName;
-      EditText enterbikeName = ViewBindings.findChildViewById(rootView, id);
-      if (enterbikeName == null) {
         break missingId;
       }
 
@@ -127,8 +127,8 @@ public final class ActivityUploadsBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityUploadsBinding((ConstraintLayout) rootView, addImageBtn, advertIMageView,
-          enterbikeName, progressBar, tilBikename, tilBikeprice, tilDesc);
+      return new ActivityUploadsBinding((ConstraintLayout) rootView, adName, addImageBtn,
+          advertIMageView, progressBar, tilBikename, tilBikeprice, tilDesc);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

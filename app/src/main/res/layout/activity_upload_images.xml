@@ -28,7 +28,7 @@
         app:layout_constraintTop_toBottomOf="@+id/addimageView">
 
         <EditText
-            android:id="@+id/enterbikeName"
+            android:id="@+id/edbikeimages"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_marginStart="10dp"

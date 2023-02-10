@@ -38,6 +38,17 @@
             app:layout_constraintEnd_toEndOf="@+id/user_profile"
             app:layout_constraintHorizontal_bias="0.862"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/profileProgressBbar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/user_profile"
+            app:layout_constraintStart_toStartOf="@id/user_profile" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.cardview.widget.CardView
@@ -46,16 +57,16 @@
         android:layout_marginTop="20dp">
 
         <LinearLayout
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/username"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_person"
+                android:drawableEnd="@drawable/ic_edit"
                 android:drawablePadding="20dp"
                 android:padding="20dp"
                 android:text="User name"
@@ -76,8 +87,9 @@
 
             <TextView
                 android:id="@+id/userPhone"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_edit"
                 android:drawablePadding="20dp"
                 android:padding="20dp"
                 android:text="@string/phone_number"
@@ -100,8 +112,9 @@
 
             <TextView
                 android:id="@+id/userEmail"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_edit"
                 android:drawablePadding="20dp"
                 android:padding="20dp"
                 android:text="Email Address"

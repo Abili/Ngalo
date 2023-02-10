@@ -1,29 +1,32 @@
 package com.aisc.ngalo.admin
 
+import android.Manifest
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
-import androidx.core.net.toFile
 import com.aisc.ngalo.R
-import com.aisc.ngalo.databinding.ActivityUploadImagesBinding
 import com.aisc.ngalo.databinding.ActivityUploadsBinding
-import com.aisc.ngalo.models.Bike
-import com.aisc.ngalo.models.Category
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.yalantis.ucrop.UCrop
-import kotlinx.coroutines.delay
 import java.io.File
 import java.util.*
 
@@ -76,33 +79,79 @@ class CreateAdvert : AppCompatActivity() {
     }
 
     private fun uploadToFirebase(downloadUrl: Uri) {
-        val bikesName = binding.enterbikeName.text.toString()
+        val adName = binding.adName.text.toString()
         val bike = Advert(
             FirebaseAuth.getInstance().currentUser!!.uid,
             downloadUrl.toString(),
-            bikesName
+            adName
         )
 
         if (downloadUrl.toString()
-                .isNotEmpty() && bikesName.isNotEmpty()
+                .isNotEmpty() && adName.isNotEmpty()
         ) {
-                val imagesRef =
-                    FirebaseDatabase.getInstance().reference.child("adverts")
-                        .setValue(bike)
-                imagesRef.addOnSuccessListener {
-                    Snacker("Upload Completed !")
-                    binding.progressBar.visibility = View.GONE
-                    finish()
+            val imagesRef =
+                FirebaseDatabase.getInstance().reference.child("adverts")
+                    .setValue(bike)
+            imagesRef.addOnSuccessListener {
+                Snacker("Upload Completed !")
+                binding.progressBar.visibility = View.GONE
+                notification(adName)
+                finish()
 
 
-                }.addOnFailureListener {
-                    Snacker(it.toString())
-                }
-        }else{
+            }.addOnFailureListener {
+                Snacker(it.toString())
+            }
+        } else {
             Snacker("Fields Required")
         }
 
 
+    }
+
+    private fun notification(adName: String) {
+
+
+        // Step 1: Create a notification channel (if necessary)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                "ngaloAd",
+                "channel_name",
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            val notificationManager = getSystemService(NotificationManager::class.java)
+            notificationManager.createNotificationChannel(channel)
+        }
+
+// Step 2: Build the notification
+        var builder = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setSmallIcon(R.drawable.ngalobg)
+            .setContentTitle("Ngalo Advert")
+            .setContentText(adName)
+            .setStyle(NotificationCompat.BigTextStyle()
+                .bigText(adName))
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+// Step 3: Post the notification
+
+    }
+    private fun createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = getString(R.string.channel_name)
+            val descriptionText = getString(R.string.channel_description)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
+                description = descriptionText
+            }
+            // Register the channel with the system
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+
+
+        }
     }
 
 //    private fun openImageFiles() {
@@ -181,6 +230,10 @@ class CreateAdvert : AppCompatActivity() {
 
     private fun Snacker(snackerText: String) {
         Snackbar.make(binding.root, snackerText, Snackbar.LENGTH_SHORT).show()
+    }
+
+    companion object {
+        private const val CHANNEL_ID = "ngaloAd"
     }
 
 }
