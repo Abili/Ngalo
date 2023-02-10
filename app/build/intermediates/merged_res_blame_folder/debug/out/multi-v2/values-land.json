@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-85:/values-land/values-land.xml",
+            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-86:/values-land/values-land.xml",
             "map": [
                 {
                     "source": "/Users/user/Desktop/AndroidStudioProjects/Ngalo/app/src/main/res/values-land/dimens.xml",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "/Users/user/.gradle/caches/transforms-3/e45e1eee512187c7a6b63da169df22fb/transformed/appcompat-1.6.0/res/values-land/values-land.xml",
+                    "source": "/Users/user/.gradle/caches/transforms-3/11384af1c90edaeea7ca4f48eced3163/transformed/appcompat-1.6.0/res/values-land/values-land.xml",
                     "from": {
                         "startLines": "2,3,4",
                         "startColumns": "4,4,4",
@@ -31,7 +31,24 @@
                     }
                 },
                 {
-                    "source": "/Users/user/.gradle/caches/transforms-3/148e3c617c44f77be02540bfec6b8647/transformed/material-1.7.0/res/values-land/values-land.xml",
+                    "source": "/Users/user/Desktop/AndroidStudioProjects/Ngalo/app/src/main/res/values-land/strings.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "47",
+                        "endOffsets": "98"
+                    },
+                    "to": {
+                        "startLines": "26",
+                        "startColumns": "4",
+                        "startOffsets": "1745",
+                        "endColumns": "47",
+                        "endOffsets": "1788"
+                    }
+                },
+                {
+                    "source": "/Users/user/.gradle/caches/transforms-3/a7fd82e6e2eeb925af06513bb1846a7b/transformed/material-1.7.0/res/values-land/values-land.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,26,32,37",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -41,12 +58,12 @@
                         "endOffsets": "125,199,272,342,414,484,549,616,686,758,827,896,978,1068,1144,1212,1279,1357,1422,1489,1661,2056,2325,2553"
                     },
                     "to": {
-                        "startLines": "6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,30,36,41",
+                        "startLines": "6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,27,31,37,42",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "306,381,455,528,598,670,740,805,872,942,1014,1083,1152,1234,1324,1400,1468,1535,1613,1678,1745,1917,2312,2581",
-                        "endLines": "6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,29,35,40,43",
+                        "startOffsets": "306,381,455,528,598,670,740,805,872,942,1014,1083,1152,1234,1324,1400,1468,1535,1613,1678,1793,1965,2360,2629",
+                        "endLines": "6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,30,36,41,44",
                         "endColumns": "74,73,72,69,71,69,64,66,69,71,68,68,81,89,75,67,66,77,64,66,10,10,10,10",
-                        "endOffsets": "376,450,523,593,665,735,800,867,937,1009,1078,1147,1229,1319,1395,1463,1530,1608,1673,1740,1912,2307,2576,2804"
+                        "endOffsets": "376,450,523,593,665,735,800,867,937,1009,1078,1147,1229,1319,1395,1463,1530,1608,1673,1740,1960,2355,2624,2852"
                     }
                 }
             ]

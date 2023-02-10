@@ -109,6 +109,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.yalantis:ucrop:2.2.0'
 
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
 
 
 }

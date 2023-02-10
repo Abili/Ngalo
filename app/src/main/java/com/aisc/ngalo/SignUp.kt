@@ -11,6 +11,7 @@ import com.aisc.ngalo.databinding.ActivitySignUpBinding
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.FirebaseDatabase
 
 class SignUp : AppCompatActivity() {
 
@@ -25,6 +26,9 @@ class SignUp : AppCompatActivity() {
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true)
+        val ref = FirebaseDatabase.getInstance().getReference("bikes")
+        ref.keepSynced(true)
         FirebaseApp.initializeApp(this)
         // Initialize FirebaseAuth
         auth = FirebaseAuth.getInstance()
@@ -33,6 +37,7 @@ class SignUp : AppCompatActivity() {
             // User is already signed in, skip the sign-up screen
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
+            finish()
         }
         // Set up click listener for the "Sign Up" button
         binding.buttonSignUp.setOnClickListener {
@@ -48,7 +53,8 @@ class SignUp : AppCompatActivity() {
                         Log.d(TAG, "createUserWithEmail:success")
                         val user = auth.currentUser
                         updateUI(user)
-                        startActivity(Intent(this, HomeActivity::class.java))
+                        startActivity(Intent(this, UserProfile::class.java))
+                        finish()
                     } else {
                         // Account creation failed
                         Log.w(TAG, "createUserWithEmail:failure", task.exception)
@@ -75,7 +81,8 @@ class SignUp : AppCompatActivity() {
                         Log.d(TAG, "signInWithEmail:success")
                         val user = auth.currentUser
                         updateUI(user)
-                        startActivity(Intent(this, HomeActivity::class.java))
+                        startActivity(Intent(this, UserProfile::class.java))
+                        finish()
                     } else {
                         // Log in failed
                         Log.w(TAG, "signInWithEmail:failure", task.exception)

@@ -8,10 +8,13 @@ import com.aisc.ngalo.admin.CreateAdvert
 import com.aisc.ngalo.databinding.ActivityHomeBinding
 import com.aisc.ngalo.models.Bike
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.getValue
 
 class HomeActivity : AppCompatActivity() {
     lateinit var binding: ActivityHomeBinding
@@ -19,6 +22,28 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val currentUserUID = FirebaseAuth.getInstance().currentUser!!.uid
+        val userRef = FirebaseDatabase
+            .getInstance()
+            .reference
+            .child("users")
+            .child(currentUserUID)
+        userRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (!snapshot.exists()) {
+                    startActivity(Intent(this@HomeActivity, UserProfile::class.java))
+                    finish()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Snackbar.make(binding.root, error.message, Snackbar.LENGTH_SHORT).show()
+            }
+
+        })
+
+
 
         binding.buy.setOnClickListener {
             val intent = Intent(this, BikesOptions::class.java)
@@ -51,5 +76,12 @@ class HomeActivity : AppCompatActivity() {
             }
 
         })
+
+        binding.settingsHome.setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
+        }
+        binding.myaccountHome.setOnClickListener {
+            startActivity(Intent(this, MyAccount::class.java))
+        }
     }
 }

@@ -1,62 +1,70 @@
 [
     {
-        "merged": "/Users/user/.gradle/daemon/7.5/com.aisc.ngalo.app-mergeDebugResources-86:/layout/fragment_bike_parts.xml",
-        "source": "/Users/user/.gradle/daemon/7.5/com.aisc.ngalo.app-main-89:/layout/fragment_bike_parts.xml"
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-87:/layout/activity_settings.xml",
+        "source": "com.aisc.ngalo.app-main-90:/layout/activity_settings.xml"
     },
     {
-        "merged": "/Users/user/.gradle/daemon/7.5/com.aisc.ngalo.app-mergeDebugResources-86:/layout/activity_home.xml",
-        "source": "/Users/user/.gradle/daemon/7.5/com.aisc.ngalo.app-main-89:/layout/activity_home.xml"
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-87:/layout/activity_home.xml",
+        "source": "com.aisc.ngalo.app-main-90:/layout/activity_home.xml"
     },
     {
-        "merged": "/Users/user/.gradle/daemon/7.5/com.aisc.ngalo.app-mergeDebugResources-86:/layout/activity_uploads.xml",
-        "source": "/Users/user/.gradle/daemon/7.5/com.aisc.ngalo.app-main-89:/layout/activity_uploads.xml"
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-87:/layout/activity_upload_images.xml",
+        "source": "com.aisc.ngalo.app-main-90:/layout/activity_upload_images.xml"
     },
     {
-        "merged": "/Users/user/.gradle/daemon/7.5/com.aisc.ngalo.app-mergeDebugResources-86:/layout/activity_upload_images.xml",
-        "source": "/Users/user/.gradle/daemon/7.5/com.aisc.ngalo.app-main-89:/layout/activity_upload_images.xml"
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-87:/layout/activity_bikes_options.xml",
+        "source": "com.aisc.ngalo.app-main-90:/layout/activity_bikes_options.xml"
     },
     {
-        "merged": "/Users/user/.gradle/daemon/7.5/com.aisc.ngalo.app-mergeDebugResources-86:/layout/activity_settings.xml",
-        "source": "/Users/user/.gradle/daemon/7.5/com.aisc.ngalo.app-main-89:/layout/activity_settings.xml"
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-87:/layout/activity_user_profile.xml",
+        "source": "com.aisc.ngalo.app-main-90:/layout/activity_user_profile.xml"
     },
     {
-        "merged": "/Users/user/.gradle/daemon/7.5/com.aisc.ngalo.app-mergeDebugResources-86:/layout/fragment_bikes_options.xml",
-        "source": "/Users/user/.gradle/daemon/7.5/com.aisc.ngalo.app-main-89:/layout/fragment_bikes_options.xml"
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-87:/layout/fragment_bikes_options.xml",
+        "source": "com.aisc.ngalo.app-main-90:/layout/fragment_bikes_options.xml"
     },
     {
-        "merged": "/Users/user/.gradle/daemon/7.5/com.aisc.ngalo.app-mergeDebugResources-86:/layout/activity_bikes_screen.xml",
-        "source": "/Users/user/.gradle/daemon/7.5/com.aisc.ngalo.app-main-89:/layout/activity_bikes_screen.xml"
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-87:/layout/activity_add_bicycle_part.xml",
+        "source": "com.aisc.ngalo.app-main-90:/layout/activity_add_bicycle_part.xml"
     },
     {
-        "merged": "/Users/user/.gradle/daemon/7.5/com.aisc.ngalo.app-mergeDebugResources-86:/layout/fragment_bikes_for_hire.xml",
-        "source": "/Users/user/.gradle/daemon/7.5/com.aisc.ngalo.app-main-89:/layout/fragment_bikes_for_hire.xml"
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-87:/layout/activity_uploads.xml",
+        "source": "com.aisc.ngalo.app-main-90:/layout/activity_uploads.xml"
     },
     {
-        "merged": "/Users/user/.gradle/daemon/7.5/com.aisc.ngalo.app-mergeDebugResources-86:/layout/activity_sign_up.xml",
-        "source": "/Users/user/.gradle/daemon/7.5/com.aisc.ngalo.app-main-89:/layout/activity_sign_up.xml"
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-87:/layout/activity_sign_up.xml",
+        "source": "com.aisc.ngalo.app-main-90:/layout/activity_sign_up.xml"
     },
     {
-        "merged": "/Users/user/.gradle/daemon/7.5/com.aisc.ngalo.app-mergeDebugResources-86:/layout/activity_add_bicycle_part.xml",
-        "source": "/Users/user/.gradle/daemon/7.5/com.aisc.ngalo.app-main-89:/layout/activity_add_bicycle_part.xml"
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-87:/layout/activity_my_account.xml",
+        "source": "com.aisc.ngalo.app-main-90:/layout/activity_my_account.xml"
     },
     {
-        "merged": "/Users/user/.gradle/daemon/7.5/com.aisc.ngalo.app-mergeDebugResources-86:/layout/activity_bikes_options.xml",
-        "source": "/Users/user/.gradle/daemon/7.5/com.aisc.ngalo.app-main-89:/layout/activity_bikes_options.xml"
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-87:/layout/fragment_bikes_for_hire.xml",
+        "source": "com.aisc.ngalo.app-main-90:/layout/fragment_bikes_for_hire.xml"
     },
     {
-        "merged": "com.aisc.ngalo.app-mergeDebugResources-86:/layout/bike_item.xml",
-        "source": "com.aisc.ngalo.app-main-89:/layout/bike_item.xml"
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-87:/layout/fragment_bike_parts.xml",
+        "source": "com.aisc.ngalo.app-main-90:/layout/fragment_bike_parts.xml"
     },
     {
-        "merged": "/Users/user/.gradle/daemon/7.5/com.aisc.ngalo.app-mergeDebugResources-86:/layout/fragment_bike_for_purchase.xml",
-        "source": "/Users/user/.gradle/daemon/7.5/com.aisc.ngalo.app-main-89:/layout/fragment_bike_for_purchase.xml"
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-87:/layout/bike_item.xml",
+        "source": "com.aisc.ngalo.app-main-90:/layout/bike_item.xml"
     },
     {
-        "merged": "/Users/user/.gradle/daemon/7.5/com.aisc.ngalo.app-mergeDebugResources-86:/layout/activity_bike_details.xml",
-        "source": "/Users/user/.gradle/daemon/7.5/com.aisc.ngalo.app-main-89:/layout/activity_bike_details.xml"
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-87:/layout/activity_bike_details.xml",
+        "source": "com.aisc.ngalo.app-main-90:/layout/activity_bike_details.xml"
     },
     {
-        "merged": "/Users/user/.gradle/daemon/7.5/com.aisc.ngalo.app-mergeDebugResources-86:/layout/bike_item.xml",
-        "source": "/Users/user/.gradle/daemon/7.5/com.aisc.ngalo.app-main-89:/layout/bike_item.xml"
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-87:/layout/activity_bikes_screen.xml",
+        "source": "com.aisc.ngalo.app-main-90:/layout/activity_bikes_screen.xml"
+    },
+    {
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-87:/layout/searchview.xml",
+        "source": "com.aisc.ngalo.app-main-90:/layout/searchview.xml"
+    },
+    {
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-87:/layout/fragment_bike_for_purchase.xml",
+        "source": "com.aisc.ngalo.app-main-90:/layout/fragment_bike_for_purchase.xml"
     }
 ]

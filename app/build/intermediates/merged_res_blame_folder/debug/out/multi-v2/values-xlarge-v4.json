@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-85:/values-xlarge-v4/values-xlarge-v4.xml",
+            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-86:/values-xlarge-v4/values-xlarge-v4.xml",
             "map": [
                 {
-                    "source": "/Users/user/.gradle/caches/transforms-3/e45e1eee512187c7a6b63da169df22fb/transformed/appcompat-1.6.0/res/values-xlarge-v4/values-xlarge-v4.xml",
+                    "source": "/Users/user/.gradle/caches/transforms-3/11384af1c90edaeea7ca4f48eced3163/transformed/appcompat-1.6.0/res/values-xlarge-v4/values-xlarge-v4.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7",
                         "startColumns": "4,4,4,4,4,4",

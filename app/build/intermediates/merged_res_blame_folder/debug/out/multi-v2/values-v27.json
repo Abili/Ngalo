@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-85:/values-v27/values-v27.xml",
+            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-86:/values-v27/values-v27.xml",
             "map": [
                 {
-                    "source": "/Users/user/.gradle/caches/transforms-3/772fd6df3b2afabbeb2569cfcdcbc09e/transformed/jetified-core-splashscreen-1.0.0/res/values-v27/values-v27.xml",
+                    "source": "/Users/user/.gradle/caches/transforms-3/ae714a35dda460df4ce3cdd7aad13b0e/transformed/jetified-core-splashscreen-1.0.0/res/values-v27/values-v27.xml",
                     "from": {
                         "startLines": "2,3,4,7",
                         "startColumns": "4,4,4,4",

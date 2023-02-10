@@ -33,6 +33,12 @@
         android:testOnly="true"
         android:theme="@style/Theme.Ngalo.NoActionBar" >
         <activity
+            android:name="com.aisc.ngalo.UserProfile"
+            android:exported="false" />
+        <activity
+            android:name="com.aisc.ngalo.MyAccount"
+            android:exported="false" />
+        <activity
             android:name="com.aisc.ngalo.admin.AddBicyclePart"
             android:exported="false" />
         <activity

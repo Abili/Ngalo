@@ -10,6 +10,7 @@ import com.aisc.ngalo.databinding.ActivityBikeDetailsBindingImpl;
 import com.aisc.ngalo.databinding.ActivityBikeDetailsBindingLandImpl;
 import com.aisc.ngalo.databinding.ActivityBikesScreenBindingImpl;
 import com.aisc.ngalo.databinding.ActivityBikesScreenBindingLandImpl;
+import com.aisc.ngalo.databinding.ActivityUserProfileBindingImpl;
 import com.aisc.ngalo.databinding.BikeItemBindingImpl;
 import java.lang.IllegalArgumentException;
 import java.lang.Integer;
@@ -26,13 +27,16 @@ public class DataBinderMapperImpl extends DataBinderMapper {
 
   private static final int LAYOUT_ACTIVITYBIKESSCREEN = 2;
 
-  private static final int LAYOUT_BIKEITEM = 3;
+  private static final int LAYOUT_ACTIVITYUSERPROFILE = 3;
 
-  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(3);
+  private static final int LAYOUT_BIKEITEM = 4;
+
+  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(4);
 
   static {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.aisc.ngalo.R.layout.activity_bike_details, LAYOUT_ACTIVITYBIKEDETAILS);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.aisc.ngalo.R.layout.activity_bikes_screen, LAYOUT_ACTIVITYBIKESSCREEN);
+    INTERNAL_LAYOUT_ID_LOOKUP.put(com.aisc.ngalo.R.layout.activity_user_profile, LAYOUT_ACTIVITYUSERPROFILE);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.aisc.ngalo.R.layout.bike_item, LAYOUT_BIKEITEM);
   }
 
@@ -55,13 +59,19 @@ public class DataBinderMapperImpl extends DataBinderMapper {
           throw new IllegalArgumentException("The tag for activity_bike_details is invalid. Received: " + tag);
         }
         case  LAYOUT_ACTIVITYBIKESSCREEN: {
-          if ("layout-land/activity_bikes_screen_0".equals(tag)) {
-            return new ActivityBikesScreenBindingLandImpl(component, view);
-          }
           if ("layout/activity_bikes_screen_0".equals(tag)) {
             return new ActivityBikesScreenBindingImpl(component, view);
           }
+          if ("layout-land/activity_bikes_screen_0".equals(tag)) {
+            return new ActivityBikesScreenBindingLandImpl(component, view);
+          }
           throw new IllegalArgumentException("The tag for activity_bikes_screen is invalid. Received: " + tag);
+        }
+        case  LAYOUT_ACTIVITYUSERPROFILE: {
+          if ("layout/activity_user_profile_0".equals(tag)) {
+            return new ActivityUserProfileBindingImpl(component, view);
+          }
+          throw new IllegalArgumentException("The tag for activity_user_profile is invalid. Received: " + tag);
         }
         case  LAYOUT_BIKEITEM: {
           if ("layout/bike_item_0".equals(tag)) {
@@ -122,13 +132,14 @@ public class DataBinderMapperImpl extends DataBinderMapper {
   }
 
   private static class InnerLayoutIdLookup {
-    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(5);
+    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(6);
 
     static {
       sKeys.put("layout-land/activity_bike_details_0", com.aisc.ngalo.R.layout.activity_bike_details);
       sKeys.put("layout/activity_bike_details_0", com.aisc.ngalo.R.layout.activity_bike_details);
-      sKeys.put("layout-land/activity_bikes_screen_0", com.aisc.ngalo.R.layout.activity_bikes_screen);
       sKeys.put("layout/activity_bikes_screen_0", com.aisc.ngalo.R.layout.activity_bikes_screen);
+      sKeys.put("layout-land/activity_bikes_screen_0", com.aisc.ngalo.R.layout.activity_bikes_screen);
+      sKeys.put("layout/activity_user_profile_0", com.aisc.ngalo.R.layout.activity_user_profile);
       sKeys.put("layout/bike_item_0", com.aisc.ngalo.R.layout.bike_item);
     }
   }

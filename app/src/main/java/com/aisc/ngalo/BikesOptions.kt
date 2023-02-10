@@ -4,6 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ArrayAdapter
+import android.widget.LinearLayout
+import android.widget.ListView
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -11,6 +14,11 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.aisc.ngalo.admin.UploadItems
 import com.aisc.ngalo.databinding.ActivityBikesOptionsBinding
+import com.aisc.ngalo.databinding.SearchviewBinding
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class BikesOptions : AppCompatActivity() {
 
@@ -29,7 +37,7 @@ class BikesOptions : AppCompatActivity() {
 
         when (intent.getIntExtra("position", 0)) {
             0 -> {
-                binding.viewPager.setCurrentItem(0,false)
+                binding.viewPager.setCurrentItem(0, false)
             }
             1 -> {
                 binding.viewPager.setCurrentItem(1, false)
@@ -53,9 +61,53 @@ class BikesOptions : AppCompatActivity() {
         // Customize the SearchView
         searchView.queryHint = "Search..."
 
+        // Inflate the custom layout for the SearchView
+        val searchBinding = SearchviewBinding.inflate(layoutInflater)
+        searchView.apply {
+            setIconifiedByDefault(false)
+            setContentView(searchBinding.root)
+            // Other customizations for the SearchView
+        }
+
+        val searchResults = ArrayList<String>()
+        val adapter =
+            ArrayAdapter(this, android.R.layout.simple_list_item_1, searchResults)
+        val listView = searchBinding.searchRecyclerView
+        listView.adapter = adapter
+        val layout = LinearLayout(this)
+        layout.orientation = LinearLayout.VERTICAL
+        layout.removeView(listView)
+        layout.addView(searchView)
+        layout.addView(listView)
+        setContentView(layout)
+
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 // Perform the search here
+
+                val searchRef =
+                    FirebaseDatabase.getInstance().reference.child("bikes")
+                searchRef.orderByChild("buy").startAt(query).endAt(query + "\uf8ff")
+                    .addValueEventListener(object : ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            for (postSnapshot in snapshot.children) {
+                                // Get the value of your node and use it as needed
+                                val result = postSnapshot.child("name")
+                                    .getValue(String::class.java)
+                                // Add the result to your list or adapter to display in the RecyclerView
+                                searchResults.clear()
+                                searchResults.add(result!!)
+
+                                // Add items to the searchResults list based on the text entered in the SearchView
+                                adapter.notifyDataSetChanged()
+                            }
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                            // Handle errors
+                        }
+                    })
+
                 return false
             }
 
