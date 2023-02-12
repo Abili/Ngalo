@@ -42,4 +42,9 @@
     <string name="last_name">Last Name</string>
     <string name="channel_name">ngalo_channel</string>
     <string name="channel_description">ngalo_advert</string>
+    <string name="title_activity_bike_repair">BikeRepair</string>
+    <string name="enter_repair_location">Enter your location</string>
+    <string name="enter_repair_description">Enter repair description</string>
+    <string name="submit_request">Submit Request</string>
+    <string name="Api_key">AIzaSyAJBlxp2SUfwdh5GMfGP19Q_aetYtKybgs</string>
 </resources>
