@@ -60,6 +60,11 @@ class HomeActivity : AppCompatActivity() {
             intent.putExtra("position", 2)
             startActivity(Intent(intent))
         }
+        binding.repairs.setOnClickListener {
+            val intent = Intent(this, BikeRepair::class.java)
+            intent.putExtra("position", 2)
+            startActivity(Intent(intent))
+        }
 
         val addRef = FirebaseDatabase.getInstance().reference.child("adverts")
         addRef.addValueEventListener(object : ValueEventListener {

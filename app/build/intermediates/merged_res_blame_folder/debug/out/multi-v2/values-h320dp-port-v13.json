@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-86:/values-h320dp-port-v13/values-h320dp-port-v13.xml",
+            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-89:/values-h320dp-port-v13/values-h320dp-port-v13.xml",
             "map": [
                 {
-                    "source": "/Users/user/.gradle/caches/transforms-3/a7fd82e6e2eeb925af06513bb1846a7b/transformed/material-1.7.0/res/values-h320dp-port-v13/values-h320dp-port-v13.xml",
+                    "source": "/Users/user/.gradle/caches/transforms-3/5bc88b02135e692be3906045a2af1082/transformed/material-1.8.0/res/values-h320dp-port-v13/values-h320dp-port-v13.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-86:/values-v25/values-v25.xml",
+            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-89:/values-v25/values-v25.xml",
             "map": [
                 {
-                    "source": "/Users/user/.gradle/caches/transforms-3/11384af1c90edaeea7ca4f48eced3163/transformed/appcompat-1.6.0/res/values-v25/values-v25.xml",
+                    "source": "/Users/user/.gradle/caches/transforms-3/6c38d8571f71398c2fd4ba36d1726da5/transformed/appcompat-1.6.1/res/values-v25/values-v25.xml",
                     "from": {
                         "startLines": "2,3,4,6",
                         "startColumns": "4,4,4,4",
