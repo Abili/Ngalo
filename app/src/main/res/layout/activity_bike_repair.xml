@@ -16,6 +16,65 @@
         tools:context=".MapsActivities.MapsActivity" />
 
 
+    <LinearLayout
+        android:id="@+id/bottomSheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/ngalo_blue"
+            android:elevation="10dp"
+            android:padding="10dp"
+            android:text="@string/request_for_bike_repair"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/bikerepairImageView"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/placeholder_with" />
+
+        <EditText
+            android:id="@+id/repairDescriptionEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:drawableStart="@drawable/ic_decription"
+            android:drawablePadding="10dp"
+            android:hint="@string/brief_description_of_the_problem"
+            android:padding="20dp" />
+
+        <EditText
+            android:id="@+id/userLocationEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_add_location"
+            android:drawablePadding="10dp"
+            android:hint="@string/select_your_location"
+            android:padding="20dp" />
+
+
+        <Button
+            android:id="@+id/requestRepairButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:backgroundTint="@color/ngalo_blue"
+            android:padding="10dp"
+            android:text="@string/request_repair"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+
     <Button
         android:id="@+id/orderdocBtn"
         android:layout_width="match_parent"

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="last_name">Last Name</string>
+    <string name="request_repair">Request Repair</string>
+    <string name="brief_description_of_the_problem">Brief description of the problem</string>
+    <string name="request_for_bike_repair">Request for Bike Repair</string>
 </resources>

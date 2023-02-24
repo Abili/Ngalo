@@ -5,7 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
@@ -20,11 +23,34 @@ public final class ActivityBikeRepairBinding implements ViewBinding {
   private final FrameLayout rootView;
 
   @NonNull
+  public final ImageView bikerepairImageView;
+
+  @NonNull
+  public final LinearLayout bottomSheet;
+
+  @NonNull
   public final Button orderdocBtn;
 
-  private ActivityBikeRepairBinding(@NonNull FrameLayout rootView, @NonNull Button orderdocBtn) {
+  @NonNull
+  public final EditText repairDescriptionEditText;
+
+  @NonNull
+  public final Button requestRepairButton;
+
+  @NonNull
+  public final EditText userLocationEditText;
+
+  private ActivityBikeRepairBinding(@NonNull FrameLayout rootView,
+      @NonNull ImageView bikerepairImageView, @NonNull LinearLayout bottomSheet,
+      @NonNull Button orderdocBtn, @NonNull EditText repairDescriptionEditText,
+      @NonNull Button requestRepairButton, @NonNull EditText userLocationEditText) {
     this.rootView = rootView;
+    this.bikerepairImageView = bikerepairImageView;
+    this.bottomSheet = bottomSheet;
     this.orderdocBtn = orderdocBtn;
+    this.repairDescriptionEditText = repairDescriptionEditText;
+    this.requestRepairButton = requestRepairButton;
+    this.userLocationEditText = userLocationEditText;
   }
 
   @Override
@@ -54,13 +80,44 @@ public final class ActivityBikeRepairBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.bikerepairImageView;
+      ImageView bikerepairImageView = ViewBindings.findChildViewById(rootView, id);
+      if (bikerepairImageView == null) {
+        break missingId;
+      }
+
+      id = R.id.bottomSheet;
+      LinearLayout bottomSheet = ViewBindings.findChildViewById(rootView, id);
+      if (bottomSheet == null) {
+        break missingId;
+      }
+
       id = R.id.orderdocBtn;
       Button orderdocBtn = ViewBindings.findChildViewById(rootView, id);
       if (orderdocBtn == null) {
         break missingId;
       }
 
-      return new ActivityBikeRepairBinding((FrameLayout) rootView, orderdocBtn);
+      id = R.id.repairDescriptionEditText;
+      EditText repairDescriptionEditText = ViewBindings.findChildViewById(rootView, id);
+      if (repairDescriptionEditText == null) {
+        break missingId;
+      }
+
+      id = R.id.requestRepairButton;
+      Button requestRepairButton = ViewBindings.findChildViewById(rootView, id);
+      if (requestRepairButton == null) {
+        break missingId;
+      }
+
+      id = R.id.userLocationEditText;
+      EditText userLocationEditText = ViewBindings.findChildViewById(rootView, id);
+      if (userLocationEditText == null) {
+        break missingId;
+      }
+
+      return new ActivityBikeRepairBinding((FrameLayout) rootView, bikerepairImageView, bottomSheet,
+          orderdocBtn, repairDescriptionEditText, requestRepairButton, userLocationEditText);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

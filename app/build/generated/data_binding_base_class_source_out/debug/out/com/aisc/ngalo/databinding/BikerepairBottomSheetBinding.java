@@ -23,7 +23,7 @@ public final class BikerepairBottomSheetBinding implements ViewBinding {
   private final CoordinatorLayout rootView;
 
   @NonNull
-  public final ImageView bikeImageView;
+  public final ImageView bikerepairImageView;
 
   @NonNull
   public final LinearLayout bottomSheet;
@@ -41,11 +41,11 @@ public final class BikerepairBottomSheetBinding implements ViewBinding {
   public final EditText userLocationEditText;
 
   private BikerepairBottomSheetBinding(@NonNull CoordinatorLayout rootView,
-      @NonNull ImageView bikeImageView, @NonNull LinearLayout bottomSheet,
+      @NonNull ImageView bikerepairImageView, @NonNull LinearLayout bottomSheet,
       @NonNull CoordinatorLayout coordinatorLayout, @NonNull EditText repairDescriptionEditText,
       @NonNull Button requestRepairButton, @NonNull EditText userLocationEditText) {
     this.rootView = rootView;
-    this.bikeImageView = bikeImageView;
+    this.bikerepairImageView = bikerepairImageView;
     this.bottomSheet = bottomSheet;
     this.coordinatorLayout = coordinatorLayout;
     this.repairDescriptionEditText = repairDescriptionEditText;
@@ -80,9 +80,9 @@ public final class BikerepairBottomSheetBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.bikeImageView;
-      ImageView bikeImageView = ViewBindings.findChildViewById(rootView, id);
-      if (bikeImageView == null) {
+      id = R.id.bikerepairImageView;
+      ImageView bikerepairImageView = ViewBindings.findChildViewById(rootView, id);
+      if (bikerepairImageView == null) {
         break missingId;
       }
 
@@ -112,7 +112,7 @@ public final class BikerepairBottomSheetBinding implements ViewBinding {
         break missingId;
       }
 
-      return new BikerepairBottomSheetBinding((CoordinatorLayout) rootView, bikeImageView,
+      return new BikerepairBottomSheetBinding((CoordinatorLayout) rootView, bikerepairImageView,
           bottomSheet, coordinatorLayout, repairDescriptionEditText, requestRepairButton,
           userLocationEditText);
     }

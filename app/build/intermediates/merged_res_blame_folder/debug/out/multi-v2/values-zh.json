@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-89:/values-zh/values-zh.xml",
+            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-91:/values-zh/values-zh.xml",
             "map": [
                 {
                     "source": "/Users/user/.gradle/caches/transforms-3/1da1531f93dcdbf3ad5fa5a940a4aab8/transformed/jetified-ucrop-2.2.0/res/values-zh/values-zh.xml",

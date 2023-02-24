@@ -3325,6 +3325,8 @@ drawable abc_textfield_search_default_mtrl_alpha
 drawable abc_textfield_search_material
 drawable abc_vector_test
 drawable add
+drawable amu_bubble_mask
+drawable amu_bubble_shadow
 drawable avd_hide_password
 drawable avd_show_password
 drawable b1
@@ -3384,11 +3386,13 @@ drawable ic_add_location
 drawable ic_arrow_back_black_24
 drawable ic_arrow_down_24dp
 drawable ic_back
+drawable ic_camera
 drawable ic_clear_black_24
 drawable ic_clock_black_24dp
 drawable ic_decription
 drawable ic_delete
 drawable ic_edit
+drawable ic_gallery
 drawable ic_keyboard_black_24dp
 drawable ic_launcher_background
 drawable ic_launcher_foreground
@@ -3526,6 +3530,7 @@ id SYM
 id TOP_END
 id TOP_START
 id accelerate
+id acceptRequest
 id accessibility_action_clickable_span
 id accessibility_custom_action_0
 id accessibility_custom_action_1
@@ -3597,6 +3602,7 @@ id aligned
 id all
 id allStates
 id always
+id amu_text
 id androidx_compose_ui_view_composition_context
 id androidx_window_activity_scope
 id animateToEnd
@@ -3618,12 +3624,12 @@ id beginOnFirstDraw
 id beginning
 id bestChoice
 id bikeImage
-id bikeImageView
 id bikeRecyclerView
 id bikehireRecyclerView
 id bikeparts
 id bikepartsRecyclerView
 id bikepurchaseRecyclerView
+id bikerepairImageView
 id blocking
 id bottom
 id bottomSheet
@@ -3643,6 +3649,7 @@ id buttonSignUp
 id buy
 id cache_measures
 id callMeasure
+id camera
 id cancel_action
 id cancel_button
 id cardView
@@ -3764,6 +3771,7 @@ id forever
 id fragment_container_view_tag
 id frost
 id fullscreen_header
+id gallery
 id ghost_view
 id ghost_view_holder
 id glide_custom_view_target_tag
@@ -3823,6 +3831,7 @@ id light
 id line1
 id line3
 id linear
+id linearLayout
 id listMode
 id list_item
 id locale
@@ -3830,6 +3839,7 @@ id lottie_layer_name
 id ltr
 id m3_side_sheet
 id map
+id mapAdmin
 id marquee
 id masked
 id match_constraint
@@ -4152,6 +4162,7 @@ id unchecked
 id uniform
 id unlabeled
 id up
+id uploadimagesTv
 id useLogo
 id userEmail
 id userLocationEditText
@@ -4169,8 +4180,10 @@ id view_tree_saved_state_registry_owner
 id view_tree_view_model_store_owner
 id visible
 id visible_removing_fragment_view_tag
+id webview
 id west
 id wide
+id window
 id withText
 id with_icon
 id withinBounds
@@ -4296,6 +4309,7 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_add_bicycle_part
+layout activity_admin_home_page
 layout activity_bike_details
 layout activity_bike_repair
 layout activity_bikes_options
@@ -4307,6 +4321,9 @@ layout activity_sign_up
 layout activity_upload_images
 layout activity_uploads
 layout activity_user_profile
+layout amu_info_window
+layout amu_text_bubble
+layout amu_webview
 layout bike_item
 layout bikerepair_bottom_sheet
 layout browser_actions_context_menu_page
@@ -4334,6 +4351,8 @@ layout fragment_bikes_for_hire
 layout fragment_bikes_options
 layout fragment_request_bottom_sheet_dialog
 layout image_frame
+layout images_dialog
+layout load_image_dialog
 layout m3_alert_dialog
 layout m3_alert_dialog_actions
 layout m3_alert_dialog_title
@@ -4442,6 +4461,26 @@ mipmap ic_launcher
 mipmap ic_launcher_round
 mipmap ngalo_logo
 plurals mtrl_badge_content_description
+raw amu_ballon_gx_prefix
+raw amu_basic_folder
+raw amu_basic_placemark
+raw amu_cdata
+raw amu_default_balloon
+raw amu_document_nest
+raw amu_draw_order_ground_overlay
+raw amu_extended_data
+raw amu_ground_overlay
+raw amu_ground_overlay_color
+raw amu_inline_style
+raw amu_multigeometry_placemarks
+raw amu_multiple_placemarks
+raw amu_nested_folders
+raw amu_nested_multigeometry
+raw amu_poly_style_boolean_alpha
+raw amu_poly_style_boolean_numeric
+raw amu_unknwown_folder
+raw amu_unsupported
+raw amu_visibility_ground_overlay
 raw firebase_common_keep
 raw places_keep
 string Api_key
@@ -4488,6 +4527,7 @@ string bottomsheet_action_expand
 string bottomsheet_action_expand_halfway
 string bottomsheet_drag_handle_clicked
 string bottomsheet_drag_handle_content_description
+string brief_description_of_the_problem
 string buybikes
 string channel_description
 string channel_name
@@ -4497,6 +4537,7 @@ string character_counter_pattern
 string clear_text_end_icon_content_description
 string close_drawer
 string close_sheet
+string collapsed
 string common_google_play_services_enable_button
 string common_google_play_services_enable_text
 string common_google_play_services_enable_title
@@ -4522,6 +4563,7 @@ string default_popup_window_title
 string default_web_client_id
 string description
 string details
+string dialog
 string dropdown_menu
 string email
 string enter_repair_description
@@ -4529,6 +4571,7 @@ string enter_repair_location
 string error_a11y_label
 string error_icon_content_description
 string expand_button_title
+string expanded
 string exposed_dropdown_menu_content_description
 string fab_transformation_scrim_behavior
 string fab_transformation_sheet_behavior
@@ -4674,10 +4717,13 @@ string project_id
 string range_end
 string range_start
 string repairbikes
+string request_for_bike_repair
+string request_repair
 string search_menu_title
 string searchbar_scrolling_view_behavior
 string searchview_clear_text_content_description
 string searchview_navigation_content_description
+string select_your_location
 string selected
 string side_sheet_accessibility_pane_title
 string side_sheet_behavior
@@ -4693,6 +4739,7 @@ string tab
 string tab_text_1
 string tab_text_2
 string template_percent
+string title_activity_admin_home_page
 string title_activity_bike_hire
 string title_activity_bike_hire_screen
 string title_activity_bike_repair
@@ -5863,6 +5910,9 @@ style Widget_MaterialComponents_Toolbar_PrimarySurface
 style Widget_MaterialComponents_Toolbar_Surface
 style Widget_MaterialComponents_Tooltip
 style Widget_Support_CoordinatorLayout
+style amu_Bubble_TextAppearance_Dark
+style amu_Bubble_TextAppearance_Light
+style amu_ClusterIcon_TextAppearance
 style ucrop_ImageViewWidgetIcon
 style ucrop_TextViewCropAspectRatio
 style ucrop_TextViewWidgetText

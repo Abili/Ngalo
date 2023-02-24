@@ -5,39 +5,40 @@
     android:layout_height="match_parent"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-
     <LinearLayout
         android:id="@+id/bottomSheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
         android:orientation="vertical"
-        android:padding="16dp">
+       >
 
         <TextView
             android:textSize="20sp"
+            android:elevation="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/ngalo_blue"
             android:padding="10dp"
-            android:text="Request for Bike Repair"
+            android:text="@string/request_for_bike_repair"
             android:textColor="@color/white" />
 
         <ImageView
-            android:id="@+id/bikeImageView"
+            android:id="@+id/bikerepairImageView"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="280dp"
             android:layout_marginTop="20dp"
             android:src="@drawable/placeholder_with" />
 
         <EditText
+            android:layout_marginTop="10dp"
             android:id="@+id/repairDescriptionEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="20dp"
             android:drawableStart="@drawable/ic_decription"
             android:drawablePadding="10dp"
-            android:hint="Brief description of the problem" />
+            android:hint="@string/brief_description_of_the_problem" />
 
         <EditText
             android:padding="20dp"
@@ -46,15 +47,17 @@
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_add_location"
             android:drawablePadding="10dp"
-            android:hint="Select your location" />
+            android:hint="@string/select_your_location" />
+
 
         <Button
+            android:padding="10dp"
+            android:backgroundTint="@color/ngalo_blue"
             android:id="@+id/requestRepairButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:background="@drawable/border_color"
-            android:text="Request Repair"
-            android:textColor="@color/ngalo_blue" />
+            android:layout_margin="30dp"
+            android:text="@string/request_repair"
+            android:textColor="@color/white" />
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

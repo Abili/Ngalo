@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-89:/values-v13/values-v13.xml",
+            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-91:/values-v13/values-v13.xml",
             "map": [
                 {
                     "source": "/Users/user/Desktop/AndroidStudioProjects/Ngalo/app/src/main/res/values-v13/splashscreen.xml",

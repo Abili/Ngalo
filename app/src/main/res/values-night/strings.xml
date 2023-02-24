@@ -2,4 +2,7 @@
 <resources>
     <string name="ngalo_title_text">Ngalo Services</string>
     <string name="log_in">LogIn</string>
+    <string name="request_repair">Request Repair</string>
+    <string name="brief_description_of_the_problem">Brief description of the problem</string>
+    <string name="request_for_bike_repair">Request for Bike Repair</string>
 </resources>

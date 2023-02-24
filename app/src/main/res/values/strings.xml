@@ -47,4 +47,9 @@
     <string name="enter_repair_description">Enter repair description</string>
     <string name="submit_request">Submit Request</string>
     <string name="Api_key">AIzaSyAJBlxp2SUfwdh5GMfGP19Q_aetYtKybgs</string>
+    <string name="request_repair">Request Repair</string>
+    <string name="select_your_location">Select your location</string>
+    <string name="brief_description_of_the_problem">Brief description of the problem</string>
+    <string name="request_for_bike_repair">Request for Bike Repair</string>
+    <string name="title_activity_admin_home_page">AdminHomePage</string>
 </resources>
