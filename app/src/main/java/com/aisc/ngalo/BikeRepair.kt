@@ -4,17 +4,21 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.location.Location
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.location.Geocoder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Looper
 import android.provider.MediaStore
-import android.text.Editable
+import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.view.animation.AnimationSet
 import android.view.animation.TranslateAnimation
@@ -26,15 +30,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.aisc.ngalo.databinding.ActivityBikeRepairBinding
-import com.aisc.ngalo.databinding.BikerepairBottomSheetBinding
 import com.bumptech.glide.Glide
 import com.firebase.geofire.GeoFire
-import com.firebase.geofire.GeoLocation
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
@@ -48,19 +51,26 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
+import java.io.IOException
+import java.util.*
 
 class BikeRepair : AppCompatActivity(), OnMapReadyCallback {
     private var mMap: GoogleMap? = null
-    var mLastLocation: Location? = null
+    var mLastLocation: LocationObject? = null
     var mLocationRequest: LocationRequest? = null
     private val repairRequests = "RepaireRequests"
     private var mFusedLocationClient: FusedLocationProviderClient? = null
-    private var pickupLocation: LatLng? = null
+
+    //private var pickupLocation: LatLng? = null
     private var requestBol = false
     private var pickupMarker: Marker? = null
     private var mapFragment: SupportMapFragment? = null
     private val destination: String? = null
     private val requestService: String? = null
+    private var pickupLocation: LocationObject? = null
+    private var currentLocation: LocationObject? = null
+    private var destinationLocation: LocationObject? = null
+
     //private var destinationLatLng: LatLng? = null
     private var mRepairRequestsRef: DatabaseReference? = null
     private var mPatientRideId: String? = null
@@ -72,6 +82,7 @@ class BikeRepair : AppCompatActivity(), OnMapReadyCallback {
     lateinit var location: String
     private var latitude = 0.0
     private var longitude: Double = 0.0
+    private var selectedLocation: LatLng? = null
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,25 +103,41 @@ class BikeRepair : AppCompatActivity(), OnMapReadyCallback {
             var name: String = ""
             val userId = FirebaseAuth.getInstance().currentUser!!.uid
             val geoFire = GeoFire(mRepairRequestsRef)
+            mLastLocation = currentLocation
             mMap!!.moveCamera(
                 CameraUpdateFactory.newLatLngZoom(
                     LatLng(
-                        mLastLocation!!.latitude,
-                        mLastLocation!!.longitude
-                    ), 11f
+                        currentLocation!!.coordinates!!.latitude,
+                        currentLocation!!.coordinates!!.longitude
+                    ), 17f
                 )
             )
 //            geoFire.setLocation(
 //                userId,
 //                GeoLocation(mLastLocation!!.latitude, mLastLocation!!.longitude)
 //            )
-            pickupLocation = LatLng(mLastLocation!!.latitude, mLastLocation!!.longitude)
+            pickupLocation =
+                LocationObject(
+                    LatLng(
+                        mLastLocation!!.coordinates!!.latitude,
+                        mLastLocation!!.coordinates!!.longitude
+                    ), ""
+                )
             if (pickupMarker != null) {
                 pickupMarker!!.remove()
             }
             pickupMarker = mMap!!.addMarker(
-                MarkerOptions().position(pickupLocation!!).title("Pickup Here")
+                MarkerOptions().position(pickupLocation!!.coordinates!!).title("Pickup Here").icon(
+                    BitmapDescriptorFactory.fromBitmap(
+                        generateBitmap(
+                            this@BikeRepair,
+                            pickupLocation!!.name,
+                            null
+                        )!!
+                    )
+                )
             )
+
             binding.orderdocBtn.visibility = View.GONE
             // Create TranslateAnimation object
             val animation = TranslateAnimation(
@@ -138,13 +165,15 @@ class BikeRepair : AppCompatActivity(), OnMapReadyCallback {
             binding.bottomSheet.visibility = View.VISIBLE
             binding.bottomSheet.startAnimation(animationSet)
 
+            //setUsers currentLocation
+            setCurrentLocation()
         }
 
         binding.userLocationEditText.setOnTouchListener { view, event ->
             if (event.action == MotionEvent.ACTION_UP) {
                 // Set the fields to specify which types of place data to
                 // return after the user has made a selection.
-                val fields = listOf(Place.Field.ID, Place.Field.NAME)
+                val fields = listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG)
 
                 // Start the autocomplete intent.
                 val intent =
@@ -172,7 +201,8 @@ class BikeRepair : AppCompatActivity(), OnMapReadyCallback {
                 val place = response.place
                 val name = place.name!! // Get the name of the place
                 // Do something with the name
-                Toast.makeText(this, name, Toast.LENGTH_SHORT).show()
+                val latlong = place.latLng
+                Toast.makeText(this, name + latLng, Toast.LENGTH_SHORT).show()
 
             }.addOnFailureListener {
                 // Handle the error
@@ -233,68 +263,137 @@ class BikeRepair : AppCompatActivity(), OnMapReadyCallback {
 //                mLastLocation!!.longitude,
 //                name
 //            )
+
+//        binding.setCurrentLocationTV.setOnClickListener {
+//            setCurrentLocation()
+//        }
         openImageFiles()
 
+
     }
+
+
+    var zoomUpdated = false
+    var mLocationCallback: LocationCallback = object : LocationCallback() {
+        override fun onLocationResult(locationResult: LocationResult) {
+            for (location in locationResult.locations) {
+                if (application != null) {
+                    currentLocation =
+                        LocationObject(LatLng(location.latitude, location.longitude), "")
+                    val latLng = LatLng(location.latitude, location.longitude)
+                    if (!zoomUpdated) {
+                        val zoomLevel = 17.0f //This goes up to 21
+                        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(latLng))
+                        mMap!!.animateCamera(CameraUpdateFactory.zoomTo(zoomLevel))
+                        zoomUpdated = true
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setCurrentLocation() {
+        binding.userLocationEditText.text = (getString(R.string.set_current_location))
+        //binding.setCurrentLocationTV.setImageDrawable(resources.getDrawable(R.drawable.ic_location_on_primary_24dp))
+        pickupLocation = currentLocation
+        if (pickupLocation == null) {
+            return
+        }
+        fetchLocationName()
+
+        mMap!!.clear()
+        pickupMarker = mMap!!.addMarker(
+            MarkerOptions().position(pickupLocation!!.coordinates!!).title("Pickup").icon(
+                BitmapDescriptorFactory.fromBitmap(
+                    generateBitmap(
+                        this@BikeRepair,
+                        pickupLocation!!.name,
+                        null
+                    )!!
+                )
+            )
+        )
+
+        binding.requestRepairButton.text = resources.getString(R.string.request_repair)
+    }
+
+
+    private fun generateBitmap(context: Context, location: String?, duration: String?): Bitmap? {
+        var bitmap: Bitmap? = null
+        val mInflater = context.getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val view = RelativeLayout(context)
+        try {
+            mInflater.inflate(R.layout.item_marker, view, true)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        val locationTextView = view.findViewById<View>(R.id.location) as TextView
+        val durationTextView = view.findViewById<View>(R.id.duration) as TextView
+        locationTextView.text = location
+        if (duration != null) {
+            durationTextView.text = duration
+        } else {
+            durationTextView.visibility = View.GONE
+        }
+        view.layoutParams = ViewGroup.LayoutParams(
+            RelativeLayout.LayoutParams.WRAP_CONTENT,
+            RelativeLayout.LayoutParams.WRAP_CONTENT
+        )
+        view.measure(
+            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+        )
+        view.layout(0, 0, view.measuredWidth, view.measuredHeight)
+        bitmap =
+            Bitmap.createBitmap(view.measuredWidth, view.measuredHeight, Bitmap.Config.ARGB_8888)
+        val c = Canvas(bitmap)
+        view.draw(c)
+        return bitmap
+    }
+
 
     private fun uploadToFirebase(downloadUrl: Uri?) {
         val descriptionOfProblems = binding.repairDescriptionEditText.text.toString()
         val uid = FirebaseAuth.getInstance().currentUser!!.uid
         val repairRequestRef =
             FirebaseDatabase.getInstance().reference.child("RepaireRequests")
+        val userRequestRef =
+            FirebaseDatabase.getInstance().reference.child("users").child(uid)
+                .child("UsersOrders")
 
-        val latLng = Location(location, mLastLocation!!.latitude, mLastLocation!!.longitude)
+        val latLng = LocationObject(
+            LatLng(
+                mLastLocation!!.coordinates!!.latitude,
+                mLastLocation!!.coordinates!!.longitude
+            ), binding.userLocationEditText.text.toString()
+        )
 
         val repair = Repair(
             uid,
             downloadUrl.toString(),
             descriptionOfProblems,
-            latLng
+            latLng,
+            System.currentTimeMillis().toString(),
+            "Bike Repair"
         )
         // val uid = FirebaseAuth.getInstance().currentUser!!.uid
 
         repairRequestRef.child(uid).push().setValue(repair).addOnCompleteListener {
             if (it.isSuccessful) {
                 finish()
-                binding.userLocationEditText.text.clear()
                 binding.repairDescriptionEditText.text.clear()
 
+                userRequestRef.push().setValue(repair)
             }
+
         }
-    }
-
-    private fun showRequestBottomSheetDialog(
-        userId: String,
-        geoFire: GeoFire,
-        latitude: Double,
-        longitude: Double,
-        name: String?
-    ) {
-        val bottomSheetDialog = RequestBottomSheetDialog()
-        bottomSheetDialog.show(supportFragmentManager, bottomSheetDialog.tag)
-
-        if (!bottomSheetDialog.isVisible) {
-            binding.orderdocBtn.visibility = View.VISIBLE
-            geoFire.removeLocation(userId)
-        }
-
-        val userLocation = Editable.Factory.getInstance().newEditable(
-//            geoFire.setLocation(
-//                "",
-//                GeoLocation(latitude, longitude)
-//            ).toString()
-            name
-        )
-        val dialogBinding = BikerepairBottomSheetBinding.inflate(layoutInflater)
-        dialogBinding.userLocationEditText.text = userLocation
-
     }
 
 
     private fun openImageFiles() {
         activityResultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                if (result.resultCode == AppCompatActivity.RESULT_OK) {
+                if (result.resultCode == RESULT_OK) {
                     imageUri.value = result.data!!.data
                     Glide.with(binding.bikerepairImageView)
                         .load(imageUri.value)
@@ -337,19 +436,19 @@ class BikeRepair : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    private var mLocationCallback: LocationCallback = object : LocationCallback() {
-        override fun onLocationResult(locationResult: LocationResult) {
-            for (location in locationResult.locations) {
-                if (applicationContext != null) {
-                    mLastLocation = location
-                    val latLng = LatLng(location.latitude, location.longitude)
-                    mMap!!.moveCamera(CameraUpdateFactory.newLatLng(latLng))
-                    mMap!!.animateCamera(CameraUpdateFactory.zoomTo(15f))
-                    //if (!getDriversAroundStarted) getDriversAround()
-                }
-            }
-        }
-    }
+//    private var mLocationCallback: LocationCallback = object : LocationCallback() {
+//        override fun onLocationResult(locationResult: LocationResult) {
+//            for (location in locationResult.locations) {
+//                if (applicationContext != null) {
+//                    pickupLocation = currentLocation
+//                    val latLng = LatLng(location.latitude, location.longitude)
+//                    mMap!!.moveCamera(CameraUpdateFactory.newLatLng(latLng))
+//                    mMap!!.animateCamera(CameraUpdateFactory.zoomTo(15f))
+//                    //if (!getDriversAroundStarted) getDriversAround()
+//                }
+//            }
+//        }
+//    }
 
     /*-------------------------------------------- onRequestPermissionsResult -----
     |  Function onRequestPermissionsResult
@@ -433,31 +532,76 @@ class BikeRepair : AppCompatActivity(), OnMapReadyCallback {
             when (resultCode) {
                 Activity.RESULT_OK -> {
                     data?.let {
+                        val mLocation: LocationObject
+
+                        if (currentLocation == null) {
+                            Snackbar.make(
+                                binding.root,
+                                "First Activate GPS",
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                            return
+                        }
                         val place = Autocomplete.getPlaceFromIntent(data)
-//                        latitude = place.latLng?.latitude!!
-//                        longitude = place.latLng?.longitude!!
 
-                        val userLocation = Editable.Factory.getInstance().newEditable(place.name)
-                        binding.userLocationEditText.text = userLocation
-                        location = userLocation.toString()
-                        descriptionOfProblems = binding.repairDescriptionEditText.text.toString()
+                        mLocation = LocationObject(place.latLng, place.name!!)
 
-                        Snackbar.make(
-                            binding.root,
-                            "Place: ${place.name}, ${place.latLng?.latitude}",
-                            Snackbar.LENGTH_SHORT
-                        ).show()
+
+                        currentLocation = LocationObject(
+                            LatLng(
+                                currentLocation!!.coordinates!!.latitude,
+                                currentLocation!!.coordinates!!.longitude
+                            ), ""
+                        )
+
+
+                        if (requestCode == 1) {
+                            mMap!!.clear()
+                            if (pickupLocation != null) {
+                                pickupMarker = mMap!!.addMarker(
+                                    MarkerOptions().position(pickupLocation!!.coordinates!!).icon(
+                                        BitmapDescriptorFactory.fromBitmap(
+                                            generateBitmap(
+                                                this@BikeRepair,
+                                                pickupLocation!!.name,
+                                                null
+                                            )!!
+                                        )
+                                    )
+                                )
+                            }
+                        } else if (requestCode == 2) {
+                            mMap!!.clear()
+                            pickupLocation = mLocation
+                            pickupMarker = mMap!!.addMarker(
+                                MarkerOptions().position(pickupLocation!!.coordinates!!).icon(
+                                    BitmapDescriptorFactory.fromBitmap(
+                                        generateBitmap(
+                                            this@BikeRepair,
+                                            pickupLocation!!.name,
+                                            null
+                                        )!!
+                                    )
+                                )
+                            )
+                        }
+                        binding.userLocationEditText.text = pickupLocation!!.name
+                        binding.requestRepairButton.text = getString(R.string.request_repair)
                     }
                 }
+
                 AutocompleteActivity.RESULT_ERROR -> {
                     // TODO: Handle the error.
                     data?.let {
                         val status = Autocomplete.getStatusFromIntent(data)
                         Snackbar.make(
-                            binding.root, status.statusMessage ?: "", Snackbar.LENGTH_SHORT
+                            binding.root,
+                            status.statusMessage ?: "Error locating User",
+                            Snackbar.LENGTH_SHORT
                         ).show()
                     }
                 }
+
                 Activity.RESULT_CANCELED -> {
                     // The user canceled the operation.
                 }
@@ -465,6 +609,35 @@ class BikeRepair : AppCompatActivity(), OnMapReadyCallback {
             return
         }
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun fetchLocationName() {
+        if (pickupLocation == null) {
+            return
+        }
+        try {
+            val geo = Geocoder(this.applicationContext, Locale.getDefault())
+            val addresses = geo.getFromLocation(
+                currentLocation!!.coordinates!!.latitude,
+                currentLocation!!.coordinates!!.longitude,
+                1
+            )
+            if (addresses!!.isEmpty()) {
+                binding.userLocationEditText.setText(R.string.waiting_for_location)
+            } else {
+                addresses.size
+                if (addresses[0].thoroughfare == null) {
+                    pickupLocation!!.name = addresses[0].locality
+                } else if (addresses[0].locality == null) {
+                    pickupLocation!!.name = "Unknown Location"
+                } else {
+                    pickupLocation!!.name = addresses[0].locality + ", " + addresses[0].thoroughfare
+                }
+                binding.userLocationEditText.text = pickupLocation!!.name
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
     }
 
     companion object {

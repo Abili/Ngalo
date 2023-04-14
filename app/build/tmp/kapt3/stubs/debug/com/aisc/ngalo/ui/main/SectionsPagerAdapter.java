@@ -10,25 +10,25 @@ import java.lang.System;
 public final class SectionsPagerAdapter extends androidx.fragment.app.FragmentPagerAdapter {
     private final android.content.Context context = null;
     
-    public SectionsPagerAdapter(@org.jetbrains.annotations.NotNull()
-    android.content.Context context, @org.jetbrains.annotations.NotNull()
+    public SectionsPagerAdapter(@org.jetbrains.annotations.NotNull
+    android.content.Context context, @org.jetbrains.annotations.NotNull
     androidx.fragment.app.FragmentManager fm) {
         super(null);
     }
     
-    @org.jetbrains.annotations.NotNull()
-    @java.lang.Override()
+    @org.jetbrains.annotations.NotNull
+    @java.lang.Override
     public androidx.fragment.app.Fragment getItem(int position) {
         return null;
     }
     
-    @org.jetbrains.annotations.Nullable()
-    @java.lang.Override()
+    @org.jetbrains.annotations.Nullable
+    @java.lang.Override
     public java.lang.CharSequence getPageTitle(int position) {
         return null;
     }
     
-    @java.lang.Override()
+    @java.lang.Override
     public int getCount() {
         return 0;
     }

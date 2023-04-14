@@ -17,6 +17,9 @@ import java.lang.Object;
 
 public abstract class BikeItemBinding extends ViewDataBinding {
   @NonNull
+  public final TextView addToCart;
+
+  @NonNull
   public final ImageView bikeImage;
 
   @NonNull
@@ -35,9 +38,10 @@ public abstract class BikeItemBinding extends ViewDataBinding {
   public final LinearLayout textViewsContainer;
 
   protected BikeItemBinding(Object _bindingComponent, View _root, int _localFieldCount,
-      ImageView bikeImage, ImageView deleteBike, TextView textBikeName, TextView textViewDesc,
-      TextView textViewPrice, LinearLayout textViewsContainer) {
+      TextView addToCart, ImageView bikeImage, ImageView deleteBike, TextView textBikeName,
+      TextView textViewDesc, TextView textViewPrice, LinearLayout textViewsContainer) {
     super(_bindingComponent, _root, _localFieldCount);
+    this.addToCart = addToCart;
     this.bikeImage = bikeImage;
     this.deleteBike = deleteBike;
     this.textBikeName = textBikeName;

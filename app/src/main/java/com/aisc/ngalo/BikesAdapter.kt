@@ -4,6 +4,9 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.aisc.ngalo.databinding.BikeItemBinding
 import com.aisc.ngalo.models.Bike
@@ -12,7 +15,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
 class BikesAdapter : RecyclerView.Adapter<ViewHolder>() {
+    private var listener: OnCartUpdatedListener? = null
 
+    interface OnCartUpdatedListener {
+        fun onCartUpdated(count: Int)
+    }
 
     private val bikes = mutableListOf<Bike>()
 
@@ -26,10 +33,14 @@ class BikesAdapter : RecyclerView.Adapter<ViewHolder>() {
         notifyDataSetChanged()
     }
 
+    fun setOnCartUpdatedListener(listener: OnCartUpdatedListener) {
+        this.listener = listener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(R.layout.bike_item, parent, false)
-        return ViewHolder(view)
+        return ViewHolder(view, listener)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -42,10 +53,12 @@ class BikesAdapter : RecyclerView.Adapter<ViewHolder>() {
     }
 }
 
-class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class ViewHolder(itemView: View, private val listener: BikesAdapter.OnCartUpdatedListener?) :
+    RecyclerView.ViewHolder(itemView) {
     private lateinit var auth: FirebaseAuth
     private val binding: BikeItemBinding = BikeItemBinding.bind(itemView)
     fun bind(bike: Bike) {
+        val cartItems = mutableListOf<Item>()
         auth = FirebaseAuth.getInstance()
         //current user's profile pic
         if (!auth.currentUser!!.photoUrl.toString().isEmpty()) {
@@ -66,9 +79,9 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         binding.textViewDesc.text = bike.description
         binding.deleteBike.setOnClickListener {
             val hire = FirebaseDatabase.getInstance().reference.child("bikes").child("hire")
-           if(FirebaseDatabase.getInstance().reference == hire){
-               FirebaseDatabase.getInstance().reference.child("bikes").child("hire").removeValue()
-           }
+            if (FirebaseDatabase.getInstance().reference == hire) {
+                FirebaseDatabase.getInstance().reference.child("bikes").child("hire").removeValue()
+            }
 
         }
         // Set up click listener for the playlist
@@ -80,6 +93,16 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             intent.putExtra("imageUrl", bike.imageUrl)
             intent.putExtra("desc", bike.description)
             itemView.context.startActivity(intent)
+        }
+
+        binding.addToCart.setOnClickListener {
+            val activity = itemView.context as AppCompatActivity
+            val cartItem = activity.findViewById(R.id.cart_count) as TextView
+//            cartItems.add(Item(bike.name, bike.price.toInt(), bike.imageUrl))
+            Toast.makeText(itemView.context, "Item in Adapter", Toast.LENGTH_SHORT).show()
+//            listener?.onCartUpdated(cartItems.size)
+            cartItem.text = "0"
+
         }
     }
 }

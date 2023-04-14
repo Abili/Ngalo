@@ -8,7 +8,7 @@ public final class CreateAdvert extends androidx.appcompat.app.AppCompatActivity
     private androidx.activity.result.ActivityResultLauncher<android.content.Intent> activityResultLauncher;
     private final androidx.compose.runtime.MutableState<android.net.Uri> imageUri = null;
     private android.net.Uri downloadUrl;
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     public static final com.aisc.ngalo.admin.CreateAdvert.Companion Companion = null;
     private static final java.lang.String CHANNEL_ID = "ngaloAd";
     
@@ -16,8 +16,8 @@ public final class CreateAdvert extends androidx.appcompat.app.AppCompatActivity
         super();
     }
     
-    @java.lang.Override()
-    protected void onCreate(@org.jetbrains.annotations.Nullable()
+    @java.lang.Override
+    protected void onCreate(@org.jetbrains.annotations.Nullable
     android.os.Bundle savedInstanceState) {
     }
     
@@ -33,8 +33,8 @@ public final class CreateAdvert extends androidx.appcompat.app.AppCompatActivity
     private final void openImageFiles() {
     }
     
-    @java.lang.Override()
-    protected void onActivityResult(int requestCode, int resultCode, @org.jetbrains.annotations.Nullable()
+    @java.lang.Override
+    protected void onActivityResult(int requestCode, int resultCode, @org.jetbrains.annotations.Nullable
     android.content.Intent data) {
     }
     

@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-91:/values-sw360dp-v13/values-sw360dp-v13.xml",
+            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-92:/values-sw360dp-v13/values-sw360dp-v13.xml",
             "map": [
                 {
-                    "source": "/Users/user/.gradle/caches/transforms-3/f5f6eb84f3f9d3a386ee3670cb4834b9/transformed/preference-1.2.0/res/values-sw360dp-v13/values-sw360dp-v13.xml",
+                    "source": "/Users/user/.gradle/caches/transforms-3/825def268bfe23ab4793bf0bfab8bbba/transformed/preference-1.2.0/res/values-sw360dp-v13/values-sw360dp-v13.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

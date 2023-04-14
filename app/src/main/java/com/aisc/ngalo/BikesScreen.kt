@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-class BikesScreen() :
+class BikesScreen :
     AppCompatActivity() {
     private lateinit var binding: ActivityBikesScreenBinding
     private lateinit var bikeViewModel: BikeViewModel
@@ -86,18 +86,21 @@ class BikesScreen() :
                             // Handle error
                         }
                     })
-
-
             }
 
         }
-        binding.fbAddBike.setOnClickListener {
-            startActivity(Intent(this@BikesScreen, UploadBikeImages::class.java))
-        }
+//        binding.cartIcon!!.setOnClickListener {
+//
+//        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
         bikeViewModel.getAllBikes().removeObservers(this)
     }
+
+//    override fun onCartUpdated(count: Int) {
+//        binding.cartItemCount!!.text = count.toString()
+//    }
+
 }

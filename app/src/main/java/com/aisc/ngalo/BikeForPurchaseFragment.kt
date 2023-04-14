@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aisc.ngalo.databinding.FragmentBikeForPurchaseBinding
-import com.aisc.ngalo.databinding.FragmentBikesForHireBinding
 import com.aisc.ngalo.models.Bike
 import com.google.firebase.FirebaseApp
 import com.google.firebase.database.*
@@ -27,7 +26,7 @@ class BikeForPurchaseFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentBikeForPurchaseBinding.inflate(inflater, container, false)
         return binding.root
     }

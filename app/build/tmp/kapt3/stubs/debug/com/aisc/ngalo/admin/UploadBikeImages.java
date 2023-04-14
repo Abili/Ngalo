@@ -13,8 +13,8 @@ public final class UploadBikeImages extends androidx.appcompat.app.AppCompatActi
         super();
     }
     
-    @java.lang.Override()
-    protected void onCreate(@org.jetbrains.annotations.Nullable()
+    @java.lang.Override
+    protected void onCreate(@org.jetbrains.annotations.Nullable
     android.os.Bundle savedInstanceState) {
     }
     
@@ -24,8 +24,8 @@ public final class UploadBikeImages extends androidx.appcompat.app.AppCompatActi
     private final void openImageFiles() {
     }
     
-    @java.lang.Override()
-    protected void onActivityResult(int requestCode, int resultCode, @org.jetbrains.annotations.Nullable()
+    @java.lang.Override
+    protected void onActivityResult(int requestCode, int resultCode, @org.jetbrains.annotations.Nullable
     android.content.Intent data) {
     }
     

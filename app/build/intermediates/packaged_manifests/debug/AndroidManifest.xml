@@ -47,6 +47,43 @@
         android:testOnly="true"
         android:theme="@style/Theme.Ngalo.NoActionBar" >
         <activity
+            android:name="com.aisc.ngalo.cart.CartActivity"
+            android:exported="false"
+            android:label="@string/title_activity_cart"
+            android:theme="@style/Theme.Ngalo.NoActionBar" />
+        <activity
+            android:name="com.aisc.ngalo.SocialMediaActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.aisc.ngalo.usersorders.UserOrderDetails"
+            android:exported="false" />
+        <activity
+            android:name="com.aisc.ngalo.usersorders.UsersOrders"
+            android:exported="false" />
+        <activity
+            android:name="com.aisc.ngalo.completed.CompletedActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.aisc.ngalo.admin.AdminPanel"
+            android:exported="false"
+            android:label="@string/title_activity_admin_panel"
+            android:theme="@style/Theme.Ngalo.NoActionBar" />
+        <activity
+            android:name="com.aisc.ngalo.orders.OrderDetails"
+            android:exported="false"
+            android:label="Order Details"
+            android:theme="@style/Theme.Ngalo.NoActionBar" />
+        <activity
+            android:name="com.aisc.ngalo.orders.OrdersActivity"
+            android:exported="false"
+            android:label="@string/title_activity_orders"
+            android:theme="@style/Theme.Ngalo.NoActionBar" />
+        <activity
+            android:name="com.aisc.ngalo.admin.AdminHomePage"
+            android:exported="false"
+            android:label="@string/title_activity_admin_ouser"
+            android:theme="@style/Theme.Ngalo.NoActionBar" />
+        <activity
             android:name="com.aisc.ngalo.SignUp"
             android:exported="false"
             android:label="@string/title_activity_admin_home_page"
@@ -109,7 +146,8 @@
             android:exported="false" />
         <activity
             android:name="com.aisc.ngalo.BikesOptions"
-            android:exported="false" >
+            android:exported="false"
+            android:theme="@style/Theme.Ngalo.NoActionBar" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -124,7 +162,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name="com.aisc.ngalo.admin.AdminHomePage"
+            android:name="com.aisc.ngalo.AdminOUser"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar" >
             <intent-filter>
@@ -315,6 +353,21 @@
             android:name="androidx.room.MultiInstanceInvalidationService"
             android:directBootAware="true"
             android:exported="false" />
+
+        <receiver
+            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+            android:directBootAware="false"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.DUMP" >
+            <intent-filter>
+                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+            </intent-filter>
+        </receiver>
+
         <service
             android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
             android:exported="false" >
@@ -331,19 +384,6 @@
         <receiver
             android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
             android:exported="false" />
-        <receiver
-            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-            android:directBootAware="false"
-            android:enabled="true"
-            android:exported="true"
-            android:permission="android.permission.DUMP" >
-            <intent-filter>
-                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>

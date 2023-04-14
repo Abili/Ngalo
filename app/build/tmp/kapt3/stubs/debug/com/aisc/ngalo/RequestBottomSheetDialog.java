@@ -15,7 +15,7 @@ public final class RequestBottomSheetDialog extends com.google.android.material.
     public com.aisc.ngalo.databinding.ImagesDialogBinding customDialogBinding;
     private androidx.activity.result.ActivityResultLauncher<android.content.Intent> activityResultLauncher;
     private com.google.android.gms.location.FusedLocationProviderClient fusedLocationClient;
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     public static final com.aisc.ngalo.RequestBottomSheetDialog.Companion Companion = null;
     private static final int AUTOCOMPLETE_REQUEST_CODE = 1;
     public static final int CAMERA_REQUEST_CODE = 1;
@@ -25,57 +25,57 @@ public final class RequestBottomSheetDialog extends com.google.android.material.
         super();
     }
     
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     public final com.aisc.ngalo.databinding.BikerepairBottomSheetBinding getBinding() {
         return null;
     }
     
-    public final void setBinding(@org.jetbrains.annotations.NotNull()
+    public final void setBinding(@org.jetbrains.annotations.NotNull
     com.aisc.ngalo.databinding.BikerepairBottomSheetBinding p0) {
     }
     
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     public final com.aisc.ngalo.BikeRepair getBikeRepair() {
         return null;
     }
     
-    public final void setBikeRepair(@org.jetbrains.annotations.NotNull()
+    public final void setBikeRepair(@org.jetbrains.annotations.NotNull
     com.aisc.ngalo.BikeRepair p0) {
     }
     
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     public final java.lang.String getDescriptionOfProblems() {
         return null;
     }
     
-    public final void setDescriptionOfProblems(@org.jetbrains.annotations.NotNull()
+    public final void setDescriptionOfProblems(@org.jetbrains.annotations.NotNull
     java.lang.String p0) {
     }
     
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     public final java.lang.String getLocation() {
         return null;
     }
     
-    public final void setLocation(@org.jetbrains.annotations.NotNull()
+    public final void setLocation(@org.jetbrains.annotations.NotNull
     java.lang.String p0) {
     }
     
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     public final com.aisc.ngalo.databinding.ImagesDialogBinding getCustomDialogBinding() {
         return null;
     }
     
-    public final void setCustomDialogBinding(@org.jetbrains.annotations.NotNull()
+    public final void setCustomDialogBinding(@org.jetbrains.annotations.NotNull
     com.aisc.ngalo.databinding.ImagesDialogBinding p0) {
     }
     
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     @android.annotation.SuppressLint(value = {"ClickableViewAccessibility", "CutPasteId"})
-    @java.lang.Override()
-    public android.view.View onCreateView(@org.jetbrains.annotations.NotNull()
-    android.view.LayoutInflater inflater, @org.jetbrains.annotations.Nullable()
-    android.view.ViewGroup container, @org.jetbrains.annotations.Nullable()
+    @java.lang.Override
+    public android.view.View onCreateView(@org.jetbrains.annotations.NotNull
+    android.view.LayoutInflater inflater, @org.jetbrains.annotations.Nullable
+    android.view.ViewGroup container, @org.jetbrains.annotations.Nullable
     android.os.Bundle savedInstanceState) {
         return null;
     }
@@ -83,8 +83,8 @@ public final class RequestBottomSheetDialog extends com.google.android.material.
     private final void uploadToFirebase(android.net.Uri downloadUrl) {
     }
     
-    @java.lang.Override()
-    public void onActivityResult(int requestCode, int resultCode, @org.jetbrains.annotations.Nullable()
+    @java.lang.Override
+    public void onActivityResult(int requestCode, int resultCode, @org.jetbrains.annotations.Nullable
     android.content.Intent data) {
     }
     

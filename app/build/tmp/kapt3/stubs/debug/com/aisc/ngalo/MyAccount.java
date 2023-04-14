@@ -6,7 +6,7 @@ import java.lang.System;
 public final class MyAccount extends androidx.appcompat.app.AppCompatActivity {
     public com.aisc.ngalo.databinding.ActivityMyAccountBinding binding;
     private com.google.firebase.auth.FirebaseAuth auth;
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     private final androidx.compose.runtime.MutableState<android.net.Uri> imageUri = null;
     private android.net.Uri downloadUrl;
     private androidx.activity.result.ActivityResultLauncher<android.content.Intent> activityResultLauncher;
@@ -15,22 +15,22 @@ public final class MyAccount extends androidx.appcompat.app.AppCompatActivity {
         super();
     }
     
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     public final com.aisc.ngalo.databinding.ActivityMyAccountBinding getBinding() {
         return null;
     }
     
-    public final void setBinding(@org.jetbrains.annotations.NotNull()
+    public final void setBinding(@org.jetbrains.annotations.NotNull
     com.aisc.ngalo.databinding.ActivityMyAccountBinding p0) {
     }
     
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     public final androidx.compose.runtime.MutableState<android.net.Uri> getImageUri() {
         return null;
     }
     
-    @java.lang.Override()
-    protected void onCreate(@org.jetbrains.annotations.Nullable()
+    @java.lang.Override
+    protected void onCreate(@org.jetbrains.annotations.Nullable
     android.os.Bundle savedInstanceState) {
     }
     
@@ -40,8 +40,8 @@ public final class MyAccount extends androidx.appcompat.app.AppCompatActivity {
     private final void openImageFiles() {
     }
     
-    @java.lang.Override()
-    protected void onActivityResult(int requestCode, int resultCode, @org.jetbrains.annotations.Nullable()
+    @java.lang.Override
+    protected void onActivityResult(int requestCode, int resultCode, @org.jetbrains.annotations.Nullable
     android.content.Intent data) {
     }
     

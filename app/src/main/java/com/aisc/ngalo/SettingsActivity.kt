@@ -1,5 +1,7 @@
 package com.aisc.ngalo
 
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.ListPreference
@@ -18,17 +20,44 @@ class SettingsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        // Save the selected theme option to SharedPreferences when the activity is destroyed
+        saveThemeToPreferences()
+    }
+
+    private fun saveThemeToPreferences() {
+        // Store the selected theme option in SharedPreferences
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val themePreference: ListPreference? = SettingsFragment().findPreference("theme")
+        val themeOption = themePreference!!.value
+        sharedPreferences.edit().putString("theme", themeOption).apply()
+    }
+
     class SettingsFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.settings, rootKey)
             val themePreference: ListPreference = findPreference("theme")!!
+            val aboutPreference: Preference = findPreference("about")!!
             themePreference.summary = themePreference.entry
+
+            // Retrieve the previously selected theme option from SharedPreferences
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+            val savedThemeOption = sharedPreferences.getString("theme", "dark")
+            themePreference.setValue(savedThemeOption)
+
             themePreference.onPreferenceChangeListener =
                 Preference.OnPreferenceChangeListener { preference, newValue ->
                     val themeOption = newValue as String?
                     ThemeHelper.applyTheme(themeOption!!)
                     true
                 }
+
+            aboutPreference.setOnPreferenceClickListener {
+                val intent = Intent(requireContext(), SocialMediaActivity::class.java)
+                startActivity(intent)
+                true
+            }
         }
     }
 }

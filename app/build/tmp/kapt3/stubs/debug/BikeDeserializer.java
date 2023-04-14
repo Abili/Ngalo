@@ -8,11 +8,11 @@ public final class BikeDeserializer implements com.google.gson.JsonDeserializer<
         super();
     }
     
-    @org.jetbrains.annotations.NotNull()
-    @java.lang.Override()
-    public Bike deserialize(@org.jetbrains.annotations.Nullable()
-    com.google.gson.JsonElement json, @org.jetbrains.annotations.Nullable()
-    java.lang.reflect.Type typeOfT, @org.jetbrains.annotations.Nullable()
+    @org.jetbrains.annotations.NotNull
+    @java.lang.Override
+    public Bike deserialize(@org.jetbrains.annotations.Nullable
+    com.google.gson.JsonElement json, @org.jetbrains.annotations.Nullable
+    java.lang.reflect.Type typeOfT, @org.jetbrains.annotations.Nullable
     com.google.gson.JsonDeserializationContext context) {
         return null;
     }

@@ -1,20 +1,17 @@
 package com.aisc.ngalo
 
-import android.R
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Adapter
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.ListAdapter
+import androidx.appcompat.app.AppCompatActivity
+import com.aisc.ngalo.cart.Cart
+import com.aisc.ngalo.cart.CartActivity
 import com.aisc.ngalo.databinding.ActivityBikeDetailsBinding
 import com.aisc.ngalo.models.Bike
 import com.bumptech.glide.Glide
-import java.lang.Integer.parseInt
 
 class BikeDetails : AppCompatActivity() {
+    var counter = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityBikeDetailsBinding.inflate(layoutInflater)
@@ -37,6 +34,36 @@ class BikeDetails : AppCompatActivity() {
             binding.detailsDesc.visibility = View.GONE
         }
         binding.textViewDesc.text = bikeDesc
+
+        // create a new Cart instance outside of the click listeners
+        val cart = Cart()
+        val count = binding.countTv!!.text.toString()
+        counter = count.toInt()
+        binding.addBtn!!.setOnClickListener {
+            counter++
+            binding.countTv.text = counter.toString()
+        }
+
+        binding.subBtn!!.setOnClickListener {
+            if (counter > 0) {
+                counter--
+                binding.countTv.text = counter.toString()
+            }
+        }
+
+
+        binding.checkoutBtn!!.setOnClickListener {
+            binding.cartValue!!.text = binding.countTv.text.toString()
+        }
+
+        binding.cart!!.setOnClickListener {
+            val intent = Intent(this, CartActivity::class.java)
+            intent.putExtra("count", binding.cartValue!!.text.toString())
+            intent.putExtra("price", bikePrice)
+            intent.putExtra("name", bikeName)
+            intent.putExtra("image", bikeImage)
+            startActivity(intent)
+        }
 
     }
 

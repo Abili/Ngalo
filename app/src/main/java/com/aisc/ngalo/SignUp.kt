@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.PreferenceManager
 import com.aisc.ngalo.databinding.ActivitySignUpBinding
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
@@ -25,8 +26,12 @@ class SignUp : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         FirebaseDatabase.getInstance().setPersistenceEnabled(true)
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val themeOption = sharedPreferences.getString("theme", "0")
+        ThemeHelper.applyTheme(themeOption!!)
+
+
         val ref = FirebaseDatabase.getInstance().getReference("bikes")
         ref.keepSynced(true)
         FirebaseApp.initializeApp(this)

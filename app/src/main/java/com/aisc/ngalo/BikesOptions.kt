@@ -4,25 +4,26 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ArrayAdapter
-import android.widget.LinearLayout
-import android.widget.ListView
-import androidx.appcompat.widget.SearchView
+import android.view.View
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.aisc.ngalo.admin.UploadItems
+import com.aisc.ngalo.cart.CartActivity
 import com.aisc.ngalo.databinding.ActivityBikesOptionsBinding
-import com.aisc.ngalo.databinding.SearchviewBinding
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class BikesOptions : AppCompatActivity() {
+class BikesOptions : AppCompatActivity(), BikesAdapter.OnCartUpdatedListener {
 
     private lateinit var binding: ActivityBikesOptionsBinding
+    private var bikesAdapter: BikesAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,14 +35,24 @@ class BikesOptions : AppCompatActivity() {
         binding.tabs.setBackgroundColor(resources.getColor(R.color.ngalo_green))
         // binding.tabs.setTabTextColors(R.color.ngalo_green,R.color.ngalo_green)
         setSupportActionBar(binding.optionstoolbar)
+        bikesAdapter = BikesAdapter()
+        bikesAdapter!!.setOnCartUpdatedListener(object : BikesAdapter.OnCartUpdatedListener {
+            override fun onCartUpdated(count: Int) {
+                // handle cart update
+                Toast.makeText(this@BikesOptions, "Item added", Toast.LENGTH_SHORT).show()
+            }
+        })
+
 
         when (intent.getIntExtra("position", 0)) {
             0 -> {
                 binding.viewPager.setCurrentItem(0, false)
             }
+
             1 -> {
                 binding.viewPager.setCurrentItem(1, false)
             }
+
             else -> {
                 binding.viewPager.setCurrentItem(2, false)
             }
@@ -122,10 +133,10 @@ class BikesOptions : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_settings -> {
+            R.id.action_cart -> {
                 startActivity(
                     Intent(
-                        this@BikesOptions, SettingsActivity::class.java
+                        this@BikesOptions, CartActivity::class.java
                     )
                 )
                 true
@@ -137,6 +148,17 @@ class BikesOptions : AppCompatActivity() {
 //            }
             else -> super.onOptionsItemSelected(item)
         }
+
+    }
+
+    override fun onCartUpdated(count: Int) {
+        //Toast.makeText(this, "Item added", Toast.LENGTH_SHORT).show()
+        val cartTv = findViewById<TextView>(R.id.cart_count)
+        cartTv.text = count.toString()
+    }
+
+    fun addToCart(view: View) {
+        Toast.makeText(this, "Item added", Toast.LENGTH_SHORT).show()
 
     }
 }

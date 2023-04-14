@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="ngalo_green">#257875</color>
     <color name="ngalo_blue">#2A3271</color>
+    <color name="ngalo_gray">#ECEBEB</color>
+
 </resources>

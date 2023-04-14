@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory
-        android:title="About Us">
-       <Preference
-           android:key="about"
-           android:title="Ngalo "
-           android:summary="Bicycle Service Delivery Company"
-           android:entries="@string/aboutUs"
-           />
+    <PreferenceCategory android:title="About Us">
+        <Preference
+            android:entries="@string/aboutUs"
+            android:key="about"
+            android:summary="Social Media Accounts"
+            android:title="Ngalo " />
     </PreferenceCategory>
-    <PreferenceCategory
-        android:title="App Theme">
+    <PreferenceCategory android:title="App Theme">
         <ListPreference
-            android:key="theme"
-            android:title="App Theme"
-            android:summary="Choose the app theme"
             android:entries="@array/themes"
-            android:entryValues="@array/themes_values" />
+            android:entryValues="@array/themes_values"
+            android:key="theme"
+            android:summary="Choose the app theme"
+            android:title="App Theme" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Version">
+        <Preference
+            android:entries="@string/version"
+            android:key="version"
+            android:summary="verion: 1.0"
+            android:title="Version " />
     </PreferenceCategory>
 </PreferenceScreen>

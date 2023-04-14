@@ -3,8 +3,6 @@ package com.aisc.ngalo
 import android.content.Context
 import androidx.room.Room
 import com.aisc.ngalo.models.Bike
-import com.aisc.ngalo.network.MarsApi
-import com.aisc.ngalo.models.BikePhotos
 import com.aisc.ngalo.network.BikeDatabase
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError

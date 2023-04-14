@@ -10,6 +10,6 @@ public abstract class BikeDatabase extends androidx.room.RoomDatabase {
         super();
     }
     
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     public abstract com.aisc.ngalo.network.BikeDao bikeDao();
 }

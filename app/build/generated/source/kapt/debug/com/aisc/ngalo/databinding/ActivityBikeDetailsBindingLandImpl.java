@@ -34,10 +34,14 @@ public class ActivityBikeDetailsBindingLandImpl extends ActivityBikeDetailsBindi
     }
     private ActivityBikeDetailsBindingLandImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 0
+            , null
             , (android.widget.ImageView) bindings[1]
             , null
             , null
+            , null
+            , null
             , (android.widget.TextView) bindings[5]
+            , null
             , (android.widget.TextView) bindings[3]
             , (android.widget.TextView) bindings[6]
             , (android.widget.TextView) bindings[4]

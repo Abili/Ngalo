@@ -22,6 +22,10 @@ public class ActivityBikeDetailsBindingImpl extends ActivityBikeDetailsBinding  
         sViewsWithIds.put(R.id.textViewPrice, 6);
         sViewsWithIds.put(R.id.detailsDesc, 7);
         sViewsWithIds.put(R.id.textViewDesc, 8);
+        sViewsWithIds.put(R.id.sub_btn, 9);
+        sViewsWithIds.put(R.id.count_tv, 10);
+        sViewsWithIds.put(R.id.add_btn, 11);
+        sViewsWithIds.put(R.id.checkout_btn, 12);
     }
     // views
     @NonNull
@@ -32,14 +36,18 @@ public class ActivityBikeDetailsBindingImpl extends ActivityBikeDetailsBinding  
     // Inverse Binding Event Handlers
 
     public ActivityBikeDetailsBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 9, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 13, sIncludes, sViewsWithIds));
     }
     private ActivityBikeDetailsBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 0
+            , (android.widget.Button) bindings[11]
             , (android.widget.ImageView) bindings[3]
             , (android.widget.ImageView) bindings[1]
             , (android.widget.TextView) bindings[2]
+            , (android.widget.Button) bindings[12]
+            , (android.widget.TextView) bindings[10]
             , (android.widget.TextView) bindings[7]
+            , (android.widget.Button) bindings[9]
             , (android.widget.TextView) bindings[5]
             , (android.widget.TextView) bindings[8]
             , (android.widget.TextView) bindings[6]

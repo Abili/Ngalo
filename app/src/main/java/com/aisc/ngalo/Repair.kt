@@ -4,7 +4,16 @@ class Repair(
     var id: String = "",
     var imageUrl: String,
     var description: String = "",
-    var latLng: Location? = null
+    var latLng: LocationObject? = null,
+    val requestTime: String? = "",
+    val category: String? = ""
 ) {
-    constructor() : this(id = "", imageUrl = "", description = "", latLng = null)
+    constructor() : this(
+        id = "",
+        imageUrl = "",
+        description = "",
+        latLng = null,
+        requestTime = "",
+        category = ""
+    )
 }

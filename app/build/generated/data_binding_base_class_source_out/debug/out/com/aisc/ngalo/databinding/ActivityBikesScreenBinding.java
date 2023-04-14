@@ -18,7 +18,20 @@ public abstract class ActivityBikesScreenBinding extends ViewDataBinding {
   @NonNull
   public final RecyclerView bikeRecyclerView;
 
-  @NonNull
+  /**
+   * This binding is not available in all configurations.
+   * <p>
+   * Present:
+   * <ul>
+   *   <li>layout-land/</li>
+   * </ul>
+   *
+   * Absent:
+   * <ul>
+   *   <li>layout/</li>
+   * </ul>
+   */
+  @Nullable
   public final FloatingActionButton fbAddBike;
 
   protected ActivityBikesScreenBinding(Object _bindingComponent, View _root, int _localFieldCount,

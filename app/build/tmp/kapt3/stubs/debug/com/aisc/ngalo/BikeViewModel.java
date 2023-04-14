@@ -6,7 +6,7 @@ import java.lang.System;
 public final class BikeViewModel extends androidx.lifecycle.ViewModel {
     private final com.aisc.ngalo.BikeRepository repository = null;
     
-    public BikeViewModel(@org.jetbrains.annotations.NotNull()
+    public BikeViewModel(@org.jetbrains.annotations.NotNull
     com.aisc.ngalo.BikeRepository repository) {
         super();
     }
@@ -14,7 +14,7 @@ public final class BikeViewModel extends androidx.lifecycle.ViewModel {
     public final void fetchData() {
     }
     
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     public final androidx.lifecycle.LiveData<java.util.List<com.aisc.ngalo.models.Bike>> getAllBikes() {
         return null;
     }
@@ -23,14 +23,14 @@ public final class BikeViewModel extends androidx.lifecycle.ViewModel {
     public static final class BikeViewModelFactory extends androidx.lifecycle.ViewModelProvider.NewInstanceFactory {
         private final com.aisc.ngalo.BikeRepository repository = null;
         
-        public BikeViewModelFactory(@org.jetbrains.annotations.NotNull()
+        public BikeViewModelFactory(@org.jetbrains.annotations.NotNull
         com.aisc.ngalo.BikeRepository repository) {
             super();
         }
         
-        @org.jetbrains.annotations.NotNull()
-        @java.lang.Override()
-        public <T extends androidx.lifecycle.ViewModel>T create(@org.jetbrains.annotations.NotNull()
+        @org.jetbrains.annotations.NotNull
+        @java.lang.Override
+        public <T extends androidx.lifecycle.ViewModel>T create(@org.jetbrains.annotations.NotNull
         java.lang.Class<T> modelClass) {
             return null;
         }

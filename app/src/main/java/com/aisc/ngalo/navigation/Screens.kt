@@ -6,4 +6,5 @@ sealed class Screens(val route: String) {
     object HireBike: Screens("hire_bike")
     object RepairBike: Screens("repaire_bike")
     object BuyBike: Screens("buy_bike")
+    object SignUp: Screens("sign_up")
 }

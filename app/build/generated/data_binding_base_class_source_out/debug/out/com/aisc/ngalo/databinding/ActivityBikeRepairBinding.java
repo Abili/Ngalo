@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
@@ -38,12 +39,12 @@ public final class ActivityBikeRepairBinding implements ViewBinding {
   public final Button requestRepairButton;
 
   @NonNull
-  public final EditText userLocationEditText;
+  public final TextView userLocationEditText;
 
   private ActivityBikeRepairBinding(@NonNull FrameLayout rootView,
       @NonNull ImageView bikerepairImageView, @NonNull LinearLayout bottomSheet,
       @NonNull Button orderdocBtn, @NonNull EditText repairDescriptionEditText,
-      @NonNull Button requestRepairButton, @NonNull EditText userLocationEditText) {
+      @NonNull Button requestRepairButton, @NonNull TextView userLocationEditText) {
     this.rootView = rootView;
     this.bikerepairImageView = bikerepairImageView;
     this.bottomSheet = bottomSheet;
@@ -111,7 +112,7 @@ public final class ActivityBikeRepairBinding implements ViewBinding {
       }
 
       id = R.id.userLocationEditText;
-      EditText userLocationEditText = ViewBindings.findChildViewById(rootView, id);
+      TextView userLocationEditText = ViewBindings.findChildViewById(rootView, id);
       if (userLocationEditText == null) {
         break missingId;
       }

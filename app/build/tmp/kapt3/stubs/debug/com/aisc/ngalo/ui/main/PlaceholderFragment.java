@@ -9,7 +9,7 @@ import java.lang.System;
 public final class PlaceholderFragment extends androidx.fragment.app.Fragment {
     private com.aisc.ngalo.ui.main.PageViewModel pageViewModel;
     private com.aisc.ngalo.databinding.FragmentBikesOptionsBinding _binding;
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     public static final com.aisc.ngalo.ui.main.PlaceholderFragment.Companion Companion = null;
     
     /**
@@ -26,16 +26,16 @@ public final class PlaceholderFragment extends androidx.fragment.app.Fragment {
         return null;
     }
     
-    @java.lang.Override()
-    public void onCreate(@org.jetbrains.annotations.Nullable()
+    @java.lang.Override
+    public void onCreate(@org.jetbrains.annotations.Nullable
     android.os.Bundle savedInstanceState) {
     }
     
-    @org.jetbrains.annotations.Nullable()
-    @java.lang.Override()
-    public android.view.View onCreateView(@org.jetbrains.annotations.NotNull()
-    android.view.LayoutInflater inflater, @org.jetbrains.annotations.Nullable()
-    android.view.ViewGroup container, @org.jetbrains.annotations.Nullable()
+    @org.jetbrains.annotations.Nullable
+    @java.lang.Override
+    public android.view.View onCreateView(@org.jetbrains.annotations.NotNull
+    android.view.LayoutInflater inflater, @org.jetbrains.annotations.Nullable
+    android.view.ViewGroup container, @org.jetbrains.annotations.Nullable
     android.os.Bundle savedInstanceState) {
         return null;
     }
@@ -44,13 +44,13 @@ public final class PlaceholderFragment extends androidx.fragment.app.Fragment {
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    @org.jetbrains.annotations.NotNull()
-    @kotlin.jvm.JvmStatic()
+    @org.jetbrains.annotations.NotNull
+    @kotlin.jvm.JvmStatic
     public static final com.aisc.ngalo.ui.main.PlaceholderFragment newInstance(int sectionNumber) {
         return null;
     }
     
-    @java.lang.Override()
+    @java.lang.Override
     public void onDestroyView() {
     }
     
@@ -65,8 +65,8 @@ public final class PlaceholderFragment extends androidx.fragment.app.Fragment {
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        @org.jetbrains.annotations.NotNull()
-        @kotlin.jvm.JvmStatic()
+        @org.jetbrains.annotations.NotNull
+        @kotlin.jvm.JvmStatic
         public final com.aisc.ngalo.ui.main.PlaceholderFragment newInstance(int sectionNumber) {
             return null;
         }

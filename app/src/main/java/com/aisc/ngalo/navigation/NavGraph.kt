@@ -30,6 +30,9 @@ fun NavGraph (navController: NavHostController){
         composable(route = Screens.BuyBike.route){
             MainActivity(navController)
         }
+        composable(route = Screens.SignUp.route){
+            MainActivity(navController)
+        }
 
     }
 }

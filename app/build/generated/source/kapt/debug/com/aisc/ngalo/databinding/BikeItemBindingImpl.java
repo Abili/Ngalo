@@ -20,6 +20,7 @@ public class BikeItemBindingImpl extends BikeItemBinding  {
         sViewsWithIds.put(R.id.textViewPrice, 4);
         sViewsWithIds.put(R.id.textViewDesc, 5);
         sViewsWithIds.put(R.id.deleteBike, 6);
+        sViewsWithIds.put(R.id.add_to_cart, 7);
     }
     // views
     @NonNull
@@ -30,10 +31,11 @@ public class BikeItemBindingImpl extends BikeItemBinding  {
     // Inverse Binding Event Handlers
 
     public BikeItemBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 7, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 8, sIncludes, sViewsWithIds));
     }
     private BikeItemBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 0
+            , (android.widget.TextView) bindings[7]
             , (android.widget.ImageView) bindings[1]
             , (android.widget.ImageView) bindings[6]
             , (android.widget.TextView) bindings[3]

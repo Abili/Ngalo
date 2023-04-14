@@ -12,6 +12,14 @@ object MainActivity:Destinations {
     override val route: String = "main_activity"
 
 }
+object AdminOUser:Destinations {
+    override val route: String = "adminouser"
+
+}
+object SignUp:Destinations {
+    override val route: String = "sign_up"
+
+}
 object HireBike:Destinations {
     override val route: String = "hire_bike"
 

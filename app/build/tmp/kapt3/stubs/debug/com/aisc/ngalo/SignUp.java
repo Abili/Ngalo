@@ -6,7 +6,7 @@ import java.lang.System;
 public final class SignUp extends androidx.appcompat.app.AppCompatActivity {
     private com.aisc.ngalo.databinding.ActivitySignUpBinding binding;
     private com.google.firebase.auth.FirebaseAuth auth;
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     public static final com.aisc.ngalo.SignUp.Companion Companion = null;
     private static final java.lang.String TAG = "MainActivity";
     
@@ -14,8 +14,8 @@ public final class SignUp extends androidx.appcompat.app.AppCompatActivity {
         super();
     }
     
-    @java.lang.Override()
-    protected void onCreate(@org.jetbrains.annotations.Nullable()
+    @java.lang.Override
+    protected void onCreate(@org.jetbrains.annotations.Nullable
     android.os.Bundle savedInstanceState) {
     }
     

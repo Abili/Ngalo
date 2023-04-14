@@ -3,10 +3,8 @@ package com.aisc.ngalo
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.aisc.ngalo.admin.Advert
-import com.aisc.ngalo.admin.CreateAdvert
 import com.aisc.ngalo.databinding.ActivityHomeBinding
-import com.aisc.ngalo.models.Bike
+import com.aisc.ngalo.usersorders.UsersOrders
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -14,7 +12,6 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.getValue
 
 class HomeActivity : AppCompatActivity() {
     lateinit var binding: ActivityHomeBinding
@@ -87,6 +84,9 @@ class HomeActivity : AppCompatActivity() {
         }
         binding.myaccountHome.setOnClickListener {
             startActivity(Intent(this, MyAccount::class.java))
+        }
+        binding.ordersHome.setOnClickListener {
+            startActivity(Intent(this, UsersOrders::class.java))
         }
     }
 }
