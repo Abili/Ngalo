@@ -83,7 +83,6 @@
                     android:layout_height="wrap_content"/>
 
                 <TextView
-                    android:onClick="addToCart"
                     android:id="@+id/add_to_cart"
                     android:text="Add to Cart"
                     android:layout_marginBottom="5dp"

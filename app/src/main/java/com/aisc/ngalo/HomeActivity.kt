@@ -3,6 +3,7 @@ package com.aisc.ngalo
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.aisc.ngalo.databinding.ActivityHomeBinding
 import com.aisc.ngalo.usersorders.UsersOrders
 import com.bumptech.glide.Glide
@@ -20,27 +21,35 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val currentUserUID = FirebaseAuth.getInstance().currentUser!!.uid
-        val userRef = FirebaseDatabase
-            .getInstance()
-            .reference
-            .child("users")
-            .child(currentUserUID)
-        userRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (!snapshot.exists()) {
-                    startActivity(Intent(this@HomeActivity, UserProfile::class.java))
-                    finish()
+
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser != null) {
+            val currentUserUID = currentUser.uid
+            // do something with currentUserUID
+            val userRef = FirebaseDatabase
+                .getInstance()
+                .reference
+                .child("users")
+                .child(currentUserUID)
+            userRef.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (!snapshot.exists()) {
+                        startActivity(Intent(this@HomeActivity, UserProfile::class.java))
+                        finish()
+                    }
                 }
-            }
 
-            override fun onCancelled(error: DatabaseError) {
-                Snackbar.make(binding.root, error.message, Snackbar.LENGTH_SHORT).show()
-            }
+                override fun onCancelled(error: DatabaseError) {
+                    Snackbar.make(binding.root, error.message, Snackbar.LENGTH_SHORT).show()
+                }
 
-        })
+            })
 
-
+        } else {
+            // handle null case
+            startActivity(Intent(this@HomeActivity, SignUp::class.java))
+            finish()
+        }
 
         binding.buy.setOnClickListener {
             val intent = Intent(this, BikesOptions::class.java)
@@ -74,7 +83,7 @@ class HomeActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Toast.makeText(this@HomeActivity, error.message,Toast.LENGTH_SHORT).show()
             }
 
         })

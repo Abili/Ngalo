@@ -1,45 +1,85 @@
 package com.aisc.ngalo.cart
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.aisc.ngalo.Item
-import kotlinx.coroutines.launch
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.google.firebase.auth.FirebaseAuth
 
+class CartViewModel(application: Application) : AndroidViewModel(application) {
 
+    private val cartRepository: CartRepository = CartRepository()
+    private val _cartItems = MutableLiveData<List<CartItem>>()
 
-class CartViewModel(private val repository: CartRepository) : ViewModel() {
-    // Create a mutable list to hold the cart items
-     val cartItems = repository.cartItems
+    val uid = FirebaseAuth.getInstance().currentUser!!.uid
+//    val cartItems: LiveData<List<CartItem>>
+//        get() = _cartItems
 
     init {
-        viewModelScope.launch {
-            cartItems
+        // Initially load local cart data
+        _cartItems.value = cartRepository.getItemsFromFirebase().value
+
+    }
+
+    // Observe local cart data changes
+    fun fetchCartItems(): LiveData<List<CartItem>> {
+        return cartRepository.getItemsFromFirebase()
+    }
+
+    // Add item to local cart data and Firebase
+    fun addItem(item: CartItem) {
+        val cartItem =
+            CartItem(item.id, item.name, item.price, item.imageUrl, item.quantity, item.position)
+//        cartRepository.addItemOrUpdateQuantity(cartItem)
+
+        cartRepository.addItemsToFirebase(cartItem)
+    }
+
+    // Delete item from local cart data and Firebase
+    suspend fun deleteItem(item: CartItem) {
+        cartRepository.deleteItem(item)
+        // TODO: Delete item from Firebase
+    }
+
+    private val cartItemsCountLiveData = MutableLiveData<Int>()
+    private val _totalPrice = MutableLiveData<Int>()
+    val totalPrice: LiveData<Int>
+        get() = _totalPrice
+
+    // Function to get the number of items in the cart
+    fun getCartItemsCount() {
+        cartRepository.getCartItemsCount { count ->
+            // Update the LiveData with the count
+            cartItemsCountLiveData.postValue(count)
         }
     }
 
-    // Add an item to the cart
-    fun addItem(item: Item) {
-        repository.addItemToCart(item)
+    // Function to observe the LiveData for the number of items in the cart
+    fun observeCartItemsCount(): LiveData<Int> {
+        return cartItemsCountLiveData
     }
-//
-//
-//    // Remove an item from the cart
-//    fun removeItem(item: Item) {
-//        cartItems.remove(item)
-//    }
-//
-//    // Get the current cart items
-//    fun getCartItems(): List<Item> {
-//        return cartItems
-//    }
-//
-//    // Get the total price of the cart
-//    fun getTotalPrice(): Int {
-//        var totalPrice = 0
-//        for (item in cartItems) {
-//            totalPrice += item.price!!
-//        }
-//        return totalPrice
-//    }
+
+
+    fun getTotal(): LiveData<Int> {
+        return cartRepository.getTotalPriceOfCartItems()
+    }
 }
+
+// Get items from Firebase and update local cart data
+//    fun syncCart() {
+//        val valueEventListener = cartRepository.getItemsFromFirebase()
+//        val cartItems = mutableListOf<CartItem>()
+//        valueEventListener.let {
+//            it.onDataChange { snapshot ->
+//                cartItems.clear()
+//                for (itemSnapshot in snapshot.children) {
+//                    val cartItem = itemSnapshot.getValue(CartItem::class.java)
+//                    cartItem?.let {
+//                        cartItems.add(it)
+//                    }
+//                }
+//                cartRepository.syncCart(cartItems)
+//            }
+//        }
+//    }
 

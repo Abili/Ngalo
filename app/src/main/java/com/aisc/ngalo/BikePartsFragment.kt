@@ -63,7 +63,7 @@ class BikePartsFragment : Fragment() {
 //                    //update UI
 //                    binding.bikeRecyclerView.adapter = bikesAdapter
 //                }
-                bikesAdapter = BikesAdapter()
+                bikesAdapter = BikesAdapter(null)
                 binding.bikepartsRecyclerView.adapter = bikesAdapter
                 binding.bikepartsRecyclerView.layoutManager = LinearLayoutManager(
                     requireContext(),

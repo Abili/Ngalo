@@ -17,23 +17,23 @@ class BikeDetails : AppCompatActivity() {
         val binding = ActivityBikeDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val bikeDetails = intent
-        val bikeName = bikeDetails.getStringExtra("name")
-        val bikePrice = bikeDetails.getStringExtra("price")
-        val bikeImage = bikeDetails.getStringExtra("imageUrl")
-        val bikeDesc = bikeDetails.getStringExtra("desc")
+        val bike = intent.getParcelableExtra<Bike>("bike")
+        if (bike != null) {
+            // Set the name, price, and image
+            binding.textBikeName.text = bike.name
+            binding.textViewPrice.text = "Ugx\t${bike.price}"
+            binding.textViewDesc.text = bike.description
+            Glide.with(binding.root)
+                .load(bike.imageUrl)
+                .centerInside()
+                .into(binding.bikeImage)
+        }
 
-        binding.textBikeName.text = bikeName
-        binding.textViewPrice.text = "Ugx\t${bikePrice}"
-        Glide.with(this)
-            .load(bikeImage)
-            .into(binding.bikeImage)
-
-        if (bikeDesc.isNullOrEmpty()) {
+        if (bike!!.description.isNullOrEmpty()) {
             binding.textViewDesc.visibility = View.GONE
             binding.detailsDesc.visibility = View.GONE
         }
-        binding.textViewDesc.text = bikeDesc
+        binding.textViewDesc.text = bike.description
 
         // create a new Cart instance outside of the click listeners
         val cart = Cart()
@@ -59,9 +59,9 @@ class BikeDetails : AppCompatActivity() {
         binding.cart!!.setOnClickListener {
             val intent = Intent(this, CartActivity::class.java)
             intent.putExtra("count", binding.cartValue!!.text.toString())
-            intent.putExtra("price", bikePrice)
-            intent.putExtra("name", bikeName)
-            intent.putExtra("image", bikeImage)
+            intent.putExtra("price", bike.price)
+            intent.putExtra("name", bike.name)
+            intent.putExtra("image", bike.imageUrl)
             startActivity(intent)
         }
 

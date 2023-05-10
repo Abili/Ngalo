@@ -4,6 +4,8 @@ package com.aisc.ngalo.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -23,6 +25,12 @@ public final class ActivityBikesOptionsBinding implements ViewBinding {
   private final CoordinatorLayout rootView;
 
   @NonNull
+  public final TextView cartCount;
+
+  @NonNull
+  public final ImageView cartIcon;
+
+  @NonNull
   public final FloatingActionButton fabAddBike;
 
   @NonNull
@@ -35,9 +43,12 @@ public final class ActivityBikesOptionsBinding implements ViewBinding {
   public final ViewPager viewPager;
 
   private ActivityBikesOptionsBinding(@NonNull CoordinatorLayout rootView,
+      @NonNull TextView cartCount, @NonNull ImageView cartIcon,
       @NonNull FloatingActionButton fabAddBike, @NonNull Toolbar optionstoolbar,
       @NonNull TabLayout tabs, @NonNull ViewPager viewPager) {
     this.rootView = rootView;
+    this.cartCount = cartCount;
+    this.cartIcon = cartIcon;
     this.fabAddBike = fabAddBike;
     this.optionstoolbar = optionstoolbar;
     this.tabs = tabs;
@@ -71,6 +82,18 @@ public final class ActivityBikesOptionsBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.cart_count;
+      TextView cartCount = ViewBindings.findChildViewById(rootView, id);
+      if (cartCount == null) {
+        break missingId;
+      }
+
+      id = R.id.cart_icon;
+      ImageView cartIcon = ViewBindings.findChildViewById(rootView, id);
+      if (cartIcon == null) {
+        break missingId;
+      }
+
       id = R.id.fabAddBike;
       FloatingActionButton fabAddBike = ViewBindings.findChildViewById(rootView, id);
       if (fabAddBike == null) {
@@ -95,8 +118,8 @@ public final class ActivityBikesOptionsBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityBikesOptionsBinding((CoordinatorLayout) rootView, fabAddBike,
-          optionstoolbar, tabs, viewPager);
+      return new ActivityBikesOptionsBinding((CoordinatorLayout) rootView, cartCount, cartIcon,
+          fabAddBike, optionstoolbar, tabs, viewPager);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

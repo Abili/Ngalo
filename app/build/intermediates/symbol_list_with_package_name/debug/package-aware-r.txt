@@ -3592,7 +3592,6 @@ id action_bar_root
 id action_bar_spinner
 id action_bar_subtitle
 id action_bar_title
-id action_cart
 id action_container
 id action_context_bar
 id action_delete
@@ -3676,7 +3675,6 @@ id callMeasure
 id camera
 id cancel_action
 id cancel_button
-id carImg
 id cardView
 id carryVelocity
 id cart
@@ -3702,6 +3700,7 @@ id chain2
 id chains
 id checkbox
 id checked
+id checkout
 id checkout_btn
 id chronometer
 id circle_center
@@ -4377,6 +4376,7 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_add_bicycle_part
+layout activity_addtocart
 layout activity_admin_home_page
 layout activity_bike_details
 layout activity_bike_repair

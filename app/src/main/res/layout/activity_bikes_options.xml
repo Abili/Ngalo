@@ -18,6 +18,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <FrameLayout
+                android:layout_gravity="end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/cart_icon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_shopping_check_out" />
+
+                <TextView
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/cart_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:textColor="@color/ngalo_blue"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:text="0" />
+
+            </FrameLayout>
+
+
         </androidx.appcompat.widget.Toolbar>
 
 

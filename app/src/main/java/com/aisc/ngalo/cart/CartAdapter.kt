@@ -5,25 +5,31 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.aisc.ngalo.Item
 import com.aisc.ngalo.R
 import com.aisc.ngalo.databinding.CartItemBinding
 import com.aisc.ngalo.models.items
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
-class CartAdapter(private val listener: onClick) : RecyclerView.Adapter<CartAdapter.ViewHolder>(),
-    View.OnClickListener {
+class CartAdapter() : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
 
-    private val orders = mutableListOf<Item>()
+    private val orders = mutableListOf<CartItem>()
+    private val cart = mutableListOf<List<CartItem>>()
 
-    interface onClick {
-        fun itemOnclick()
+
+    fun setItems(items: List<CartItem>) {
+        orders.clear()
+        orders.addAll(items)
+        notifyDataSetChanged()
     }
 
-    fun add(item: Item) {
-        orders.add(item)
+    fun add(items: List<CartItem>) {
+        orders.addAll(items)
         notifyDataSetChanged()
     }
 
@@ -49,7 +55,7 @@ class CartAdapter(private val listener: onClick) : RecyclerView.Adapter<CartAdap
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = CartItemBinding.inflate(layoutInflater, parent, false)
+        val binding = layoutInflater.inflate(R.layout.cart_item, parent, false)
 
         return ViewHolder(binding)
     }
@@ -63,27 +69,43 @@ class CartAdapter(private val listener: onClick) : RecyclerView.Adapter<CartAdap
         return orders.size
     }
 
-    override fun onClick(v: View?) {
-        listener.itemOnclick()
-    }
 
-    inner class ViewHolder(private val binding: CartItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(itemView: View) :
+        RecyclerView.ViewHolder(itemView) {
         private lateinit var auth: FirebaseAuth
+        private val binding: CartItemBinding = CartItemBinding.bind(itemView)
 
-        init {
-            binding.root.setOnClickListener {
-                listener.itemOnclick()
-            }
-        }
 
-        fun bind(item: Item, orders: MutableList<Item>) {
+        fun bind(item: CartItem, orders: MutableList<CartItem>) {
+            var cartItem = orders.indexOfFirst { it.id == item.id }
+            var counter: Int? = null
+
+            var count = item.quantity ?: 0
             auth = FirebaseAuth.getInstance()
+
+
+            val cartRef = FirebaseDatabase.getInstance().reference.child("cartitems").child(uid)
+            cartRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for (cartSnap in snapshot.children) {
+                        val id = cartSnap.child("id").getValue(String::class.java)
+                        if (id == item.id.toString()) {
+                            counter = cartSnap.child("quantity").getValue(Int::class.java)
+                            binding.itemNumber.text = counter.toString()
+                        }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+            })
+
 
             //bike pic
             if (auth.currentUser!!.photoUrl.toString().isNotEmpty()) {
                 Glide.with(binding.root)
-                    .load(item.image)
+                    .load(item.imageUrl)
                     .centerInside()
                     .into(binding.cartitemImage)
             } else {
@@ -95,19 +117,38 @@ class CartAdapter(private val listener: onClick) : RecyclerView.Adapter<CartAdap
 
             binding.cartItemName.text = item.name
             binding.cartItemPrice.text = item.price.toString()
-            var count = 0
+            binding.itemNumber.text = item.price.toString()
+
+
 
             binding.cartItemAdd.setOnClickListener {
                 count++
                 binding.itemNumber.text = count.toString()
+                updateCartItemsQuantity(item.id!!, count)
+                item.quantity = count
+//                itemView.context.startActivity(
+//                    Intent(
+//                        itemView.context,
+//                        CartActivity::class.java
+//                    )
+//                )
+//                binding.itemNumber.text = count.toString()
             }
 
             binding.cartItemSub.setOnClickListener {
                 if (count > 0) {
                     count--
                     binding.itemNumber.text = count.toString()
+                    updateCartItemsQuantity(item.id!!, count)
+                    item.quantity = count
+//                    itemView.context.startActivity(
+//                        Intent(
+//                            itemView.context,
+//                            CartActivity::class.java
+//                        )
+//                    )
+//                    binding.itemNumber.text = count.toString()
                 }
-
             }
 
             binding.cartRemoveTextview.setOnClickListener {
@@ -116,10 +157,20 @@ class CartAdapter(private val listener: onClick) : RecyclerView.Adapter<CartAdap
                     val deletedItem = orders[position]
                     orders.removeAt(position)
                     notifyItemRemoved(position)
+
+                    //remove item from firebase as well
+                    FirebaseDatabase.getInstance().reference.child("cartitem").child(uid)
+                        .child(position.toString()).removeValue()
+
                     Snackbar.make(binding.root, "Item deleted", Snackbar.LENGTH_LONG)
                         .setAction("Undo") {
                             orders.add(position, deletedItem)
                             notifyItemInserted(position)
+
+                            //restore deleted item into firebase
+                            FirebaseDatabase.getInstance().reference.child("cartitem").child(uid)
+                                .child(position.toString()).push().setValue(deletedItem)
+
                             Toast.makeText(itemView.context, " item restored", Toast.LENGTH_SHORT)
                                 .show()
                         }
@@ -129,8 +180,33 @@ class CartAdapter(private val listener: onClick) : RecyclerView.Adapter<CartAdap
 
             }
 
+
         }
+
+        val uid = FirebaseAuth.getInstance().currentUser!!.uid
+        private fun updateCartItemsQuantity(itemId: String, quantity: Int) {
+            val cartRef = FirebaseDatabase.getInstance().reference.child("cartitems").child(uid)
+            cartRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for (cartSnap in snapshot.children) {
+                        val id = cartSnap.child("id").getValue(String::class.java)
+                        if (itemId == id) {
+                            val key = cartSnap.key
+                            cartRef.child(key.toString()).child("quantity").setValue(quantity)
+                            orders.clear()
+                        }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+            })
+        }
+
+
     }
 
 
 }
+

@@ -33,7 +33,7 @@ class AdminOUser : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
-                    val curUID = FirebaseAuth.getInstance().currentUser!!.uid
+                    val curUID = FirebaseAuth.getInstance().uid
                     val UID = FirebaseAuth.getInstance().uid
                     if (curUID == "LfgCFX1tqvMkOPOJOEzeDf4Pfwf2") {
                         AdminOrUser()

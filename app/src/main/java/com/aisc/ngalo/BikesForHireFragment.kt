@@ -63,7 +63,7 @@ class BikesForHireFragment : Fragment() {
 //                    //update UI
 //                    binding.bikeRecyclerView.adapter = bikesAdapter
 //                }
-                bikesAdapter = BikesAdapter()
+                bikesAdapter = BikesAdapter(null)
                 binding.bikehireRecyclerView.adapter = bikesAdapter
                 binding.bikehireRecyclerView.layoutManager = LinearLayoutManager(
                     requireContext(),

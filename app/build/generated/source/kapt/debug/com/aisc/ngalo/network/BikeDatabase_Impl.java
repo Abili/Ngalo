@@ -37,9 +37,9 @@ public final class BikeDatabase_Impl extends BikeDatabase {
     final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(configuration, new RoomOpenHelper.Delegate(1) {
       @Override
       public void createAllTables(SupportSQLiteDatabase _db) {
-        _db.execSQL("CREATE TABLE IF NOT EXISTS `mylobikes` (`id` TEXT NOT NULL, `imageUrl` TEXT NOT NULL, `name` TEXT NOT NULL, `price` TEXT NOT NULL, `description` TEXT NOT NULL, `options` TEXT, PRIMARY KEY(`id`))");
+        _db.execSQL("CREATE TABLE IF NOT EXISTS `mylobikes` (`id` TEXT NOT NULL, `imageUrl` TEXT, `name` TEXT, `price` TEXT, `description` TEXT, `options` TEXT, `quantity` INTEGER, `position` INTEGER, PRIMARY KEY(`id`))");
         _db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-        _db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '47d9eb649e0bc0e34066ed48c87ccb7f')");
+        _db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ee2054e5476186f5ad9531d76a1b5166')");
       }
 
       @Override
@@ -53,7 +53,7 @@ public final class BikeDatabase_Impl extends BikeDatabase {
       }
 
       @Override
-      protected void onCreate(SupportSQLiteDatabase _db) {
+      public void onCreate(SupportSQLiteDatabase _db) {
         if (mCallbacks != null) {
           for (int _i = 0, _size = mCallbacks.size(); _i < _size; _i++) {
             mCallbacks.get(_i).onCreate(_db);
@@ -82,14 +82,16 @@ public final class BikeDatabase_Impl extends BikeDatabase {
       }
 
       @Override
-      protected RoomOpenHelper.ValidationResult onValidateSchema(SupportSQLiteDatabase _db) {
-        final HashMap<String, TableInfo.Column> _columnsMylobikes = new HashMap<String, TableInfo.Column>(6);
+      public RoomOpenHelper.ValidationResult onValidateSchema(SupportSQLiteDatabase _db) {
+        final HashMap<String, TableInfo.Column> _columnsMylobikes = new HashMap<String, TableInfo.Column>(8);
         _columnsMylobikes.put("id", new TableInfo.Column("id", "TEXT", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
-        _columnsMylobikes.put("imageUrl", new TableInfo.Column("imageUrl", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
-        _columnsMylobikes.put("name", new TableInfo.Column("name", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
-        _columnsMylobikes.put("price", new TableInfo.Column("price", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
-        _columnsMylobikes.put("description", new TableInfo.Column("description", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsMylobikes.put("imageUrl", new TableInfo.Column("imageUrl", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsMylobikes.put("name", new TableInfo.Column("name", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsMylobikes.put("price", new TableInfo.Column("price", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsMylobikes.put("description", new TableInfo.Column("description", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsMylobikes.put("options", new TableInfo.Column("options", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsMylobikes.put("quantity", new TableInfo.Column("quantity", "INTEGER", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsMylobikes.put("position", new TableInfo.Column("position", "INTEGER", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         final HashSet<TableInfo.ForeignKey> _foreignKeysMylobikes = new HashSet<TableInfo.ForeignKey>(0);
         final HashSet<TableInfo.Index> _indicesMylobikes = new HashSet<TableInfo.Index>(0);
         final TableInfo _infoMylobikes = new TableInfo("mylobikes", _columnsMylobikes, _foreignKeysMylobikes, _indicesMylobikes);
@@ -101,7 +103,7 @@ public final class BikeDatabase_Impl extends BikeDatabase {
         }
         return new RoomOpenHelper.ValidationResult(true, null);
       }
-    }, "47d9eb649e0bc0e34066ed48c87ccb7f", "2d7d601938ce9cd12a86ffb4a1885aa3");
+    }, "ee2054e5476186f5ad9531d76a1b5166", "a53a8671a4df92714bad01605dcc1493");
     final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(configuration.context)
         .name(configuration.name)
         .callback(_openCallback)

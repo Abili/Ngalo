@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -12,18 +11,22 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.lifecycle.ViewModelProvider
 import com.aisc.ngalo.admin.UploadItems
 import com.aisc.ngalo.cart.CartActivity
+import com.aisc.ngalo.cart.CartViewModel
 import com.aisc.ngalo.databinding.ActivityBikesOptionsBinding
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class BikesOptions : AppCompatActivity(), BikesAdapter.OnCartUpdatedListener {
+class BikesOptions : AppCompatActivity(), BikesAdapter.OnCartItemAddedListener {
 
     private lateinit var binding: ActivityBikesOptionsBinding
     private var bikesAdapter: BikesAdapter? = null
+    private lateinit var cartViewModel: CartViewModel
+    private lateinit var cartTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +38,40 @@ class BikesOptions : AppCompatActivity(), BikesAdapter.OnCartUpdatedListener {
         binding.tabs.setBackgroundColor(resources.getColor(R.color.ngalo_green))
         // binding.tabs.setTabTextColors(R.color.ngalo_green,R.color.ngalo_green)
         setSupportActionBar(binding.optionstoolbar)
-        bikesAdapter = BikesAdapter()
+        cartViewModel = ViewModelProvider(this)[CartViewModel::class.java]
+        bikesAdapter = BikesAdapter(cartViewModel)
+        bikesAdapter!!.onCartItemAddedListener = this
+
+        //val cartCountView = findViewById<TextView>(R.id.cart_count)
+        cartViewModel.getCartItemsCount()
+
+        cartViewModel.observeCartItemsCount().observe(this) { count ->
+            // Update your UI with the count of items in the cart
+            binding.cartCount.text = count.toString()
+
+        }
+
+//        val cartItemsRef = FirebaseDatabase.getInstance().reference.child("cartitems")
+//        cartItemsRef.addListenerForSingleValueEvent(object : ValueEventListener {
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                var count = 0
+//                    count += snapshot.childrenCount.toInt()
+//                    binding.cartCount.text = count.toString()
+//
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//                // Handle the error
+//                Toast.makeText(this@BikesOptions, "item not found", Toast.LENGTH_SHORT).show()
+//            }
+//        })
+
+
+        binding.cartIcon.setOnClickListener {
+            startActivity(Intent(this@BikesOptions, CartActivity::class.java))
+        }
+
+
         bikesAdapter!!.setOnCartUpdatedListener(object : BikesAdapter.OnCartUpdatedListener {
             override fun onCartUpdated(count: Int) {
                 // handle cart update
@@ -66,6 +102,30 @@ class BikesOptions : AppCompatActivity(), BikesAdapter.OnCartUpdatedListener {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
+
+        // Get a reference to the custom layout inside the cart menu item
+//        val cartMenuItem = menu?.findItem(R.id.action_cart)
+//        val cartLayout = cartMenuItem?.actionView
+//
+//        if (cartLayout == null) {
+//            // Handle the case where cartLayout is null
+//            Toast.makeText(this@BikesOptions, "Cart layout not found", Toast.LENGTH_SHORT).show()
+//        } else {
+//            // Get a reference to the TextView inside the custom layout
+//            val cartCountTextView = cartLayout.findViewById<TextView>(R.id.cart_count)
+//
+//            if (cartCountTextView == null) {
+//                // Handle the case where cartCountTextView is null
+//                Toast.makeText(this@BikesOptions, "Cart count text view not found", Toast.LENGTH_SHORT).show()
+//            } else {
+//                // Do something with cartCountTextView
+//                cartViewModel.getAllItems().observe(this) { cartItems ->
+//                    val count = cartItems.sumBy { it.quantity!!.toInt() }
+//                    cartCountTextView.text = count.toString()
+//                }
+//            }
+//        }
+
 
         val searchItem = menu!!.findItem(R.id.action_search)
         val searchView = searchItem.actionView as SearchView
@@ -133,14 +193,14 @@ class BikesOptions : AppCompatActivity(), BikesAdapter.OnCartUpdatedListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_cart -> {
-                startActivity(
-                    Intent(
-                        this@BikesOptions, CartActivity::class.java
-                    )
-                )
-                true
-            }
+//            R.id.action_cart -> {
+//                startActivity(
+//                    Intent(
+//                        this@BikesOptions, CartActivity::class.java
+//                    )
+//                )
+//                true
+//            }
 
 //            R.id.action_search -> {
 //                binding.searchOptions.visibility = View.VISIBLE
@@ -151,19 +211,30 @@ class BikesOptions : AppCompatActivity(), BikesAdapter.OnCartUpdatedListener {
 
     }
 
-    override fun onCartUpdated(count: Int) {
-        //Toast.makeText(this, "Item added", Toast.LENGTH_SHORT).show()
-        val cartTv = findViewById<TextView>(R.id.cart_count)
-        cartTv.text = count.toString()
-    }
+//    override fun onCartUpdated(count: Int) {
+//        //Toast.makeText(this, "Item added", Toast.LENGTH_SHORT).show()
+//        val cartTv = findViewById<TextView>(R.id.cart_count)
+//        cartTv.text = count.toString()
+//    }
 
-    fun addToCart(view: View) {
-        Toast.makeText(this, "Item added", Toast.LENGTH_SHORT).show()
+//    fun addToCart(view: View) {
+//        //Toast.makeText(this, "Item added", Toast.LENGTH_SHORT).show()
+//
+//    }
 
+    override fun onCartItemAdded() {
+        val cartItemsCount = cartViewModel.getCartItemsCount()
+        runOnUiThread {
+            val cartTv = binding.cartCount
+            cartTv.text = cartItemsCount.toString()
+            Toast.makeText(this, "Item added", Toast.LENGTH_SHORT).show()
+
+        }
     }
 }
 
-class PagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
+class PagerAdapter(fragmentManager: FragmentManager) :
+    FragmentStatePagerAdapter(fragmentManager) {
 
     override fun getItem(position: Int): Fragment {
         return when (position) {

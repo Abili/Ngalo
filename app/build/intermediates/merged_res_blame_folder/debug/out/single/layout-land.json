@@ -1,10 +1,10 @@
 [
     {
-        "merged": "com.aisc.ngalo.app-mergeDebugResources-93:/layout-land/activity_bike_details.xml",
-        "source": "com.aisc.ngalo.app-main-96:/layout-land/activity_bike_details.xml"
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-92:/layout-land/activity_bike_details.xml",
+        "source": "com.aisc.ngalo.app-main-95:/layout-land/activity_bike_details.xml"
     },
     {
-        "merged": "com.aisc.ngalo.app-mergeDebugResources-93:/layout-land/activity_bikes_screen.xml",
-        "source": "com.aisc.ngalo.app-main-96:/layout-land/activity_bikes_screen.xml"
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-92:/layout-land/activity_bikes_screen.xml",
+        "source": "com.aisc.ngalo.app-main-95:/layout-land/activity_bikes_screen.xml"
     }
 ]

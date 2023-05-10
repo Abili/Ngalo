@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-92:/values-w600dp-v13/values-w600dp-v13.xml",
+            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-91:/values-w600dp-v13/values-w600dp-v13.xml",
             "map": [
                 {
                     "source": "/Users/user/Desktop/AndroidStudioProjects/Ngalo/app/src/main/res/values-w600dp/dimens.xml",

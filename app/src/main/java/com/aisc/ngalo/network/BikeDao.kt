@@ -15,6 +15,8 @@ interface BikeDao {
     @Update
     fun update(bike: Bike)
 
+
+
     @Delete
     fun delete(bike: Bike)
 

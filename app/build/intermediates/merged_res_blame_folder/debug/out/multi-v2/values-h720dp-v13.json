@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-92:/values-h720dp-v13/values-h720dp-v13.xml",
+            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-91:/values-h720dp-v13/values-h720dp-v13.xml",
             "map": [
                 {
-                    "source": "/Users/user/.gradle/caches/transforms-3/3d72183b8df34be44226e57924920eda/transformed/appcompat-1.6.1/res/values-h720dp-v13/values-h720dp-v13.xml",
+                    "source": "/Users/user/.gradle/caches/transforms-3/41cfac88db53e3ad1c6f83182ae23f71/transformed/appcompat-1.6.1/res/values-h720dp-v13/values-h720dp-v13.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

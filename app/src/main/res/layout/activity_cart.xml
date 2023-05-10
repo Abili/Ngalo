@@ -1,58 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearId"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <FrameLayout
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".cart.CartActivity">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/cart_recycler"
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_weight="1"
+        android:id="@+id/cart_recycler"
+        tools:listitem="@layout/cart_item"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@android:color/white">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/cart_item" />
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="@android:color/white">
+            android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <ImageView
-                        android:id="@+id/carImg"
-                        android:layout_width="50dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="10dp"
-                        android:src="@drawable/ic_shopping_cart" />
-
-                    <Button
-                        android:textColor="@color/ngalo_blue"
-                        android:text="Check Out"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
-                </LinearLayout>
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
 
 
-
+                <Button
+                    android:id="@+id/checkout"
+                    android:layout_marginEnd="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Check Out"
+                    android:textColor="@color/ngalo_blue" />
             </LinearLayout>
 
 
-        </com.google.android.material.bottomnavigation.BottomNavigationView>
+        </LinearLayout>
 
-    </FrameLayout></LinearLayout>
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+</LinearLayout>

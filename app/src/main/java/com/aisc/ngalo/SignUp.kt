@@ -24,9 +24,9 @@ class SignUp : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+       // FirebaseDatabase.getInstance().setPersistenceEnabled(true)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true)
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         val themeOption = sharedPreferences.getString("theme", "0")
         ThemeHelper.applyTheme(themeOption!!)
