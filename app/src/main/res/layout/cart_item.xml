@@ -69,16 +69,16 @@
                     android:id="@+id/cart_item_sub"
                     android:layout_width="50dp"
                     android:layout_height="60dp"
+                    android:backgroundTint="@color/ngalo_green"
                     android:layout_gravity="center_vertical"
-                    android:background="@color/ngalo_blue"
                     android:text="-"
-                    android:textColor="@color/ngalo_blue"
+                    android:textColor="@color/white"
                     android:textSize="30sp" />
 
                 <TextView
                     android:layout_weight="5"
                     android:id="@+id/item_number"
-                    android:padding="20dp"
+                    android:padding="25dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1"
@@ -92,9 +92,10 @@
                     android:layout_marginEnd="10dp"
                     android:layout_width="50dp"
                     android:layout_height="60dp"
+                    android:backgroundTint="@color/ngalo_green"
                     android:layout_gravity="center_vertical"
                     android:text="+"
-                    android:textColor="@color/ngalo_blue"
+                    android:textColor="@color/white"
                     android:textSize="30sp" />
 
             </LinearLayout>

@@ -16,6 +16,7 @@ import com.aisc.ngalo.admin.UploadItems
 import com.aisc.ngalo.cart.CartActivity
 import com.aisc.ngalo.cart.CartViewModel
 import com.aisc.ngalo.databinding.ActivityBikesOptionsBinding
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -68,7 +69,11 @@ class BikesOptions : AppCompatActivity(), BikesAdapter.OnCartItemAddedListener {
 
 
         binding.cartIcon.setOnClickListener {
-            startActivity(Intent(this@BikesOptions, CartActivity::class.java))
+            if (binding.cartCount.text == "0") {
+                Toast.makeText(this@BikesOptions, "Cart is Empty", Toast.LENGTH_SHORT).show()
+            }else{
+                startActivity(Intent(this@BikesOptions, CartActivity::class.java))
+            }
         }
 
 
@@ -95,6 +100,7 @@ class BikesOptions : AppCompatActivity(), BikesAdapter.OnCartItemAddedListener {
         }
 
         binding.fabAddBike.setOnClickListener {
+
             startActivity(Intent(this@BikesOptions, UploadItems::class.java))
         }
 
@@ -140,7 +146,7 @@ class BikesOptions : AppCompatActivity(), BikesAdapter.OnCartItemAddedListener {
 //            // Other customizations for the SearchView
 //        }
 
-//        val searchResults = ArrayList<String>()
+        val searchResults = ArrayList<String>()
 //        val adapter =
 //            ArrayAdapter(this, android.R.layout.simple_list_item_1, searchResults)
 //        val listView = searchBinding.autoCompleteTv
@@ -166,8 +172,8 @@ class BikesOptions : AppCompatActivity(), BikesAdapter.OnCartItemAddedListener {
                                 val result = postSnapshot.child("name")
                                     .getValue(String::class.java)
                                 // Add the result to your list or adapter to display in the RecyclerView
-//                                searchResults.clear()
-//                                searchResults.add(result!!)
+                                searchResults.clear()
+                                searchResults.add(result!!)
 
                                 // Add items to the searchResults list based on the text entered in the SearchView
                                 //adapter.notifyDataSetChanged()

@@ -47,6 +47,16 @@
         android:testOnly="true"
         android:theme="@style/Theme.Ngalo.NoActionBar" >
         <activity
+            android:name="com.aisc.ngalo.progress.ProgressActivity"
+            android:exported="false"
+            android:label="@string/title_activity_progress"
+            android:theme="@style/Theme.Ngalo.NoActionBar" />
+        <activity
+            android:name="com.aisc.ngalo.admin.ConfirmationActivity"
+            android:exported="false"
+            android:label="@string/title_activity_confirmation"
+            android:theme="@style/Theme.Ngalo.NoActionBar" />
+        <activity
             android:name="com.aisc.ngalo.cart.CartActivity"
             android:exported="false"
             android:label="@string/title_activity_cart"

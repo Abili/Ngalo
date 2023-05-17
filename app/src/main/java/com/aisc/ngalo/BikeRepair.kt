@@ -169,7 +169,7 @@ class BikeRepair : AppCompatActivity(), OnMapReadyCallback {
             setCurrentLocation()
         }
 
-        binding.userLocationEditText.setOnTouchListener { view, event ->
+        binding.userLocationTextView.setOnTouchListener { view, event ->
             if (event.action == MotionEvent.ACTION_UP) {
                 // Set the fields to specify which types of place data to
                 // return after the user has made a selection.
@@ -293,7 +293,7 @@ class BikeRepair : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun setCurrentLocation() {
-        binding.userLocationEditText.text = (getString(R.string.set_current_location))
+        binding.userLocationTextView.text = (getString(R.string.set_current_location))
         //binding.setCurrentLocationTV.setImageDrawable(resources.getDrawable(R.drawable.ic_location_on_primary_24dp))
         pickupLocation = currentLocation
         if (pickupLocation == null) {
@@ -365,7 +365,7 @@ class BikeRepair : AppCompatActivity(), OnMapReadyCallback {
             LatLng(
                 mLastLocation!!.coordinates!!.latitude,
                 mLastLocation!!.coordinates!!.longitude
-            ), binding.userLocationEditText.text.toString()
+            ), binding.userLocationTextView.text.toString()
         )
 
         val repair = Repair(
@@ -382,8 +382,8 @@ class BikeRepair : AppCompatActivity(), OnMapReadyCallback {
             if (it.isSuccessful) {
                 finish()
                 binding.repairDescriptionEditText.text.clear()
-
                 userRequestRef.push().setValue(repair)
+
             }
 
         }
@@ -585,7 +585,7 @@ class BikeRepair : AppCompatActivity(), OnMapReadyCallback {
                                 )
                             )
                         }
-                        binding.userLocationEditText.text = pickupLocation!!.name
+                        binding.userLocationTextView.text = pickupLocation!!.name
                         binding.requestRepairButton.text = getString(R.string.request_repair)
                     }
                 }
@@ -623,7 +623,7 @@ class BikeRepair : AppCompatActivity(), OnMapReadyCallback {
                 1
             )
             if (addresses!!.isEmpty()) {
-                binding.userLocationEditText.setText(R.string.waiting_for_location)
+                binding.userLocationTextView.setText(R.string.waiting_for_location)
             } else {
                 addresses.size
                 if (addresses[0].thoroughfare == null) {
@@ -633,7 +633,7 @@ class BikeRepair : AppCompatActivity(), OnMapReadyCallback {
                 } else {
                     pickupLocation!!.name = addresses[0].locality + ", " + addresses[0].thoroughfare
                 }
-                binding.userLocationEditText.text = pickupLocation!!.name
+                binding.userLocationTextView.text = pickupLocation!!.name
             }
         } catch (e: IOException) {
             e.printStackTrace()

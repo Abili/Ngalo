@@ -39,19 +39,19 @@ public final class ActivityBikeRepairBinding implements ViewBinding {
   public final Button requestRepairButton;
 
   @NonNull
-  public final TextView userLocationEditText;
+  public final TextView userLocationTextView;
 
   private ActivityBikeRepairBinding(@NonNull FrameLayout rootView,
       @NonNull ImageView bikerepairImageView, @NonNull LinearLayout bottomSheet,
       @NonNull Button orderdocBtn, @NonNull EditText repairDescriptionEditText,
-      @NonNull Button requestRepairButton, @NonNull TextView userLocationEditText) {
+      @NonNull Button requestRepairButton, @NonNull TextView userLocationTextView) {
     this.rootView = rootView;
     this.bikerepairImageView = bikerepairImageView;
     this.bottomSheet = bottomSheet;
     this.orderdocBtn = orderdocBtn;
     this.repairDescriptionEditText = repairDescriptionEditText;
     this.requestRepairButton = requestRepairButton;
-    this.userLocationEditText = userLocationEditText;
+    this.userLocationTextView = userLocationTextView;
   }
 
   @Override
@@ -111,14 +111,14 @@ public final class ActivityBikeRepairBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.userLocationEditText;
-      TextView userLocationEditText = ViewBindings.findChildViewById(rootView, id);
-      if (userLocationEditText == null) {
+      id = R.id.userLocationTextView;
+      TextView userLocationTextView = ViewBindings.findChildViewById(rootView, id);
+      if (userLocationTextView == null) {
         break missingId;
       }
 
       return new ActivityBikeRepairBinding((FrameLayout) rootView, bikerepairImageView, bottomSheet,
-          orderdocBtn, repairDescriptionEditText, requestRepairButton, userLocationEditText);
+          orderdocBtn, repairDescriptionEditText, requestRepairButton, userLocationTextView);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

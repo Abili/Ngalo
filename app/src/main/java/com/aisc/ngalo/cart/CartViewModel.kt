@@ -1,15 +1,26 @@
 package com.aisc.ngalo.cart
 
+import android.Manifest
+import android.app.Activity
 import android.app.Application
+import android.content.Context
+import android.content.pm.PackageManager
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.aisc.ngalo.helpers.LocationHelper
+import com.aisc.ngalo.helpers.LocationRepository
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.launch
 
 class CartViewModel(application: Application) : AndroidViewModel(application) {
 
     private val cartRepository: CartRepository = CartRepository()
+    //private val locationRepository: LocationRepository = LocationRepository(this.getApplication())
     private val _cartItems = MutableLiveData<List<CartItem>>()
+    private val locationHelper = LocationHelper(this.getApplication())
 
     val uid = FirebaseAuth.getInstance().currentUser!!.uid
 //    val cartItems: LiveData<List<CartItem>>
@@ -24,6 +35,10 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
     // Observe local cart data changes
     fun fetchCartItems(): LiveData<List<CartItem>> {
         return cartRepository.getItemsFromFirebase()
+    }
+
+    fun getCurrentLocation(): LiveData<String> {
+        return cartRepository.setCurrentLocation(this.getApplication())
     }
 
     // Add item to local cart data and Firebase
@@ -63,6 +78,52 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
     fun getTotal(): LiveData<Int> {
         return cartRepository.getTotalPriceOfCartItems()
     }
+
+
+    fun saveUserLocation() {
+        locationHelper.getCurrentLocation { location ->
+            if (location != null) {
+                cartRepository.saveUserLocation(location)
+            }
+        }
+    }
+
+
+//    fun updateCurrentLocationName(application: Application): LiveData<String> {
+//        val currentLocationName = MutableLiveData<String>()
+//        viewModelScope.launch {
+//            if (ActivityCompat.checkSelfPermission(
+//                    application,
+//                    Manifest.permission.ACCESS_FINE_LOCATION
+//                ) != PackageManager.PERMISSION_GRANTED
+//            ) {
+//                // TODO: Consider calling
+//                //    ActivityCompat#requestPermissions
+//                // here to request the missing permissions, and then overriding
+//                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//                //                                          int[] grantResults)
+//                // to handle the case where the user grants the permission. See the documentation
+//                // for ActivityCompat#requestPermissions for more details.
+//                currentLocationName.value = locationRepository.getCurrentLocationName()
+//            } else {
+//                // Request the location permission and get the current location name
+//                // using the repository
+//                ActivityCompat.requestPermissions(
+//                    application.applicationContext as Activity,
+//                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+//                    LOCATION_PERMISSION_REQUEST_CODE
+//                )
+//                currentLocationName.value = locationRepository.getCurrentLocationName()
+//            }
+//        }
+//        return currentLocationName
+//    }
+
+    companion object {
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 1
+    }
+
+
 }
 
 // Get items from Firebase and update local cart data

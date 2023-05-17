@@ -3504,6 +3504,7 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
+drawable order_successfull
 drawable placeholder_with
 drawable places_autocomplete_toolbar_shadow
 drawable places_powered_by_google_dark
@@ -3532,6 +3533,18 @@ drawable ucrop_vector_ic_crop
 drawable ucrop_vector_loader
 drawable ucrop_vector_loader_animated
 drawable whats_app_icon
+font josefinslab_bold
+font josefinslab_bolditalic
+font josefinslab_italic
+font josefinslab_light
+font josefinslab_lightitalic
+font josefinslab_regular
+font josefinslab_semibold
+font josefinslab_semibolditalic
+font josefinslab_thin
+font josefinslab_thinitalic
+font rm_typerighter
+font rm_typerighter_medium
 id ALT
 id BOTTOM_END
 id BOTTOM_START
@@ -4228,7 +4241,7 @@ id up
 id uploadimagesTv
 id useLogo
 id userEmail
-id userLocationEditText
+id userLocationTextView
 id userPhone
 id user_image
 id user_profile
@@ -4779,6 +4792,7 @@ string mtrl_switch_track_path
 string mtrl_timepicker_cancel
 string mtrl_timepicker_confirm
 string navigation_menu
+string ngalo_location
 string ngalo_title_text
 string no_orders_available
 string no_orders_made_yet
@@ -4838,8 +4852,10 @@ string title_activity_bike_hire_screen
 string title_activity_bike_repair
 string title_activity_bikes_options
 string title_activity_cart
+string title_activity_confirmation
 string title_activity_hire_bike
 string title_activity_orders
+string title_activity_progress
 string title_activity_upload_items
 string ucrop_error_input_data_is_absent
 string ucrop_label_edit_photo

@@ -26,11 +26,10 @@ class OrdersActivity : AppCompatActivity() {
         binding.ordersRecycler.adapter = adapter
         binding.ordersRecycler.layoutManager = LinearLayoutManager(this)
 
-        val uid = FirebaseAuth.getInstance().uid
+        val uid = FirebaseAuth.getInstance().currentUser!!.uid
         // Replace with your own Firebase Realtime Database reference
         val databaseRef =
-            FirebaseDatabase.getInstance().getReference("RepaireRequests").child(uid!!)
-
+            FirebaseDatabase.getInstance().reference.child("users").child(uid).child("UsersOrders")
         // Add a value event listener to get the data from all child nodes
         databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {

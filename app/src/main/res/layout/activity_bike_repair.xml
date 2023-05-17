@@ -78,7 +78,7 @@
                 app:srcCompat="@drawable/ic_location_on_primary_24dp" />
 
             <TextView
-                android:id="@+id/userLocationEditText"
+                android:id="@+id/userLocationTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"

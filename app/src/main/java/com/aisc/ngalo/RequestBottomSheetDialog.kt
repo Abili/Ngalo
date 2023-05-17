@@ -63,7 +63,7 @@ class RequestBottomSheetDialog : BottomSheetDialogFragment() {
 
 
         val desc = binding.repairDescriptionEditText.text.toString()
-        binding.userLocationEditText.setOnTouchListener { view, event ->
+        binding.userLocationTextView.setOnTouchListener { view, event ->
             if (event.action == MotionEvent.ACTION_UP) {
                 // Set the fields to specify which types of place data to
                 // return after the user has made a selection.
@@ -161,7 +161,7 @@ class RequestBottomSheetDialog : BottomSheetDialogFragment() {
 //                        longitude = place.latLng?.longitude!!
 
                         val userLocation = Editable.Factory.getInstance().newEditable(place.name)
-                        binding.userLocationEditText.text = userLocation
+                        binding.userLocationTextView.text = userLocation
                         location = userLocation.toString()
                         descriptionOfProblems = binding.repairDescriptionEditText.text.toString()
 

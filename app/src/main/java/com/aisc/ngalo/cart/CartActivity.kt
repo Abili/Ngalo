@@ -1,9 +1,11 @@
 package com.aisc.ngalo.cart
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aisc.ngalo.admin.ConfirmationActivity
 import com.aisc.ngalo.databinding.ActivityCartBinding
 import com.google.firebase.auth.FirebaseAuth
 
@@ -21,38 +23,26 @@ class CartActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this)[CartViewModel::class.java]
         adapter = CartAdapter()
-        //binding.cartRecycler.adapter = adapter
         binding.cartRecycler.layoutManager = LinearLayoutManager(this)
 
-//        val cartRef = FirebaseDatabase.getInstance().reference.child("cartitems").child(uid)
-//        cartRef.addValueEventListener(object : ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                for (cartsnap in snapshot.children) {
-//                    val cartItem = cartsnap.getValue(CartItem::class.java)
-//                    //val cartItem = CartItem(null, name, price!!.toInt(), null, null)
-//                    adapter.add(cartItem!!)
-//
-//                }
-//                adapter.notifyDataSetChanged()
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                TODO("Not yet implemented")
-//            }
-//
-//        })
 
         viewModel.fetchCartItems().observe(this) {
             adapter.add(it)
-            //adapter.notifyDataSetChanged()
         }
-
         binding.cartRecycler.adapter = adapter
 
-
         //     Update the total price
-        viewModel.getTotal().observe(this){
-            binding.checkout.text = "Check Out ($it)"
+        viewModel.getTotal().observe(this) {
+            binding.checkout.text = "Check Out (UGX $it)"
+        }
+        binding.checkout.setOnClickListener {
+            var totalprice = 0
+            viewModel.getTotal().observe(this) {
+                totalprice = it
+            }
+            val intent = Intent(this, ConfirmationActivity::class.java)
+            intent.putExtra("totalprice", totalprice)
+            startActivity(intent)
         }
 
     }
@@ -60,11 +50,6 @@ class CartActivity : AppCompatActivity() {
     companion object {
         const val TAG = "CartActivity"
     }
-
-
-//     Update the total price
-//        val totalPrice = viewModel.getAllItems().value!!.sumOf { it.price * count }
-//        binding.totalPrice.text = totalPrice.toString()
 
 }
 

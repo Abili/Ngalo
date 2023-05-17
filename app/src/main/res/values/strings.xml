@@ -59,6 +59,9 @@
     <string name="title_activity_orders">Orders</string>
     <string name="driver_here">Customer is Here</string>
     <string name="driver_found">Searching...</string>
+
+    <string name="ngalo_location">0.3765387,32.6068885</string>
+
     <string name="style_json">[
         {
         elementType: \"geometry\",
@@ -214,4 +217,6 @@
     <string name="title_activity_cart">CartActivity</string>
     <string name="item_name">Item Name</string>
     <string name="check_out">Check Out</string>
+    <string name="title_activity_confirmation">ConfirmationActivity</string>
+    <string name="title_activity_progress">ProgressActivity</string>
 </resources>
