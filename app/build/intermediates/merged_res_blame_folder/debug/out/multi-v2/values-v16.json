@@ -4,7 +4,17 @@
             "outputFile": "com.aisc.ngalo.app-mergeDebugResources-91:/values-v16/values-v16.xml",
             "map": [
                 {
-                    "source": "/Users/user/.gradle/caches/transforms-3/41cfac88db53e3ad1c6f83182ae23f71/transformed/appcompat-1.6.1/res/values-v16/values-v16.xml",
+                    "source": "/Users/user/.gradle/caches/transforms-3/40a0fedd10f6044c743d4717470e340a/transformed/core-1.9.0/res/values-v16/values-v16.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "65",
+                        "endOffsets": "116"
+                    }
+                },
+                {
+                    "source": "/Users/user/.gradle/caches/transforms-3/4e27e5d4ed6c5b8abe2df58a923b919c/transformed/appcompat-1.6.1/res/values-v16/values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -20,16 +30,6 @@
                         "endLines": "6",
                         "endColumns": "12",
                         "endOffsets": "289"
-                    }
-                },
-                {
-                    "source": "/Users/user/.gradle/caches/transforms-3/37b02be643b930ffc2794962c5b2f2fd/transformed/core-1.9.0/res/values-v16/values-v16.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "65",
-                        "endOffsets": "116"
                     }
                 }
             ]

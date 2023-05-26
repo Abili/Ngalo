@@ -21,7 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aisc.ngalo.admin.AdminPanel
-import com.aisc.ngalo.ui.theme.NgaloTheme
+import com.aisc.ngalo.admin.ui.theme.NgaloTheme
 import com.google.firebase.auth.FirebaseAuth
 
 class AdminOUser : ComponentActivity() {
@@ -35,7 +35,7 @@ class AdminOUser : ComponentActivity() {
                 ) {
                     val curUID = FirebaseAuth.getInstance().uid
                     val UID = FirebaseAuth.getInstance().uid
-                    if (curUID == "LfgCFX1tqvMkOPOJOEzeDf4Pfwf2") {
+                    if (curUID == "4EWtIXvQcPVFKNgKfeqDBlLwhu83") {
                         AdminOrUser()
                     } else {
                         startActivity(Intent(this, HomeActivity::class.java))

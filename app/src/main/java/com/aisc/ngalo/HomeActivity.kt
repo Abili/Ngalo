@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.aisc.ngalo.databinding.ActivityHomeBinding
+import com.aisc.ngalo.progress.ProgressActivity
 import com.aisc.ngalo.usersorders.UsersOrders
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
@@ -96,6 +97,9 @@ class HomeActivity : AppCompatActivity() {
         }
         binding.ordersHome.setOnClickListener {
             startActivity(Intent(this, UsersOrders::class.java))
+        }
+        binding.notificationsHome.setOnClickListener {
+            startActivity(Intent(this, ProgressActivity::class.java))
         }
     }
 }

@@ -378,7 +378,7 @@ class BikeRepair : AppCompatActivity(), OnMapReadyCallback {
         )
         // val uid = FirebaseAuth.getInstance().currentUser!!.uid
 
-        repairRequestRef.child(uid).push().setValue(repair).addOnCompleteListener {
+        repairRequestRef.push().setValue(repair).addOnCompleteListener {
             if (it.isSuccessful) {
                 finish()
                 binding.repairDescriptionEditText.text.clear()

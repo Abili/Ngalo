@@ -4840,6 +4840,7 @@ string status_signed_out
 string style_json
 string submit_request
 string summary_collapsed_preference_list
+string switch_role
 string tab
 string tab_text_1
 string tab_text_2

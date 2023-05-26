@@ -4,7 +4,7 @@
             "outputFile": "com.aisc.ngalo.app-mergeDebugResources-91:/values-v27/values-v27.xml",
             "map": [
                 {
-                    "source": "/Users/user/.gradle/caches/transforms-3/dee66edde5cea5402dfa2df6c4e7488d/transformed/jetified-core-splashscreen-1.0.0/res/values-v27/values-v27.xml",
+                    "source": "/Users/user/.gradle/caches/transforms-3/fff86b9405d54932d1f7a324d3ff96be/transformed/jetified-core-splashscreen-1.0.0/res/values-v27/values-v27.xml",
                     "from": {
                         "startLines": "2,3,4,7",
                         "startColumns": "4,4,4,4",

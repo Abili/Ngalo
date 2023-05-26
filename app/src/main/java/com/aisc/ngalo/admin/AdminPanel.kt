@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
@@ -12,6 +13,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -23,18 +25,20 @@ import androidx.compose.ui.unit.sp
 import com.aisc.ngalo.R
 import com.aisc.ngalo.completed.CompletedActivity
 import com.aisc.ngalo.orders.OrdersActivity
+import com.aisc.ngalo.orders.OrdersViewModel
 import com.aisc.ngalo.ui.theme.NgaloTheme
 
 class AdminPanel : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val ordersViewModel by viewModels<OrdersViewModel>()
         setContent {
             NgaloTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
-                    Choose()
+                    Choose(ordersViewModel)
                 }
             }
         }
@@ -43,8 +47,11 @@ class AdminPanel : ComponentActivity() {
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun Choose() {
+fun Choose(ordersViewModel: OrdersViewModel?) {
     val context = LocalContext.current
+    ordersViewModel!!.orderCount()
+    val count = ordersViewModel.observeorderCount().observeAsState()
+
     Column(
         Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -57,7 +64,7 @@ fun Choose() {
 
             Card(
                 onClick = {
-                    context.startActivity(Intent(context, UploadItems::class.java))
+                    context.startActivity(Intent(context, AddBicyclePart::class.java))
                 },
                 Modifier
                     .height(100.dp)
@@ -179,14 +186,25 @@ fun Choose() {
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_orders),
-                        contentDescription = "",
-                        modifier = Modifier
-                            .width(70.dp)
-                            .height(60.dp)
-                            .weight(1f)
-                    )
+                    Box(Modifier.weight(1f)) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_orders),
+                            contentDescription = "",
+                            modifier = Modifier
+                                .width(70.dp)
+                                .height(60.dp)
+                        )
+                        Text(
+                            text = count.value.toString(),
+                            modifier = Modifier
+                                .padding(bottom = 15.dp)
+                                .align(Alignment.Center),
+                            fontSize = 16.sp,
+                            color = colorResource(id = R.color.white)
+
+                        )
+
+                    }
                     Text(
                         text = "Orders",
                         modifier = Modifier
@@ -239,7 +257,8 @@ fun Choose() {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview6() {
-    NgaloTheme {
-        Choose()
-    }
+//    val ordersViewModel = OrdersViewModel()
+//    NgaloTheme {
+//        Choose(null)
+//    }
 }

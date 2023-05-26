@@ -6,28 +6,19 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.aisc.ngalo.cart.ui.theme.NgaloTheme
 import com.aisc.ngalo.navigation.NavGraph
-import com.aisc.ngalo.navigation.Screens
-import com.aisc.ngalo.ui.theme.NgaloTheme
-import kotlinx.coroutines.delay
-import java.time.Duration
 
 class SplashScreen : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

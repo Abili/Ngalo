@@ -22,7 +22,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Callable;
+import javax.annotation.processing.Generated;
 
+@Generated("androidx.room.RoomProcessor")
 @SuppressWarnings({"unchecked", "deprecation"})
 public final class BikeDao_Impl implements BikeDao {
   private final RoomDatabase __db;
