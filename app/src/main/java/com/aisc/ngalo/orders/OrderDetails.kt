@@ -26,7 +26,6 @@ class OrderDetails : AppCompatActivity() {
         val id = orderDetails.getStringExtra("id")
         val category = orderDetails.getStringExtra("category")
 
-
         Glide.with(binding.root)
             .load(userImageUrl)
             .into(binding.userImage)

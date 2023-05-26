@@ -1,7 +1,7 @@
 package com.aisc.ngalo
 
 class Repair(
-    var id: String = "",
+    var id: String? = "",
     var imageUrl: String,
     var description: String = "",
     var latLng: LocationObject? = null,

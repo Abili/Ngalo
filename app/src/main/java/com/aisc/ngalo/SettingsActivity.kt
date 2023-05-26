@@ -1,13 +1,13 @@
 package com.aisc.ngalo
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
+import com.google.firebase.auth.FirebaseAuth
 
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +39,7 @@ class SettingsActivity : AppCompatActivity() {
             setPreferencesFromResource(R.xml.settings, rootKey)
             val themePreference: ListPreference = findPreference("theme")!!
             val aboutPreference: Preference = findPreference("about")!!
+            val signOutPreference: Preference = findPreference("signout")!!
             themePreference.summary = themePreference.entry
 
             // Retrieve the previously selected theme option from SharedPreferences
@@ -56,6 +57,10 @@ class SettingsActivity : AppCompatActivity() {
             aboutPreference.setOnPreferenceClickListener {
                 val intent = Intent(requireContext(), SocialMediaActivity::class.java)
                 startActivity(intent)
+                true
+            }
+            signOutPreference.setOnPreferenceClickListener {
+                FirebaseAuth.getInstance().signOut()
                 true
             }
         }

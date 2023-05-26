@@ -10,6 +10,7 @@ import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.aisc.ngalo.R
 import com.aisc.ngalo.databinding.CompletedItemBinding
+import com.aisc.ngalo.helpers.TimeConverter
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -20,8 +21,9 @@ class CompletedAdapter : RecyclerView.Adapter<ViewHolder>() {
 
     private val orders = mutableListOf<Completed>()
 
-    fun add(com: Completed) {
-        orders.add(com)
+    fun add(com: List<Completed>) {
+        orders.clear()
+        orders.addAll(com)
         notifyDataSetChanged()
     }
 
@@ -74,6 +76,11 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         binding.customerName.text = completed.userName
         binding.customerLocation.text = completed.location!!.name
         binding.description.text = completed.description
+
+//        val (date, timeFormat) = TimeConverter().dateSimpleDateFormatPair(completed)
+//        val time = timeFormat.format(date)
+        binding.requestTime.text = completed.timeOfOrder
+
         val completedOrder =
             Completed(
                 uid!!,
@@ -82,9 +89,9 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 completed.location,
                 completed.userName,
                 completed.userImageUrl,
-                System.currentTimeMillis().toString()
+                completed.timeOfOrder
             )
-        binding.completedRb.setOnClickListener { click ->
+        binding.completedRb.setOnClickListener {
             val popupMenu = PopupMenu(itemView.context, binding.completedRb)
             popupMenu.menuInflater.inflate(R.menu.completed_menu, popupMenu.menu)
 

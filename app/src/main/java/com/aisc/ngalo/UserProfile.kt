@@ -145,7 +145,7 @@ class UserProfile : AppCompatActivity() {
                         val handler = Handler()
                         handler.postDelayed({
                             binding.progressBar.visibility = View.VISIBLE
-                            startActivity(Intent(this@UserProfile, HomeActivity::class.java))
+                            startActivity(Intent(this@UserProfile, AdminOUser::class.java))
                         },0)
                     }
 
@@ -168,7 +168,7 @@ class UserProfile : AppCompatActivity() {
     }
 
     private fun isValidEmail(email: String) =
-        android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+        Patterns.EMAIL_ADDRESS.matcher(email).matches()
 
     private fun validateInput(username: String, email: String): Boolean {
         if (username.isEmpty() || email.isEmpty()) {

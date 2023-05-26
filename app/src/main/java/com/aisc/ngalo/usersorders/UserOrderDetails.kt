@@ -23,7 +23,6 @@ class UserOrderDetails : AppCompatActivity() {
         val id = orderDetails.getStringExtra("id")
         val category = orderDetails.getStringExtra("category")
 
-
         Glide.with(binding.root)
             .load(userImageUrl)
             .into(binding.userImage)
@@ -32,18 +31,14 @@ class UserOrderDetails : AppCompatActivity() {
             .load(imageUrl)
             .into(binding.damageImage)
 
-
         if (damgDesc.isNullOrEmpty()) {
             binding.description.visibility = View.GONE
             binding.detailsDesc.visibility = View.GONE
         }
-
         binding.tbCategory.text = category
         binding.detailsDesc.text = damgDesc
         binding.customerLocation.text = location
         binding.requestTime.text = time
         binding.category.text = category
-
-
     }
 }

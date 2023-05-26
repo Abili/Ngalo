@@ -6,21 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aisc.ngalo.R
-import com.aisc.ngalo.admin.AdminHomePage
-import com.aisc.ngalo.databinding.BikeItemBinding
 import com.aisc.ngalo.databinding.OrdersItemBinding
-import com.aisc.ngalo.models.Bike
+import com.aisc.ngalo.helpers.TimeConverter
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ServerValue
+import com.google.firebase.database.ValueEventListener
 
 class OrdersAdapter : RecyclerView.Adapter<ViewHolder>() {
 
 
     private val orders = mutableListOf<Order>()
-    fun add(order: Order) {
-        orders.add(order)
+    fun add(order: List<Order>) {
+        orders.addAll(order)
         notifyDataSetChanged()
     }
 
@@ -37,7 +37,7 @@ class OrdersAdapter : RecyclerView.Adapter<ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val playlist = orders[position]
-        holder.bind(playlist)
+        holder.bind(playlist, orders)
     }
 
     override fun getItemCount(): Int {
@@ -48,7 +48,7 @@ class OrdersAdapter : RecyclerView.Adapter<ViewHolder>() {
 class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private lateinit var auth: FirebaseAuth
     private val binding: OrdersItemBinding = OrdersItemBinding.bind(itemView)
-    fun bind(order: Order) {
+    fun bind(order: Order, orders: MutableList<Order>) {
         auth = FirebaseAuth.getInstance()
         //current user's profile pic
         if (auth.currentUser!!.photoUrl.toString().isNotEmpty()) {
@@ -74,6 +74,9 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         binding.customerLocation.text = order.location!!.name
         binding.description.text = order.description
         binding.category.text = order.category
+        val (date, timeFormat) = TimeConverter().dateSimpleDateFormatPair(order)
+        val time = timeFormat.format(date)
+        binding.requestTime.text = order.timeOfOrder
         val completedOrder =
             Order(
                 uid!!,
@@ -82,7 +85,7 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 order.location,
                 order.userName,
                 order.userImageUrl,
-                ServerValue.TIMESTAMP.toString(),
+                order.timeOfOrder,
                 order.category
             )
         binding.completedRb.setOnClickListener {
@@ -91,15 +94,30 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                     FirebaseDatabase.getInstance().reference.child("RepaireRequests")
                         .child("completed")
                 hire.push().setValue(completedOrder)
+                val position = adapterPosition
+                orders.removeAt(position)
+                orders.clear()
 
-                if (uid == order.id) {
-                    FirebaseDatabase.getInstance().reference.child("RepaireRequests").child(uid)
-                }
+                val removeRef =
+                    FirebaseDatabase.getInstance().reference.child("RepaireRequests")
+                removeRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        for (childSnap in snapshot.children) {
+                            val key = childSnap.key
+                            val id = childSnap.child("id").getValue(String::class.java)
+                            if (uid == id) {
+                                removeRef.child(key!!).removeValue()
+                                orders.clear()
+                            }
+                        }
+                    }
 
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+                })
             }
-
         }
-
 
         // Set up click listener for the playlist
         itemView.setOnClickListener {
@@ -109,7 +127,7 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             intent.putExtra("description", order.description)
             intent.putExtra("location", order.location.name)
             intent.putExtra("coordinates", order.location.coordinates)
-            intent.putExtra("time", order.timeOfOrder)
+            intent.putExtra("time", time)
             intent.putExtra("userImageUrl", order.userImageUrl)
             intent.putExtra("orderimage", order.imageUrl)
             intent.putExtra("id", uid)

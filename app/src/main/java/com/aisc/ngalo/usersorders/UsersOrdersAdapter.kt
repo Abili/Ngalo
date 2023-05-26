@@ -4,9 +4,11 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.aisc.ngalo.R
 import com.aisc.ngalo.databinding.UsersOrdersItemBinding
+import com.aisc.ngalo.helpers.TimeConverter
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
@@ -72,9 +74,7 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         binding.description.text = order.description
         binding.category.text = order.category
 
-        val timestamp = order.getTimestampLong()
-        val date = Date(timestamp)
-        val timeFormat = SimpleDateFormat("h:mm a", Locale.getDefault())
+        val (date, timeFormat) = TimeConverter().dateSimpleDateFormatPair(order)
         binding.requestTime.text = timeFormat.format(date)
 
         // Set up click listener for the playlist
@@ -93,6 +93,8 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             itemView.context.startActivity(intent)
         }
     }
+
+
 }
 
 
