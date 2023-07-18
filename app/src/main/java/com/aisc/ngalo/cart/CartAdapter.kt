@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aisc.ngalo.R
 import com.aisc.ngalo.databinding.CartItemBinding
 import com.aisc.ngalo.models.items
+import com.aisc.ngalo.util.CurrencyUtil
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -116,7 +117,7 @@ class CartAdapter() : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
             }
 
             binding.cartItemName.text = item.name
-            binding.cartItemPrice.text = item.price.toString()
+            binding.cartItemPrice.text = CurrencyUtil.formatCurrency(item.price!!, "UGX")
             binding.itemNumber.text = item.price.toString()
 
 

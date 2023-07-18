@@ -1,19 +1,11 @@
 package com.aisc.ngalo.cart
 
-import android.Manifest
-import android.app.Activity
 import android.app.Application
-import android.content.Context
-import android.content.pm.PackageManager
-import androidx.core.app.ActivityCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.aisc.ngalo.helpers.LocationHelper
-import com.aisc.ngalo.helpers.LocationRepository
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.coroutines.launch
 
 class CartViewModel(application: Application) : AndroidViewModel(application) {
 

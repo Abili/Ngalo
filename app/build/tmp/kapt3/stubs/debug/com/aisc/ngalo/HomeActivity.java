@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 import com.aisc.ngalo.databinding.ActivityHomeBinding;
 import com.aisc.ngalo.progress.ProgressActivity;
+import com.aisc.ngalo.rides.RidesActivity;
 import com.aisc.ngalo.usersorders.UsersOrders;
 import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;

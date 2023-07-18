@@ -16,7 +16,7 @@ class CompletedViewModel  : ViewModel() {
     private val uid = FirebaseAuth.getInstance().uid
 
     fun loadCompletedRequests() {
-        completedRepository.getCompletedRequests(uid!!) { completedList ->
+        completedRepository.getCompletedRequests() { completedList ->
             _completedRequests.value = completedList
         }
     }

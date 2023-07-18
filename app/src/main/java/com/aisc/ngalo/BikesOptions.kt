@@ -99,10 +99,6 @@ class BikesOptions : AppCompatActivity(), BikesAdapter.OnCartItemAddedListener {
             }
         }
 
-        binding.fabAddBike.setOnClickListener {
-
-            startActivity(Intent(this@BikesOptions, UploadItems::class.java))
-        }
 
     }
 

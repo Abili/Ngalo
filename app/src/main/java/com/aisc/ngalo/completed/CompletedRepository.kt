@@ -10,38 +10,39 @@ import javax.inject.Inject
 
 class CompletedRepository @Inject constructor() {
     private val uidRef = FirebaseDatabase.getInstance().reference.child("users")
-    private val databaseRef =
-        FirebaseDatabase.getInstance().getReference("RepaireRequests").child("completed")
+    private val databaseRef = FirebaseDatabase.getInstance().reference.child("completed")
 
-    fun getCompletedRequests(uid: String, onCompletedRequestsLoaded: (List<Completed>) -> Unit) {
-        databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
+    fun getCompletedRequests(onCompletedRequestsLoaded: (List<Completed>) -> Unit) {
+        databaseRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val completedList = mutableListOf<Completed>()
-
                 for (childSnapshot in snapshot.children) {
                     val description =
                         childSnapshot.child("description").getValue(String::class.java)
                     val imageUrl = childSnapshot.child("imageUrl").getValue(String::class.java)
-                    val latitude = childSnapshot.child("location").child("coordinates")
-                        .child("latitude").getValue(Double::class.java)
-                    val longitude = childSnapshot.child("location").child("coordinates")
-                        .child("longitude").getValue(Double::class.java)
+                    val latitude =
+                        childSnapshot.child("location").child("coordinates").child("latitude")
+                            .getValue(Double::class.java)
+                    val longitude =
+                        childSnapshot.child("location").child("coordinates").child("longitude")
+                            .getValue(Double::class.java)
                     val name =
                         childSnapshot.child("location").child("name").getValue(String::class.java)
                     val time = childSnapshot.child("timeOfOrder").getValue(String::class.java)
+                    val id = childSnapshot.child("id").getValue(String::class.java)
 
                     uidRef.addValueEventListener(object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
                             for (usersnap in snapshot.children) {
                                 val uidUser = usersnap.child("id").getValue(String::class.java)
-                                if (uid == uidUser) {
+                                if (id == uidUser) {
                                     val userImageUrl =
                                         usersnap.child("imageUrl").getValue(String::class.java)
                                     val userName =
                                         usersnap.child("username").getValue(String::class.java)
 
                                     val order = Completed(
-                                        uidUser,
+                                        uidUser!!,
                                         description,
                                         imageUrl,
                                         LocationObject(LatLng(latitude!!, longitude!!), name!!),
@@ -51,6 +52,7 @@ class CompletedRepository @Inject constructor() {
                                     )
 
                                     completedList.add(order)
+                                    break
                                 }
                             }
 
@@ -70,4 +72,6 @@ class CompletedRepository @Inject constructor() {
             }
         })
     }
+
+
 }

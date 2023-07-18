@@ -4,10 +4,15 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aisc.ngalo.LocationObject
 import com.aisc.ngalo.R
 import com.aisc.ngalo.databinding.ActivityUsersOrdersBinding
+import com.aisc.ngalo.purchases.PurchasesAdapter
+import com.aisc.ngalo.purchases.PurchasesViewModel
+import com.aisc.ngalo.rides.RidesViewModel
+import com.aisc.ngalo.rides.UsersRidesAdapter
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -18,13 +23,22 @@ import com.google.firebase.database.ValueEventListener
 class UsersOrders : AppCompatActivity() {
     lateinit var binding: ActivityUsersOrdersBinding
     val adapter = UsersOrdersAdapter()
+    private val purchasesAdapter = PurchasesAdapter()
+    private var purchasesViewModel: PurchasesViewModel? = null
+    var ridesViewModel: RidesViewModel? = null
+    private val ridesAdapter = UsersRidesAdapter()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUsersOrdersBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.usersOrdersRecycler.adapter = adapter
+        binding.usersPurchasesRecycler.adapter = purchasesAdapter
         binding.usersOrdersRecycler.layoutManager = LinearLayoutManager(this)
+        binding.usersPurchasesRecycler.layoutManager = LinearLayoutManager(this)
+
+        binding.usersRidesRecycler.adapter = ridesAdapter
+        binding.usersRidesRecycler.layoutManager = LinearLayoutManager(this)
 
         val curUID = FirebaseAuth.getInstance().currentUser!!.uid
         val uid = FirebaseAuth.getInstance().uid
@@ -32,6 +46,27 @@ class UsersOrders : AppCompatActivity() {
         val databaseRef =
             FirebaseDatabase.getInstance().getReference("users")
                 .child(curUID).child("UsersOrders")
+
+        purchasesViewModel = ViewModelProvider(this)[PurchasesViewModel::class.java]
+        purchasesViewModel!!.loadUserPurchasedItems()
+        purchasesViewModel!!.purchases.observe(this) {
+            if (it.isNotEmpty()) {
+                purchasesAdapter.add(it)
+            } else {
+                binding.purchasesTag.visibility = View.GONE
+            }
+        }
+
+        ridesViewModel = ViewModelProvider(this)[RidesViewModel::class.java]
+        ridesViewModel!!.loadUserRides()
+        ridesViewModel!!.rides.observe(this) {
+            if (it.isNotEmpty()) {
+                ridesAdapter.add(it)
+            } else {
+                binding.ridesTag.visibility = View.GONE
+            }
+        }
+
 
         // Add a value event listener to get the data from all child nodes
         databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -98,8 +133,7 @@ class UsersOrders : AppCompatActivity() {
 //                    binding.textViewLongitude.text = longitude.toString()
 //                    binding.textViewName.text = name
                     }
-                }
-                else {
+                } else {
                     binding.nodataLayout.visibility = View.VISIBLE
                     binding.usersOrdersRecycler.visibility = View.GONE
                     binding.nodataTv.text = getString(R.string.no_orders_made_yet)

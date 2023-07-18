@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.aisc.ngalo.databinding.ActivityHomeBinding
 import com.aisc.ngalo.progress.ProgressActivity
+import com.aisc.ngalo.rides.RidesActivity
 import com.aisc.ngalo.usersorders.UsersOrders
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
@@ -72,6 +73,10 @@ class HomeActivity : AppCompatActivity() {
             intent.putExtra("position", 2)
             startActivity(Intent(intent))
         }
+        binding.rides.setOnClickListener {
+            val intent = Intent(this, RidesActivity::class.java)
+            startActivity(Intent(intent))
+        }
 
         val addRef = FirebaseDatabase.getInstance().reference.child("adverts")
         addRef.addValueEventListener(object : ValueEventListener {
@@ -95,7 +100,7 @@ class HomeActivity : AppCompatActivity() {
         binding.myaccountHome.setOnClickListener {
             startActivity(Intent(this, MyAccount::class.java))
         }
-        binding.ordersHome.setOnClickListener {
+        binding.historyHome.setOnClickListener {
             startActivity(Intent(this, UsersOrders::class.java))
         }
         binding.notificationsHome.setOnClickListener {

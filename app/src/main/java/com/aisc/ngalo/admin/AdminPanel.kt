@@ -23,9 +23,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aisc.ngalo.R
-import com.aisc.ngalo.completed.CompletedActivity
-import com.aisc.ngalo.orders.OrdersActivity
+import com.aisc.ngalo.completed.CompletedFragment
+import com.aisc.ngalo.orders.OrdersOptions
 import com.aisc.ngalo.orders.OrdersViewModel
+import com.aisc.ngalo.rides.Rides
+import com.aisc.ngalo.rides.RidesActivity
 import com.aisc.ngalo.ui.theme.NgaloTheme
 
 class AdminPanel : ComponentActivity() {
@@ -174,7 +176,7 @@ fun Choose(ordersViewModel: OrdersViewModel?) {
         ) {
             Card(
                 onClick = {
-                    context.startActivity(Intent(context, OrdersActivity::class.java))
+                    context.startActivity(Intent(context, OrdersOptions::class.java))
                 },
                 Modifier
                     .height(100.dp)
@@ -194,15 +196,15 @@ fun Choose(ordersViewModel: OrdersViewModel?) {
                                 .width(70.dp)
                                 .height(60.dp)
                         )
-                        Text(
-                            text = count.value.toString(),
-                            modifier = Modifier
-                                .padding(bottom = 15.dp)
-                                .align(Alignment.Center),
-                            fontSize = 16.sp,
-                            color = colorResource(id = R.color.white)
-
-                        )
+//                        Text(
+//                            text = count.value.toString(),
+//                            modifier = Modifier
+//                                .padding(bottom = 15.dp)
+//                                .align(Alignment.Center),
+//                            fontSize = 16.sp,
+//                            color = colorResource(id = R.color.white)
+//
+//                        )
 
                     }
                     Text(
@@ -219,7 +221,7 @@ fun Choose(ordersViewModel: OrdersViewModel?) {
 
             Card(
                 onClick = {
-                    context.startActivity(Intent(context, CompletedActivity::class.java))
+                    context.startActivity(Intent(context, Rides::class.java))
                 },
                 Modifier
                     .height(100.dp)
@@ -233,7 +235,7 @@ fun Choose(ordersViewModel: OrdersViewModel?) {
                     verticalArrangement = Arrangement.Center
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.ic_completed),
+                        painter = painterResource(id = R.drawable.bike_rides),
                         contentDescription = "",
                         modifier = Modifier
                             .width(70.dp)
@@ -241,7 +243,7 @@ fun Choose(ordersViewModel: OrdersViewModel?) {
 
                     )
                     Text(
-                        text = "Completed",
+                        text = "Rides",
                         modifier = Modifier
                             .padding(10.dp),
                         fontSize = 16.sp,
@@ -257,8 +259,8 @@ fun Choose(ordersViewModel: OrdersViewModel?) {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview6() {
-//    val ordersViewModel = OrdersViewModel()
-//    NgaloTheme {
-//        Choose(null)
-//    }
+    val ordersViewModel = OrdersViewModel()
+    NgaloTheme {
+        Choose(null)
+    }
 }

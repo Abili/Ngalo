@@ -2571,6 +2571,7 @@ dimen appbar_padding_top
 dimen appcompat_dialog_background_inset
 dimen browser_actions_context_menu_max_width
 dimen browser_actions_context_menu_min_padding
+dimen bubble_height
 dimen cardview_compat_inset_shadow
 dimen cardview_default_elevation
 dimen cardview_default_radius
@@ -3326,6 +3327,7 @@ drawable abc_textfield_search_default_mtrl_alpha
 drawable abc_textfield_search_material
 drawable abc_vector_test
 drawable add
+drawable admin_marker
 drawable amu_bubble_mask
 drawable amu_bubble_shadow
 drawable avd_hide_password
@@ -3348,6 +3350,7 @@ drawable btn_radio_off_to_on_mtrl_animation
 drawable btn_radio_on_mtrl
 drawable btn_radio_on_to_off_mtrl_animation
 drawable buy_bikes
+drawable client_marker
 drawable common_full_open_on_phone
 drawable common_google_signin_btn_icon_dark
 drawable common_google_signin_btn_icon_dark_focused
@@ -3374,6 +3377,7 @@ drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
+drawable distancepng
 drawable email
 drawable facebook_icon
 drawable filta
@@ -3383,12 +3387,14 @@ drawable gearwork
 drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
 drawable hire_bikes
+drawable hirebikes
 drawable ic_account
 drawable ic_ad_upload
 drawable ic_add_location
 drawable ic_arrow_back_black_24
 drawable ic_arrow_down_24dp
 drawable ic_back
+drawable ic_bicycle
 drawable ic_bikeparts_upload
 drawable ic_camera
 drawable ic_car
@@ -3404,6 +3410,7 @@ drawable ic_keyboard_black_24dp
 drawable ic_launcher_background
 drawable ic_launcher_foreground
 drawable ic_location_on_primary_24dp
+drawable ic_logout
 drawable ic_m3_chip_check
 drawable ic_m3_chip_checked_circle
 drawable ic_m3_chip_close
@@ -3423,7 +3430,10 @@ drawable ic_search_black_24
 drawable ic_settings
 drawable ic_shopping_cart
 drawable ic_shopping_check_out
+drawable ic_theme
+drawable ic_time
 drawable ic_upload_bike_photo
+drawable ic_version
 drawable icon_background
 drawable img_ph
 drawable instagram_icon
@@ -3514,6 +3524,7 @@ drawable quantum_ic_arrow_back_grey600_24
 drawable quantum_ic_clear_grey600_24
 drawable quantum_ic_cloud_off_vd_theme_24
 drawable quantum_ic_search_grey600_24
+drawable round_bg
 drawable shadow
 drawable test_level_drawable
 drawable tooltip_frame_dark
@@ -3605,9 +3616,9 @@ id action_bar_root
 id action_bar_spinner
 id action_bar_subtitle
 id action_bar_title
+id action_completed
 id action_container
 id action_context_bar
-id action_delete
 id action_divider
 id action_image
 id action_menu_divider
@@ -3615,7 +3626,6 @@ id action_menu_presenter
 id action_mode_bar
 id action_mode_bar_stub
 id action_mode_close_button
-id action_reactivate
 id action_search
 id action_text
 id actions
@@ -3689,6 +3699,7 @@ id camera
 id cancel_action
 id cancel_button
 id cardView
+id cardView2
 id carryVelocity
 id cart
 id cartValue
@@ -3777,6 +3788,7 @@ id disableIntraAutoTransition
 id disablePostScroll
 id disableScroll
 id disjoint
+id distance
 id dragAnticlockwise
 id dragClockwise
 id dragDown
@@ -3796,6 +3808,7 @@ id editProfileImage
 id editTextEmail
 id editTextPassword
 id editTextPhone
+id editTextRideName
 id editTextTextEmailAddress
 id editTextTextPersonFirstName
 id editTextTextPersonLastName
@@ -3811,7 +3824,6 @@ id enterPrice
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
-id fabAddBike
 id fade
 id fb
 id fb_add_bike
@@ -3841,14 +3853,15 @@ id graph_wrap
 id group_divider
 id grouping
 id groups
+id gtotal
 id hardware
 id header_title
 id hide_in_inspector_tag
 id hideable
 id hire
+id history_home
 id home
 id homeAsUp
-id hometoolbar
 id honorRequest
 id horizontal_only
 id howmany
@@ -3862,6 +3875,8 @@ id ignore
 id ignoreRequest
 id image
 id imageView
+id imageView2
+id imageView3
 id image_view_crop
 id image_view_logo
 id image_view_state_aspect_ratio
@@ -3880,6 +3895,7 @@ id is_pooling_container_tag
 id italic
 id item_number
 id item_touch_helper_previous_elevation
+id itemspurchasedRecycler
 id jumpToEnd
 id jumpToStart
 id labeled
@@ -3908,6 +3924,7 @@ id ltr
 id m3_side_sheet
 id map
 id mapAdmin
+id map_view
 id marquee
 id masked
 id match_constraint
@@ -4001,8 +4018,8 @@ id onDateChanged
 id onInterceptTouchReturnSwipe
 id optionstoolbar
 id orderdocBtn
-id orders_home
 id orders_recycler
+id orders_tag
 id outline
 id outward
 id overshoot
@@ -4051,6 +4068,12 @@ id profile_create_button
 id progressBar
 id progress_circular
 id progress_horizontal
+id purchase_image
+id purchase_name
+id purchase_price
+id purchasesRecycler
+id purchases_tag
+id quantity
 id radio
 id radioBuy
 id radioHire
@@ -4065,6 +4088,10 @@ id request_time
 id restart
 id reverse
 id reverseSawtooth
+id ridename
+id rides
+id rides_tag
+id ridesrecycler
 id right
 id rightToLeft
 id right_icon
@@ -4152,6 +4179,7 @@ id start
 id startHorizontal
 id startToEnd
 id startVertical
+id startride_btn
 id state_aspect_ratio
 id state_rotate
 id state_scale
@@ -4159,6 +4187,7 @@ id staticLayout
 id staticPostLayout
 id status_bar_latest_event_content
 id stop
+id stopride_btn
 id stretch
 id sub_btn
 id submenuarrow
@@ -4223,6 +4252,8 @@ id toolbar_title
 id top
 id topPanel
 id touch_outside
+id trackride_distance
+id tracktride_time
 id transitionToEnd
 id transitionToStart
 id transition_current_scene
@@ -4230,6 +4261,7 @@ id transition_layout_save
 id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
+id transport
 id triangle
 id ucrop
 id ucrop_frame
@@ -4245,9 +4277,17 @@ id userLocationTextView
 id userPhone
 id user_image
 id user_profile
+id usergroupImage
+id usergroupickuploccation
+id usergrouploccation
+id usergroupname
+id usergrouprecycler
+id userlayout
 id username
 id userorders_card
 id users_orders_recycler
+id users_purchases_recycler
+id users_rides_recycler
 id vertical_only
 id view_offset_helper
 id view_overlay
@@ -4400,14 +4440,19 @@ layout activity_completed
 layout activity_home
 layout activity_my_account
 layout activity_order_details
+layout activity_purchase_details
+layout activity_rides
+layout activity_rides2
 layout activity_settings
 layout activity_sign_up
 layout activity_social_media
 layout activity_upload_images
 layout activity_uploads
+layout activity_user_group
 layout activity_user_profile
 layout activity_users_orders
 layout activity_users_orders_details
+layout all_ride_item
 layout amu_info_window
 layout amu_text_bubble
 layout amu_webview
@@ -4434,12 +4479,15 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
+layout dialog_ride_summary
 layout expand_button
 layout fragment_bike_for_purchase
 layout fragment_bike_parts
 layout fragment_bikes_for_hire
 layout fragment_bikes_options
+layout fragment_purchases
 layout fragment_request_bottom_sheet_dialog
+layout fragment_trial
 layout image_frame
 layout images_dialog
 layout item_marker
@@ -4537,6 +4585,7 @@ layout preference_widget_seekbar
 layout preference_widget_seekbar_material
 layout preference_widget_switch
 layout preference_widget_switch_compat
+layout purchase_item
 layout searchview
 layout select_dialog_item_material
 layout select_dialog_multichoice_material
@@ -4549,6 +4598,8 @@ layout ucrop_controls
 layout ucrop_layout_rotate_wheel
 layout ucrop_layout_scale_wheel
 layout ucrop_view
+layout user_item
+layout user_ride_item
 layout users_orders_item
 menu completed_menu
 menu menu
@@ -4627,6 +4678,8 @@ string brief_description_of_the_problem
 string buybikes
 string channel_description
 string channel_name
+string channel_new_messages
+string channel_new_messages_description
 string character_counter_content_description
 string character_counter_overflowed_content_description
 string character_counter_pattern
@@ -4686,6 +4739,7 @@ string google_crash_reporting_api_key
 string google_storage_bucket
 string hello_blank_fragment
 string hide_bottom_view_on_scroll_behavior
+string hint_input
 string hirebike
 string hirebikes
 string icon_content_description
@@ -4855,9 +4909,11 @@ string title_activity_bikes_options
 string title_activity_cart
 string title_activity_confirmation
 string title_activity_hire_bike
+string title_activity_notifications
 string title_activity_orders
 string title_activity_progress
 string title_activity_upload_items
+string title_activity_user_purchase_group
 string ucrop_error_input_data_is_absent
 string ucrop_label_edit_photo
 string ucrop_label_original
@@ -5536,6 +5592,7 @@ style Theme_MaterialComponents_Light_NoActionBar_Bridge
 style Theme_MaterialComponents_NoActionBar
 style Theme_MaterialComponents_NoActionBar_Bridge
 style Theme_Ngalo
+style Theme_Ngalo_ActionBar
 style Theme_Ngalo_AppBarOverlay
 style Theme_Ngalo_NoActionBar
 style Theme_Ngalo_PopupOverlay

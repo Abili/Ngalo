@@ -4,7 +4,7 @@
             "outputFile": "com.aisc.ngalo.app-mergeDebugResources-91:/values-v28/values-v28.xml",
             "map": [
                 {
-                    "source": "/Users/user/.gradle/caches/transforms-3/5898795234caec55bf57ea795178a0ff/transformed/material-1.8.0/res/values-v28/values-v28.xml",
+                    "source": "/Users/user/.gradle/caches/transforms-3/11b9e4c996461fe3718c527f261876ba/transformed/material-1.8.0/res/values-v28/values-v28.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "/Users/user/.gradle/caches/transforms-3/4e27e5d4ed6c5b8abe2df58a923b919c/transformed/appcompat-1.6.1/res/values-v28/values-v28.xml",
+                    "source": "/Users/user/.gradle/caches/transforms-3/0a460c9e4a54bdfad26d1c28ed1ee1d6/transformed/appcompat-1.6.1/res/values-v28/values-v28.xml",
                     "from": {
                         "startLines": "2,3,4,8",
                         "startColumns": "4,4,4,4",

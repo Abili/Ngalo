@@ -35,7 +35,7 @@ class AdminOUser : ComponentActivity() {
                 ) {
                     val curUID = FirebaseAuth.getInstance().uid
                     val UID = FirebaseAuth.getInstance().uid
-                    if (curUID == "4EWtIXvQcPVFKNgKfeqDBlLwhu83") {
+                    if (curUID == "LAzWh9enCLhdW98MmsImbV4AnCB2") {
                         AdminOrUser()
                     } else {
                         startActivity(Intent(this, HomeActivity::class.java))

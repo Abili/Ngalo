@@ -69,9 +69,7 @@ class ConfirmationActivity : ComponentActivity() {
             NgaloTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
-                    modifier = Modifier
-                        .fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
                     Greeting3(cartViewModel, locationViewModel)
                 }
@@ -86,6 +84,7 @@ fun Greeting3(
     locationViewModel: LocationViewModel,
     modifier: Modifier = Modifier
 ) {
+    val id = FirebaseAuth.getInstance().currentUser!!.uid
     val cartItems by cartViewModel.fetchCartItems().observeAsState()
     val currentLocationName = locationViewModel.updateCurrentLocationName().observeAsState()
     val currentLocationCordinates =
@@ -145,8 +144,7 @@ fun Greeting3(
         var cashOnDelivery by remember { mutableStateOf(false) }
 
         Card(
-            Modifier.padding(10.dp),
-            backgroundColor = colorResource(id = R.color.white)
+            Modifier.padding(10.dp), backgroundColor = colorResource(id = R.color.white)
         ) {
 
             Row(Modifier.fillMaxWidth()) {
@@ -179,37 +177,47 @@ fun Greeting3(
         var locationSelected by remember { mutableStateOf("Ngalo Shop") }
 
         Card(
-            Modifier.padding(10.dp),
-            backgroundColor = colorResource(id = R.color.white)
+            Modifier.padding(10.dp), backgroundColor = colorResource(id = R.color.white)
         ) {
             //val locationService = LocationService(LocalContext.current)
             val checked = false
             Column {
+                Text(
+                    fontSize = 16.sp,
+                    text = "I will Pick it from:",
+                    modifier = Modifier.padding(start = 10.dp),
+                    color = colorResource(id = R.color.ngalo_green)
+                )
                 Row(Modifier.fillMaxWidth()) {
-                    Checkbox(
-                        checked = locationSelected == "Ngalo Shop-(Kulambiro, Ring Road, " +
-                                "plot 3153)",
+
+                    Checkbox(checked = locationSelected == "Ngalo Shop-(Kulambiro, Ring Road, " + "plot 3153)",
                         onCheckedChange = {
-                            locationSelected = "Ngalo Shop-(Kulambiro, Ring Road, " +
-                                    "plot 3153)"
+                            locationSelected = "Ngalo Shop-(Kulambiro, Ring Road, " + "plot 3153)"
+                            transportFares = 0
                         })
                     Text(
-                        text = "Ngalo Shop-(Kulambiro, Ring Road, " +
-                                "plot 3153)",
+                        text = "Ngalo Shop-(Kulambiro, Ring Road, " + "plot 3153)",
                         fontSize = 18.sp,
                         modifier = Modifier
                             .clickable(onClick = {
-                                locationSelected = "Ngalo Shop-(Kulambiro, Ring Road, " +
-                                        "plot 3153)"
+                                locationSelected =
+                                    "Ngalo Shop-(Kulambiro, Ring Road, " + "plot 3153)"
+                                transportFares = 0
                             })
                             .padding(start = 4.dp, top = 10.dp, end = 10.dp),
                         color = colorResource(id = R.color.ngalo_blue)
                     )
                 }
+                Text(
+                    fontSize = 16.sp,
+                    text = "Deliver it to:",
+                    modifier = Modifier.padding(top = 10.dp, start = 10.dp),
+                    color = colorResource(id = R.color.ngalo_green)
+                )
+
                 Row(Modifier.fillMaxWidth()) {
 
-                    Checkbox(
-                        checked = locationSelected == "${currentLocationName.value}",
+                    Checkbox(checked = locationSelected == "${currentLocationName.value}",
                         onCheckedChange = { locationSelected = "${currentLocationName.value}" })
                     Text(
                         text = "My Location - (${currentLocationName.value})",
@@ -228,9 +236,10 @@ fun Greeting3(
 
         if (locationSelected == currentLocationName.value) {
             if (transportFares != null) {
-                grandTotal = transportFares + totalPrice!!
+                grandTotal = transportFares!! + totalPrice!!
             }
         } else {
+            transportFares = 0
             grandTotal = totalPrice
         }
 
@@ -244,8 +253,7 @@ fun Greeting3(
         )
 
         Card(
-            Modifier.padding(10.dp),
-            backgroundColor = colorResource(id = R.color.white)
+            Modifier.padding(10.dp), backgroundColor = colorResource(id = R.color.white)
         ) {
             LazyColumn {
                 cartItems?.let {
@@ -260,8 +268,7 @@ fun Greeting3(
                         Text(
                             text = "Total price:",
                             fontSize = 20.sp,
-                            modifier = Modifier
-                                .padding(start = 10.dp, top = 20.dp),
+                            modifier = Modifier.padding(start = 10.dp, top = 20.dp),
                             color = colorResource(id = R.color.ngalo_blue)
                         )
                         Column(
@@ -282,8 +289,7 @@ fun Greeting3(
                             Text(
                                 text = formattedPrice,
                                 fontSize = 20.sp,
-                                modifier = Modifier
-                                    .padding(end = 10.dp),
+                                modifier = Modifier.padding(end = 10.dp),
                                 color = colorResource(id = R.color.ngalo_blue)
                             )
                         }
@@ -293,8 +299,7 @@ fun Greeting3(
                         Text(
                             text = "Delivery fee:",
                             fontSize = 20.sp,
-                            modifier = Modifier
-                                .padding(start = 10.dp, top = 20.dp),
+                            modifier = Modifier.padding(start = 10.dp, top = 20.dp),
                             color = colorResource(id = R.color.ngalo_green)
                         )
                         Column(
@@ -308,7 +313,7 @@ fun Greeting3(
                             val formattedTransportFares =
                                 if (locationSelected == currentLocationName.value) {
                                     if (transportFares != null) {
-                                        formatCurrency(transportFares, currencyCode)
+                                        formatCurrency(transportFares!!, currencyCode)
                                     } else {
                                         "N/A" // Provide a default value if grandTotal is null
                                     }
@@ -318,8 +323,7 @@ fun Greeting3(
                             Text(
                                 text = formattedTransportFares,
                                 fontSize = 20.sp,
-                                modifier = Modifier
-                                    .padding(end = 10.dp),
+                                modifier = Modifier.padding(end = 10.dp),
                                 color = colorResource(id = R.color.ngalo_green)
                             )
                         }
@@ -337,8 +341,7 @@ fun Greeting3(
                         Text(
                             text = "Grand Total:",
                             fontSize = 20.sp,
-                            modifier = Modifier
-                                .padding(start = 10.dp, top = 20.dp),
+                            modifier = Modifier.padding(start = 10.dp, top = 20.dp),
                             color = colorResource(id = R.color.ngalo_blue)
                         )
                         Column(
@@ -357,8 +360,7 @@ fun Greeting3(
                             Text(
                                 text = formattedGrantPrice,
                                 fontSize = 20.sp,
-                                modifier = Modifier
-                                    .padding(end = 10.dp),
+                                modifier = Modifier.padding(end = 10.dp),
                                 color = colorResource(id = R.color.ngalo_blue)
                             )
                         }
@@ -390,33 +392,31 @@ fun Greeting3(
 //                            ),
                             border = BorderStroke(1.dp, colorResource(id = R.color.ngalo_green)),
                             colors = ButtonDefaults.outlinedButtonColors(contentColor = Color(R.color.ngalo_blue))
-                        )
-                        {
+                        ) {
                             Text(text = "CONFIRM", color = colorResource(id = R.color.ngalo_blue))
 
                         }
                         if (openDialog.value) {
-                            DisplayImageDialog(
-                                onDismiss = { openDialog.value = false },
-                                onSave = {
-                                    saveToFirebase(
-                                        cartItems,
-                                        currentLocationName.value!!,
-                                        "Cash on Delivery",
-                                        locationSelected,
-                                        coordinates.toString(),
-                                        transportFares!!,
-                                        grandTotal!!
-                                    )
-                                    openDialog.value = false
-                                    val uid = FirebaseAuth.getInstance().currentUser!!.uid
-                                    context.startActivity(Intent(context, BikesOptions::class.java))
-                                    val removeCartRef =
-                                        FirebaseDatabase.getInstance().reference.child("cartitems")
-                                            .child(uid)
-                                    removeCartRef.removeValue()
-                                }
-                            )
+                            DisplayImageDialog(onDismiss = { openDialog.value = false }, onSave = {
+                                saveToFirebase(
+                                    id,
+                                    cartItems,
+                                    currentLocationName.value!!,
+                                    "Cash on Delivery",
+                                    locationSelected,
+                                    coordinates.toString(),
+                                    transportFares!!,
+                                    grandTotal!!,
+                                    System.currentTimeMillis()
+                                )
+                                openDialog.value = false
+                                val uid = FirebaseAuth.getInstance().currentUser!!.uid
+                                context.startActivity(Intent(context, BikesOptions::class.java))
+                                val removeCartRef =
+                                    FirebaseDatabase.getInstance().reference.child("cartitems")
+                                        .child(uid)
+                                removeCartRef.removeValue()
+                            })
                         }
                     }
                 }
@@ -430,20 +430,29 @@ fun Greeting3(
 
 
 fun saveToFirebase(
+    uid: String,
     cartItems: List<CartItem>?,
     locationSelected: String,
     cashOnDelivery: String,
     pickupLocation: String,
     coordinates: String?,
     tranpostFares: Int,
-    grandTotal: Int
+    grandTotal: Int,
+    currentTimeMillis: Long
 ) {
-    val uid = FirebaseAuth.getInstance().currentUser!!.uid
+    val id = FirebaseAuth.getInstance().currentUser!!.uid
     val purchases = Purchase(
-        cartItems, locationSelected, "cash On Delivery", pickupLocation,
-        coordinates.toString(), tranpostFares, grandTotal
+        id,
+        cartItems,
+        locationSelected,
+        "cash On Delivery",
+        pickupLocation,
+        coordinates.toString(),
+        tranpostFares,
+        grandTotal,
+        currentTimeMillis
     )
-    val purchaseRef = FirebaseDatabase.getInstance().reference.child("purchases").child(uid)
+    val purchaseRef = FirebaseDatabase.getInstance().reference.child("purchases")
     val usersRef =
         FirebaseDatabase.getInstance().reference.child("users").child(uid).child("purchases")
     purchaseRef.push().setValue(purchases)
@@ -457,44 +466,37 @@ fun DisplayImageDialog(
     onDismiss: () -> Unit,
     onSave: () -> Unit,
 ) {
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        confirmButton = {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly
+    AlertDialog(onDismissRequest = onDismiss, confirmButton = {
+        Row(
+            modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            Button(
+                onClick = onDismiss, colors = ButtonDefaults.buttonColors(
+                    backgroundColor = colorResource(id = R.color.ngalo_blue)
+                )
             ) {
-                Button(
-                    onClick = onDismiss,
-                    colors = ButtonDefaults.buttonColors(
-                        backgroundColor = colorResource(id = R.color.ngalo_blue)
-                    )
-                ) {
-                    Text(text = "CANCEL", color = Color.White)
-                }
-
-                Button(
-                    onClick = onSave,
-                    colors = ButtonDefaults.buttonColors(
-                        backgroundColor = colorResource(id = R.color.ngalo_green)
-                    )
-                ) {
-                    Text(text = "OK", color = Color.White)
-                }
-
+                Text(text = "CANCEL", color = Color.White)
             }
-        },
-        icon = {
-            // Display the image here
-            Image(
-                painter = painterResource(id = R.drawable.order_successfull),
-                contentDescription = null,
-                modifier = Modifier
-                    .height(200.dp)
-                    .fillMaxSize()
-            )
+
+            Button(
+                onClick = onSave, colors = ButtonDefaults.buttonColors(
+                    backgroundColor = colorResource(id = R.color.ngalo_green)
+                )
+            ) {
+                Text(text = "OK", color = Color.White)
+            }
+
         }
-    )
+    }, icon = {
+        // Display the image here
+        Image(
+            painter = painterResource(id = R.drawable.order_successfull),
+            contentDescription = null,
+            modifier = Modifier
+                .height(200.dp)
+                .fillMaxSize()
+        )
+    })
 
 }
 
@@ -513,8 +515,7 @@ fun OrdersItem(cartItem: CartItem) {
                 style = TextStyle(fontFamily = FontFamily(Font(R.font.josefinslab_bold))),
                 fontSize = 18.sp,
                 color = Color.Gray,
-                modifier = Modifier
-                    .padding(start = 4.dp, top = 10.dp)
+                modifier = Modifier.padding(start = 4.dp, top = 10.dp)
             )
 
             Text(
@@ -522,8 +523,7 @@ fun OrdersItem(cartItem: CartItem) {
                 style = TextStyle(fontFamily = FontFamily(Font(R.font.josefinslab_bold))),
                 fontSize = 18.sp,
                 color = Color.Gray,
-                modifier = Modifier
-                    .padding(start = 8.dp, top = 10.dp, end = 8.dp)
+                modifier = Modifier.padding(start = 8.dp, top = 10.dp, end = 8.dp)
             )
 
             Text(
@@ -531,8 +531,7 @@ fun OrdersItem(cartItem: CartItem) {
                 style = TextStyle(fontFamily = FontFamily(Font(R.font.josefinslab_bold))),
                 fontSize = 18.sp,
                 color = Color.Gray,
-                modifier = Modifier
-                    .padding(start = 4.dp, top = 10.dp)
+                modifier = Modifier.padding(start = 4.dp, top = 10.dp)
             )
 
             Text(
@@ -540,8 +539,7 @@ fun OrdersItem(cartItem: CartItem) {
                 fontSize = 18.sp,
                 style = TextStyle(fontFamily = FontFamily(Font(R.font.josefinslab_bold))),
                 color = Color.Gray,
-                modifier = Modifier
-                    .padding(start = 8.dp, top = 10.dp)
+                modifier = Modifier.padding(start = 8.dp, top = 10.dp)
             )
 
         }
@@ -550,8 +548,7 @@ fun OrdersItem(cartItem: CartItem) {
     Divider(
         Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp),
-        color = Color.Gray.copy(alpha = 0.3f)
+            .padding(vertical = 8.dp), color = Color.Gray.copy(alpha = 0.3f)
     )
 }
 

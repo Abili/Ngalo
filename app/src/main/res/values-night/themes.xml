@@ -1,17 +1,27 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Ngalo" parent="Theme.MaterialComponents.Light">
+    <style name="Theme.Ngalo" parent="Theme.MaterialComponents.DayNight">
         <!-- Primary brand color. -->
-        <item name="android:textColor">@color/purple_700</item>
-        <item name="colorPrimary">@color/purple_700</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/ngalo_blue</item> <!-- Text color on primary -->
+
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/ngalo_blue</item>
-        <item name="colorSecondaryVariant">@color/ngalo_blue</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="colorOnSecondary">@color/ngalo_blue</item> <!-- Text color on secondary -->
+
+        <!-- Background colors -->
+        <item name="android:colorBackground">@color/ngalo_blue</item> <!-- Background color -->
+        <item name="android:windowBackground">@color/white</item> <!-- Window background color -->
+
+        <!-- Text colors -->
+        <item name="android:textColorPrimary">@color/ngalo_blue</item> <!-- Primary text color -->
+        <item name="android:textColorSecondary">@color/ngalo_blue</item> <!-- Secondary text color -->
+        <item name="android:textColorPrimaryInverse">@color/ngalo_blue</item> <!-- Primary text color on inverse background -->
+        <item name="android:textColorSecondaryInverse">@color/ngalo_blue</item> <!-- Secondary text color on inverse background -->
+
+        <!-- Status bar color -->
+        <item name="android:statusBarColor">@color/ngalo_green</item>
+
         <!-- Customize your theme here. -->
     </style>
 </resources>

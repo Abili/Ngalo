@@ -15,11 +15,17 @@ class OrdersViewModel : ViewModel() {
 
     private val uid = FirebaseAuth.getInstance().uid
 
-    fun loadCompletedRequests() {
-        ordersRepository.getAllRequests() { requestLists ->
+    fun loadRepaireRequests() {
+        ordersRepository.getAllRepairRequests() { requestLists ->
             _requests.value = requestLists
         }
     }
+
+    fun deleteItem(id: String) {
+        ordersRepository.deleteOrder(id)
+
+    }
+
 
     fun orderCount() {
         viewModelScope.launch {

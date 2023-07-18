@@ -39,7 +39,8 @@
                     android:drawableStart="@drawable/ic_shopping_cart"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="Check Out"
+                    android:textAllCaps="false"
+                    android:text="CHECK OUT"
                     android:textSize="18dp"
                     android:textColor="@color/white" />
             </LinearLayout>

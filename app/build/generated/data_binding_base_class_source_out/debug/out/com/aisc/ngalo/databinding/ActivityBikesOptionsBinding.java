@@ -14,7 +14,6 @@ import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import androidx.viewpager.widget.ViewPager;
 import com.aisc.ngalo.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import java.lang.NullPointerException;
 import java.lang.Override;
@@ -31,9 +30,6 @@ public final class ActivityBikesOptionsBinding implements ViewBinding {
   public final ImageView cartIcon;
 
   @NonNull
-  public final FloatingActionButton fabAddBike;
-
-  @NonNull
   public final Toolbar optionstoolbar;
 
   @NonNull
@@ -43,13 +39,11 @@ public final class ActivityBikesOptionsBinding implements ViewBinding {
   public final ViewPager viewPager;
 
   private ActivityBikesOptionsBinding(@NonNull CoordinatorLayout rootView,
-      @NonNull TextView cartCount, @NonNull ImageView cartIcon,
-      @NonNull FloatingActionButton fabAddBike, @NonNull Toolbar optionstoolbar,
+      @NonNull TextView cartCount, @NonNull ImageView cartIcon, @NonNull Toolbar optionstoolbar,
       @NonNull TabLayout tabs, @NonNull ViewPager viewPager) {
     this.rootView = rootView;
     this.cartCount = cartCount;
     this.cartIcon = cartIcon;
-    this.fabAddBike = fabAddBike;
     this.optionstoolbar = optionstoolbar;
     this.tabs = tabs;
     this.viewPager = viewPager;
@@ -94,12 +88,6 @@ public final class ActivityBikesOptionsBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.fabAddBike;
-      FloatingActionButton fabAddBike = ViewBindings.findChildViewById(rootView, id);
-      if (fabAddBike == null) {
-        break missingId;
-      }
-
       id = R.id.optionstoolbar;
       Toolbar optionstoolbar = ViewBindings.findChildViewById(rootView, id);
       if (optionstoolbar == null) {
@@ -119,7 +107,7 @@ public final class ActivityBikesOptionsBinding implements ViewBinding {
       }
 
       return new ActivityBikesOptionsBinding((CoordinatorLayout) rootView, cartCount, cartIcon,
-          fabAddBike, optionstoolbar, tabs, viewPager);
+          optionstoolbar, tabs, viewPager);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

@@ -2,6 +2,7 @@ package com.aisc.ngalo.orders
 
 import com.aisc.ngalo.LocationObject
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -11,59 +12,57 @@ import javax.inject.Inject
 
 class OrdersRepository @Inject constructor() {
     val uid = FirebaseAuth.getInstance().uid
-    private val uidRef = FirebaseDatabase.getInstance().reference.child("users").child(uid!!)
+    private val uidRef = FirebaseDatabase.getInstance().reference.child("users")
 
-    private val databaseRef =
-        FirebaseDatabase.getInstance().reference.child("users").child(uid!!).child("UsersOrders")
+    val uidkey = uidRef.key
+    private val databaseRef = FirebaseDatabase.getInstance().reference.child("RepaireRequests")
 
-    fun getAllRequests(onCompletedRequestsLoaded: (List<Order>) -> Unit) {
+    fun getAllRepairRequests(onCompletedRequestsLoaded: (List<Order>) -> Unit) {
         databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
-                    val completedList = mutableListOf<Order>()
+                    val repairs = mutableListOf<Order>()
                     for (childSnapshot in snapshot.children) {
                         val description =
                             childSnapshot.child("description").getValue(String::class.java)
                         val imageUrl = childSnapshot.child("imageUrl").getValue(String::class.java)
-                        val latitude = childSnapshot.child("latLng").child("coordinates")
-                            .child("latitude").getValue(Double::class.java)
-                        val longitude = childSnapshot.child("latLng").child("coordinates")
-                            .child("longitude").getValue(Double::class.java)
+                        val latitude =
+                            childSnapshot.child("latLng").child("coordinates").child("latitude")
+                                .getValue(Double::class.java)
+                        val longitude =
+                            childSnapshot.child("latLng").child("coordinates").child("longitude")
+                                .getValue(Double::class.java)
                         val name =
                             childSnapshot.child("latLng").child("name").getValue(String::class.java)
                         val time = childSnapshot.child("requestTime").getValue(String::class.java)
+                        val id = childSnapshot.child("id").getValue(String::class.java)
 
                         uidRef.addValueEventListener(object : ValueEventListener {
                             override fun onDataChange(snapshot: DataSnapshot) {
-                                    val uidUser = snapshot.child("id").getValue(String::class.java)
-                                    if (uidUser != null) {
+                                for (usersnap in snapshot.children) {
+                                    val uidUser = usersnap.child("id").getValue(String::class.java)
+                                    if (id == uidUser) {
                                         val userImageUrl =
-                                            snapshot.child("imageUrl").getValue(String::class.java)
+                                            usersnap.child("imageUrl").getValue(String::class.java)
                                         val userName =
-                                            snapshot.child("username").getValue(String::class.java)
-
+                                            usersnap.child("username").getValue(String::class.java)
                                         val order = Order(
-                                            uidUser,
-                                            description,
-                                            imageUrl,
-                                            LocationObject(
+                                            uidUser!!, description, imageUrl, LocationObject(
                                                 LatLng(
-                                                    latitude!!,
-                                                    longitude!!
-                                                ),
-                                                name!!
-                                            ),
-                                            userName!!,
-                                            userImageUrl,
-                                            time
+                                                    latitude!!, longitude!!
+                                                ), name!!
+                                            ), userName!!, userImageUrl, time
                                         )
+                                        repairs.clear()
+                                        repairs.add(order)
 
-                                        completedList.add(order)
+                                        break
                                     }
-
+                                }
 
                                 // Invoke the callback with the completed list
-                                onCompletedRequestsLoaded(completedList)
+                                onCompletedRequestsLoaded(repairs)
+
                             }
 
                             override fun onCancelled(error: DatabaseError) {
@@ -77,6 +76,72 @@ class OrdersRepository @Inject constructor() {
             override fun onCancelled(error: DatabaseError) {
                 // Handle the onCancelled event if needed
 
+            }
+        })
+    }
+
+    fun deleteOrder(id: String) {
+        val deleteRef = FirebaseDatabase.getInstance().getReference("RepaireRequest")
+        val completedRef = FirebaseDatabase.getInstance().getReference("completed")
+
+        deleteRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    val deletedRepairs = mutableListOf<Order>()
+                    val deleteTasks = mutableListOf<Task<Void>>()
+
+                    for (childSnapshot in snapshot.children) {
+                        val description = childSnapshot.child("description").getValue(String::class.java)
+                        val imageUrl = childSnapshot.child("imageUrl").getValue(String::class.java)
+                        val latitude = childSnapshot.child("latLng").child("coordinates")
+                            .child("latitude").getValue(Double::class.java)
+                        val longitude = childSnapshot.child("latLng").child("coordinates")
+                            .child("longitude").getValue(Double::class.java)
+                        val name = childSnapshot.child("latLng").child("name").getValue(String::class.java)
+                        val time = childSnapshot.child("requestTime").getValue(String::class.java)
+                        val userid = childSnapshot.child("id").getValue(String::class.java)
+                        val key = childSnapshot.key
+
+                        uidRef.addValueEventListener(object : ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                for (usersnap in snapshot.children) {
+                                    val uidUser = usersnap.child("id").getValue(String::class.java)
+                                    if (id == uidUser) {
+                                        val deleteTask = deleteRef.child(key!!).removeValue()
+                                        deleteTasks.add(deleteTask)
+
+                                        val userImageUrl = usersnap.child("imageUrl").getValue(String::class.java)
+                                        val userName = usersnap.child("username").getValue(String::class.java)
+                                        val order = Order(
+                                            uidUser, description, imageUrl, LocationObject(
+                                                LatLng(latitude!!, longitude!!), name!!
+                                            ), userName!!, userImageUrl, time
+                                        )
+                                        deletedRepairs.add(order)
+
+                                        break
+                                    }
+                                }
+
+                                // Check if all deletion tasks are completed
+                                if (deleteTasks.size == deletedRepairs.size) {
+                                    // All deletion tasks completed, move to "completed" node
+                                    for (deletedOrder in deletedRepairs) {
+                                        completedRef.push().setValue(deletedOrder)
+                                    }
+                                }
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+                                // Handle the onCancelled event if needed
+                            }
+                        })
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Handle the onCancelled event if needed
             }
         })
     }

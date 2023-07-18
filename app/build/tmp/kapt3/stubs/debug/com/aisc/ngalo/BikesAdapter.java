@@ -12,6 +12,7 @@ import com.aisc.ngalo.cart.CartItem;
 import com.aisc.ngalo.cart.CartViewModel;
 import com.aisc.ngalo.databinding.BikeItemBinding;
 import com.aisc.ngalo.models.Bike;
+import com.aisc.ngalo.util.CurrencyUtil;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;

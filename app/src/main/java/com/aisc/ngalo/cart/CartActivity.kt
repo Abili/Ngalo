@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aisc.ngalo.admin.ConfirmationActivity
 import com.aisc.ngalo.databinding.ActivityCartBinding
+import com.aisc.ngalo.util.CurrencyUtil
 import com.google.firebase.auth.FirebaseAuth
 
 class CartActivity : AppCompatActivity() {
@@ -33,7 +34,7 @@ class CartActivity : AppCompatActivity() {
 
         //     Update the total price
         viewModel.getTotal().observe(this) {
-            binding.checkout.text = "Check Out (UGX $it)"
+            binding.checkout.text = "Check Out ( ${CurrencyUtil.formatCurrency(it,"UGX")})"
         }
         binding.checkout.setOnClickListener {
             var totalprice = 0

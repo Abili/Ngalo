@@ -7,6 +7,9 @@ object CurrencyUtil {
     fun formatCurrency(amount: Int, currencyCode: String): String {
         val formatter = NumberFormat.getCurrencyInstance(Locale.getDefault())
         formatter.currency = Currency.getInstance(currencyCode)
-        return formatter.format(amount)
+        formatter.maximumFractionDigits = 0  // Set maximum fraction digits to 0
+        val formattedAmount = formatter.format(amount)
+        return formattedAmount.replace(currencyCode, "Ugx ") // Add space between currency symbol and amount
     }
+
 }

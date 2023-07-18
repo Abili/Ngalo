@@ -48,7 +48,41 @@
         android:roundIcon="@mipmap/ngalo_logo"
         android:supportsRtl="true"
         android:testOnly="true"
-        android:theme="@style/Theme.Ngalo.NoActionBar" >
+        android:theme="@style/Theme.Ngalo.ActionBar" >
+        <activity
+            android:name="com.aisc.ngalo.purchases.Purchases"
+            android:exported="false"
+            android:label="Purchases"
+            android:theme="@style/Theme.Ngalo.NoActionBar" />
+        <activity
+            android:name="com.aisc.ngalo.completed.CompletedDetails"
+            android:exported="false"
+            android:label="Completed"
+            android:theme="@style/Theme.Ngalo.NoActionBar" />
+        <activity
+            android:name="com.aisc.ngalo.purchases.PurchasesDetails"
+            android:exported="false"
+            android:label="Details"
+            android:theme="@style/Theme.Ngalo.NoActionBar" />
+        <activity
+            android:name="com.aisc.ngalo.purchases.UserPurchaseGroup"
+            android:exported="false"
+            android:label="Client&apos;s Orders"
+            android:theme="@style/Theme.Ngalo.NoActionBar" />
+        <activity
+            android:name="com.aisc.ngalo.notifications.NotificationsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_notifications"
+            android:theme="@style/Theme.Ngalo.NoActionBar" />
+        <activity
+            android:name="com.aisc.ngalo.rides.Rides"
+            android:exported="false"
+            android:label="Rides" />
+        <activity
+            android:name="com.aisc.ngalo.rides.RidesActivity"
+            android:exported="false"
+            android:label="Rides"
+            android:theme="@style/Theme.Ngalo.NoActionBar" />
         <activity
             android:name="com.aisc.ngalo.progress.ProgressActivity"
             android:exported="false"
@@ -66,16 +100,20 @@
             android:theme="@style/Theme.Ngalo.NoActionBar" />
         <activity
             android:name="com.aisc.ngalo.SocialMediaActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Social Media" />
         <activity
             android:name="com.aisc.ngalo.usersorders.UserOrderDetails"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Order Details" />
         <activity
             android:name="com.aisc.ngalo.usersorders.UsersOrders"
-            android:exported="false" />
+            android:exported="false"
+            android:label="History" />
         <activity
-            android:name="com.aisc.ngalo.completed.CompletedActivity"
-            android:exported="false" />
+            android:name="com.aisc.ngalo.completed.CompletedFragment"
+            android:exported="false"
+            android:label="Completed" />
         <activity
             android:name="com.aisc.ngalo.admin.AdminPanel"
             android:exported="false"
@@ -87,7 +125,7 @@
             android:label="Order Details"
             android:theme="@style/Theme.Ngalo.NoActionBar" />
         <activity
-            android:name="com.aisc.ngalo.orders.OrdersActivity"
+            android:name="com.aisc.ngalo.orders.OrdersOptions"
             android:exported="false"
             android:label="@string/title_activity_orders"
             android:theme="@style/Theme.Ngalo.NoActionBar" />
@@ -125,10 +163,12 @@
             android:exported="false" />
         <activity
             android:name="com.aisc.ngalo.MyAccount"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Profile" />
         <activity
             android:name="com.aisc.ngalo.admin.AddBicyclePart"
-            android:exported="false" />
+            android:exported="false"
+            android:label="AddBicyclePart" />
         <activity
             android:name="com.aisc.ngalo.admin.UploadItems"
             android:exported="false"
@@ -136,13 +176,16 @@
             android:theme="@style/Theme.Ngalo.NoActionBar" />
         <activity
             android:name="com.aisc.ngalo.HomeActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Home" />
         <activity
             android:name="com.aisc.ngalo.SettingsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Settings" />
         <activity
             android:name="com.aisc.ngalo.admin.CreateAdvert"
-            android:exported="false" />
+            android:exported="false"
+            android:label="CreateAdvert" />
         <activity
             android:name="com.aisc.ngalo.BikesScreen"
             android:exported="false"
@@ -150,7 +193,8 @@
             android:theme="@style/Theme.Ngalo.NoActionBar" />
         <activity
             android:name="com.aisc.ngalo.BikeDetails"
-            android:exported="false" />
+            android:exported="false"
+            android:label="BikeDetails" />
         <activity
             android:name="com.aisc.ngalo.MainActivity"
             android:exported="false" />
@@ -200,7 +244,7 @@
             android:theme="@style/Theme.Ngalo" />
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="fullSensor"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <service

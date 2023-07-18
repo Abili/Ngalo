@@ -20,39 +20,39 @@ class SettingsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        // Save the selected theme option to SharedPreferences when the activity is destroyed
-        saveThemeToPreferences()
-    }
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        // Save the selected theme option to SharedPreferences when the activity is destroyed
+//        saveThemeToPreferences()
+//    }
 
-    private fun saveThemeToPreferences() {
-        // Store the selected theme option in SharedPreferences
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        val themePreference: ListPreference? = SettingsFragment().findPreference("theme")
-        val themeOption = themePreference!!.value
-        sharedPreferences.edit().putString("theme", themeOption).apply()
-    }
+//    private fun saveThemeToPreferences() {
+//        // Store the selected theme option in SharedPreferences
+//        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+//        val themePreference: ListPreference? = SettingsFragment().findPreference("theme")
+//        val themeOption = themePreference!!.value
+//        sharedPreferences.edit().putString("theme", themeOption).apply()
+//    }
 
     class SettingsFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.settings, rootKey)
-            val themePreference: ListPreference = findPreference("theme")!!
-            val aboutPreference: Preference = findPreference("about")!!
+            //val themePreference: ListPreference = findPreference("theme")!!
+            val aboutPreference: Preference = findPreference("contactus")!!
             val signOutPreference: Preference = findPreference("signout")!!
-            themePreference.summary = themePreference.entry
+            //themePreference.summary = themePreference.entry
 
             // Retrieve the previously selected theme option from SharedPreferences
-            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
-            val savedThemeOption = sharedPreferences.getString("theme", "dark")
-            themePreference.setValue(savedThemeOption)
+//            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+//            val savedThemeOption = sharedPreferences.getString("theme", "dark")
+//            themePreference.setValue(savedThemeOption)
 
-            themePreference.onPreferenceChangeListener =
-                Preference.OnPreferenceChangeListener { preference, newValue ->
-                    val themeOption = newValue as String?
-                    ThemeHelper.applyTheme(themeOption!!)
-                    true
-                }
+//            themePreference.onPreferenceChangeListener =
+//                Preference.OnPreferenceChangeListener { preference, newValue ->
+//                    val themeOption = newValue as String?
+//                    ThemeHelper.applyTheme(themeOption!!)
+//                    true
+//                }
 
             aboutPreference.setOnPreferenceClickListener {
                 val intent = Intent(requireContext(), SocialMediaActivity::class.java)
@@ -61,6 +61,8 @@ class SettingsActivity : AppCompatActivity() {
             }
             signOutPreference.setOnPreferenceClickListener {
                 FirebaseAuth.getInstance().signOut()
+                requireActivity().finish()
+                requireActivity().startActivity(Intent(requireContext(), SignUp::class.java))
                 true
             }
         }

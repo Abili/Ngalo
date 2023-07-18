@@ -9,7 +9,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewbinding.ViewBinding;
@@ -33,10 +32,13 @@ public final class ActivityHomeBinding implements ViewBinding {
   public final CardView cardView;
 
   @NonNull
+  public final CardView cardView2;
+
+  @NonNull
   public final ImageView hire;
 
   @NonNull
-  public final Toolbar hometoolbar;
+  public final LinearLayout historyHome;
 
   @NonNull
   public final LinearLayout myaccountHome;
@@ -48,10 +50,10 @@ public final class ActivityHomeBinding implements ViewBinding {
   public final LinearLayout notificationsHome;
 
   @NonNull
-  public final LinearLayout ordersHome;
+  public final ImageView repairs;
 
   @NonNull
-  public final ImageView repairs;
+  public final ImageView rides;
 
   @NonNull
   public final LinearLayout settingsHome;
@@ -63,22 +65,23 @@ public final class ActivityHomeBinding implements ViewBinding {
   public final TextView textView2;
 
   private ActivityHomeBinding(@NonNull ConstraintLayout rootView, @NonNull ImageView bikeparts,
-      @NonNull ImageView buy, @NonNull CardView cardView, @NonNull ImageView hire,
-      @NonNull Toolbar hometoolbar, @NonNull LinearLayout myaccountHome, @NonNull ImageView ngaloAd,
-      @NonNull LinearLayout notificationsHome, @NonNull LinearLayout ordersHome,
-      @NonNull ImageView repairs, @NonNull LinearLayout settingsHome, @NonNull TextView textView,
-      @NonNull TextView textView2) {
+      @NonNull ImageView buy, @NonNull CardView cardView, @NonNull CardView cardView2,
+      @NonNull ImageView hire, @NonNull LinearLayout historyHome,
+      @NonNull LinearLayout myaccountHome, @NonNull ImageView ngaloAd,
+      @NonNull LinearLayout notificationsHome, @NonNull ImageView repairs, @NonNull ImageView rides,
+      @NonNull LinearLayout settingsHome, @NonNull TextView textView, @NonNull TextView textView2) {
     this.rootView = rootView;
     this.bikeparts = bikeparts;
     this.buy = buy;
     this.cardView = cardView;
+    this.cardView2 = cardView2;
     this.hire = hire;
-    this.hometoolbar = hometoolbar;
+    this.historyHome = historyHome;
     this.myaccountHome = myaccountHome;
     this.ngaloAd = ngaloAd;
     this.notificationsHome = notificationsHome;
-    this.ordersHome = ordersHome;
     this.repairs = repairs;
+    this.rides = rides;
     this.settingsHome = settingsHome;
     this.textView = textView;
     this.textView2 = textView2;
@@ -129,15 +132,21 @@ public final class ActivityHomeBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.cardView2;
+      CardView cardView2 = ViewBindings.findChildViewById(rootView, id);
+      if (cardView2 == null) {
+        break missingId;
+      }
+
       id = R.id.hire;
       ImageView hire = ViewBindings.findChildViewById(rootView, id);
       if (hire == null) {
         break missingId;
       }
 
-      id = R.id.hometoolbar;
-      Toolbar hometoolbar = ViewBindings.findChildViewById(rootView, id);
-      if (hometoolbar == null) {
+      id = R.id.history_home;
+      LinearLayout historyHome = ViewBindings.findChildViewById(rootView, id);
+      if (historyHome == null) {
         break missingId;
       }
 
@@ -159,15 +168,15 @@ public final class ActivityHomeBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.orders_home;
-      LinearLayout ordersHome = ViewBindings.findChildViewById(rootView, id);
-      if (ordersHome == null) {
-        break missingId;
-      }
-
       id = R.id.repairs;
       ImageView repairs = ViewBindings.findChildViewById(rootView, id);
       if (repairs == null) {
+        break missingId;
+      }
+
+      id = R.id.rides;
+      ImageView rides = ViewBindings.findChildViewById(rootView, id);
+      if (rides == null) {
         break missingId;
       }
 
@@ -189,9 +198,9 @@ public final class ActivityHomeBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityHomeBinding((ConstraintLayout) rootView, bikeparts, buy, cardView, hire,
-          hometoolbar, myaccountHome, ngaloAd, notificationsHome, ordersHome, repairs, settingsHome,
-          textView, textView2);
+      return new ActivityHomeBinding((ConstraintLayout) rootView, bikeparts, buy, cardView,
+          cardView2, hire, historyHome, myaccountHome, ngaloAd, notificationsHome, repairs, rides,
+          settingsHome, textView, textView2);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

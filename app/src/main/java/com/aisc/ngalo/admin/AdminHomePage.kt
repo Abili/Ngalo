@@ -24,6 +24,7 @@ import androidx.core.content.ContextCompat
 import com.aisc.ngalo.LocationObject
 import com.aisc.ngalo.R
 import com.aisc.ngalo.databinding.ActivityAdminHomePageBinding
+import com.aisc.ngalo.helpers.fetchRoute
 import com.akexorcist.googledirection.DirectionCallback
 import com.akexorcist.googledirection.GoogleDirection
 import com.akexorcist.googledirection.constant.TransportMode
@@ -46,6 +47,7 @@ import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.Polyline
+import com.google.android.gms.maps.model.PolylineOptions
 import com.google.android.libraries.places.api.Places
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -53,7 +55,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class AdminHomePage : AppCompatActivity(), OnMapReadyCallback, DirectionCallback {
+class AdminHomePage : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     var myLocation: LocationObject? = null
@@ -97,26 +99,9 @@ class AdminHomePage : AppCompatActivity(), OnMapReadyCallback, DirectionCallback
 
         binding.acceptRequest.setOnClickListener {
             myLocation = currentLocation
-            customerMarker = mMap.addMarker(
-                MarkerOptions().position(
-                    LatLng(
-                        myLocation!!.coordinates!!.latitude,
-                        myLocation!!.coordinates!!.longitude
-                    )
-                ).title("your driver")
-                    .icon(
-                        BitmapDescriptorFactory.fromBitmap(
-                            generateBitmap(
-                                this@AdminHomePage,
-                                myLocation!!.name,
-                                null
-                            )!!
-                        )
-                    )
-            )
             val uid = FirebaseAuth.getInstance().uid
             val requestsRef =
-                FirebaseDatabase.getInstance().reference.child("RepaireRequests").child(uid!!)
+                FirebaseDatabase.getInstance().reference.child("RepaireRequests")
 
             requestsRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -139,26 +124,95 @@ class AdminHomePage : AppCompatActivity(), OnMapReadyCallback, DirectionCallback
                                         latitude,
                                         longitude
                                     )
-                                ).title("your driver")
-                                //   .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_car))
+                                ).title(placeName.toString())
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.client_marker))
                             )
 
                             mapFragment.getMapAsync {
                                 val currentLocation = LocationObject(
                                     LatLng(
                                         0.3765387, 32.6068885
-                                    ), placeName.toString()
+                                    ), "Ngalo Kulambiro-Ring road"
                                 )
                                 mMap = it
-                                mMap.addMarker(MarkerOptions().position(currentLocation.coordinates!!))
+                                customerMarker = mMap.addMarker(
+                                    MarkerOptions().position(
+                                        LatLng(
+                                            currentLocation.coordinates!!.latitude,
+                                            currentLocation.coordinates!!.longitude
+                                        )
+                                    ).title("Ngalo Kulambiro-Ring road")
+                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.admin_marker))
+                                )
                                 val destinationLocation = LocationObject(
                                     LatLng(
                                         latitude,
                                         longitude
                                     ), placeName.toString()
                                 )
-                                mMap.addMarker(MarkerOptions().position(destinationLocation.coordinates!!))
-                                getRouteToMarker(destinationLocation.coordinates)
+                                //mMap.addMarker(MarkerOptions().position(destinationLocation.coordinates!!))
+                                fetchRoute(
+                                    LatLng(
+                                        currentLocation.coordinates!!.latitude,
+                                        currentLocation.coordinates!!.longitude
+                                    ),
+                                    LatLng(
+                                        destinationLocation.coordinates!!.latitude,
+                                        destinationLocation.coordinates!!.longitude
+                                    ),
+                                    value,
+                                ) { directionsResult ->
+                                    val routes = directionsResult.routes
+
+                                    // Loop through each route and draw directionsResult on the map
+                                    for (i in routes.indices) {
+                                        val route = routes[i]
+
+                                        // Polyline options for the route
+                                        val polylineOptions = PolylineOptions()
+                                            .color(Color.BLUE)
+                                            .width(15f)
+
+                                        // Add each step of the route to the polyline options
+                                        for (j in route.legs.indices) {
+                                            val leg = route.legs[j]
+                                            for (k in leg.steps.indices) {
+                                                val step = leg.steps[k]
+                                                val points = step.polyline.decodePath()
+                                                for (point in points) {
+                                                    polylineOptions.add(
+                                                        LatLng(
+                                                            point.lat,
+                                                            point.lng
+                                                        )
+                                                    )
+                                                }
+                                            }
+                                        }
+
+                                        // Draw the polyline on the map
+                                        mMap.addPolyline(polylineOptions)
+                                        binding.bottomSheet.visibility = View.VISIBLE
+
+                                        val distanceInMeters =
+                                            route?.legs?.sumBy { it.distance.inMeters.toInt() } ?: 0
+                                        val duration =
+                                            route?.legs?.sumBy { it.duration.inSeconds.toInt() }
+                                                ?: 0
+
+                                        val distanceInKilometers = distanceInMeters / 1000
+                                        // Convert duration to hours and minutes
+                                        val hours = duration / 3600
+                                        val minutes = (duration % 3600) / 60
+
+                                        // Update the UI with the calculated distance and duration
+                                        // Format the time string
+                                        val time = String.format("%02d:%02d", hours, minutes)
+
+                                        binding.time.text = time + "Hrs"
+                                        binding.distance.text = "$distanceInKilometers KM"
+                                    }
+                                }
                                 mMap.animateCamera(
                                     CameraUpdateFactory.newLatLngZoom(
                                         currentLocation.coordinates!!,
@@ -186,44 +240,8 @@ class AdminHomePage : AppCompatActivity(), OnMapReadyCallback, DirectionCallback
                     )
                 }
             })
-
-
         }
     }
-
-    private fun generateBitmap(context: Context, location: String?, duration: String?): Bitmap? {
-        var bitmap: Bitmap?
-        val mInflater = context.getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val view = RelativeLayout(context)
-        try {
-            mInflater.inflate(R.layout.item_marker, view, true)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        val locationTextView = view.findViewById<View>(R.id.location) as TextView
-        val durationTextView = view.findViewById<View>(R.id.duration) as TextView
-        locationTextView.text = location
-        if (duration != null) {
-            durationTextView.text = duration
-        } else {
-            durationTextView.visibility = View.GONE
-        }
-        view.layoutParams = ViewGroup.LayoutParams(
-            RelativeLayout.LayoutParams.WRAP_CONTENT,
-            RelativeLayout.LayoutParams.WRAP_CONTENT
-        )
-        view.measure(
-            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
-        )
-        view.layout(0, 0, view.measuredWidth, view.measuredHeight)
-        bitmap =
-            Bitmap.createBitmap(view.measuredWidth, view.measuredHeight, Bitmap.Config.ARGB_8888)
-        val c = Canvas(bitmap)
-        view.draw(c)
-        return bitmap
-    }
-
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
@@ -237,25 +255,23 @@ class AdminHomePage : AppCompatActivity(), OnMapReadyCallback, DirectionCallback
         mLocationRequest!!.interval = 1000
         mLocationRequest!!.fastestInterval = 1000
         mLocationRequest!!.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED
-            ) {
-                mFusedLocationClient!!.requestLocationUpdates(
-                    mLocationRequest!!,
-                    mLocationCallback,
-                    Looper.myLooper()
-                )
-                mMap.isMyLocationEnabled = true
-            } else {
-                checkLocationPermission()
-            }
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED &&
+            ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            mFusedLocationClient!!.requestLocationUpdates(
+                mLocationRequest!!,
+                mLocationCallback,
+                Looper.myLooper()
+            )
+            mMap.isMyLocationEnabled = true
+        } else {
+            checkLocationPermission()
         }
     }
 
@@ -346,101 +362,6 @@ class AdminHomePage : AppCompatActivity(), OnMapReadyCallback, DirectionCallback
     }
 
 
-//    private fun getDirectionURL(origin: LatLng, dest: LatLng, secret: String): String {
-//        return "https://maps.googleapis.com/maps/api/directions/json?origin=${origin.latitude},${origin.longitude}" +
-//                "&destination=${dest.latitude},${dest.longitude}" +
-//                "&sensor=false" +
-//                "&mode=driving" +
-//                "&key=$secret"
-//    }
-//
-//    @SuppressLint("StaticFieldLeak")
-//    private inner class GetDirection(val url: String) :
-//        AsyncTask<Void, Void, List<List<LatLng>>>() {
-//        override fun doInBackground(vararg params: Void?): List<List<LatLng>> {
-//            val client = OkHttpClient()
-//            val request = Request.Builder().url(url).build()
-//            val response = client.newCall(request).execute()
-//            val data = response.body()!!.string()
-//
-//            val result = ArrayList<List<LatLng>>()
-//            try {
-//                val respObj = Gson().fromJson(data, MapData::class.java)
-//                val path = ArrayList<LatLng>()
-//                for (i in 0 until respObj.routes[0].legs[0].steps.size) {
-//                    path.addAll(decodePolyline(respObj.routes[0].legs[0].steps[i].polyline.points))
-//                }
-//                result.add(path)
-//            } catch (e: Exception) {
-//                e.printStackTrace()
-//            }
-//            return result
-//        }
-//
-//        override fun onPostExecute(result: List<List<LatLng>>) {
-//            val lineoption = PolylineOptions()
-//            for (i in result.indices) {
-//                lineoption.addAll(result[i])
-//                lineoption.width(10f)
-//                lineoption.color(Color.GREEN)
-//                lineoption.geodesic(true)
-//            }
-//            mMap.addPolyline(lineoption)
-//        }
-//    }
-//
-//    fun decodePolyline(encoded: String): List<LatLng> {
-//        val poly = ArrayList<LatLng>()
-//        var index = 0
-//        val len = encoded.length
-//        var lat = 0
-//        var lng = 0
-//        while (index < len) {
-//            var b: Int
-//            var shift = 0
-//            var result = 0
-//            do {
-//                b = encoded[index++].code - 63
-//                result = result or (b and 0x1f shl shift)
-//                shift += 5
-//            } while (b >= 0x20)
-//            val dlat = if (result and 1 != 0) (result shr 1).inv() else result shr 1
-//            lat += dlat
-//            shift = 0
-//            result = 0
-//            do {
-//                b = encoded[index++].code - 63
-//                result = result or (b and 0x1f shl shift)
-//                shift += 5
-//            } while (b >= 0x20)
-//            val dlng = if (result and 1 != 0) (result shr 1).inv() else result shr 1
-//            lng += dlng
-//            val latLng = LatLng((lat.toDouble() / 1E5), (lng.toDouble() / 1E5))
-//            poly.add(latLng)
-//        }
-//        return poly
-//    }
-
-    /**
-     * Get Route from pickup to destination, showing the route to the user
-     * @param destination - LatLng of the location to go to
-     */
-    private fun getRouteToMarker(destination: LatLng?) {
-        val serverKey = resources.getString(R.string.Api_key)
-        if (destination != null && myLocation != null) {
-            GoogleDirection.withServerKey(serverKey)
-                .from(
-                    LatLng(
-                        myLocation!!.coordinates!!.latitude,
-                        myLocation!!.coordinates!!.longitude
-                    )
-                )
-                .to(destination)
-                .transportMode(TransportMode.DRIVING)
-                .execute(this)
-        }
-    }
-
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
@@ -452,28 +373,13 @@ class AdminHomePage : AppCompatActivity(), OnMapReadyCallback, DirectionCallback
      * Remove route polylines from the map
      */
     private fun erasePolylines() {
-        for (line in polylines!!) {
+        for (line in polylines) {
             line.remove()
         }
         polylines.clear()
     }
 
-    override fun onDirectionSuccess(direction: Direction, rawBody: String?) {
-        if (direction.isOK) {
-            val route = direction.routeList[0]
-            val directionPositionList = route.legList[0].directionPoint
-            val polyline = mMap.addPolyline(
-                DirectionConverter.createPolyline(
-                    this,
-                    directionPositionList,
-                    5,
-                    Color.BLACK
-                )
-            )
-            polylines!!.add(polyline)
-            setCameraWithCoordinationBounds(route)
-        }
-    }
+
 
     private fun setCameraWithCoordinationBounds(route: Route) {
         val southwest = route.bound.southwestCoordination.coordination
@@ -482,6 +388,5 @@ class AdminHomePage : AppCompatActivity(), OnMapReadyCallback, DirectionCallback
         mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100))
     }
 
-    override fun onDirectionFailure(t: Throwable?) {}
 
 }

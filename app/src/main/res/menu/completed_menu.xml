@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_reactivate"
+        android:id="@+id/action_completed"
         android:icon="@drawable/ic_search"
-        android:title="ReActivate"
+        android:title="completed"
         app:actionViewClass="androidx.appcompat.widget.SearchView" />
 
-    <item
-        android:id="@+id/action_delete"
-        android:icon="@drawable/ic_settings"
-        android:title="Delete" />
+<!--    <item-->
+<!--        android:id="@+id/action_reactivate"-->
+<!--        android:icon="@drawable/ic_settings"-->
+<!--        android:title="Reactivate" />-->
 </menu>

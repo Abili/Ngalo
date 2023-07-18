@@ -14,7 +14,10 @@ import com.aisc.ngalo.helpers.TimeConverter
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class CompletedAdapter : RecyclerView.Adapter<ViewHolder>() {
 
@@ -77,13 +80,13 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         binding.customerLocation.text = completed.location!!.name
         binding.description.text = completed.description
 
-//        val (date, timeFormat) = TimeConverter().dateSimpleDateFormatPair(completed)
-//        val time = timeFormat.format(date)
-        binding.requestTime.text = completed.timeOfOrder
+        val (date, timeFormat) = TimeConverter().dateSimpleDateFormatPair(completed)
+        val time = timeFormat.format(date)
+        binding.requestTime.text = time
 
         val completedOrder =
             Completed(
-                uid!!,
+                completed.id,
                 completed.description,
                 completed.imageUrl,
                 completed.location,
@@ -99,32 +102,47 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 PopupMenu.OnMenuItemClickListener {
                 override fun onMenuItemClick(item: MenuItem): Boolean {
                     when (item.itemId) {
-                        R.id.action_reactivate -> {
-                            val hire =
-                                FirebaseDatabase.getInstance().reference.child("RepaireRequests")
-                                    .child(uid)
-                            hire.push().setValue(completedOrder)
+//                        R.id.action_reactivate -> {
+//                            val hire =
+//                                FirebaseDatabase.getInstance().reference.child("RepaireRequests")
+//                            hire.push().setValue(completedOrder)
+//
+//                            Snackbar.make(
+//                                binding.root,
+//                                "Request Reactivated",
+//                                Snackbar.LENGTH_SHORT
+//                            ).show()
+//                        }
 
-                            Snackbar.make(
-                                binding.root,
-                                "Request Reactivated",
-                                Snackbar.LENGTH_SHORT
-                            ).show()
-                        }
-
-                        R.id.action_delete -> {
-                            if (uid == completed.id) {
-                                FirebaseDatabase.getInstance().reference.child("RepaireRequests")
-                                    .child("completed").removeValue().addOnCompleteListener {
-                                        if (it.isComplete) {
-                                            Snackbar.make(
-                                                binding.root,
-                                                "Deleted Successfully",
-                                                Snackbar.LENGTH_SHORT
-                                            ).show()
+                        R.id.action_completed -> {
+                            FirebaseDatabase.getInstance().reference.child("completed")
+                                .addListenerForSingleValueEvent(object : ValueEventListener {
+                                    override fun onDataChange(snapshot: DataSnapshot) {
+                                        for (comSnap in snapshot.children) {
+                                            val id =
+                                                comSnap.child("id").getValue(String::class.java)
+                                            if (id == completed.id) {
+                                                snapshot.ref.removeValue()
+                                            }
                                         }
                                     }
-                            }
+
+                                    override fun onCancelled(error: DatabaseError) {
+                                        TODO("Not yet implemented")
+                                    }
+
+                                })
+
+//                                    .removeValue().addOnCompleteListener {
+//                                        if (it.isComplete) {
+//                                            Snackbar.make(
+//                                                binding.root,
+//                                                "Deleted Successfully",
+//                                                Snackbar.LENGTH_SHORT
+//                                            ).show()
+//                                        }
+//                                    }
+
                         }
                     }
                     return true
@@ -145,10 +163,10 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             intent.putExtra("description", completed.description)
             intent.putExtra("location", completed.location.name)
             intent.putExtra("coordinates", completed.location.coordinates)
-            intent.putExtra("time", completed.timeOfOrder)
+            intent.putExtra("time", time)
             intent.putExtra("userImageUrl", completed.userImageUrl)
             intent.putExtra("orderimage", completed.imageUrl)
-            intent.putExtra("id", uid)
+            intent.putExtra("id", completed.id)
             itemView.context.startActivity(intent)
         }
     }

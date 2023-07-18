@@ -12,7 +12,7 @@
     <string name="title_activity_hire_bike">HireBike</string>
     <string name="hirebike">Hire Bike</string>
     <string name="unknown">unknown</string>
-    <string name="title_activity_bike_hire_screen">BikeHireScreen</string>
+    <string name="title_activity_bike_hire_screen">BikeHire</string>
     <string name="bike_image">bike image</string>
     <string name="bike_name">Bike Name</string>
     <string name="bike_price">Bike Price</string>
@@ -214,9 +214,14 @@
     <string name="version">1</string>
     <string name="no_orders_available">No Orders Available</string>
     <string name="no_orders_made_yet">No Orders made yet</string>
-    <string name="title_activity_cart">CartActivity</string>
+    <string name="title_activity_cart">Cart</string>
     <string name="item_name">Item Name</string>
     <string name="check_out">Check Out</string>
-    <string name="title_activity_confirmation">ConfirmationActivity</string>
-    <string name="title_activity_progress">ProgressActivity</string>
+    <string name="title_activity_confirmation">Confirmation</string>
+    <string name="title_activity_progress">Progress</string>
+    <string name="hint_input">hint_input\n</string>
+    <string name="channel_new_messages">channel message\n</string>
+    <string name="channel_new_messages_description">channel message description</string>
+    <string name="title_activity_notifications">Notifications</string>
+    <string name="title_activity_user_purchase_group">UserPurchaseGroup</string>
 </resources>
