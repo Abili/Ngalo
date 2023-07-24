@@ -3,7 +3,6 @@ package com.aisc.ngalo.orders
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
@@ -13,10 +12,8 @@ import com.aisc.ngalo.R
 import com.aisc.ngalo.cart.CartViewModel
 import com.aisc.ngalo.completed.CompletedFragment
 import com.aisc.ngalo.databinding.ActivityBikesOptionsBinding
-import com.aisc.ngalo.purchases.Purchases
 import com.aisc.ngalo.purchases.PurchasesViewModel
 import com.aisc.ngalo.purchases.UserPurchaseGroup
-import com.aisc.ngalo.rides.RidesActivity
 
 class OrdersOptions : AppCompatActivity() {
 
@@ -53,7 +50,7 @@ class OrdersOptions : AppCompatActivity() {
         override fun getItem(position: Int): Fragment {
             return when (position) {
                 0 -> UserPurchaseGroup()
-                1 -> OrdersActivity()
+                1 -> UserRepairRequestActivity()
                 2 -> CompletedFragment()
                 else -> throw IllegalArgumentException("Invalid position: $position")
             }

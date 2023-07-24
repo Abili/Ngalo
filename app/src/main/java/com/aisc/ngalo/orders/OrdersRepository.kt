@@ -1,5 +1,7 @@
 package com.aisc.ngalo.orders
 
+import android.app.Activity
+import android.widget.Toast
 import com.aisc.ngalo.LocationObject
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.tasks.Task
@@ -91,13 +93,15 @@ class OrdersRepository @Inject constructor() {
                     val deleteTasks = mutableListOf<Task<Void>>()
 
                     for (childSnapshot in snapshot.children) {
-                        val description = childSnapshot.child("description").getValue(String::class.java)
+                        val description =
+                            childSnapshot.child("description").getValue(String::class.java)
                         val imageUrl = childSnapshot.child("imageUrl").getValue(String::class.java)
                         val latitude = childSnapshot.child("latLng").child("coordinates")
                             .child("latitude").getValue(Double::class.java)
                         val longitude = childSnapshot.child("latLng").child("coordinates")
                             .child("longitude").getValue(Double::class.java)
-                        val name = childSnapshot.child("latLng").child("name").getValue(String::class.java)
+                        val name =
+                            childSnapshot.child("latLng").child("name").getValue(String::class.java)
                         val time = childSnapshot.child("requestTime").getValue(String::class.java)
                         val userid = childSnapshot.child("id").getValue(String::class.java)
                         val key = childSnapshot.key
@@ -110,8 +114,10 @@ class OrdersRepository @Inject constructor() {
                                         val deleteTask = deleteRef.child(key!!).removeValue()
                                         deleteTasks.add(deleteTask)
 
-                                        val userImageUrl = usersnap.child("imageUrl").getValue(String::class.java)
-                                        val userName = usersnap.child("username").getValue(String::class.java)
+                                        val userImageUrl =
+                                            usersnap.child("imageUrl").getValue(String::class.java)
+                                        val userName =
+                                            usersnap.child("username").getValue(String::class.java)
                                         val order = Order(
                                             uidUser, description, imageUrl, LocationObject(
                                                 LatLng(latitude!!, longitude!!), name!!

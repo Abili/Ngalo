@@ -60,16 +60,17 @@ class UserGroupPurchasesAdapter : RecyclerView.Adapter<UserGroupPurchasesAdapter
                     .into(binding.usergroupImage);
             }
             val uid = FirebaseAuth.getInstance().uid
-            binding.usergroupname.text = order.user_name
+            binding.usergroupname.text = "User Name: ${order.user_name}"
 
             //val price = CurrencyUtil.formatCurrency(order.purchase_price!!.toInt(), "UGX")
-            binding.usergroupickuploccation.text = order.pickup_location
-            binding.usergrouploccation.text = order.user_location
+            binding.usergroupickuploccation.text = "PickUp Location: ${order.pickup_location}"
+            binding.usergrouploccation.text = "User Location: ${order.user_location}"
             binding.gtotal.text = "GrandTotal: ${order.grandTotal}"
             binding.transport.text = "Transport Fares: ${order.transport}"
 //        val (date, timeFormat) = TimeConverter().dateSimpleDateFormatPair(order)
             val (date, timeFormat) = TimeConverter().dateSimpleDateFormatPair(order)
             binding.time.text = timeFormat.format(date)
+            binding.paymentMethod.text = "Payment Method: ${order.paymentMethod}"
 
 
             // Set up click listener for the playlist
@@ -85,6 +86,11 @@ class UserGroupPurchasesAdapter : RecyclerView.Adapter<UserGroupPurchasesAdapter
                 intent.putExtra("quantity", order.quantity)
                 intent.putExtra("itemImage", order.purchase_imageUrl)
                 intent.putExtra("time", order.time)
+                intent.putExtra("paymentMethod", order.paymentMethod)
+                intent.putExtra("grand", order.grandTotal)
+                intent.putExtra("tport", order.transport)
+                intent.putExtra("contact", order.contact)
+                intent.putExtra("desc", order.description)
                 itemView.context.startActivity(intent)
             }
 

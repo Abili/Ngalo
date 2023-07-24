@@ -77,7 +77,7 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.ViewHolder>() {
             binding.category.text = order.category
             val (date, timeFormat) = TimeConverter().dateSimpleDateFormatPair(order)
             val time = timeFormat.format(date)
-            binding.requestTime.text = order.timeOfOrder
+            binding.requestTime.text = time
             val completedOrder = Order(
                 order.id,
                 order.description,
@@ -94,29 +94,32 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.ViewHolder>() {
                     hire.push().setValue(completedOrder)
                     val position = adapterPosition
 
-                    val removeRef =
-                        FirebaseDatabase.getInstance().reference.child("RepaireRequests")
+                    val removeRef = FirebaseDatabase.getInstance().reference.child("RepaireRequests")
                     removeRef.addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
                             if (snapshot.exists()) {
                                 for (childSnap in snapshot.children) {
                                     val key = childSnap.key
-                                    val id = childSnap.child("id").getValue(String::class.java)
-                                    if (order.id == id) {
+                                    val time = childSnap.child("requestTime").getValue(String::class.java)
+                                    if (order.timeOfOrder == time) {
                                         childSnap.ref.removeValue()
-                                        orders.removeAt(position)
-                                        clear()
+                                        // Remove only if position is a valid index
+                                        if (position >= 0 && position < orders.size) {
+                                            orders.removeAt(position)
+                                            notifyDataSetChanged()
+                                        }
                                     }
                                 }
                             }
                         }
 
                         override fun onCancelled(error: DatabaseError) {
-                            TODO("Not yet implemented")
+                            // Handle onCancelled
                         }
                     })
                 }
             }
+
 
 
             // Set up click listener for the playlist

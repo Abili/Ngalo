@@ -44,6 +44,8 @@ class PurchasesRepository @Inject constructor() {
                                             itemsnap.child("price").getValue(Int::class.java)
                                         val quantity =
                                             itemsnap.child("quantity").getValue(Long::class.java)
+                                        val desc = itemsnap.child("description").getValue(String::class.java)
+
 
                                         uidRef.addValueEventListener(object : ValueEventListener {
                                             override fun onDataChange(snapshot: DataSnapshot) {
@@ -68,7 +70,12 @@ class PurchasesRepository @Inject constructor() {
                                                             userLocation,
                                                             pickupLocation,
                                                             quantity!!.toInt(),
-
+                                                            null,
+                                                            null,
+                                                            null,
+                                                            null,
+                                                            null,
+                                                            desc
                                                             )
                                                         completedList.clear()
                                                         completedList.add(order)
@@ -129,6 +136,8 @@ class PurchasesRepository @Inject constructor() {
                                             itemsnap.child("price").getValue(Int::class.java)
                                         val quantity =
                                             itemsnap.child("quantity").getValue(Long::class.java)
+                                        val desc =
+                                            itemsnap.child("description").getValue(String::class.java)
 
                                         uidRef.addValueEventListener(object : ValueEventListener {
                                             override fun onDataChange(snapshot: DataSnapshot) {
@@ -150,6 +159,12 @@ class PurchasesRepository @Inject constructor() {
                                                         userLocation,
                                                         pickupLocation,
                                                         quantity!!.toInt(),
+                                                        null,
+                                                        null,
+                                                        null,
+                                                        null,
+                                                        null,
+                                                        desc
                                                     )
                                                     completedList.clear()
                                                     completedList.add(order)
@@ -183,10 +198,10 @@ class PurchasesRepository @Inject constructor() {
         })
     }
 
-    fun items(time:String, itemsId: String, callback: (List<ItemsPurchased>) -> Unit) {
+    fun recieptItems(time: String, itemsId: String, callback: (List<ItemsPurchased>) -> Unit) {
         databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val completedList = mutableListOf<ItemsPurchased>()
+                val itemsPurchasedList = mutableListOf<ItemsPurchased>()
                 if (snapshot.exists()) {
                     for (purchaseSnap in snapshot.children) {
                         var grandTotal = purchaseSnap.child("grandTotal").getValue(Long::class.java)
@@ -211,6 +226,8 @@ class PurchasesRepository @Inject constructor() {
                                 val position = itemSnap.child("position").getValue(Long::class.java)
                                 val price = itemSnap.child("price").getValue(Int::class.java)
                                 val quantity = itemSnap.child("quantity").getValue(Int::class.java)
+                                val desc = itemSnap.child("description").getValue(String::class.java)
+
 
                                 val order = ItemsPurchased(
                                     userId,
@@ -221,14 +238,76 @@ class PurchasesRepository @Inject constructor() {
                                     trsportfares.toString(),
                                     quantity!!.toInt(),
                                     userLocation,
-                                    pickupLocation
+                                    pickupLocation,
+                                    ordertime.toString(),
+                                    desc
                                 )
-                                completedList.add(order)
+                                itemsPurchasedList.add(order)
                             }
                         }
                     }
                     // Invoke the callback with the completed list
-                    callback(completedList)
+                    callback(itemsPurchasedList)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Handle the error
+                callback(emptyList())
+            }
+        })
+    }
+
+    fun items(time: String, itemsId: String, callback: (List<ItemsPurchased>) -> Unit) {
+        databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val itemsPurchasedList = mutableListOf<ItemsPurchased>()
+                if (snapshot.exists()) {
+                    for (purchaseSnap in snapshot.children) {
+                        var grandTotal = purchaseSnap.child("grandTotal").getValue(Long::class.java)
+                        val paymentMethod =
+                            purchaseSnap.child("paymentMethod").getValue(String::class.java)
+                        val pickupLocation =
+                            purchaseSnap.child("pickupLocation").getValue(String::class.java)
+                        val trsportfares =
+                            purchaseSnap.child("trsportfares").getValue(Long::class.java)
+                        val userId = purchaseSnap.child("userId").getValue(String::class.java)
+                        val userLocation =
+                            purchaseSnap.child("userLocation").getValue(String::class.java)
+                        val ordertime =
+                            purchaseSnap.child("time").getValue(Long::class.java)
+
+                        purchaseSnap.child("items").children.forEach { itemSnap ->
+                            val id = itemSnap.child("id").getValue(String::class.java)
+                            if (userId == itemsId && ordertime.toString() == time) {
+                                val imageUrl =
+                                    itemSnap.child("imageUrl").getValue(String::class.java)
+                                val name = itemSnap.child("name").getValue(String::class.java)
+                                val position = itemSnap.child("position").getValue(Long::class.java)
+                                val price = itemSnap.child("price").getValue(Int::class.java)
+                                val quantity = itemSnap.child("quantity").getValue(Int::class.java)
+                                val desc = itemSnap.child("description").getValue(String::class.java)
+
+
+                                val order = ItemsPurchased(
+                                    userId,
+                                    name,
+                                    price,
+                                    imageUrl,
+                                    grandTotal.toString(),
+                                    trsportfares.toString(),
+                                    quantity!!.toInt(),
+                                    userLocation,
+                                    pickupLocation,
+                                    ordertime.toString(),
+                                    desc
+                                )
+                                itemsPurchasedList.add(order)
+                            }
+                        }
+                    }
+                    // Invoke the callback with the completed list
+                    callback(itemsPurchasedList)
                 }
             }
 
@@ -258,6 +337,8 @@ class PurchasesRepository @Inject constructor() {
                             childSnapshot.child("trsportfares").getValue(Long::class.java)
                         val time =
                             childSnapshot.child("time").getValue(Long::class.java)
+                        val paymentMethod =
+                            childSnapshot.child("paymentMethod").getValue(String::class.java)
 
 
                         userRef.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -270,6 +351,9 @@ class PurchasesRepository @Inject constructor() {
                                             usernsnap.child("imageUrl").getValue(String::class.java)
                                         val userName =
                                             usernsnap.child("username").getValue(String::class.java)
+                                        val phoneContact =
+                                            usernsnap.child("phone").getValue(String::class.java)
+
 
                                         val user = PurchaseItem(
                                             uidUser,
@@ -283,7 +367,9 @@ class PurchasesRepository @Inject constructor() {
                                             null,
                                             grandtotal.toString(),
                                             transport.toString(),
-                                            time.toString()
+                                            time.toString(),
+                                            paymentMethod,
+                                            phoneContact
                                         )
 
                                         if (!userMutableList.contains(user)) { // Check if the user is already in the list
@@ -320,7 +406,7 @@ class PurchasesRepository @Inject constructor() {
         databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
-                if (snapshot.exists()) {
+                if (!snapshot.exists()) {
                     emptyString = "No Purchases Made Yet"
 
                 }

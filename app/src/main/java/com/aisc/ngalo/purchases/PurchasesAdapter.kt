@@ -65,21 +65,21 @@ class PurchasesAdapter : RecyclerView.Adapter<PurchasesAdapter.ViewHolder>() {
 
             binding.purchasePrice.text = price
             binding.purchaseName.text = order.purchase_name
-//        val (date, timeFormat) = TimeConverter().dateSimpleDateFormatPair(order)
-//        val time = timeFormat.format(date)
-//        binding.requestTime.text = order.timeOfOrder
+            binding.quantity.text = order.quantity.toString()
 
             // Set up click listener for the playlist
             itemView.setOnClickListener {
                 // Open the playlist details screen
-                val intent = Intent(itemView.context, PurchasesDetails::class.java)
+                val intent = Intent(itemView.context, PurchasesHistoryDetails::class.java)
                 intent.putExtra("id", order.id)
                 intent.putExtra("itemname", order.purchase_name)
-                intent.putExtra("price", order.purchase_price)
+                intent.putExtra("price", price)
                 intent.putExtra("username", order.user_name)
                 intent.putExtra("location", order.user_location)
                 intent.putExtra("quantity", order.quantity)
                 intent.putExtra("itemImage", order.purchase_imageUrl)
+                intent.putExtra("time", order.time)
+                intent.putExtra("desc", order.description)
                 itemView.context.startActivity(intent)
             }
         }

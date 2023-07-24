@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.Ngalo" parent="Theme.MaterialComponents.DayNight">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimary">@color/ngalo_blue</item>
         <item name="colorOnPrimary">@color/ngalo_blue</item> <!-- Text color on primary -->
 
         <!-- Secondary brand color. -->
@@ -10,18 +10,27 @@
         <item name="colorOnSecondary">@color/ngalo_blue</item> <!-- Text color on secondary -->
 
         <!-- Background colors -->
-        <item name="android:colorBackground">@color/ngalo_blue</item> <!-- Background color -->
-        <item name="android:windowBackground">@color/white</item> <!-- Window background color -->
+        <item name="android:colorBackground">@color/ngalo_green</item> <!-- Background color -->
+        <item name="android:windowBackground">@color/black</item> <!-- Window background color -->
 
         <!-- Text colors -->
         <item name="android:textColorPrimary">@color/ngalo_blue</item> <!-- Primary text color -->
-        <item name="android:textColorSecondary">@color/ngalo_blue</item> <!-- Secondary text color -->
-        <item name="android:textColorPrimaryInverse">@color/ngalo_blue</item> <!-- Primary text color on inverse background -->
-        <item name="android:textColorSecondaryInverse">@color/ngalo_blue</item> <!-- Secondary text color on inverse background -->
+        <item name="android:textColorSecondary">@color/white</item> <!-- Secondary text color -->
+        <item name="android:textColorPrimaryInverse">@color/black</item> <!-- Primary text color on inverse background -->
+        <item name="android:textColorSecondaryInverse">@color/white</item> <!-- Secondary text color on inverse background -->
 
         <!-- Status bar color -->
         <item name="android:statusBarColor">@color/ngalo_green</item>
 
         <!-- Customize your theme here. -->
+
+        <!-- Toolbar style -->
+        <item name="toolbarStyle">@style/Widget.AppCompat.Toolbar.Ngalo</item>
+    </style>
+
+    <!-- Toolbar style -->
+    <style name="Widget.AppCompat.Toolbar.Ngalo" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">@color/ngalo_green</item> <!-- Toolbar background color -->
+        <item name="titleTextColor">@color/white</item> <!-- Toolbar title text color -->
     </style>
 </resources>

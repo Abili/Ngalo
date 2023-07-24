@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
     android:id="@+id/userlayout"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
@@ -18,7 +18,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <LinearLayout
@@ -29,7 +29,7 @@
                 <ImageView
                     android:id="@+id/usergroupImage"
                     android:layout_width="80dp"
-                    android:layout_height="75dp"
+                    android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     android:src="@color/ngalo_gray"
                     app:layout_constraintStart_toStartOf="parent"
@@ -48,6 +48,9 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="5dp"
                         android:text="User name"
+                        android:textStyle="italic|bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/ngalo_green"
                         app:layout_constraintStart_toEndOf="@+id/imageView3"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -58,6 +61,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="10dp"
                         android:text="User Location"
+                        android:textColor="@color/ngalo_blue"
                         app:layout_constraintStart_toEndOf="@+id/imageView3"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -66,7 +70,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
+                        android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
+                        android:textColor="@color/ngalo_blue"
                         android:text="user pickup location"
                         app:layout_constraintStart_toEndOf="@+id/imageView3"
                         app:layout_constraintTop_toBottomOf="@+id/usergroupname" />
@@ -81,54 +87,63 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="4"
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_weight="1"
                         android:id="@+id/transport"
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginBottom="5dp"
                         android:text="Transport"
+                        android:textColor="@color/ngalo_blue"
                         app:layout_constraintStart_toEndOf="@+id/imageView3"
                         app:layout_constraintTop_toBottomOf="@+id/usergroupname" />
 
                     <TextView
-                        android:layout_weight="1"
                         android:id="@+id/gtotal"
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/ngalo_blue"
                         android:text="Grandtotal"
                         app:layout_constraintStart_toEndOf="@+id/imageView3"
                         app:layout_constraintTop_toBottomOf="@+id/usergroupname" />
+                    <TextView
+                        android:id="@+id/paymentMethod"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:textColor="@color/ngalo_blue"
+                        android:text="Payment Method" />
+
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_gravity="bottom"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
-
                         android:id="@+id/time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
+                        android:textColor="@color/ngalo_green"
                         android:layout_marginBottom="5dp"
-                        android:text="00:00"/>
+                        android:text="00:00" />
                 </LinearLayout>
             </LinearLayout>
 

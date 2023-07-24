@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.aisc.ngalo.reciept.ReceiptItem
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
@@ -34,15 +35,26 @@ class PurchasesViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     private val purchasesLiveData = MutableLiveData<List<ItemsPurchased>>()
+    private val receiptLiveData = MutableLiveData<List<ItemsPurchased>>()
 
-    fun loadUserPurchasedItems(time:String, itemsId: String) {
-        purchasesRepository.items(time,itemsId) { completedList ->
+    fun loadUserPurchasedItems(time: String, itemsId: String) {
+        purchasesRepository.items(time, itemsId) { completedList ->
             purchasesLiveData.value = completedList
         }
     }
 
     fun getPurchasedItems(): LiveData<List<ItemsPurchased>> {
         return purchasesLiveData
+    }
+
+    fun loadReciptItems(time: String, itemsId: String) {
+        purchasesRepository.recieptItems(time, itemsId) { completedList ->
+            receiptLiveData.value = completedList
+        }
+    }
+
+    fun getReciptItems(): LiveData<List<ItemsPurchased>> {
+        return receiptLiveData
     }
 
 

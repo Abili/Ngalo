@@ -30,7 +30,10 @@ public final class ActivityBikeRepairBinding implements ViewBinding {
   public final LinearLayout bottomSheet;
 
   @NonNull
-  public final Button orderdocBtn;
+  public final TextView cancelRepairRequest;
+
+  @NonNull
+  public final Button orderForRepair;
 
   @NonNull
   public final EditText repairDescriptionEditText;
@@ -43,12 +46,14 @@ public final class ActivityBikeRepairBinding implements ViewBinding {
 
   private ActivityBikeRepairBinding(@NonNull FrameLayout rootView,
       @NonNull ImageView bikerepairImageView, @NonNull LinearLayout bottomSheet,
-      @NonNull Button orderdocBtn, @NonNull EditText repairDescriptionEditText,
-      @NonNull Button requestRepairButton, @NonNull TextView userLocationTextView) {
+      @NonNull TextView cancelRepairRequest, @NonNull Button orderForRepair,
+      @NonNull EditText repairDescriptionEditText, @NonNull Button requestRepairButton,
+      @NonNull TextView userLocationTextView) {
     this.rootView = rootView;
     this.bikerepairImageView = bikerepairImageView;
     this.bottomSheet = bottomSheet;
-    this.orderdocBtn = orderdocBtn;
+    this.cancelRepairRequest = cancelRepairRequest;
+    this.orderForRepair = orderForRepair;
     this.repairDescriptionEditText = repairDescriptionEditText;
     this.requestRepairButton = requestRepairButton;
     this.userLocationTextView = userLocationTextView;
@@ -93,9 +98,15 @@ public final class ActivityBikeRepairBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.orderdocBtn;
-      Button orderdocBtn = ViewBindings.findChildViewById(rootView, id);
-      if (orderdocBtn == null) {
+      id = R.id.cancelRepairRequest;
+      TextView cancelRepairRequest = ViewBindings.findChildViewById(rootView, id);
+      if (cancelRepairRequest == null) {
+        break missingId;
+      }
+
+      id = R.id.order_for_repair;
+      Button orderForRepair = ViewBindings.findChildViewById(rootView, id);
+      if (orderForRepair == null) {
         break missingId;
       }
 
@@ -118,7 +129,8 @@ public final class ActivityBikeRepairBinding implements ViewBinding {
       }
 
       return new ActivityBikeRepairBinding((FrameLayout) rootView, bikerepairImageView, bottomSheet,
-          orderdocBtn, repairDescriptionEditText, requestRepairButton, userLocationTextView);
+          cancelRepairRequest, orderForRepair, repairDescriptionEditText, requestRepairButton,
+          userLocationTextView);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

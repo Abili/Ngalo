@@ -24,10 +24,10 @@
 
             <ImageView
                 android:id="@+id/damage_image"
-                android:scaleType="centerCrop"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:layout_marginBottom="2dp" />
+                android:layout_marginBottom="2dp"
+                android:scaleType="centerCrop" />
 
             <View
                 android:layout_width="match_parent"
@@ -122,6 +122,16 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/textNoItems"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:textSize="28sp"
+                android:text="No Items Available"
+                android:visibility="gone" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

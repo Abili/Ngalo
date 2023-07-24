@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
+import com.aisc.ngalo.auth.AuthUiActivity;
 import com.aisc.ngalo.databinding.ActivitySignUpBinding;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;

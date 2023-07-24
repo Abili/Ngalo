@@ -4,9 +4,7 @@ package com.aisc.ngalo.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,12 +21,6 @@ public final class ActivityMyAccountBinding implements ViewBinding {
   private final LinearLayout rootView;
 
   @NonNull
-  public final ImageView editProfileImage;
-
-  @NonNull
-  public final ProgressBar profileProgressBbar;
-
-  @NonNull
   public final TextView userEmail;
 
   @NonNull
@@ -40,13 +32,10 @@ public final class ActivityMyAccountBinding implements ViewBinding {
   @NonNull
   public final TextView username;
 
-  private ActivityMyAccountBinding(@NonNull LinearLayout rootView,
-      @NonNull ImageView editProfileImage, @NonNull ProgressBar profileProgressBbar,
-      @NonNull TextView userEmail, @NonNull TextView userPhone,
-      @NonNull CircleImageView userProfile, @NonNull TextView username) {
+  private ActivityMyAccountBinding(@NonNull LinearLayout rootView, @NonNull TextView userEmail,
+      @NonNull TextView userPhone, @NonNull CircleImageView userProfile,
+      @NonNull TextView username) {
     this.rootView = rootView;
-    this.editProfileImage = editProfileImage;
-    this.profileProgressBbar = profileProgressBbar;
     this.userEmail = userEmail;
     this.userPhone = userPhone;
     this.userProfile = userProfile;
@@ -80,18 +69,6 @@ public final class ActivityMyAccountBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.editProfileImage;
-      ImageView editProfileImage = ViewBindings.findChildViewById(rootView, id);
-      if (editProfileImage == null) {
-        break missingId;
-      }
-
-      id = R.id.profileProgressBbar;
-      ProgressBar profileProgressBbar = ViewBindings.findChildViewById(rootView, id);
-      if (profileProgressBbar == null) {
-        break missingId;
-      }
-
       id = R.id.userEmail;
       TextView userEmail = ViewBindings.findChildViewById(rootView, id);
       if (userEmail == null) {
@@ -116,8 +93,8 @@ public final class ActivityMyAccountBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityMyAccountBinding((LinearLayout) rootView, editProfileImage,
-          profileProgressBbar, userEmail, userPhone, userProfile, username);
+      return new ActivityMyAccountBinding((LinearLayout) rootView, userEmail, userPhone,
+          userProfile, username);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

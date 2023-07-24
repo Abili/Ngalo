@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.aisc.ngalo.R
 import com.aisc.ngalo.databinding.OrdersActivityBinding
 
-class OrdersActivity : Fragment(), OrdersAdapter.OrderClickListener {
+class UserRepairRequestActivity : Fragment(), OrdersAdapter.OrderClickListener {
     private var _binding: OrdersActivityBinding? = null
     private val binding get() = _binding!!
     private val adapter = OrdersAdapter()
@@ -40,6 +40,7 @@ class OrdersActivity : Fragment(), OrdersAdapter.OrderClickListener {
                 binding.nodataTv.text = getString(R.string.no_orders_available)
                 binding.ordersRecycler.visibility = View.GONE
                 binding.nodataLayout.visibility = View.VISIBLE
+
             }
         }
 

@@ -54,7 +54,7 @@ fun SplashScreen(navController: NavController) {
     ) {
         Image(
             painter = painterResource(id = R.drawable.ngalobg),
-            contentDescription = null,
+            contentDescription = "splah_screen",
             modifier = Modifier.fillMaxSize()
         )
     }

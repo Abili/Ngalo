@@ -17,14 +17,14 @@
 
 
     <LinearLayout
-        android:visibility="gone"
         android:id="@+id/bottomSheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
         android:layout_gravity="bottom"
+        android:layout_marginBottom="80dp"
         android:background="@android:color/white"
         android:orientation="vertical"
+        android:visibility="gone"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <TextView
@@ -50,20 +50,20 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_marginTop="20dp"
                     android:layout_width="60dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
                     android:src="@drawable/distancepng"
                     app:civ_border_width="1dp" />
 
                 <TextView
-                    android:layout_marginBottom="20dp"
                     android:id="@+id/distance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
                     android:text="0.0m"
                     android:textColor="@color/ngalo_blue"
                     android:textSize="18sp" />
@@ -76,20 +76,20 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_marginTop="20dp"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
                     android:src="@drawable/ic_time"
                     app:civ_border_width="1dp" />
 
                 <TextView
-                    android:layout_marginBottom="20dp"
                     android:id="@+id/time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
                     android:text="00:00"
                     android:textColor="@color/ngalo_blue"
                     android:textSize="18sp" />
@@ -100,19 +100,50 @@
     </LinearLayout>
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
 
+        <Button
+            android:id="@+id/locate_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/border_color"
+            android:text="Locate Client"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/startDrive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_weight="2"
+            android:backgroundTint="@color/ngalo_blue"
+            android:src="@drawable/ic_nav"
+            android:background="@drawable/border_color"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
     <Button
-        android:id="@+id/acceptRequest"
+        android:id="@+id/endRequest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_margin="20dp"
         android:background="@drawable/border_color"
         android:text="Locate Client"
-        android:textColor="@color/ngalo_blue"
+        android:textColor="@color/white"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone" />
 
 
 </FrameLayout>

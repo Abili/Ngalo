@@ -17,22 +17,6 @@ import java.lang.Deprecated;
 import java.lang.Object;
 
 public abstract class ActivityBikeDetailsBinding extends ViewDataBinding {
-  /**
-   * This binding is not available in all configurations.
-   * <p>
-   * Present:
-   * <ul>
-   *   <li>layout/</li>
-   * </ul>
-   *
-   * Absent:
-   * <ul>
-   *   <li>layout-land/</li>
-   * </ul>
-   */
-  @Nullable
-  public final Button addBtn;
-
   @NonNull
   public final ImageView bikeImage;
 
@@ -84,40 +68,8 @@ public abstract class ActivityBikeDetailsBinding extends ViewDataBinding {
   @Nullable
   public final Button checkoutBtn;
 
-  /**
-   * This binding is not available in all configurations.
-   * <p>
-   * Present:
-   * <ul>
-   *   <li>layout/</li>
-   * </ul>
-   *
-   * Absent:
-   * <ul>
-   *   <li>layout-land/</li>
-   * </ul>
-   */
-  @Nullable
-  public final TextView countTv;
-
   @NonNull
   public final TextView detailsDesc;
-
-  /**
-   * This binding is not available in all configurations.
-   * <p>
-   * Present:
-   * <ul>
-   *   <li>layout/</li>
-   * </ul>
-   *
-   * Absent:
-   * <ul>
-   *   <li>layout-land/</li>
-   * </ul>
-   */
-  @Nullable
-  public final Button subBtn;
 
   @NonNull
   public final TextView textBikeName;
@@ -132,18 +84,15 @@ public abstract class ActivityBikeDetailsBinding extends ViewDataBinding {
   public final LinearLayout textViewsContainer;
 
   protected ActivityBikeDetailsBinding(Object _bindingComponent, View _root, int _localFieldCount,
-      Button addBtn, ImageView bikeImage, ImageView cart, TextView cartValue, Button checkoutBtn,
-      TextView countTv, TextView detailsDesc, Button subBtn, TextView textBikeName,
-      TextView textViewDesc, TextView textViewPrice, LinearLayout textViewsContainer) {
+      ImageView bikeImage, ImageView cart, TextView cartValue, Button checkoutBtn,
+      TextView detailsDesc, TextView textBikeName, TextView textViewDesc, TextView textViewPrice,
+      LinearLayout textViewsContainer) {
     super(_bindingComponent, _root, _localFieldCount);
-    this.addBtn = addBtn;
     this.bikeImage = bikeImage;
     this.cart = cart;
     this.cartValue = cartValue;
     this.checkoutBtn = checkoutBtn;
-    this.countTv = countTv;
     this.detailsDesc = detailsDesc;
-    this.subBtn = subBtn;
     this.textBikeName = textBikeName;
     this.textViewDesc = textViewDesc;
     this.textViewPrice = textViewPrice;

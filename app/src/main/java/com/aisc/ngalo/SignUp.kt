@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
+import com.aisc.ngalo.auth.AuthUiActivity
 import com.aisc.ngalo.databinding.ActivitySignUpBinding
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
@@ -24,7 +25,7 @@ class SignUp : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       // FirebaseDatabase.getInstance().setPersistenceEnabled(true)
+        // FirebaseDatabase.getInstance().setPersistenceEnabled(true)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
@@ -51,8 +52,7 @@ class SignUp : AppCompatActivity() {
             val password = binding.editTextPassword.text.toString()
 
             // Create a new account with the email and password
-            auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener { task ->
+            auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         // Account creation successful
                         Log.d(TAG, "createUserWithEmail:success")
@@ -64,8 +64,7 @@ class SignUp : AppCompatActivity() {
                         // Account creation failed
                         Log.w(TAG, "createUserWithEmail:failure", task.exception)
                         Toast.makeText(
-                            baseContext, "Authentication failed.",
-                            Toast.LENGTH_SHORT
+                            baseContext, "Authentication failed.", Toast.LENGTH_SHORT
                         ).show()
                         updateUI(null)
                     }
@@ -79,8 +78,7 @@ class SignUp : AppCompatActivity() {
             val password = binding.editTextPassword.text.toString()
 
             // Log in with the email and password
-            auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener { task ->
+            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         // Log in successful
                         Log.d(TAG, "signInWithEmail:success")
@@ -92,8 +90,7 @@ class SignUp : AppCompatActivity() {
                         // Log in failed
                         Log.w(TAG, "signInWithEmail:failure", task.exception)
                         Toast.makeText(
-                            baseContext, "Authentication failed.",
-                            Toast.LENGTH_SHORT
+                            baseContext, "Authentication failed.", Toast.LENGTH_SHORT
                         ).show()
                         updateUI(null)
                     }
@@ -101,6 +98,9 @@ class SignUp : AppCompatActivity() {
         }
         binding.buttonSignOut.setOnClickListener {
             signOut()
+        }
+        binding.phonenumber.setOnClickListener {
+            startActivity(Intent(this, AuthUiActivity::class.java))
         }
     }
 

@@ -36,7 +36,7 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
     // Add item to local cart data and Firebase
     fun addItem(item: CartItem) {
         val cartItem =
-            CartItem(item.id, item.name, item.price, item.imageUrl, item.quantity, item.position)
+            CartItem(item.id, item.name, item.price, item.imageUrl, item.quantity, item.position, item.description)
 //        cartRepository.addItemOrUpdateQuantity(cartItem)
 
         cartRepository.addItemsToFirebase(cartItem)

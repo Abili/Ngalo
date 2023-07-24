@@ -1,6 +1,8 @@
 package com.aisc.ngalo.network;
 
 import android.database.Cursor;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.room.EntityDeletionOrUpdateAdapter;
 import androidx.room.EntityInsertionAdapter;
@@ -35,125 +37,131 @@ public final class BikeDao_Impl implements BikeDao {
 
   private final EntityDeletionOrUpdateAdapter<Bike> __updateAdapterOfBike;
 
-  public BikeDao_Impl(RoomDatabase __db) {
+  public BikeDao_Impl(@NonNull final RoomDatabase __db) {
     this.__db = __db;
     this.__insertionAdapterOfBike = new EntityInsertionAdapter<Bike>(__db) {
       @Override
-      public String createQuery() {
+      @NonNull
+      protected String createQuery() {
         return "INSERT OR ABORT INTO `mylobikes` (`id`,`imageUrl`,`name`,`price`,`description`,`options`,`quantity`,`position`) VALUES (?,?,?,?,?,?,?,?)";
       }
 
       @Override
-      public void bind(SupportSQLiteStatement stmt, Bike value) {
-        if (value.getId() == null) {
-          stmt.bindNull(1);
+      protected void bind(@NonNull final SupportSQLiteStatement statement,
+          @Nullable final Bike entity) {
+        if (entity.getId() == null) {
+          statement.bindNull(1);
         } else {
-          stmt.bindString(1, value.getId());
+          statement.bindString(1, entity.getId());
         }
-        if (value.getImageUrl() == null) {
-          stmt.bindNull(2);
+        if (entity.getImageUrl() == null) {
+          statement.bindNull(2);
         } else {
-          stmt.bindString(2, value.getImageUrl());
+          statement.bindString(2, entity.getImageUrl());
         }
-        if (value.getName() == null) {
-          stmt.bindNull(3);
+        if (entity.getName() == null) {
+          statement.bindNull(3);
         } else {
-          stmt.bindString(3, value.getName());
+          statement.bindString(3, entity.getName());
         }
-        if (value.getPrice() == null) {
-          stmt.bindNull(4);
+        if (entity.getPrice() == null) {
+          statement.bindNull(4);
         } else {
-          stmt.bindString(4, value.getPrice());
+          statement.bindString(4, entity.getPrice());
         }
-        if (value.getDescription() == null) {
-          stmt.bindNull(5);
+        if (entity.getDescription() == null) {
+          statement.bindNull(5);
         } else {
-          stmt.bindString(5, value.getDescription());
+          statement.bindString(5, entity.getDescription());
         }
-        if (value.getOptions() == null) {
-          stmt.bindNull(6);
+        if (entity.getOptions() == null) {
+          statement.bindNull(6);
         } else {
-          stmt.bindString(6, __Category_enumToString(value.getOptions()));
+          statement.bindString(6, __Category_enumToString(entity.getOptions()));
         }
-        if (value.getQuantity() == null) {
-          stmt.bindNull(7);
+        if (entity.getQuantity() == null) {
+          statement.bindNull(7);
         } else {
-          stmt.bindLong(7, value.getQuantity());
+          statement.bindLong(7, entity.getQuantity());
         }
-        if (value.getPosition() == null) {
-          stmt.bindNull(8);
+        if (entity.getPosition() == null) {
+          statement.bindNull(8);
         } else {
-          stmt.bindLong(8, value.getPosition());
+          statement.bindLong(8, entity.getPosition());
         }
       }
     };
     this.__deletionAdapterOfBike = new EntityDeletionOrUpdateAdapter<Bike>(__db) {
       @Override
-      public String createQuery() {
+      @NonNull
+      protected String createQuery() {
         return "DELETE FROM `mylobikes` WHERE `id` = ?";
       }
 
       @Override
-      public void bind(SupportSQLiteStatement stmt, Bike value) {
-        if (value.getId() == null) {
-          stmt.bindNull(1);
+      protected void bind(@NonNull final SupportSQLiteStatement statement,
+          @Nullable final Bike entity) {
+        if (entity.getId() == null) {
+          statement.bindNull(1);
         } else {
-          stmt.bindString(1, value.getId());
+          statement.bindString(1, entity.getId());
         }
       }
     };
     this.__updateAdapterOfBike = new EntityDeletionOrUpdateAdapter<Bike>(__db) {
       @Override
-      public String createQuery() {
+      @NonNull
+      protected String createQuery() {
         return "UPDATE OR ABORT `mylobikes` SET `id` = ?,`imageUrl` = ?,`name` = ?,`price` = ?,`description` = ?,`options` = ?,`quantity` = ?,`position` = ? WHERE `id` = ?";
       }
 
       @Override
-      public void bind(SupportSQLiteStatement stmt, Bike value) {
-        if (value.getId() == null) {
-          stmt.bindNull(1);
+      protected void bind(@NonNull final SupportSQLiteStatement statement,
+          @Nullable final Bike entity) {
+        if (entity.getId() == null) {
+          statement.bindNull(1);
         } else {
-          stmt.bindString(1, value.getId());
+          statement.bindString(1, entity.getId());
         }
-        if (value.getImageUrl() == null) {
-          stmt.bindNull(2);
+        if (entity.getImageUrl() == null) {
+          statement.bindNull(2);
         } else {
-          stmt.bindString(2, value.getImageUrl());
+          statement.bindString(2, entity.getImageUrl());
         }
-        if (value.getName() == null) {
-          stmt.bindNull(3);
+        if (entity.getName() == null) {
+          statement.bindNull(3);
         } else {
-          stmt.bindString(3, value.getName());
+          statement.bindString(3, entity.getName());
         }
-        if (value.getPrice() == null) {
-          stmt.bindNull(4);
+        if (entity.getPrice() == null) {
+          statement.bindNull(4);
         } else {
-          stmt.bindString(4, value.getPrice());
+          statement.bindString(4, entity.getPrice());
         }
-        if (value.getDescription() == null) {
-          stmt.bindNull(5);
+        if (entity.getDescription() == null) {
+          statement.bindNull(5);
         } else {
-          stmt.bindString(5, value.getDescription());
+          statement.bindString(5, entity.getDescription());
         }
-        if (value.getOptions() == null) {
-          stmt.bindNull(6);
+        if (entity.getOptions() == null) {
+          statement.bindNull(6);
         } else {
-          stmt.bindString(6, __Category_enumToString(value.getOptions()));
+          statement.bindString(6, __Category_enumToString(entity.getOptions()));
         }
-        if (value.getQuantity() == null) {
-          stmt.bindNull(7);
+        if (entity.getQuantity() == null) {
+          statement.bindNull(7);
         } else {
-          stmt.bindLong(7, value.getQuantity());
+          statement.bindLong(7, entity.getQuantity());
         }
-        if (value.getPosition() == null) {
-          stmt.bindNull(8);
+        if (entity.getPosition() == null) {
+          statement.bindNull(8);
         } else {
-          stmt.bindLong(8, value.getPosition());
+          statement.bindLong(8, entity.getPosition());
         }
-        if (value.getId() == null) {
-          stmt.bindNull(9);
+        if (entity.getId() == null) {
+          statement.bindNull(9);
         } else {
-          stmt.bindString(9, value.getId());
+          statement.bindString(9, entity.getId());
         }
       }
     };
@@ -199,8 +207,9 @@ public final class BikeDao_Impl implements BikeDao {
   public LiveData<List<Bike>> getAll() {
     final String _sql = "SELECT * FROM mylobikes";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
-    return __db.getInvalidationTracker().createLiveData(new String[]{"mylobikes"}, false, new Callable<List<Bike>>() {
+    return __db.getInvalidationTracker().createLiveData(new String[] {"mylobikes"}, false, new Callable<List<Bike>>() {
       @Override
+      @Nullable
       public List<Bike> call() throws Exception {
         final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
         try {
@@ -213,7 +222,7 @@ public final class BikeDao_Impl implements BikeDao {
           final int _cursorIndexOfQuantity = CursorUtil.getColumnIndexOrThrow(_cursor, "quantity");
           final int _cursorIndexOfPosition = CursorUtil.getColumnIndexOrThrow(_cursor, "position");
           final List<Bike> _result = new ArrayList<Bike>(_cursor.getCount());
-          while(_cursor.moveToNext()) {
+          while (_cursor.moveToNext()) {
             final Bike _item;
             final String _tmpId;
             if (_cursor.isNull(_cursorIndexOfId)) {
@@ -246,7 +255,11 @@ public final class BikeDao_Impl implements BikeDao {
               _tmpDescription = _cursor.getString(_cursorIndexOfDescription);
             }
             final Category _tmpOptions;
-            _tmpOptions = __Category_stringToEnum(_cursor.getString(_cursorIndexOfOptions));
+            if (_cursor.isNull(_cursorIndexOfOptions)) {
+              _tmpOptions = null;
+            } else {
+              _tmpOptions = __Category_stringToEnum(_cursor.getString(_cursorIndexOfOptions));
+            }
             final Integer _tmpQuantity;
             if (_cursor.isNull(_cursorIndexOfQuantity)) {
               _tmpQuantity = null;
@@ -281,8 +294,9 @@ public final class BikeDao_Impl implements BikeDao {
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
     _statement.bindLong(_argIndex, id);
-    return __db.getInvalidationTracker().createLiveData(new String[]{"mylobikes"}, false, new Callable<Bike>() {
+    return __db.getInvalidationTracker().createLiveData(new String[] {"mylobikes"}, false, new Callable<Bike>() {
       @Override
+      @Nullable
       public Bike call() throws Exception {
         final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
         try {
@@ -295,7 +309,7 @@ public final class BikeDao_Impl implements BikeDao {
           final int _cursorIndexOfQuantity = CursorUtil.getColumnIndexOrThrow(_cursor, "quantity");
           final int _cursorIndexOfPosition = CursorUtil.getColumnIndexOrThrow(_cursor, "position");
           final Bike _result;
-          if(_cursor.moveToFirst()) {
+          if (_cursor.moveToFirst()) {
             final String _tmpId;
             if (_cursor.isNull(_cursorIndexOfId)) {
               _tmpId = null;
@@ -327,7 +341,11 @@ public final class BikeDao_Impl implements BikeDao {
               _tmpDescription = _cursor.getString(_cursorIndexOfDescription);
             }
             final Category _tmpOptions;
-            _tmpOptions = __Category_stringToEnum(_cursor.getString(_cursorIndexOfOptions));
+            if (_cursor.isNull(_cursorIndexOfOptions)) {
+              _tmpOptions = null;
+            } else {
+              _tmpOptions = __Category_stringToEnum(_cursor.getString(_cursorIndexOfOptions));
+            }
             final Integer _tmpQuantity;
             if (_cursor.isNull(_cursorIndexOfQuantity)) {
               _tmpQuantity = null;
@@ -357,26 +375,27 @@ public final class BikeDao_Impl implements BikeDao {
     });
   }
 
+  @NonNull
   public static List<Class<?>> getRequiredConverters() {
     return Collections.emptyList();
   }
 
-  private String __Category_enumToString(final Category _value) {
-    if (_value == null) {
-      return null;
-    } switch (_value) {
+  private String __Category_enumToString(@NonNull final Category _value) {
+    switch (_value) {
       case BUY: return "BUY";
       case HIRE: return "HIRE";
+      case BIKEPART: return "BIKEPART";
+      case REPAIR: return "REPAIR";
       default: throw new IllegalArgumentException("Can't convert enum to string, unknown enum value: " + _value);
     }
   }
 
-  private Category __Category_stringToEnum(final String _value) {
-    if (_value == null) {
-      return null;
-    } switch (_value) {
+  private Category __Category_stringToEnum(@NonNull final String _value) {
+    switch (_value) {
       case "BUY": return Category.BUY;
       case "HIRE": return Category.HIRE;
+      case "BIKEPART": return Category.BIKEPART;
+      case "REPAIR": return Category.REPAIR;
       default: throw new IllegalArgumentException("Can't convert value to enum, unknown value: " + _value);
     }
   }

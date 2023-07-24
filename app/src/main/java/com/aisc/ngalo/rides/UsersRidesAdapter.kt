@@ -50,6 +50,7 @@ class UsersRidesAdapter : RecyclerView.Adapter<UsersRidesAdapter.ViewHolder>() {
             binding.ridename.text = ride.rideName
 
 
+
         }
     }
 }

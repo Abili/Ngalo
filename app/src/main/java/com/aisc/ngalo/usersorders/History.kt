@@ -20,12 +20,12 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class UsersOrders : AppCompatActivity() {
+class History : AppCompatActivity() {
     lateinit var binding: ActivityUsersOrdersBinding
     val adapter = UsersOrdersAdapter()
     private val purchasesAdapter = PurchasesAdapter()
     private var purchasesViewModel: PurchasesViewModel? = null
-    var ridesViewModel: RidesViewModel? = null
+    private var ridesViewModel: RidesViewModel? = null
     private val ridesAdapter = UsersRidesAdapter()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +45,7 @@ class UsersOrders : AppCompatActivity() {
         // Replace with your own Firebase Realtime Database reference
         val databaseRef =
             FirebaseDatabase.getInstance().getReference("users")
-                .child(curUID).child("UsersOrders")
+                .child(curUID).child("History")
 
         purchasesViewModel = ViewModelProvider(this)[PurchasesViewModel::class.java]
         purchasesViewModel!!.loadUserPurchasedItems()
@@ -98,7 +98,7 @@ class UsersOrders : AppCompatActivity() {
                                     snapshot.child("username").getValue(String::class.java)
                                 val time = childSnapshot.child("requestTime")
                                     .getValue(String::class.java)
-                                Toast.makeText(this@UsersOrders, description, Toast.LENGTH_SHORT)
+                                Toast.makeText(this@History, description, Toast.LENGTH_SHORT)
                                     .show()
                                 //val order = mutableListOf<Order>()
                                 val order =
@@ -123,20 +123,7 @@ class UsersOrders : AppCompatActivity() {
 
                         })
 
-//                    if (uid ==)
-//                    // Use the values as needed
-//                    // For example, you can display them in a text
-//                    // view or store them in variables for further processing
-//                        binding.textViewDescription.text = description
-//                    binding.textViewImageUrl.text = imageUrl
-//                    binding.textViewLatitude.text = latitude.toString()
-//                    binding.textViewLongitude.text = longitude.toString()
-//                    binding.textViewName.text = name
                     }
-                } else {
-                    binding.nodataLayout.visibility = View.VISIBLE
-                    binding.usersOrdersRecycler.visibility = View.GONE
-                    binding.nodataTv.text = getString(R.string.no_orders_made_yet)
                 }
             }
 

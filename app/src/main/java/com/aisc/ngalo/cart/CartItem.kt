@@ -12,7 +12,8 @@ data class CartItem(
     val price: Int? = null,
     val imageUrl: String? = "",
     var quantity: Int? = null,
-    var position: Int = -1
+    var position: Int = -1,
+    var description: String? = ""
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
@@ -20,7 +21,8 @@ data class CartItem(
         parcel.readInt(),
         parcel.readString(),
         parcel.readInt(),
-        parcel.readInt()
+        parcel.readInt(),
+        parcel.readString()
     )
 
 //    fun getTotalPrice(): Int {
@@ -34,7 +36,8 @@ data class CartItem(
             "price" to price,
             "imageUrl" to imageUrl,
             "quantity" to quantity,
-            "position" to position
+            "position" to position,
+            "description" to description
         )
     }
 
@@ -45,6 +48,7 @@ data class CartItem(
         parcel.writeString(imageUrl)
         parcel.writeInt(quantity!!)
         parcel.writeInt(position)
+        parcel.writeString(description)
     }
 
     override fun describeContents(): Int {

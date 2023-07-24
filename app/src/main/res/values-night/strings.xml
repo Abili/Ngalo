@@ -5,4 +5,5 @@
     <string name="request_repair">Request Repair</string>
     <string name="brief_description_of_the_problem">Brief description of the problem</string>
     <string name="request_for_bike_repair">Request for Bike Repair</string>
+    <string name="cance_repair">Cancel Repair Request</string>
 </resources>

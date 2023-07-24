@@ -99,7 +99,7 @@ class BikeRepair : AppCompatActivity(), OnMapReadyCallback {
 
 
         //user request sending location
-        binding.orderdocBtn.setOnClickListener {
+        binding.orderForRepair.setOnClickListener {
             var name: String = ""
             val userId = FirebaseAuth.getInstance().currentUser!!.uid
             val geoFire = GeoFire(mRepairRequestsRef)
@@ -121,7 +121,7 @@ class BikeRepair : AppCompatActivity(), OnMapReadyCallback {
                     LatLng(
                         mLastLocation!!.coordinates!!.latitude,
                         mLastLocation!!.coordinates!!.longitude
-                    ), ""
+                    ), currentLocation!!.name
                 )
             if (pickupMarker != null) {
                 pickupMarker!!.remove()
@@ -138,7 +138,7 @@ class BikeRepair : AppCompatActivity(), OnMapReadyCallback {
                 )
             )
 
-            binding.orderdocBtn.visibility = View.GONE
+            binding.orderForRepair.visibility = View.GONE
             // Create TranslateAnimation object
             val animation = TranslateAnimation(
                 0f, 0f,
@@ -241,7 +241,12 @@ class BikeRepair : AppCompatActivity(), OnMapReadyCallback {
             }
 
         }
-//        customDialogBinding = ImagesDialog()
+        binding.cancelRepairRequest.setOnClickListener {
+            binding.bottomSheet.visibility = View.GONE
+            binding.orderForRepair.visibility=View.VISIBLE
+            pickupMarker!!.remove()
+        }
+
 
         //import image
         binding.bikerepairImageView.setOnClickListener {
@@ -256,17 +261,6 @@ class BikeRepair : AppCompatActivity(), OnMapReadyCallback {
 
         }
 
-//            showRequestBottomSheetDialog(
-//                userId,
-//                geoFire,
-//                mLastLocation!!.latitude,
-//                mLastLocation!!.longitude,
-//                name
-//            )
-
-//        binding.setCurrentLocationTV.setOnClickListener {
-//            setCurrentLocation()
-//        }
         openImageFiles()
 
 
@@ -359,7 +353,7 @@ class BikeRepair : AppCompatActivity(), OnMapReadyCallback {
             FirebaseDatabase.getInstance().reference.child("RepaireRequests")
         val userRequestRef =
             FirebaseDatabase.getInstance().reference.child("users").child(uid)
-                .child("UsersOrders")
+                .child("History")
 
         val latLng = LocationObject(
             LatLng(
@@ -418,48 +412,23 @@ class BikeRepair : AppCompatActivity(), OnMapReadyCallback {
         mLocationRequest!!.interval = 1000
         mLocationRequest!!.fastestInterval = 1000
         mLocationRequest!!.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED
-            ) {
-                mFusedLocationClient!!.requestLocationUpdates(
-                    mLocationRequest!!,
-                    mLocationCallback,
-                    Looper.myLooper()
-                )
-                mMap!!.isMyLocationEnabled = true
-            } else {
-                checkLocationPermission()
-            }
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            mFusedLocationClient!!.requestLocationUpdates(
+                mLocationRequest!!,
+                mLocationCallback,
+                Looper.myLooper()
+            )
+            mMap!!.isMyLocationEnabled = true
+        } else {
+            checkLocationPermission()
         }
     }
 
-//    private var mLocationCallback: LocationCallback = object : LocationCallback() {
-//        override fun onLocationResult(locationResult: LocationResult) {
-//            for (location in locationResult.locations) {
-//                if (applicationContext != null) {
-//                    pickupLocation = currentLocation
-//                    val latLng = LatLng(location.latitude, location.longitude)
-//                    mMap!!.moveCamera(CameraUpdateFactory.newLatLng(latLng))
-//                    mMap!!.animateCamera(CameraUpdateFactory.zoomTo(15f))
-//                    //if (!getDriversAroundStarted) getDriversAround()
-//                }
-//            }
-//        }
-//    }
 
-    /*-------------------------------------------- onRequestPermissionsResult -----
-    |  Function onRequestPermissionsResult
-    |
-    |  Purpose:  Get permissions for our app if they didn't previously exist.
-    |
-    |  Note:
-    |	requestCode: the nubmer assigned to the request that we've made. Each
-    |                request has it's own unique request code.
-    |
-    *-------------------------------------------------------------------*/
     private fun checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(
                 this,

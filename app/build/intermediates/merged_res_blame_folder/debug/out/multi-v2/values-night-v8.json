@@ -1,130 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-91:/values-night-v8/values-night-v8.xml",
+            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-98:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "/Users/user/.gradle/caches/transforms-3/11b9e4c996461fe3718c527f261876ba/transformed/material-1.8.0/res/values-night-v8/values-night-v8.xml",
-                    "from": {
-                        "startLines": "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1",
-                        "startColumns": "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1",
-                        "startOffsets": "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"
-                    },
-                    "to": {
-                        "startLines": "15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,65,66,67,68,69,70,71,72",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "1102,1177,1288,1377,1478,1585,1692,1791,1898,2001,2089,2213,2315,2417,2533,2635,2749,2877,2993,3115,3251,3371,3505,3625,3737,4853,4970,5094,5224,5346,5484,5618,5734",
-                        "endColumns": "74,110,88,100,106,106,98,106,102,87,123,101,101,115,101,113,127,115,121,135,119,133,119,111,125,116,123,129,121,137,133,115,119",
-                        "endOffsets": "1172,1283,1372,1473,1580,1687,1786,1893,1996,2084,2208,2310,2412,2528,2630,2744,2872,2988,3110,3246,3366,3500,3620,3732,3858,4965,5089,5219,5341,5479,5613,5729,5849"
-                    }
-                },
-                {
-                    "source": "/Users/user/Desktop/AndroidStudioProjects/Ngalo/app/src/main/res/values-night/themes.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "100",
-                        "endLines": "25",
-                        "endColumns": "12",
-                        "endOffsets": "1437"
-                    },
-                    "to": {
-                        "startLines": "40",
-                        "startColumns": "4",
-                        "startOffsets": "3863",
-                        "endLines": "63",
-                        "endColumns": "12",
-                        "endOffsets": "4759"
-                    }
-                },
-                {
-                    "source": "/Users/user/.gradle/caches/transforms-3/9e8ae87d1581342594e2ba9af3ad6bc2/transformed/jetified-core-splashscreen-1.0.0/res/values-night-v8/values-night-v8.xml",
-                    "from": {
-                        "startLines": "-1",
-                        "startColumns": "-1",
-                        "startOffsets": "-1"
-                    },
-                    "to": {
-                        "startLines": "7",
-                        "startColumns": "4",
-                        "startOffsets": "384",
-                        "endColumns": "85",
-                        "endOffsets": "465"
-                    }
-                },
-                {
-                    "source": "/Users/user/Desktop/AndroidStudioProjects/Ngalo/app/src/main/res/values-night/strings.xml",
-                    "from": {
-                        "startLines": "-1,-1,-1,-1,-1",
-                        "startColumns": "-1,-1,-1,-1,-1",
-                        "startOffsets": "-1,-1,-1,-1,-1"
-                    },
-                    "to": {
-                        "startLines": "2,3,4,5,6",
-                        "startColumns": "4,4,4,4,4",
-                        "startOffsets": "55,149,190,250,326",
-                        "endColumns": "93,40,59,75,57",
-                        "endOffsets": "144,185,245,321,379"
-                    }
-                },
-                {
-                    "source": "/Users/user/.gradle/caches/transforms-3/0a460c9e4a54bdfad26d1c28ed1ee1d6/transformed/appcompat-1.6.1/res/values-night-v8/values-night-v8.xml",
-                    "from": {
-                        "startLines": "-1,-1,-1,-1,-1,-1,-1,-1",
-                        "startColumns": "-1,-1,-1,-1,-1,-1,-1,-1",
-                        "startOffsets": "-1,-1,-1,-1,-1,-1,-1,-1"
-                    },
-                    "to": {
-                        "startLines": "8,9,10,11,12,13,14,64",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "470,540,624,708,804,906,1008,4764",
-                        "endColumns": "69,83,83,95,101,101,93,88",
-                        "endOffsets": "535,619,703,799,901,1003,1097,4848"
-                    }
-                }
-            ]
-        },
-        {
-            "outputFile": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-mergeDebugResources-91:/values-night-v8/values-night-v8.xml",
-            "map": [
-                {
-                    "source": "/Users/user/.gradle/caches/transforms-3/11b9e4c996461fe3718c527f261876ba/transformed/material-1.8.0/res/values-night-v8/values-night-v8.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,130,241,330,431,538,645,744,851,954,1042,1166,1268,1370,1486,1588,1702,1830,1946,2068,2204,2324,2458,2578,2690,2816,2933,3057,3187,3309,3447,3581,3697",
-                        "endColumns": "74,110,88,100,106,106,98,106,102,87,123,101,101,115,101,113,127,115,121,135,119,133,119,111,125,116,123,129,121,137,133,115,119",
-                        "endOffsets": "125,236,325,426,533,640,739,846,949,1037,1161,1263,1365,1481,1583,1697,1825,1941,2063,2199,2319,2453,2573,2685,2811,2928,3052,3182,3304,3442,3576,3692,3812"
-                    },
-                    "to": {
-                        "startLines": "15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,65,66,67,68,69,70,71,72",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "1102,1177,1288,1377,1478,1585,1692,1791,1898,2001,2089,2213,2315,2417,2533,2635,2749,2877,2993,3115,3251,3371,3505,3625,3737,4823,4940,5064,5194,5316,5454,5588,5704",
-                        "endColumns": "74,110,88,100,106,106,98,106,102,87,123,101,101,115,101,113,127,115,121,135,119,133,119,111,125,116,123,129,121,137,133,115,119",
-                        "endOffsets": "1172,1283,1372,1473,1580,1687,1786,1893,1996,2084,2208,2310,2412,2528,2630,2744,2872,2988,3110,3246,3366,3500,3620,3732,3858,4935,5059,5189,5311,5449,5583,5699,5819"
-                    }
-                },
-                {
-                    "source": "/Users/user/Desktop/AndroidStudioProjects/Ngalo/app/src/main/res/values-night/themes.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "100",
-                        "endLines": "25",
-                        "endColumns": "12",
-                        "endOffsets": "1407"
-                    },
-                    "to": {
-                        "startLines": "40",
-                        "startColumns": "4",
-                        "startOffsets": "3863",
-                        "endLines": "63",
-                        "endColumns": "12",
-                        "endOffsets": "4729"
-                    }
-                },
-                {
-                    "source": "/Users/user/.gradle/caches/transforms-3/9e8ae87d1581342594e2ba9af3ad6bc2/transformed/jetified-core-splashscreen-1.0.0/res/values-night-v8/values-night-v8.xml",
+                    "source": "/Users/user/.gradle/caches/transforms-3/02f537c590a2ed945c896708b77afac9/transformed/jetified-core-splashscreen-1.0.1/res/values-night-v8/values-night-v8.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -133,32 +13,15 @@
                         "endOffsets": "136"
                     },
                     "to": {
-                        "startLines": "7",
+                        "startLines": "8",
                         "startColumns": "4",
-                        "startOffsets": "384",
+                        "startOffsets": "447",
                         "endColumns": "85",
-                        "endOffsets": "465"
+                        "endOffsets": "528"
                     }
                 },
                 {
-                    "source": "/Users/user/Desktop/AndroidStudioProjects/Ngalo/app/src/main/res/values-night/strings.xml",
-                    "from": {
-                        "startLines": "5,3,2,6,4",
-                        "startColumns": "4,4,4,4,4",
-                        "startOffsets": "214,115,55,308,156",
-                        "endColumns": "93,40,59,75,57",
-                        "endOffsets": "303,151,110,379,209"
-                    },
-                    "to": {
-                        "startLines": "2,3,4,5,6",
-                        "startColumns": "4,4,4,4,4",
-                        "startOffsets": "55,149,190,250,326",
-                        "endColumns": "93,40,59,75,57",
-                        "endOffsets": "144,185,245,321,379"
-                    }
-                },
-                {
-                    "source": "/Users/user/.gradle/caches/transforms-3/0a460c9e4a54bdfad26d1c28ed1ee1d6/transformed/appcompat-1.6.1/res/values-night-v8/values-night-v8.xml",
+                    "source": "/Users/user/.gradle/caches/transforms-3/b93092946ea890e85ea440d74e7ce3df/transformed/appcompat-1.6.1/res/values-night-v8/values-night-v8.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",
@@ -167,11 +30,64 @@
                         "endOffsets": "120,204,288,384,486,588,682,771"
                     },
                     "to": {
-                        "startLines": "8,9,10,11,12,13,14,64",
+                        "startLines": "9,10,11,12,13,14,15,68",
                         "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "470,540,624,708,804,906,1008,4734",
+                        "startOffsets": "533,603,687,771,867,969,1071,4907",
                         "endColumns": "69,83,83,95,101,101,93,88",
-                        "endOffsets": "535,619,703,799,901,1003,1097,4818"
+                        "endOffsets": "598,682,766,862,964,1066,1160,4991"
+                    }
+                },
+                {
+                    "source": "/Users/user/Desktop/AndroidStudioProjects/Ngalo/app/src/main/res/values-night/themes.xml",
+                    "from": {
+                        "startLines": "2,31",
+                        "startColumns": "4,4",
+                        "startOffsets": "100,1572",
+                        "endLines": "28,34",
+                        "endColumns": "12,12",
+                        "endOffsets": "1539,1854"
+                    },
+                    "to": {
+                        "startLines": "41,70",
+                        "startColumns": "4,4",
+                        "startOffsets": "3926,5113",
+                        "endLines": "67,73",
+                        "endColumns": "12,12",
+                        "endOffsets": "4902,5329"
+                    }
+                },
+                {
+                    "source": "/Users/user/Desktop/AndroidStudioProjects/Ngalo/app/src/main/res/values-night/strings.xml",
+                    "from": {
+                        "startLines": "5,7,3,2,6,4",
+                        "startColumns": "4,4,4,4,4,4",
+                        "startOffsets": "214,384,115,55,308,156",
+                        "endColumns": "93,62,40,59,75,57",
+                        "endOffsets": "303,442,151,110,379,209"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7",
+                        "startColumns": "4,4,4,4,4,4",
+                        "startOffsets": "55,149,212,253,313,389",
+                        "endColumns": "93,62,40,59,75,57",
+                        "endOffsets": "144,207,248,308,384,442"
+                    }
+                },
+                {
+                    "source": "/Users/user/.gradle/caches/transforms-3/eef2ad4625cb88521fc9c3da2693f588/transformed/material-1.10.0/res/values-night-v8/values-night-v8.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,130,241,330,431,538,645,744,851,954,1042,1166,1268,1370,1486,1588,1702,1830,1946,2068,2204,2324,2458,2578,2690,2816,2933,3057,3187,3309,3447,3581,3697",
+                        "endColumns": "74,110,88,100,106,106,98,106,102,87,123,101,101,115,101,113,127,115,121,135,119,133,119,111,125,116,123,129,121,137,133,115,119",
+                        "endOffsets": "125,236,325,426,533,640,739,846,949,1037,1161,1263,1365,1481,1583,1697,1825,1941,2063,2199,2319,2453,2573,2685,2811,2928,3052,3182,3304,3442,3576,3692,3812"
+                    },
+                    "to": {
+                        "startLines": "16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,69,74,75,76,77,78,79,80",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "1165,1240,1351,1440,1541,1648,1755,1854,1961,2064,2152,2276,2378,2480,2596,2698,2812,2940,3056,3178,3314,3434,3568,3688,3800,4996,5334,5458,5588,5710,5848,5982,6098",
+                        "endColumns": "74,110,88,100,106,106,98,106,102,87,123,101,101,115,101,113,127,115,121,135,119,133,119,111,125,116,123,129,121,137,133,115,119",
+                        "endOffsets": "1235,1346,1435,1536,1643,1750,1849,1956,2059,2147,2271,2373,2475,2591,2693,2807,2935,3051,3173,3309,3429,3563,3683,3795,3921,5108,5453,5583,5705,5843,5977,6093,6213"
                     }
                 }
             ]

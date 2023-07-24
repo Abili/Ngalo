@@ -94,7 +94,8 @@ class BikesAdapter(var viewModel: CartViewModel?) :
                     .into(binding.bikeImage);
             }
             binding.textBikeName.text = bike.name
-            binding.textViewPrice.text = "${CurrencyUtil.formatCurrency(bike.price!!.toInt(), "UGX")}"
+            binding.textViewPrice.text =
+                "${CurrencyUtil.formatCurrency(bike.price!!.toInt(), "UGX")}"
             binding.textViewDesc.text = bike.description
             binding.deleteBike.setOnClickListener {
                 val hire = FirebaseDatabase.getInstance().reference.child("bikes").child("hire")
@@ -108,7 +109,10 @@ class BikesAdapter(var viewModel: CartViewModel?) :
             itemView.setOnClickListener {
                 // Open the playlist details screen
                 val intent = Intent(itemView.context, BikeDetails::class.java)
-                intent.putExtra("bike", bike)
+                intent.putExtra("bikename", bike.name)
+                intent.putExtra("bikeprice", bike.price)
+                intent.putExtra("bikeimage", bike.imageUrl)
+                intent.putExtra("bikedesc", bike.description)
                 itemView.context.startActivity(intent)
             }
             binding.addToCart.setOnClickListener {
@@ -122,10 +126,11 @@ class BikesAdapter(var viewModel: CartViewModel?) :
                         CartItem(
                             UUID.randomUUID().toString(),
                             bike.name,
-                            bike.price!!.toInt(),
+                            bike.price.toInt(),
                             bike.imageUrl!!,
                             1,
-                            position++
+                            position++,
+                            bike.description
 
                         )
                     )

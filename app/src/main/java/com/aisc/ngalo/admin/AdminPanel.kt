@@ -23,11 +23,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aisc.ngalo.R
-import com.aisc.ngalo.completed.CompletedFragment
 import com.aisc.ngalo.orders.OrdersOptions
 import com.aisc.ngalo.orders.OrdersViewModel
+import com.aisc.ngalo.reciept.Reciepts
 import com.aisc.ngalo.rides.Rides
-import com.aisc.ngalo.rides.RidesActivity
 import com.aisc.ngalo.ui.theme.NgaloTheme
 
 class AdminPanel : ComponentActivity() {
@@ -219,6 +218,43 @@ fun Choose(ordersViewModel: OrdersViewModel?) {
                 }
             }
 
+
+            Card(
+                onClick = {
+                    context.startActivity(Intent(context, Reciepts::class.java))
+                },
+                Modifier
+                    .height(100.dp)
+                    .width(100.dp)
+                    .padding(5.dp),
+                backgroundColor = colorResource(id = R.color.white),
+            ) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Box(Modifier.weight(1f)) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_reciepts),
+                            contentDescription = "",
+                            modifier = Modifier
+                                .width(70.dp)
+                                .height(60.dp)
+                        )
+
+                    }
+                    Text(
+                        text = "Reciepts",
+                        modifier = Modifier
+                            .padding(10.dp),
+                        fontSize = 16.sp,
+                        color = colorResource(id = R.color.ngalo_green)
+
+                    )
+
+                }
+            }
+
             Card(
                 onClick = {
                     context.startActivity(Intent(context, Rides::class.java))
@@ -261,6 +297,6 @@ fun Choose(ordersViewModel: OrdersViewModel?) {
 fun DefaultPreview6() {
     val ordersViewModel = OrdersViewModel()
     NgaloTheme {
-        Choose(null)
+        Choose(ordersViewModel)
     }
 }

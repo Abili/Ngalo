@@ -2,6 +2,7 @@ package com.aisc.ngalo.cart
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,9 +42,14 @@ class CartActivity : AppCompatActivity() {
             viewModel.getTotal().observe(this) {
                 totalprice = it
             }
-            val intent = Intent(this, ConfirmationActivity::class.java)
-            intent.putExtra("totalprice", totalprice)
-            startActivity(intent)
+            if (adapter.itemCount == 0){
+                Toast.makeText(this, "Cart Can not be Empty !!",Toast.LENGTH_SHORT).show()
+            }
+            else {
+                val intent = Intent(this, ConfirmationActivity::class.java)
+                intent.putExtra("totalprice", totalprice)
+                startActivity(intent)
+            }
         }
 
     }

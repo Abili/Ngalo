@@ -13,7 +13,7 @@ object MainActivity:Destinations {
 
 }
 object AdminOUser:Destinations {
-    override val route: String = "adminouser"
+    override val route: String = "admin_or_user"
 
 }
 object SignUp:Destinations {

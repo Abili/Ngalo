@@ -145,7 +145,7 @@ class UserProfile : AppCompatActivity() {
                         val handler = Handler()
                         handler.postDelayed({
                             binding.progressBar.visibility = View.VISIBLE
-                            startActivity(Intent(this@UserProfile, AdminOUser::class.java))
+                            startActivity(Intent(this@UserProfile, AdminOUserActivity::class.java))
                         },0)
                     }
 
@@ -208,11 +208,6 @@ class UserProfile : AppCompatActivity() {
         usersRef.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(object :
             ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    // email already exists
-                    Snackbar.make(binding.root, "Email already Exists", Snackbar.LENGTH_SHORT)
-                        .show()
-                } else {
 
                     binding.progressBar.visibility = View.VISIBLE
                     downloadUrl = imageUri.value!!
@@ -245,8 +240,6 @@ class UserProfile : AppCompatActivity() {
 
                     }
 
-
-                }
             }
 
             override fun onCancelled(databaseError: DatabaseError) {

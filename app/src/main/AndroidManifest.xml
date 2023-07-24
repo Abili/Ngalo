@@ -5,6 +5,15 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
 
     <application
         android:name=".NgaloApplication"
@@ -15,40 +24,80 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ngalo.ActionBar">
         <activity
+            android:name=".reciept.Reciepts"
+            android:exported="false"
+            android:label="Receipts"
+            android:parentActivityName=".admin.AdminPanel">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".admin.AdminPanel" />
+        </activity>
+        <activity
+            android:name=".reciept.RecieptDetails"
+            android:exported="false"
+            android:label="Receipt"
+            android:parentActivityName=".reciept.Reciepts">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".reciept.Reciepts" />
+        </activity>
+        <activity
+            android:name=".purchases.PurchasesHistoryDetails"
+            android:exported="false"
+            android:label="Details"
+            android:parentActivityName=".usersorders.History">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".usersorders.History" />
+        </activity>
+
+        <activity
+            android:name=".reciept.GenerateReceiptActivity"
+            android:exported="false"
+            android:label="Reciept" />
+
+
+
+        <activity
+            android:name=".auth.VerificationActivity"
+            android:exported="false"
+            android:label="@string/title_activity_verification"
+            android:theme="@style/Theme.Ngalo.ActionBar" />
+        <activity
+            android:name=".auth.AuthUiActivity"
+            android:exported="false"
+            android:label="@string/title_activity_phone_number_auth"
+            android:theme="@style/Theme.Ngalo.ActionBar" />
+        <activity
             android:name=".purchases.Purchases"
             android:exported="false"
             android:label="Purchases"
             android:theme="@style/Theme.Ngalo.NoActionBar" />
-
         <activity
             android:name=".completed.CompletedDetails"
-            android:exported="false"
-            android:label="Completed"
-            android:theme="@style/Theme.Ngalo.NoActionBar" />
-        <activity
-            android:name=".purchases.PurchasesDetails"
             android:exported="false"
             android:label="Details"
             android:theme="@style/Theme.Ngalo.NoActionBar" />
         <activity
+            android:name=".purchases.PurchasesDetails"
+            android:exported="false"
+            android:label="Details" />
+        <activity
             android:name=".purchases.UserPurchaseGroup"
             android:exported="false"
-            android:label="Client's Orders"
-            android:theme="@style/Theme.Ngalo.NoActionBar" />
+            android:label="Purchases" />
         <activity
             android:name=".notifications.NotificationsActivity"
             android:exported="false"
-            android:label="@string/title_activity_notifications"
-            android:theme="@style/Theme.Ngalo.NoActionBar" />
+            android:label="@string/title_activity_notifications" />
         <activity
             android:name=".rides.Rides"
-            android:label="Rides"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Rides" />
         <activity
             android:name=".rides.RidesActivity"
             android:exported="false"
-            android:label="Rides"
-            android:theme="@style/Theme.Ngalo.NoActionBar" />
+            android:label="Rides" />
         <activity
             android:name=".progress.ProgressActivity"
             android:exported="false"
@@ -66,20 +115,20 @@
             android:theme="@style/Theme.Ngalo.NoActionBar" />
         <activity
             android:name=".SocialMediaActivity"
-            android:label="Social Media"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Social Media" />
         <activity
             android:name=".usersorders.UserOrderDetails"
-            android:label="Order Details"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Order Details" />
         <activity
-            android:name=".usersorders.UsersOrders"
-            android:label="History"
-            android:exported="false" />
+            android:name=".usersorders.History"
+            android:exported="false"
+            android:label="History" />
         <activity
             android:name=".completed.CompletedFragment"
-            android:label="Completed"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Completed" />
         <activity
             android:name=".admin.AdminPanel"
             android:exported="false"
@@ -88,7 +137,7 @@
         <activity
             android:name=".orders.OrderDetails"
             android:exported="false"
-            android:label="Order Details"
+            android:label="Details"
             android:theme="@style/Theme.Ngalo.NoActionBar" />
         <activity
             android:name=".orders.OrdersOptions"
@@ -98,7 +147,7 @@
         <activity
             android:name=".admin.AdminHomePage"
             android:exported="false"
-            android:label="@string/title_activity_admin_ouser"
+            android:label="Home"
             android:theme="@style/Theme.Ngalo.NoActionBar" />
         <activity
             android:name=".SignUp"
@@ -129,12 +178,12 @@
             android:exported="false" />
         <activity
             android:name=".MyAccount"
-            android:label="Profile"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Profile" />
         <activity
             android:name=".admin.AddBicyclePart"
-            android:label="AddBicyclePart"
-            android:exported="false" />
+            android:exported="false"
+            android:label="AddBicyclePart" />
         <activity
             android:name=".admin.UploadItems"
             android:exported="false"
@@ -142,16 +191,21 @@
             android:theme="@style/Theme.Ngalo.NoActionBar" />
         <activity
             android:name=".HomeActivity"
-            android:label="Home"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Home" />
         <activity
             android:name=".SettingsActivity"
+            android:exported="false"
             android:label="Settings"
-            android:exported="false" />
+            android:parentActivityName=".HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomeActivity" />
+        </activity>
         <activity
             android:name=".admin.CreateAdvert"
-            android:label="CreateAdvert"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Create Advert" />
         <activity
             android:name=".BikesScreen"
             android:exported="false"
@@ -159,8 +213,13 @@
             android:theme="@style/Theme.Ngalo.NoActionBar" />
         <activity
             android:name=".BikeDetails"
-            android:label="BikeDetails"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Details"
+            android:parentActivityName=".BikeDetails">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".BikeDetails" />
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="false" />
@@ -185,7 +244,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".AdminOUser"
+            android:name=".AdminOUserActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>

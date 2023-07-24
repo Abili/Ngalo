@@ -224,21 +224,20 @@ class RidesActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun stopRide() {
-        //countDownTimer.cancel()
-        // Set the flag to false to disable polyline drawing
-        shouldDrawPolyline = false
-
         // Cancel the countdown timer
-        countDownTimer!!.cancel()
+        countDownTimer?.cancel()
 
         // Set the flag to false to disable polyline drawing
         shouldDrawPolyline = false
         positionMarker?.remove()
 
+        // Remove the polyline from the map
+        googleMap.clear()
+
         // Show the summary dialog
         showRideSummaryDialog()
-
     }
+
 
     private fun showRideSummaryDialog() {
         AlertDialog.Builder(this)
@@ -300,11 +299,21 @@ class RidesActivity : AppCompatActivity(), OnMapReadyCallback {
         remainingTime = 0L
         shouldDrawPolyline = false
         polylineOptions = null
-        countDownTimer!!.cancel()
+        countDownTimer?.cancel()
         countDownTimer = null
         // Reset the UI elements
-        binding.tracktrideTime.text = "0"
+        clearUI()
+        resetMap()
         positionMarker?.remove()
+    }
+    private fun resetMap() {
+        googleMap.clear()
+        polylineOptions = PolylineOptions().width(10f).color(Color.BLUE)
+        zoomUpdated = false
+    }
+    private fun clearUI() {
+        binding.trackrideDistance.text = "0"
+        binding.tracktrideTime.text = "0"
     }
 
     private fun startCountdownTimer(timeInMillis: Long) {

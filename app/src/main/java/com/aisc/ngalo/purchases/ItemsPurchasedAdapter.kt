@@ -4,7 +4,6 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.aisc.ngalo.R
 import com.aisc.ngalo.databinding.PurchaseItemBinding
@@ -69,15 +68,17 @@ class ItemsPurchasedAdapter : RecyclerView.Adapter<ItemsPurchasedAdapter.ViewHol
             // Set up click listener for the playlist
             itemView.setOnClickListener {
                 // Open the playlist details screen
-                val intent = Intent(itemView.context, PurchasesDetails::class.java)
+                val intent = Intent(itemView.context, PurchasesHistoryDetails::class.java)
                 intent.putExtra("id", order.id)
                 intent.putExtra("itemname", order.purchase_name)
-                intent.putExtra("price", order.purchase_price)
+                intent.putExtra("price", price)
                 intent.putExtra("location", order.userlocation)
                 intent.putExtra("quantity", order.quantity)
                 intent.putExtra("grand", order.grandtotal)
                 intent.putExtra("tport", order.transportfares)
                 intent.putExtra("itemImage", order.purchase_imageUrl)
+                intent.putExtra("time", order.time)
+                intent.putExtra("desc", order.description)
                 itemView.context.startActivity(intent)
             }
 
