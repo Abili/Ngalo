@@ -36,7 +36,7 @@ class BikesOptions : AppCompatActivity(), BikesAdapter.OnCartItemAddedListener {
         setContentView(binding.root)
         binding.viewPager.adapter = PagerAdapter(supportFragmentManager)
         binding.tabs.setupWithViewPager(binding.viewPager)
-        binding.tabs.setBackgroundColor(resources.getColor(R.color.ngalo_green))
+        binding.tabs.setBackgroundColor(resources.getColor(R.color.white))
         // binding.tabs.setTabTextColors(R.color.ngalo_green,R.color.ngalo_green)
         setSupportActionBar(binding.optionstoolbar)
         cartViewModel = ViewModelProvider(this)[CartViewModel::class.java]

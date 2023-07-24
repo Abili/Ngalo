@@ -12,12 +12,12 @@
         "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-95:/layout/fragment_bike_parts.xml"
     },
     {
-        "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-mergeDebugResources-92:/layout/activity_my_account.xml",
-        "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-95:/layout/activity_my_account.xml"
-    },
-    {
         "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-mergeDebugResources-92:/layout/activity_social_media.xml",
         "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-95:/layout/activity_social_media.xml"
+    },
+    {
+        "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-mergeDebugResources-92:/layout/activity_my_account.xml",
+        "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-95:/layout/activity_my_account.xml"
     },
     {
         "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-mergeDebugResources-92:/layout/activity_admin_home_page.xml",
@@ -40,12 +40,12 @@
         "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-95:/layout/fragment_trial.xml"
     },
     {
-        "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-mergeDebugResources-92:/layout/dialog_ride_summary.xml",
-        "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-95:/layout/dialog_ride_summary.xml"
-    },
-    {
         "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-mergeDebugResources-92:/layout/orders_activity.xml",
         "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-95:/layout/orders_activity.xml"
+    },
+    {
+        "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-mergeDebugResources-92:/layout/dialog_ride_summary.xml",
+        "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-95:/layout/dialog_ride_summary.xml"
     },
     {
         "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-mergeDebugResources-92:/layout/fragment_bikes_options.xml",
@@ -128,10 +128,6 @@
         "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-95:/layout/images_dialog.xml"
     },
     {
-        "merged": "com.aisc.ngalo.app-mergeDebugResources-92:/layout/activity_home.xml",
-        "source": "com.aisc.ngalo.app-main-95:/layout/activity_home.xml"
-    },
-    {
         "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-mergeDebugResources-92:/layout/searchview.xml",
         "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-95:/layout/searchview.xml"
     },
@@ -158,6 +154,10 @@
     {
         "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-mergeDebugResources-92:/layout/all_ride_item.xml",
         "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-95:/layout/all_ride_item.xml"
+    },
+    {
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-92:/layout/activity_user_profile.xml",
+        "source": "com.aisc.ngalo.app-main-95:/layout/activity_user_profile.xml"
     },
     {
         "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-mergeDebugResources-92:/layout/activity_users_orders.xml",
