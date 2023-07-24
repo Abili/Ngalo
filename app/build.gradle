@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.aisc.ngalo"
@@ -66,27 +66,27 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'com.google.android.material:material:1.10.0'
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
-    implementation 'androidx.activity:activity-compose:1.7.0-alpha03'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.2'
+    implementation 'androidx.activity:activity-compose:1.8.0'
     implementation 'com.airbnb.android:lottie-compose:5.2.0'
-    implementation 'androidx.navigation:navigation-compose:2.5.3'
-    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1"
-    implementation 'androidx.navigation:navigation-runtime-ktx:2.5.3'
-    implementation 'androidx.room:room-common:2.4.3'
+    implementation 'androidx.navigation:navigation-compose:2.7.5'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2"
+    implementation 'androidx.navigation:navigation-runtime-ktx:2.7.5'
+    implementation 'androidx.room:room-common:2.6.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'com.google.firebase:firebase-analytics-ktx:21.2.0'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
-    implementation 'androidx.preference:preference-ktx:1.2.0'
-    implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    implementation 'com.google.firebase:firebase-analytics-ktx:21.5.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.2'
+    implementation 'androidx.preference:preference-ktx:1.2.1'
+    implementation 'com.google.android.gms:play-services-maps:18.2.0'
     implementation 'com.google.android.gms:play-services-location:21.0.1'
-    implementation 'com.google.android.libraries.places:places:3.0.0'
-    implementation 'androidx.compose.material3:material3:1.0.0-alpha11'
+    implementation 'com.google.android.libraries.places:places:3.2.0'
+    implementation 'androidx.compose.material3:material3:1.2.0-alpha10'
     implementation platform('androidx.compose:compose-bom:2022.10.00')
     implementation 'androidx.compose.ui:ui-graphics'
     implementation platform('androidx.compose:compose-bom:2022.10.00')
@@ -108,23 +108,23 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0"
     implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0"
-    implementation 'androidx.core:core-splashscreen:1.0.0'
+    implementation 'androidx.core:core-splashscreen:1.0.1'
 
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation 'com.google.firebase:firebase-auth-ktx:21.1.0'
-    implementation "androidx.compose.runtime:runtime-livedata:1.5.0-alpha04"
-    implementation 'com.google.firebase:firebase-database-ktx:20.1.0'
-    implementation 'com.google.firebase:firebase-storage-ktx:20.1.0'
+    implementation 'com.google.firebase:firebase-auth-ktx:22.2.0'
+    implementation "androidx.compose.runtime:runtime-livedata:1.6.0-alpha08"
+    implementation 'com.google.firebase:firebase-database-ktx:20.3.0'
+    implementation 'com.google.firebase:firebase-storage-ktx:20.3.0'
     kapt "androidx.room:room-compiler:$room_version"
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4'
-    implementation 'com.google.android.gms:play-services-base:18.1.0'
-    implementation 'com.google.android.gms:play-services-auth:20.4.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.1'
+    implementation 'com.google.android.gms:play-services-base:18.2.0'
+    implementation 'com.google.android.gms:play-services-auth:20.7.0'
     implementation 'com.google.firebase:firebase-core:21.1.1'
-    implementation 'com.google.firebase:firebase-database:20.1.0'
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
+    implementation 'com.google.firebase:firebase-database:20.3.0'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1"
     implementation 'com.github.bumptech.glide:glide:4.14.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
     implementation 'com.google.code.gson:gson:2.9.0'
@@ -142,14 +142,17 @@ dependencies {
     implementation 'com.github.jd-alexander:library:1.1.0'
 
     implementation 'com.google.maps:google-maps-services:0.17.0'
-    implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    implementation 'com.google.android.gms:play-services-maps:18.2.0'
     implementation 'com.google.maps.android:maps-compose:2.10.0'
 
     implementation 'com.akexorcist:googledirectionlibrary:1.1.1'
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1"
 
-    def room_version = "2.5.1"
+    implementation  "com.vanniktech:android-image-cropper:4.5.0"
+
+
+    def room_version = "2.6.0"
 
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"

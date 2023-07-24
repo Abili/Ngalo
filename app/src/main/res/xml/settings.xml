@@ -7,13 +7,14 @@
         android:summary="Social Media Accounts"
         android:title="Contact Us" />
 
-    <!--        <ListPreference-->
-    <!--            android:entries="@array/themes"-->
-    <!--            android:entryValues="@array/themes_values"-->
-    <!--            android:key="theme"-->
-    <!--            android:icon="@drawable/ic_theme"-->
-    <!--            android:summary="Choose the app theme"-->
-    <!--            android:title="App Theme" />-->
+    <ListPreference
+        android:key="theme"
+        android:title="Theme"
+        android:summary="Choose the app theme"
+        android:icon="@drawable/ic_theme"
+        android:entries="@array/themes"
+        android:entryValues="@array/themes_values"
+        android:defaultValue="system" />
 
     <Preference
         android:entries="@string/version"

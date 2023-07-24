@@ -1,10 +1,13 @@
 package com.aisc.ngalo.cart
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.aisc.ngalo.BikesOptions
 import com.aisc.ngalo.R
 import com.aisc.ngalo.databinding.CartItemBinding
 import com.aisc.ngalo.models.items
@@ -152,35 +155,71 @@ class CartAdapter() : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
                 }
             }
 
+
+
             binding.cartRemoveTextview.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     val deletedItem = orders[position]
+
+                    // Remove the item from the local list and notify the adapter
                     orders.removeAt(position)
                     notifyItemRemoved(position)
 
-                    //remove item from firebase as well
-                    FirebaseDatabase.getInstance().reference.child("cartitem").child(uid)
-                        .child(position.toString()).removeValue()
+                    // Remove the item from Firebase
+                    cartRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            for (cartSnap in snapshot.children) {
+                                val cartItemPosition =
+                                    cartSnap.child("position").getValue(Long::class.java)
+                                if (cartItemPosition == position.toLong()) {
+                                    cartSnap.ref.removeValue()
 
+                                    if (orders.size == 0) {
+                                        finishCurrentActivity()
+                                    }
+                                    //itemView.context.startActivity(Intent(itemView.context, CartActivity::class.java))
+                                    break // Exit the loop once the item is found and removed
+                                }
+                            }
+
+                            // Check if there are no items left in the cart
+                            if (!snapshot.hasChildren()) {
+                                // Close the current activity and go back to the previous one
+                                //finishCurrentActivity()
+                            }
+
+                        }
+
+
+                        override fun onCancelled(error: DatabaseError) {
+                            // Handle the error if needed
+                        }
+                    })
+
+                    // Show a Snackbar with an undo option
                     Snackbar.make(binding.root, "Item deleted", Snackbar.LENGTH_LONG)
                         .setAction("Undo") {
+                            // Restore the deleted item locally and notify the adapter
                             orders.add(position, deletedItem)
                             notifyItemInserted(position)
 
-                            //restore deleted item into firebase
-                            FirebaseDatabase.getInstance().reference.child("cartitem").child(uid)
-                                .child(position.toString()).push().setValue(deletedItem)
+                            // Restore the deleted item to Firebase
+                            val newItemRef = cartRef.push()
+                            newItemRef.setValue(deletedItem)
 
-                            Toast.makeText(itemView.context, " item restored", Toast.LENGTH_SHORT)
+                            Toast.makeText(itemView.context, "Item restored", Toast.LENGTH_SHORT)
                                 .show()
                         }
                         .show()
                 }
-
-
             }
 
+        }
+
+        private fun finishCurrentActivity() {
+            (itemView.context as? AppCompatActivity)?.finish()
+            itemView.context.startActivity(Intent(itemView.context, BikesOptions::class.java))
 
         }
 

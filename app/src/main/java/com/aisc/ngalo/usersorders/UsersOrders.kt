@@ -25,7 +25,7 @@ class UsersOrders : AppCompatActivity() {
     val adapter = UsersOrdersAdapter()
     private val purchasesAdapter = PurchasesAdapter()
     private var purchasesViewModel: PurchasesViewModel? = null
-    var ridesViewModel: RidesViewModel? = null
+    private var ridesViewModel: RidesViewModel? = null
     private val ridesAdapter = UsersRidesAdapter()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -185,7 +185,6 @@ fun Scaffold() {
                 verticalArrangement = Arrangement.Top
             ) {
                 items.forEach { item ->
-
                     item {
                         //Text("${com.aisc.ngalo.models.items}")
                         Card(

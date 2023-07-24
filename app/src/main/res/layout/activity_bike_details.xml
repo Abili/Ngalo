@@ -2,176 +2,142 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <androidx.appcompat.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/ngalo_green">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginEnd="20dp">
-
-                <ImageView
-                    android:id="@+id/cart"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/ic_shopping_check_out" />
-
-                <TextView
-                    android:id="@+id/cartValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/cart"
-                    android:layout_marginStart="-31dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_toEndOf="@+id/cart"
-                    android:text="0"
-
-                    android:textColor="@color/ngalo_blue"
-                    android:textSize="20dp" />
-            </RelativeLayout>
-
-        </androidx.appcompat.widget.Toolbar>
-
-        <ImageView
-            android:id="@+id/bikeImage"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:contentDescription="@string/bike_image"
-            android:scaleType="fitXY"
-            android:src="@drawable/img_ph"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@color/white">
-
-            <LinearLayout
-                android:id="@+id/textViewsContainer"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/textBikeName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:paddingStart="10dp"
-                        android:text="@string/bike_name"
-                        android:textColor="@color/ngalo_blue"
-                        android:textSize="26sp"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:id="@+id/textViewPrice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:paddingStart="10dp"
-                        android:text="@string/bike_price"
-                        android:textColor="@color/ngalo_blue"
-                        android:textSize="18sp" />
-                </LinearLayout>
-
-
-                <TextView
-                    android:id="@+id/detailsDesc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:background="@color/ngalo_gray"
-                    android:padding="10dp"
-                    android:text="@string/description"
-                    android:textColor="@color/ngalo_blue"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textViewDesc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="10dp"
-                    android:text="@string/details"
-                    android:textColor="@color/ngalo_blue"
-                    android:textSize="18sp" />
-
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
-
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal">
-
-                <Button
-                    android:id="@+id/sub_btn"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginEnd="20dp"
-                    android:text="-"
-                    android:textColor="@color/ngalo_blue"
-                    android:textSize="26sp" />
-
-                <TextView
-                    android:id="@+id/count_tv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_weight="1"
-                    android:text="1"
-                    android:textColor="@color/ngalo_blue"
-                    android:textSize="20sp" />
-
-                <Button
-                    android:id="@+id/add_btn"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="20dp"
-                    android:text="+"
-                    android:textColor="@color/ngalo_blue"
-                    android:textSize="26sp" />
-
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/checkout_btn"
+            <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:drawableStart="@drawable/ic_shopping_cart"
-                android:text="@string/add_to_cart"
-                android:textColor="@color/ngalo_green"
-                android:textSize="20sp" />
+                android:background="@color/ngalo_green">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="20dp">
+
+                    <ImageView
+                        android:id="@+id/cart"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_shopping_check_out" />
+
+                    <TextView
+                        android:id="@+id/cartValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/cart"
+                        android:layout_marginStart="-31dp"
+                        android:layout_marginBottom="20dp"
+                        android:layout_toEndOf="@+id/cart"
+                        android:text="0"
+
+                        android:textColor="@color/ngalo_blue"
+                        android:textSize="20dp" />
+                </RelativeLayout>
+
+            </androidx.appcompat.widget.Toolbar>
+
+            <ImageView
+                android:id="@+id/bikeImage"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:contentDescription="@string/bike_image"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_ph"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/white">
+
+                <LinearLayout
+                    android:id="@+id/textViewsContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textBikeName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:paddingStart="10dp"
+                            android:text="@string/bike_name"
+                            android:textColor="@color/ngalo_blue"
+                            android:textSize="26sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textViewPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:paddingStart="10dp"
+                            android:text="@string/bike_price"
+                            android:textColor="@color/ngalo_blue"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/detailsDesc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/ngalo_gray"
+                        android:padding="10dp"
+                        android:text="@string/description"
+                        android:textColor="@color/ngalo_blue"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textViewDesc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/josefinslab_bolditalic"
+                        android:text="@string/details"
+                        android:textColor="@color/ngalo_blue"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+
         </LinearLayout>
 
-
-    </LinearLayout>
+        <Button
+            android:id="@+id/checkout_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/background_color"
+            android:drawableStart="@drawable/ic_shopping_cart"
+            android:text="@string/add_to_cart"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </RelativeLayout>
 
 </layout>

@@ -18,7 +18,8 @@ data class PurchaseItem(
     var quantity: Int? = null,
     val grandTotal: String? = "",
     val transport: String? = "",
-    val time: String? = ""
+    val time: String? = "",
+    val paymentMethod: String? = ""
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
@@ -33,6 +34,7 @@ data class PurchaseItem(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
+        parcel.readString()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -48,6 +50,7 @@ data class PurchaseItem(
         parcel.writeString(grandTotal)
         parcel.writeString(transport)
         parcel.writeString(time)
+        parcel.writeString(paymentMethod)
     }
 
     override fun describeContents(): Int {

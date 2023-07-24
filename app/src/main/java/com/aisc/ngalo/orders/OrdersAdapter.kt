@@ -77,7 +77,7 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.ViewHolder>() {
             binding.category.text = order.category
             val (date, timeFormat) = TimeConverter().dateSimpleDateFormatPair(order)
             val time = timeFormat.format(date)
-            binding.requestTime.text = order.timeOfOrder
+            binding.requestTime.text = time
             val completedOrder = Order(
                 order.id,
                 order.description,

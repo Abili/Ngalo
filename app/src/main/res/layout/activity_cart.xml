@@ -8,47 +8,24 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_weight="1"
         android:id="@+id/cart_recycler"
-        tools:listitem="@layout/cart_item"
         android:layout_width="match_parent"
-        android:layout_height="0dp" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:listitem="@layout/cart_item" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+
+    <Button
+        android:id="@+id/checkout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@android:color/white">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-
-                <Button
-                    android:id="@+id/checkout"
-                    android:backgroundTint="@color/ngalo_green"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:drawableStart="@drawable/ic_shopping_cart"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:textAllCaps="false"
-                    android:text="CHECK OUT"
-                    android:textSize="18dp"
-                    android:textColor="@color/white" />
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+        android:layout_height="60dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="@color/ngalo_green"
+        android:drawableStart="@drawable/ic_shopping_cart"
+        android:text="CHECK OUT"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18dp" />
 
 </LinearLayout>

@@ -78,6 +78,7 @@ class ItemsPurchasedAdapter : RecyclerView.Adapter<ItemsPurchasedAdapter.ViewHol
                 intent.putExtra("grand", order.grandtotal)
                 intent.putExtra("tport", order.transportfares)
                 intent.putExtra("itemImage", order.purchase_imageUrl)
+                intent.putExtra("time", order.time)
                 itemView.context.startActivity(intent)
             }
 

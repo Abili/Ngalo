@@ -5,6 +5,9 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
 
     <application
         android:name=".NgaloApplication"
@@ -42,8 +45,8 @@
             android:theme="@style/Theme.Ngalo.NoActionBar" />
         <activity
             android:name=".rides.Rides"
-            android:label="Rides"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Rides" />
         <activity
             android:name=".rides.RidesActivity"
             android:exported="false"
@@ -66,20 +69,20 @@
             android:theme="@style/Theme.Ngalo.NoActionBar" />
         <activity
             android:name=".SocialMediaActivity"
-            android:label="Social Media"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Social Media" />
         <activity
             android:name=".usersorders.UserOrderDetails"
-            android:label="Order Details"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Order Details" />
         <activity
             android:name=".usersorders.UsersOrders"
-            android:label="History"
-            android:exported="false" />
+            android:exported="false"
+            android:label="History" />
         <activity
             android:name=".completed.CompletedFragment"
-            android:label="Completed"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Completed" />
         <activity
             android:name=".admin.AdminPanel"
             android:exported="false"
@@ -129,12 +132,12 @@
             android:exported="false" />
         <activity
             android:name=".MyAccount"
-            android:label="Profile"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Profile" />
         <activity
             android:name=".admin.AddBicyclePart"
-            android:label="AddBicyclePart"
-            android:exported="false" />
+            android:exported="false"
+            android:label="AddBicyclePart" />
         <activity
             android:name=".admin.UploadItems"
             android:exported="false"
@@ -142,25 +145,40 @@
             android:theme="@style/Theme.Ngalo.NoActionBar" />
         <activity
             android:name=".HomeActivity"
-            android:label="Home"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Home" />
+
         <activity
             android:name=".SettingsActivity"
+            android:exported="false"
             android:label="Settings"
-            android:exported="false" />
+            android:parentActivityName=".HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomeActivity" />
+        </activity>
+
         <activity
             android:name=".admin.CreateAdvert"
-            android:label="CreateAdvert"
-            android:exported="false" />
+            android:exported="false"
+            android:label="CreateAdvert" />
         <activity
             android:name=".BikesScreen"
             android:exported="false"
             android:label="@string/title_activity_bikes_options"
             android:theme="@style/Theme.Ngalo.NoActionBar" />
+
         <activity
             android:name=".BikeDetails"
+            android:exported="false"
             android:label="BikeDetails"
-            android:exported="false" />
+            android:parentActivityName=".BikeDetails">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".BikeDetails" />
+        </activity>
+
+
         <activity
             android:name=".MainActivity"
             android:exported="false" />

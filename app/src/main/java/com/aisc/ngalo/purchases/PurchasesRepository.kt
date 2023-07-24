@@ -183,10 +183,10 @@ class PurchasesRepository @Inject constructor() {
         })
     }
 
-    fun items(time:String, itemsId: String, callback: (List<ItemsPurchased>) -> Unit) {
+    fun items(time: String, itemsId: String, callback: (List<ItemsPurchased>) -> Unit) {
         databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val completedList = mutableListOf<ItemsPurchased>()
+                val itemsPurchasedList = mutableListOf<ItemsPurchased>()
                 if (snapshot.exists()) {
                     for (purchaseSnap in snapshot.children) {
                         var grandTotal = purchaseSnap.child("grandTotal").getValue(Long::class.java)
@@ -221,14 +221,15 @@ class PurchasesRepository @Inject constructor() {
                                     trsportfares.toString(),
                                     quantity!!.toInt(),
                                     userLocation,
-                                    pickupLocation
+                                    pickupLocation,
+                                    ordertime.toString()
                                 )
-                                completedList.add(order)
+                                itemsPurchasedList.add(order)
                             }
                         }
                     }
                     // Invoke the callback with the completed list
-                    callback(completedList)
+                    callback(itemsPurchasedList)
                 }
             }
 
@@ -258,6 +259,8 @@ class PurchasesRepository @Inject constructor() {
                             childSnapshot.child("trsportfares").getValue(Long::class.java)
                         val time =
                             childSnapshot.child("time").getValue(Long::class.java)
+                        val paymentMethod =
+                            childSnapshot.child("paymentMethod").getValue(String::class.java)
 
 
                         userRef.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -283,7 +286,8 @@ class PurchasesRepository @Inject constructor() {
                                             null,
                                             grandtotal.toString(),
                                             transport.toString(),
-                                            time.toString()
+                                            time.toString(),
+                                            paymentMethod
                                         )
 
                                         if (!userMutableList.contains(user)) { // Check if the user is already in the list

@@ -2,21 +2,13 @@ package com.aisc.ngalo.admin
 
 import android.Manifest
 import android.app.AlertDialog
-import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.Canvas
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.RelativeLayout
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -25,12 +17,7 @@ import com.aisc.ngalo.LocationObject
 import com.aisc.ngalo.R
 import com.aisc.ngalo.databinding.ActivityAdminHomePageBinding
 import com.aisc.ngalo.helpers.fetchRoute
-import com.akexorcist.googledirection.DirectionCallback
-import com.akexorcist.googledirection.GoogleDirection
-import com.akexorcist.googledirection.constant.TransportMode
-import com.akexorcist.googledirection.model.Direction
 import com.akexorcist.googledirection.model.Route
-import com.akexorcist.googledirection.util.DirectionConverter
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -366,6 +353,7 @@ class AdminHomePage : AppCompatActivity(), OnMapReadyCallback {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
 
+
     //private val polylines: MutableList<Polyline>? = null
     private val polylines: MutableList<Polyline> = ArrayList()
 
@@ -380,7 +368,6 @@ class AdminHomePage : AppCompatActivity(), OnMapReadyCallback {
     }
 
 
-
     private fun setCameraWithCoordinationBounds(route: Route) {
         val southwest = route.bound.southwestCoordination.coordination
         val northeast = route.bound.northeastCoordination.coordination
@@ -388,5 +375,8 @@ class AdminHomePage : AppCompatActivity(), OnMapReadyCallback {
         mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100))
     }
 
-
+    override fun onStop() {
+        super.onStop()
+        erasePolylines()
+    }
 }

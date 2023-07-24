@@ -19,8 +19,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
-import com.yalantis.ucrop.UCrop
-import java.io.File
 import java.util.*
 
 class UploadBikeImages : AppCompatActivity() {
@@ -28,13 +26,14 @@ class UploadBikeImages : AppCompatActivity() {
     private var activityResultLauncher: ActivityResultLauncher<Intent>? = null
     private val imageUri = mutableStateOf<Uri?>(null)
     private lateinit var downloadUrl: Uri
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUploadImagesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.addimageView.setOnClickListener {
-            //open to upload images
+            // Open to upload images
             val intent =
                 Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             activityResultLauncher!!.launch(intent)
@@ -42,7 +41,6 @@ class UploadBikeImages : AppCompatActivity() {
         binding.addImageBtn.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE
             downloadUrl = imageUri.value!!
-            //val downloadUrl = it.metadata!!.reference!!.downloadUrl
 
             val filePath = downloadUrl
 
@@ -60,14 +58,12 @@ class UploadBikeImages : AppCompatActivity() {
             }.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val downloadUrl = task.result
-                    // save downloadUrl to database
+                    // Save downloadUrl to the database
                     uploadToFirebase(downloadUrl)
                 } else {
                     // Handle failure
                     Snackbar.make(binding.root, "Uploading...", Snackbar.LENGTH_SHORT).show()
                 }
-
-
             }
         }
         openImageFiles()
@@ -102,8 +98,6 @@ class UploadBikeImages : AppCompatActivity() {
                     Snacker("Upload Completed !")
                     binding.progressBar.visibility = View.GONE
                     finish()
-
-
                 }.addOnFailureListener {
                     Snacker(it.toString())
                 }
@@ -115,8 +109,6 @@ class UploadBikeImages : AppCompatActivity() {
                     Snacker("Upload Completed !")
                     binding.progressBar.visibility = View.GONE
                     finish()
-
-
                 }.addOnFailureListener {
                     Snacker(it.toString())
                 }
@@ -124,86 +116,28 @@ class UploadBikeImages : AppCompatActivity() {
         } else {
             Snacker("Fields Required")
         }
-
-
     }
-
-//    private fun openImageFiles() {
-//        activityResultLauncher =
-//            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-//                if (result.resultCode == RESULT_OK) {
-//                    imageUri.value = result.data!!.data
-//                    val selectedSongs = getSelectedImages(result.data)
-//                    // Get the song ids
-//                    Glide.with(binding.addimageView)
-//                        .load(result.data!!.data)
-//                        .centerCrop()
-//                        .placeholder(R.drawable.placeholder_with)
-//                        .into(binding.addimageView)
-//
-//                }
-//            }
-//    }
-
 
     private fun openImageFiles() {
         activityResultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == RESULT_OK) {
                     imageUri.value = result.data!!.data
-                    val selectedSongs = getSelectedImages(result.data)
-                    // Get the song ids
+                    val selectedImage = imageUri.value
 
-                    val options = UCrop.Options()
-                    options.setCompressionQuality(100)
-                    options.setToolbarColor(ContextCompat.getColor(this, R.color.ngalo_green))
-                    options.setStatusBarColor(ContextCompat.getColor(this, R.color.ngalo_blue))
-                    options.setActiveWidgetColor(ContextCompat.getColor(this, R.color.ngalo_green))
-
-                    UCrop.of(
-                        result.data!!.data!!,
-                        Uri.fromFile(File(cacheDir, "${UUID.randomUUID()}.jpeg"))
-                    )
-                        .withOptions(options)
-                        .start(this)
+                    // Load and display the selected image using Glide
+                    if (selectedImage != null) {
+                        Glide.with(binding.addimageView)
+                            .load(selectedImage)
+                            .centerCrop()
+                            .placeholder(R.drawable.placeholder_with)
+                            .into(binding.addimageView)
+                    }
                 }
             }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
-            val resultUri = UCrop.getOutput(data!!)
-            Glide.with(binding.addimageView)
-                .load(resultUri)
-                .fitCenter()
-                .placeholder(R.drawable.placeholder_with)
-                .into(binding.addimageView)
-        }
-    }
-
-
-    private fun getSelectedImages(data: Intent?): List<String> {
-        val selectedSongs = mutableListOf<String>()
-        // Check if the Intent contains a clip data
-        if (data?.clipData != null) {
-            // Iterate over the clip data items
-            for (i in 0 until data.clipData!!.itemCount) {
-                val item = data.clipData!!.getItemAt(i)
-                // Get the URI of the audio file
-                val uri = item.uri
-                selectedSongs.add(uri.toString())
-            }
-        } else if (data?.data != null) {
-            // Get the URI of the audio file
-            val uri = data.data!!.lastPathSegment
-            selectedSongs.add(uri.toString())
-        }
-        return selectedSongs
     }
 
     private fun Snacker(snackerText: String) {
         Snackbar.make(binding.root, snackerText, Snackbar.LENGTH_SHORT).show()
     }
-
 }

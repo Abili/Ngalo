@@ -3,25 +3,19 @@ package com.aisc.ngalo.network;
 import androidx.annotation.NonNull;
 import androidx.room.DatabaseConfiguration;
 import androidx.room.InvalidationTracker;
+import androidx.room.RoomDatabase;
 import androidx.room.RoomOpenHelper;
-import androidx.room.RoomOpenHelper.Delegate;
-import androidx.room.RoomOpenHelper.ValidationResult;
 import androidx.room.migration.AutoMigrationSpec;
 import androidx.room.migration.Migration;
 import androidx.room.util.DBUtil;
 import androidx.room.util.TableInfo;
-import androidx.room.util.TableInfo.Column;
-import androidx.room.util.TableInfo.ForeignKey;
-import androidx.room.util.TableInfo.Index;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
-import androidx.sqlite.db.SupportSQLiteOpenHelper.Callback;
-import androidx.sqlite.db.SupportSQLiteOpenHelper.Configuration;
 import java.lang.Class;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -35,56 +29,62 @@ public final class BikeDatabase_Impl extends BikeDatabase {
   private volatile BikeDao _bikeDao;
 
   @Override
-  protected SupportSQLiteOpenHelper createOpenHelper(DatabaseConfiguration configuration) {
-    final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(configuration, new RoomOpenHelper.Delegate(1) {
+  @NonNull
+  protected SupportSQLiteOpenHelper createOpenHelper(@NonNull final DatabaseConfiguration config) {
+    final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(config, new RoomOpenHelper.Delegate(1) {
       @Override
-      public void createAllTables(SupportSQLiteDatabase _db) {
-        _db.execSQL("CREATE TABLE IF NOT EXISTS `mylobikes` (`id` TEXT NOT NULL, `imageUrl` TEXT, `name` TEXT, `price` TEXT, `description` TEXT, `options` TEXT, `quantity` INTEGER, `position` INTEGER, PRIMARY KEY(`id`))");
-        _db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-        _db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ee2054e5476186f5ad9531d76a1b5166')");
+      public void createAllTables(@NonNull final SupportSQLiteDatabase db) {
+        db.execSQL("CREATE TABLE IF NOT EXISTS `mylobikes` (`id` TEXT NOT NULL, `imageUrl` TEXT, `name` TEXT, `price` TEXT, `description` TEXT, `options` TEXT, `quantity` INTEGER, `position` INTEGER, PRIMARY KEY(`id`))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
+        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ee2054e5476186f5ad9531d76a1b5166')");
       }
 
       @Override
-      public void dropAllTables(SupportSQLiteDatabase _db) {
-        _db.execSQL("DROP TABLE IF EXISTS `mylobikes`");
-        if (mCallbacks != null) {
-          for (int _i = 0, _size = mCallbacks.size(); _i < _size; _i++) {
-            mCallbacks.get(_i).onDestructiveMigration(_db);
+      public void dropAllTables(@NonNull final SupportSQLiteDatabase db) {
+        db.execSQL("DROP TABLE IF EXISTS `mylobikes`");
+        final List<? extends RoomDatabase.Callback> _callbacks = mCallbacks;
+        if (_callbacks != null) {
+          for (RoomDatabase.Callback _callback : _callbacks) {
+            _callback.onDestructiveMigration(db);
           }
         }
       }
 
       @Override
-      public void onCreate(SupportSQLiteDatabase _db) {
-        if (mCallbacks != null) {
-          for (int _i = 0, _size = mCallbacks.size(); _i < _size; _i++) {
-            mCallbacks.get(_i).onCreate(_db);
+      public void onCreate(@NonNull final SupportSQLiteDatabase db) {
+        final List<? extends RoomDatabase.Callback> _callbacks = mCallbacks;
+        if (_callbacks != null) {
+          for (RoomDatabase.Callback _callback : _callbacks) {
+            _callback.onCreate(db);
           }
         }
       }
 
       @Override
-      public void onOpen(SupportSQLiteDatabase _db) {
-        mDatabase = _db;
-        internalInitInvalidationTracker(_db);
-        if (mCallbacks != null) {
-          for (int _i = 0, _size = mCallbacks.size(); _i < _size; _i++) {
-            mCallbacks.get(_i).onOpen(_db);
+      public void onOpen(@NonNull final SupportSQLiteDatabase db) {
+        mDatabase = db;
+        internalInitInvalidationTracker(db);
+        final List<? extends RoomDatabase.Callback> _callbacks = mCallbacks;
+        if (_callbacks != null) {
+          for (RoomDatabase.Callback _callback : _callbacks) {
+            _callback.onOpen(db);
           }
         }
       }
 
       @Override
-      public void onPreMigrate(SupportSQLiteDatabase _db) {
-        DBUtil.dropFtsSyncTriggers(_db);
+      public void onPreMigrate(@NonNull final SupportSQLiteDatabase db) {
+        DBUtil.dropFtsSyncTriggers(db);
       }
 
       @Override
-      public void onPostMigrate(SupportSQLiteDatabase _db) {
+      public void onPostMigrate(@NonNull final SupportSQLiteDatabase db) {
       }
 
       @Override
-      public RoomOpenHelper.ValidationResult onValidateSchema(SupportSQLiteDatabase _db) {
+      @NonNull
+      public RoomOpenHelper.ValidationResult onValidateSchema(
+          @NonNull final SupportSQLiteDatabase db) {
         final HashMap<String, TableInfo.Column> _columnsMylobikes = new HashMap<String, TableInfo.Column>(8);
         _columnsMylobikes.put("id", new TableInfo.Column("id", "TEXT", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsMylobikes.put("imageUrl", new TableInfo.Column("imageUrl", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
@@ -97,8 +97,8 @@ public final class BikeDatabase_Impl extends BikeDatabase {
         final HashSet<TableInfo.ForeignKey> _foreignKeysMylobikes = new HashSet<TableInfo.ForeignKey>(0);
         final HashSet<TableInfo.Index> _indicesMylobikes = new HashSet<TableInfo.Index>(0);
         final TableInfo _infoMylobikes = new TableInfo("mylobikes", _columnsMylobikes, _foreignKeysMylobikes, _indicesMylobikes);
-        final TableInfo _existingMylobikes = TableInfo.read(_db, "mylobikes");
-        if (! _infoMylobikes.equals(_existingMylobikes)) {
+        final TableInfo _existingMylobikes = TableInfo.read(db, "mylobikes");
+        if (!_infoMylobikes.equals(_existingMylobikes)) {
           return new RoomOpenHelper.ValidationResult(false, "mylobikes(com.aisc.ngalo.models.Bike).\n"
                   + " Expected:\n" + _infoMylobikes + "\n"
                   + " Found:\n" + _existingMylobikes);
@@ -106,18 +106,16 @@ public final class BikeDatabase_Impl extends BikeDatabase {
         return new RoomOpenHelper.ValidationResult(true, null);
       }
     }, "ee2054e5476186f5ad9531d76a1b5166", "a53a8671a4df92714bad01605dcc1493");
-    final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(configuration.context)
-        .name(configuration.name)
-        .callback(_openCallback)
-        .build();
-    final SupportSQLiteOpenHelper _helper = configuration.sqliteOpenHelperFactory.create(_sqliteConfig);
+    final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(config.context).name(config.name).callback(_openCallback).build();
+    final SupportSQLiteOpenHelper _helper = config.sqliteOpenHelperFactory.create(_sqliteConfig);
     return _helper;
   }
 
   @Override
+  @NonNull
   protected InvalidationTracker createInvalidationTracker() {
     final HashMap<String, String> _shadowTablesMap = new HashMap<String, String>(0);
-    HashMap<String, Set<String>> _viewTables = new HashMap<String, Set<String>>(0);
+    final HashMap<String, Set<String>> _viewTables = new HashMap<String, Set<String>>(0);
     return new InvalidationTracker(this, _shadowTablesMap, _viewTables, "mylobikes");
   }
 
@@ -139,6 +137,7 @@ public final class BikeDatabase_Impl extends BikeDatabase {
   }
 
   @Override
+  @NonNull
   protected Map<Class<?>, List<Class<?>>> getRequiredTypeConverters() {
     final HashMap<Class<?>, List<Class<?>>> _typeConvertersMap = new HashMap<Class<?>, List<Class<?>>>();
     _typeConvertersMap.put(BikeDao.class, BikeDao_Impl.getRequiredConverters());
@@ -146,15 +145,18 @@ public final class BikeDatabase_Impl extends BikeDatabase {
   }
 
   @Override
+  @NonNull
   public Set<Class<? extends AutoMigrationSpec>> getRequiredAutoMigrationSpecs() {
     final HashSet<Class<? extends AutoMigrationSpec>> _autoMigrationSpecsSet = new HashSet<Class<? extends AutoMigrationSpec>>();
     return _autoMigrationSpecsSet;
   }
 
   @Override
+  @NonNull
   public List<Migration> getAutoMigrations(
-      @NonNull Map<Class<? extends AutoMigrationSpec>, AutoMigrationSpec> autoMigrationSpecsMap) {
-    return Arrays.asList();
+      @NonNull final Map<Class<? extends AutoMigrationSpec>, AutoMigrationSpec> autoMigrationSpecs) {
+    final List<Migration> _autoMigrations = new ArrayList<Migration>();
+    return _autoMigrations;
   }
 
   @Override

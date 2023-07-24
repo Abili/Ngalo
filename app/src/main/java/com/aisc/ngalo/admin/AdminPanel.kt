@@ -261,6 +261,6 @@ fun Choose(ordersViewModel: OrdersViewModel?) {
 fun DefaultPreview6() {
     val ordersViewModel = OrdersViewModel()
     NgaloTheme {
-        Choose(null)
+        Choose(ordersViewModel)
     }
 }

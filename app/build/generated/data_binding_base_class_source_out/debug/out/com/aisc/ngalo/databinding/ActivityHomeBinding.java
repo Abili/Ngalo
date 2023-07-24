@@ -35,6 +35,12 @@ public final class ActivityHomeBinding implements ViewBinding {
   public final CardView cardView2;
 
   @NonNull
+  public final LinearLayout cartHome;
+
+  @NonNull
+  public final TextView cartHomeText;
+
+  @NonNull
   public final ImageView hire;
 
   @NonNull
@@ -45,9 +51,6 @@ public final class ActivityHomeBinding implements ViewBinding {
 
   @NonNull
   public final ImageView ngaloAd;
-
-  @NonNull
-  public final LinearLayout notificationsHome;
 
   @NonNull
   public final ImageView repairs;
@@ -66,20 +69,21 @@ public final class ActivityHomeBinding implements ViewBinding {
 
   private ActivityHomeBinding(@NonNull ConstraintLayout rootView, @NonNull ImageView bikeparts,
       @NonNull ImageView buy, @NonNull CardView cardView, @NonNull CardView cardView2,
-      @NonNull ImageView hire, @NonNull LinearLayout historyHome,
-      @NonNull LinearLayout myaccountHome, @NonNull ImageView ngaloAd,
-      @NonNull LinearLayout notificationsHome, @NonNull ImageView repairs, @NonNull ImageView rides,
+      @NonNull LinearLayout cartHome, @NonNull TextView cartHomeText, @NonNull ImageView hire,
+      @NonNull LinearLayout historyHome, @NonNull LinearLayout myaccountHome,
+      @NonNull ImageView ngaloAd, @NonNull ImageView repairs, @NonNull ImageView rides,
       @NonNull LinearLayout settingsHome, @NonNull TextView textView, @NonNull TextView textView2) {
     this.rootView = rootView;
     this.bikeparts = bikeparts;
     this.buy = buy;
     this.cardView = cardView;
     this.cardView2 = cardView2;
+    this.cartHome = cartHome;
+    this.cartHomeText = cartHomeText;
     this.hire = hire;
     this.historyHome = historyHome;
     this.myaccountHome = myaccountHome;
     this.ngaloAd = ngaloAd;
-    this.notificationsHome = notificationsHome;
     this.repairs = repairs;
     this.rides = rides;
     this.settingsHome = settingsHome;
@@ -138,6 +142,18 @@ public final class ActivityHomeBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.cart_home;
+      LinearLayout cartHome = ViewBindings.findChildViewById(rootView, id);
+      if (cartHome == null) {
+        break missingId;
+      }
+
+      id = R.id.cart_home_text;
+      TextView cartHomeText = ViewBindings.findChildViewById(rootView, id);
+      if (cartHomeText == null) {
+        break missingId;
+      }
+
       id = R.id.hire;
       ImageView hire = ViewBindings.findChildViewById(rootView, id);
       if (hire == null) {
@@ -159,12 +175,6 @@ public final class ActivityHomeBinding implements ViewBinding {
       id = R.id.ngalo_ad;
       ImageView ngaloAd = ViewBindings.findChildViewById(rootView, id);
       if (ngaloAd == null) {
-        break missingId;
-      }
-
-      id = R.id.notifications_home;
-      LinearLayout notificationsHome = ViewBindings.findChildViewById(rootView, id);
-      if (notificationsHome == null) {
         break missingId;
       }
 
@@ -199,8 +209,8 @@ public final class ActivityHomeBinding implements ViewBinding {
       }
 
       return new ActivityHomeBinding((ConstraintLayout) rootView, bikeparts, buy, cardView,
-          cardView2, hire, historyHome, myaccountHome, ngaloAd, notificationsHome, repairs, rides,
-          settingsHome, textView, textView2);
+          cardView2, cartHome, cartHomeText, hire, historyHome, myaccountHome, ngaloAd, repairs,
+          rides, settingsHome, textView, textView2);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

@@ -1,20 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-91:/values-v24/values-v24.xml",
+            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-95:/values-v24/values-v24.xml",
             "map": [
                 {
-                    "source": "/Users/user/.gradle/caches/transforms-3/0a460c9e4a54bdfad26d1c28ed1ee1d6/transformed/appcompat-1.6.1/res/values-v24/values-v24.xml",
-                    "from": {
-                        "startLines": "2,3",
-                        "startColumns": "4,4",
-                        "startOffsets": "55,212",
-                        "endColumns": "156,134",
-                        "endOffsets": "207,342"
-                    }
-                },
-                {
-                    "source": "/Users/user/.gradle/caches/transforms-3/1dfbac9f96db2d127383f5b70acc2d70/transformed/media-1.0.0/res/values-v24/values-v24.xml",
+                    "source": "/Users/user/.gradle/caches/transforms-3/311d54f3ee9a8de0e00ef23c00a92b12/transformed/media-1.0.0/res/values-v24/values-v24.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",
@@ -31,7 +21,17 @@
                     }
                 },
                 {
-                    "source": "/Users/user/.gradle/caches/transforms-3/11b9e4c996461fe3718c527f261876ba/transformed/material-1.8.0/res/values-v24/values-v24.xml",
+                    "source": "/Users/user/.gradle/caches/transforms-3/7495856a30b289e2fa489126632e5194/transformed/appcompat-1.6.1/res/values-v24/values-v24.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,212",
+                        "endColumns": "156,134",
+                        "endOffsets": "207,342"
+                    }
+                },
+                {
+                    "source": "/Users/user/.gradle/caches/transforms-3/9f7104a5cf878cc174d715a8b27b9d6a/transformed/material-1.10.0/res/values-v24/values-v24.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,9,12,15",
                         "startColumns": "4,4,4,4,4,4,4,4",
