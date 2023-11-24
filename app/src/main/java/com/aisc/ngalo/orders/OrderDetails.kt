@@ -43,7 +43,7 @@ class OrderDetails : AppCompatActivity() {
         binding.detailsDesc.text = damgDesc
         binding.customerLocation.text = location
         binding.requestTime.text = time
-        binding.category.text = Category.REPAIR.toString()
+        binding.category.text = Category.Repair.toString()
 
         binding.colletBtn.setOnClickListener {
             val intent = Intent(this, AdminHomePage::class.java)

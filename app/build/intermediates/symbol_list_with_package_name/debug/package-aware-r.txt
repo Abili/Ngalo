@@ -3680,6 +3680,7 @@ drawable btn_radio_off_to_on_mtrl_animation
 drawable btn_radio_on_mtrl
 drawable btn_radio_on_to_off_mtrl_animation
 drawable buy_bikes
+drawable circular_tv
 drawable client_marker
 drawable common_full_open_on_phone
 drawable common_google_signin_btn_icon_dark
@@ -3733,6 +3734,7 @@ drawable ic_account
 drawable ic_ad_upload
 drawable ic_add_location
 drawable ic_admin
+drawable ic_arrow_back
 drawable ic_arrow_back_24
 drawable ic_arrow_back_black_24
 drawable ic_arrow_down_24dp
@@ -3980,6 +3982,8 @@ id action_bar_root
 id action_bar_spinner
 id action_bar_subtitle
 id action_bar_title
+id action_checkout_icon
+id action_checkout_text
 id action_completed
 id action_container
 id action_context_bar
@@ -4020,6 +4024,7 @@ id animateToEnd
 id animateToStart
 id antiClockwise
 id anticipate
+id appBarLayout
 id apple_provider
 id arc
 id asConfigured
@@ -4030,6 +4035,7 @@ id autoCompleteToEnd
 id autoCompleteToStart
 id autoCompleteTv
 id automatic
+id backarrow
 id barcodeImage
 id barrier
 id baseline
@@ -4102,7 +4108,7 @@ id chains
 id checkbox
 id checked
 id checkout
-id checkout_btn
+id checkoutBtn
 id chronometer
 id circle_center
 id clear_text
@@ -4164,6 +4170,7 @@ id design_menu_item_action_area
 id design_menu_item_action_area_stub
 id design_menu_item_text
 id design_navigation_view
+id details
 id detailsDesc
 id dialogTB
 id dialog_button
@@ -4306,6 +4313,7 @@ id inward
 id is_pooling_container_tag
 id italic
 id itemImageView
+id item_category
 id item_number
 id item_touch_helper_previous_elevation
 id itemspurchasedRecycler
@@ -4699,6 +4707,7 @@ id title_template
 id toggle
 id toolbar
 id toolbar2
+id toolbar3
 id toolbar_title
 id top
 id topPanel
@@ -4925,6 +4934,7 @@ layout activity_generate_recipt
 layout activity_home
 layout activity_my_account
 layout activity_order_details
+layout activity_orders_options
 layout activity_purchase_details
 layout activity_purchase_history_details
 layout activity_receipt_details
@@ -5032,6 +5042,7 @@ layout material_timepicker
 layout material_timepicker_dialog
 layout material_timepicker_textinput_display
 layout menu_cart
+layout menu_item_with_text
 layout mtrl_alert_dialog
 layout mtrl_alert_dialog_actions
 layout mtrl_alert_dialog_title
@@ -5128,6 +5139,7 @@ layout user_ride_item
 layout users_orders_item
 layout zxing_barcode_scanner
 layout zxing_capture
+menu cart_menu
 menu completed_menu
 menu crop_image_menu
 menu menu

@@ -4,6 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.aisc.ngalo.models.Category
 
 @Entity(tableName = "purchaseitem")
 data class PurchaseItem(
@@ -21,7 +22,8 @@ data class PurchaseItem(
     val time: String? = "",
     val paymentMethod: String? = "",
     val contact: String? = "",
-    val description: String? = ""
+    val description: String? = "",
+    val category: String?=""
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
@@ -33,6 +35,7 @@ data class PurchaseItem(
         parcel.readString(),
         parcel.readString(),
         parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -57,6 +60,7 @@ data class PurchaseItem(
         parcel.writeString(paymentMethod)
         parcel.writeString(contact)
         parcel.writeString(description)
+        parcel.writeString(category)
     }
 
     override fun describeContents(): Int {

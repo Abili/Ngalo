@@ -18,8 +18,8 @@ import java.util.Locale
 class UsersOrdersAdapter : RecyclerView.Adapter<ViewHolder>() {
 
     private val orders = mutableListOf<UserOrder>()
-    fun add(order: UserOrder) {
-        orders.add(order)
+    fun add(order: List<UserOrder>) {
+        orders.addAll(order)
         notifyDataSetChanged()
     }
 

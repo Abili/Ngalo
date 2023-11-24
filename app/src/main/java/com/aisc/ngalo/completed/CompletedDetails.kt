@@ -21,6 +21,7 @@ class CompletedDetails : AppCompatActivity() {
         val time = orderDetails.getStringExtra("time")
         val location = orderDetails.getStringExtra("location")
         val id = orderDetails.getStringExtra("id")
+        val category = orderDetails.getStringExtra("category")
 
 
         Glide.with(binding.root)
@@ -40,6 +41,7 @@ class CompletedDetails : AppCompatActivity() {
         binding.detailsDesc.text = damgDesc
         binding.customerLocation.text = location
         binding.requestTime.text = time
+        binding.category.text = category
 
 
     }

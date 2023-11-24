@@ -32,6 +32,7 @@ class PurchasesHistoryDetails : AppCompatActivity() {
         val itemImage = intent.getStringExtra("itemImage")
         val contact = intent.getStringExtra("contact")
         val desc = intent.getStringExtra("desc")
+        val category = intent.getStringExtra("category")
 
 
         Glide.with(binding.root)
@@ -39,12 +40,12 @@ class PurchasesHistoryDetails : AppCompatActivity() {
             .into(binding.bikeImage)
 
         binding.textBikeName.text = itemname
-        binding.textViewPrice.text =price
+        binding.textViewPrice.text = price
+        binding.itemCategory.text = category
 
         if (desc!!.isNotEmpty()) {
             binding.textViewDesc.text = desc
-        }
-        else{
+        } else {
             binding.detailsDesc.visibility = View.GONE
             binding.textViewDesc.visibility = View.GONE
         }

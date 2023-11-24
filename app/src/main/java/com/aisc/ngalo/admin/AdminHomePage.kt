@@ -70,7 +70,7 @@ class AdminHomePage : AppCompatActivity(), OnMapReadyCallback {
     private var polyline: Polyline? = null
     private var reachedUserLocation = false
     private var fixedMarker: Marker? = null
-    var destinationLocation: LocationObject? = null
+    lateinit var destinationLocation: LocationObject
     private var isDrivingMode = false // Flag to track if driving mode is active
     private var previousBearing: Float = 0f
     private var polylineStartLocation: LocationObject? = null

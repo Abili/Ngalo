@@ -1,6 +1,5 @@
 package com.aisc.ngalo.cart;
 
-import android.app.Application;
 import dagger.internal.DaggerGenerated;
 import dagger.internal.Factory;
 import dagger.internal.QualifierMetadata;
@@ -22,22 +21,22 @@ import javax.inject.Provider;
     "KotlinInternalInJava"
 })
 public final class AddToCartViewModel_Factory implements Factory<AddToCartViewModel> {
-  private final Provider<Application> applicationProvider;
+  private final Provider<CartRepository> repositoryProvider;
 
-  public AddToCartViewModel_Factory(Provider<Application> applicationProvider) {
-    this.applicationProvider = applicationProvider;
+  public AddToCartViewModel_Factory(Provider<CartRepository> repositoryProvider) {
+    this.repositoryProvider = repositoryProvider;
   }
 
   @Override
   public AddToCartViewModel get() {
-    return newInstance(applicationProvider.get());
+    return newInstance(repositoryProvider.get());
   }
 
-  public static AddToCartViewModel_Factory create(Provider<Application> applicationProvider) {
-    return new AddToCartViewModel_Factory(applicationProvider);
+  public static AddToCartViewModel_Factory create(Provider<CartRepository> repositoryProvider) {
+    return new AddToCartViewModel_Factory(repositoryProvider);
   }
 
-  public static AddToCartViewModel newInstance(Application application) {
-    return new AddToCartViewModel(application);
+  public static AddToCartViewModel newInstance(CartRepository repository) {
+    return new AddToCartViewModel(repository);
   }
 }

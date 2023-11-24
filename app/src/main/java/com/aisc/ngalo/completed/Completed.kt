@@ -9,7 +9,8 @@ data class Completed(
     val location: LocationObject? = null,
     val userName: String? = "",
     val userImageUrl: String? = "",
-    val timeOfOrder:String?=""
+    val timeOfOrder: String? = "",
+    val category: String? = ""
 ) {
     fun getTimestampLong(): Long {
         return timeOfOrder?.toLong() ?: 0

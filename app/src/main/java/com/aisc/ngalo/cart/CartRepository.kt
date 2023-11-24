@@ -34,7 +34,7 @@ import com.google.firebase.database.ValueEventListener
 import java.io.IOException
 import java.util.Locale
 
-class CartRepository() {
+class CartRepository(private val cartItemDao: CartItemDao) {
     private var pickupLocation: LocationObject? = null
     var mLastLocation: LocationObject? = null
     private var currentLocation: LocationObject? = null
@@ -98,6 +98,16 @@ class CartRepository() {
 
     }
 
+
+    suspend fun addItemToLocalDatabase(cartItem: CartItem) {
+        cartItemDao.insertCartItem(cartItem)
+    }
+
+    suspend fun getLocalCartItems(): LiveData<List<CartItem>>{
+        return cartItemDao.getAllCartItems()
+    }
+
+
     fun getItemsFromFirebase(): LiveData<List<CartItem>> {
         val cartLiveData = MutableLiveData<List<CartItem>>()
         cartRef = FirebaseDatabase.getInstance().reference.child("cartitems").child(uid)
@@ -129,7 +139,7 @@ class CartRepository() {
         cartItemsRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 var count = 0
-                count += snapshot.childrenCount.toInt()
+                 count += snapshot.childrenCount.toInt()
                 onComplete(count)
             }
 

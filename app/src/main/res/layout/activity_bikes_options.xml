@@ -9,41 +9,54 @@
     tools:context=".BikesOptions">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:layout_height="wrap_content"
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:theme="@style/Theme.Ngalo.AppBarOverlay">
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/optionstoolbar"
-            app:title="Ngalo"
-            android:background="@color/ngalo_green"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/ngalo_green"
+            app:title="Ngalo">
 
-            <FrameLayout
-                android:layout_gravity="end"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
+                android:layout_height="match_parent"
+                android:layout_gravity="end">
 
                 <ImageView
                     android:id="@+id/cart_icon"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/ic_shopping_check_out" />
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/ic_shopping_check_out"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:layout_gravity="center_horizontal"
                     android:id="@+id/cart_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="4dp"
-                    android:textColor="@color/ngalo_blue"
-                    android:textSize="20sp"
+                    android:layout_gravity="top|end"
+                    android:layout_marginTop="8dp"
+                    android:padding="5dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="32dp"
+                    android:text="0"
+                    android:background="@drawable/circular_tv"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
                     android:textStyle="bold"
-                    android:text="0" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            </FrameLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </androidx.appcompat.widget.Toolbar>
@@ -51,9 +64,9 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
-            android:backgroundTint="@color/ngalo_green"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/ngalo_green" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.cardview.widget.CardView

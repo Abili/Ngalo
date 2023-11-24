@@ -9,7 +9,6 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.mutableStateOf
-import androidx.core.content.ContextCompat
 import com.aisc.ngalo.R
 import com.aisc.ngalo.databinding.ActivityUploadImagesBinding
 import com.aisc.ngalo.models.Bike
@@ -19,7 +18,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
-import java.util.*
 
 class UploadBikeImages : AppCompatActivity() {
     private lateinit var binding: ActivityUploadImagesBinding
@@ -74,9 +72,9 @@ class UploadBikeImages : AppCompatActivity() {
         val price = binding.enterPrice.text.toString()
         val description = binding.description.text.toString()
         val category = if (binding.radioBuy.isChecked) {
-            Category.BUY
+            Category.Purchase
         } else {
-            Category.HIRE
+            Category.ForHire
         }
         val bike = Bike(
             FirebaseAuth.getInstance().currentUser!!.uid,
@@ -84,7 +82,10 @@ class UploadBikeImages : AppCompatActivity() {
             bikesName,
             price,
             description,
-            category
+            null,
+            null,
+            null,
+            category.toString()
         )
 
         if (downloadUrl.toString()

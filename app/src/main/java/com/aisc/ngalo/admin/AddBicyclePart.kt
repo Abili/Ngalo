@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.mutableStateOf
 import com.aisc.ngalo.R
 import com.aisc.ngalo.databinding.ActivityAddBicyclePartBinding
+import com.aisc.ngalo.models.Category
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -75,7 +76,8 @@ class AddBicyclePart : AppCompatActivity() {
             downloadUrl.toString(),
             partName,
             price,
-            description
+            description,
+            Category.BikePart.toString()
         )
 
         if (downloadUrl.toString()

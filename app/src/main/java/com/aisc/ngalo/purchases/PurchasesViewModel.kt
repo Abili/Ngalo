@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.aisc.ngalo.reciept.ReceiptItem
+import com.aisc.ngalo.usersorders.UserOrder
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
@@ -14,11 +14,18 @@ class PurchasesViewModel(application: Application) : AndroidViewModel(applicatio
     private val purchasesRepository = PurchasesRepository()
     private val _requests = MutableLiveData<List<PurchaseItem>>()
     private val _userPurchases = MutableLiveData<List<ItemsPurchased>>()
+
+    private val _userOrders = MutableLiveData<List<UserOrder>>()
+    val userOrders: LiveData<List<UserOrder>> get() = _userOrders
     private val _users = MutableLiveData<List<PurchaseItem>>()
+    private val _historyOrder = MutableLiveData<List<UserOrder>>()
+
+
     private val purchaseCountLiveData = MutableLiveData<Int>()
     val purchases: LiveData<List<PurchaseItem>> get() = _requests
     val userPurchases: LiveData<List<ItemsPurchased>> get() = _userPurchases
     val users: LiveData<List<PurchaseItem>> get() = _users
+    val historyOrder: LiveData<List<UserOrder>> get() = _historyOrder
 
     private val uid = FirebaseAuth.getInstance().uid
 
@@ -31,6 +38,12 @@ class PurchasesViewModel(application: Application) : AndroidViewModel(applicatio
     fun loadUserPurchasedItems() {
         purchasesRepository.getUserPurchases {
             _requests.value = it
+        }
+    }
+
+    fun loadUserOrders(uid: String) {
+        purchasesRepository.getUserOrders(uid) {
+            _userOrders.postValue(it)
         }
     }
 

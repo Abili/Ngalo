@@ -10,6 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import com.aisc.ngalo.R;
 import com.aisc.ngalo.databinding.ActivityAddBicyclePartBinding;
+import com.aisc.ngalo.models.Category;
 import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;

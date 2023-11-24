@@ -61,8 +61,6 @@ class UserGroupPurchasesAdapter : RecyclerView.Adapter<UserGroupPurchasesAdapter
             }
             val uid = FirebaseAuth.getInstance().uid
             binding.usergroupname.text = "User Name: ${order.user_name}"
-
-            //val price = CurrencyUtil.formatCurrency(order.purchase_price!!.toInt(), "UGX")
             binding.usergroupickuploccation.text = "PickUp Location: ${order.pickup_location}"
             binding.usergrouploccation.text = "User Location: ${order.user_location}"
             binding.gtotal.text = "GrandTotal: ${order.grandTotal}"
@@ -126,20 +124,13 @@ class UserGroupPurchasesAdapter : RecyclerView.Adapter<UserGroupPurchasesAdapter
                                 }
 
                                 override fun onCancelled(error: DatabaseError) {
-                                    TODO("Not yet implemented")
+                                    //error
                                 }
                             })
                             true
                         }
 
-//                        R.id.action_reactivate -> {
-//                            // Handle menu item 2 click
-//                            if (!!binding.userlayout.isEnabled) {
-//                                binding.userlayout.isEnabled = true
-//                            }
-//                            true
-//                        }
-                        // Add more menu items and their corresponding actions
+//
 
                         else -> false
                     }

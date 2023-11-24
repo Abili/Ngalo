@@ -18,7 +18,7 @@ import kotlinx.coroutines.withContext
 
 class BikesForHireFragment : Fragment() {
     private lateinit var bikeViewModel: BikeViewModel
-    private lateinit var bikesAdapter: BikesAdapter
+    private lateinit var bikesAdapter: BikesForHireAdapter
     private lateinit var firebaseRef: DatabaseReference
     private lateinit var binding: FragmentBikesForHireBinding
 
@@ -63,7 +63,7 @@ class BikesForHireFragment : Fragment() {
 //                    //update UI
 //                    binding.bikeRecyclerView.adapter = bikesAdapter
 //                }
-                bikesAdapter = BikesAdapter(null)
+                bikesAdapter = BikesForHireAdapter(null)
                 binding.bikehireRecyclerView.adapter = bikesAdapter
                 binding.bikehireRecyclerView.layoutManager = LinearLayoutManager(
                     requireContext(),

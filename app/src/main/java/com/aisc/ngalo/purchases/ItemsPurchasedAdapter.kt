@@ -60,9 +60,7 @@ class ItemsPurchasedAdapter : RecyclerView.Adapter<ItemsPurchasedAdapter.ViewHol
             binding.purchasePrice.text = price
             binding.purchaseName.text = order.purchase_name
             binding.quantity.text = order.quantity.toString()
-//        val (date, timeFormat) = TimeConverter().dateSimpleDateFormatPair(order)
-//        val time = timeFormat.format(date)
-//        binding.requestTime.text = order.timeOfOrder
+            binding.itemCategory.text = order.category
 
 
             // Set up click listener for the playlist
@@ -79,6 +77,7 @@ class ItemsPurchasedAdapter : RecyclerView.Adapter<ItemsPurchasedAdapter.ViewHol
                 intent.putExtra("itemImage", order.purchase_imageUrl)
                 intent.putExtra("time", order.time)
                 intent.putExtra("desc", order.description)
+                intent.putExtra("category", order.category)
                 itemView.context.startActivity(intent)
             }
 

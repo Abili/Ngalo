@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -49,10 +50,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.LiveData
 import com.aisc.ngalo.BikesOptions
+import com.aisc.ngalo.NgaloApplication
 import com.aisc.ngalo.R
 import com.aisc.ngalo.admin.ui.theme.NgaloTheme
 import com.aisc.ngalo.cart.CartItem
+import com.aisc.ngalo.cart.CartRepository
 import com.aisc.ngalo.cart.CartViewModel
+import com.aisc.ngalo.cart.CartViewModelFactory
 import com.aisc.ngalo.helpers.LocationViewModel
 import com.aisc.ngalo.helpers.calculateDistance
 import com.aisc.ngalo.helpers.calculateTransportFare
@@ -61,9 +65,16 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
 class ConfirmationActivity : ComponentActivity() {
+
+    private val cartRepository: CartRepository
+        get() = (application as NgaloApplication).cartRepository
+
+    // Access the CartViewModel using the CartRepository
+    private val cartViewModel: CartViewModel by viewModels {
+        CartViewModelFactory(cartRepository)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val cartViewModel by viewModels<CartViewModel>()
         val locationViewModel by viewModels<LocationViewModel>()
         setContent {
             NgaloTheme {
@@ -412,6 +423,9 @@ fun Greeting3(
                                 openDialog.value = false
                                 val uid = FirebaseAuth.getInstance().currentUser!!.uid
                                 context.startActivity(Intent(context, BikesOptions::class.java))
+                                val con = context as AppCompatActivity
+                                con.finish()
+
                                 val removeCartRef =
                                     FirebaseDatabase.getInstance().reference.child("cartitems")
                                         .child(uid)
@@ -528,6 +542,13 @@ fun OrdersItem(cartItem: CartItem) {
 
             Text(
                 text = cartItem.name!!,
+                style = TextStyle(fontFamily = FontFamily(Font(R.font.josefinslab_bold))),
+                fontSize = 18.sp,
+                color = Color.Gray,
+                modifier = Modifier.padding(start = 4.dp, top = 10.dp)
+            )
+            Text(
+                text = cartItem.category!!,
                 style = TextStyle(fontFamily = FontFamily(Font(R.font.josefinslab_bold))),
                 fontSize = 18.sp,
                 color = Color.Gray,

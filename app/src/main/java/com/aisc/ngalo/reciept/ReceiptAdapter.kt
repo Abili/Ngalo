@@ -31,6 +31,7 @@ class ReceiptAdapter() : RecyclerView.Adapter<ReceiptAdapter.ReceiptViewHolder>(
             binding.textViewQuantity.text = "Quantity: ${item.quantity}"
             val itemTotal = item.quantity!!.toInt() * item.purchase_price!!.toInt()
             binding.textViewItemTotal.text = "Total: $itemTotal"
+            binding.category.text = item.category
         }
     }
 

@@ -34,9 +34,9 @@ public final class BikeDatabase_Impl extends BikeDatabase {
     final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(config, new RoomOpenHelper.Delegate(1) {
       @Override
       public void createAllTables(@NonNull final SupportSQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS `mylobikes` (`id` TEXT NOT NULL, `imageUrl` TEXT, `name` TEXT, `price` TEXT, `description` TEXT, `options` TEXT, `quantity` INTEGER, `position` INTEGER, PRIMARY KEY(`id`))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS `mylobikes` (`id` TEXT NOT NULL, `imageUrl` TEXT, `name` TEXT, `price` TEXT, `description` TEXT, `options` TEXT, `quantity` INTEGER, `position` INTEGER, `category` TEXT, PRIMARY KEY(`id`))");
         db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ee2054e5476186f5ad9531d76a1b5166')");
+        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f12636591ecd95ac3c050d024f9cf0fc')");
       }
 
       @Override
@@ -85,7 +85,7 @@ public final class BikeDatabase_Impl extends BikeDatabase {
       @NonNull
       public RoomOpenHelper.ValidationResult onValidateSchema(
           @NonNull final SupportSQLiteDatabase db) {
-        final HashMap<String, TableInfo.Column> _columnsMylobikes = new HashMap<String, TableInfo.Column>(8);
+        final HashMap<String, TableInfo.Column> _columnsMylobikes = new HashMap<String, TableInfo.Column>(9);
         _columnsMylobikes.put("id", new TableInfo.Column("id", "TEXT", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsMylobikes.put("imageUrl", new TableInfo.Column("imageUrl", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsMylobikes.put("name", new TableInfo.Column("name", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
@@ -94,6 +94,7 @@ public final class BikeDatabase_Impl extends BikeDatabase {
         _columnsMylobikes.put("options", new TableInfo.Column("options", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsMylobikes.put("quantity", new TableInfo.Column("quantity", "INTEGER", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsMylobikes.put("position", new TableInfo.Column("position", "INTEGER", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsMylobikes.put("category", new TableInfo.Column("category", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         final HashSet<TableInfo.ForeignKey> _foreignKeysMylobikes = new HashSet<TableInfo.ForeignKey>(0);
         final HashSet<TableInfo.Index> _indicesMylobikes = new HashSet<TableInfo.Index>(0);
         final TableInfo _infoMylobikes = new TableInfo("mylobikes", _columnsMylobikes, _foreignKeysMylobikes, _indicesMylobikes);
@@ -105,7 +106,7 @@ public final class BikeDatabase_Impl extends BikeDatabase {
         }
         return new RoomOpenHelper.ValidationResult(true, null);
       }
-    }, "ee2054e5476186f5ad9531d76a1b5166", "a53a8671a4df92714bad01605dcc1493");
+    }, "f12636591ecd95ac3c050d024f9cf0fc", "2b085791ec473f05a11356bb801fc7d5");
     final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(config.context).name(config.name).callback(_openCallback).build();
     final SupportSQLiteOpenHelper _helper = config.sqliteOpenHelperFactory.create(_sqliteConfig);
     return _helper;

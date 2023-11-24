@@ -66,6 +66,7 @@ class PurchasesAdapter : RecyclerView.Adapter<PurchasesAdapter.ViewHolder>() {
             binding.purchasePrice.text = price
             binding.purchaseName.text = order.purchase_name
             binding.quantity.text = order.quantity.toString()
+            binding.itemCategory.text = order.category
 
             // Set up click listener for the playlist
             itemView.setOnClickListener {
@@ -80,6 +81,7 @@ class PurchasesAdapter : RecyclerView.Adapter<PurchasesAdapter.ViewHolder>() {
                 intent.putExtra("itemImage", order.purchase_imageUrl)
                 intent.putExtra("time", order.time)
                 intent.putExtra("desc", order.description)
+                intent.putExtra("category", order.category)
                 itemView.context.startActivity(intent)
             }
         }

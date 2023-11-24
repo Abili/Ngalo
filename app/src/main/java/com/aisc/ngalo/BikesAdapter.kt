@@ -23,17 +23,12 @@ import java.util.UUID
 
 class BikesAdapter(var viewModel: CartViewModel?) :
     RecyclerView.Adapter<BikesAdapter.ViewHolder>() {
-    private var listener: OnCartUpdatedListener? = null
-    var onCartItemAddedListener: OnCartItemAddedListener? = null
+//    var onCartItemAddedListener: OnCartItemAddedListener? = null
 
 
-    interface OnCartUpdatedListener {
-        fun onCartUpdated(count: Int)
-    }
-
-    interface OnCartItemAddedListener {
-        fun onCartItemAdded()
-    }
+//    interface OnCartItemAddedListener {
+//        fun onCartItemAdded(size: Int?)
+//    }
 
     private val bikes = mutableListOf<Bike>()
 
@@ -47,16 +42,14 @@ class BikesAdapter(var viewModel: CartViewModel?) :
         notifyDataSetChanged()
     }
 
-    fun setOnCartUpdatedListener(listener: OnCartUpdatedListener) {
-        this.listener = listener
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(R.layout.bike_item, parent, false)
-        return ViewHolder(view, listener).apply {
-            onCartItemAddedListener = parent.context as? OnCartItemAddedListener
-        }
+        //val viewHolder = ViewHolder(view)
+//        viewHolder.onCartItemAddedListener =
+//            onCartItemAddedListener as OnCartItemAddedListener // Initialize the listener here
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -70,12 +63,12 @@ class BikesAdapter(var viewModel: CartViewModel?) :
 
 
     inner class ViewHolder(
-        itemView: View,
-        private val listener: OnCartUpdatedListener?
+        itemView: View
     ) :
         RecyclerView.ViewHolder(itemView) {
         private lateinit var auth: FirebaseAuth
         private val binding: BikeItemBinding = BikeItemBinding.bind(itemView)
+        private var position = 0
         fun bind(bike: Bike) {
             val cartItems = mutableListOf<Item>()
             auth = FirebaseAuth.getInstance()
@@ -95,7 +88,7 @@ class BikesAdapter(var viewModel: CartViewModel?) :
             }
             binding.textBikeName.text = bike.name
             binding.textViewPrice.text =
-                "${CurrencyUtil.formatCurrency(bike.price!!.toInt(), "UGX")}"
+                CurrencyUtil.formatCurrency(bike.price!!.toInt(), "UGX")
             binding.textViewDesc.text = bike.description
             binding.deleteBike.setOnClickListener {
                 val hire = FirebaseDatabase.getInstance().reference.child("bikes").child("hire")
@@ -113,11 +106,11 @@ class BikesAdapter(var viewModel: CartViewModel?) :
                 intent.putExtra("bikeprice", bike.price)
                 intent.putExtra("bikeimage", bike.imageUrl)
                 intent.putExtra("bikedesc", bike.description)
+                intent.putExtra("category", bike.category)
                 itemView.context.startActivity(intent)
             }
             binding.addToCart.setOnClickListener {
                 val activity = itemView.context as AppCompatActivity
-                var position = 1
                 //val cartItem = activity.findViewById(R.id.cart_count) as TextView
 //            cartItems.add(Item(bike.name, bike.price.toInt(), bike.imageUrl))
                 viewModel = ViewModelProvider(activity)[CartViewModel::class.java]
@@ -130,11 +123,19 @@ class BikesAdapter(var viewModel: CartViewModel?) :
                             bike.imageUrl!!,
                             1,
                             position++,
-                            bike.description
-
+                            bike.description,
+                            bike.category
                         )
                     )
-                    onCartItemAddedListener?.onCartItemAdded()
+//                    itemView.context!!.startActivity(
+//                        Intent(
+//                            itemView.context,
+//                            BikesOptions::class.java
+//                        )
+//                    )
+                    Toast.makeText(itemView.context,"Texting...", Toast.LENGTH_SHORT).show()
+
+
                 }
 
                 viewModel!!.fetchCartItems().observe(activity) { cartItems ->
@@ -146,8 +147,9 @@ class BikesAdapter(var viewModel: CartViewModel?) :
                             .zip(itemPrices.split("\n"))
                             .joinToString(separator = "\n") { (name, price) -> "$name ($price)" }
                         val message = "Added to cart:\n$items"
-                        Toast.makeText(itemView.context, message, Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(itemView.context, message, Toast.LENGTH_SHORT).show()
                     }
+
                 }
                 //listener?.onCartUpdated(cartItems.size)
                 //cartItem.text = "0"

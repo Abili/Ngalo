@@ -23,17 +23,19 @@ class AdminOUserActivity : AppCompatActivity() {
         val UID = FirebaseAuth.getInstance().uid
         if (curUID != "sRXHm5IeopQm5r2DCZ08FQVikN23") {
             startActivity(Intent(this, HomeActivity::class.java))
+        } else {
+            startActivity(Intent(this, AdminOUserActivity::class.java))
         }
     }
 
-     fun onAdminCardClick(view: View) {
-         startActivity(Intent(this, AdminPanel::class.java))
+    fun onAdminCardClick(view: View) {
+        startActivity(Intent(this, AdminPanel::class.java))
         Snackbar.make(view.rootView, "Admin Selected", Toast.LENGTH_SHORT).show()
     }
 
-     fun onUsersCardClick(view: View) {
-         startActivity(Intent(this, HomeActivity::class.java))
-         Snackbar.make(view.rootView, "User Selected", Toast.LENGTH_SHORT).show()
+    fun onUsersCardClick(view: View) {
+        startActivity(Intent(this, HomeActivity::class.java))
+        Snackbar.make(view.rootView, "User Selected", Toast.LENGTH_SHORT).show()
     }
 
 }

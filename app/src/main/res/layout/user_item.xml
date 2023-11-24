@@ -28,7 +28,7 @@
 
                 <ImageView
                     android:id="@+id/usergroupImage"
-                    android:layout_width="80dp"
+                    android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     android:src="@color/ngalo_gray"

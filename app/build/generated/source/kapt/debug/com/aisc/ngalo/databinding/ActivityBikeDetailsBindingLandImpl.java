@@ -34,7 +34,9 @@ public class ActivityBikeDetailsBindingLandImpl extends ActivityBikeDetailsBindi
     }
     private ActivityBikeDetailsBindingLandImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 0
+            , null
             , (android.widget.ImageView) bindings[1]
+            , null
             , null
             , null
             , null
@@ -43,6 +45,7 @@ public class ActivityBikeDetailsBindingLandImpl extends ActivityBikeDetailsBindi
             , (android.widget.TextView) bindings[6]
             , (android.widget.TextView) bindings[4]
             , (android.widget.LinearLayout) bindings[2]
+            , null
             );
         this.mboundView0 = (android.widget.LinearLayout) bindings[0];
         this.mboundView0.setTag(null);

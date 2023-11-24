@@ -22,7 +22,7 @@ class OrdersViewModel : ViewModel() {
     }
 
     fun deleteItem(id: String) {
-        ordersRepository.deleteOrder(id)
+        ordersRepository.completedOrder(id)
 
     }
 

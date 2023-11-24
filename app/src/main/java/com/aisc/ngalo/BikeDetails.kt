@@ -4,11 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.aisc.ngalo.cart.CartActivity
 import com.aisc.ngalo.cart.CartItem
+import com.aisc.ngalo.cart.CartRepository
 import com.aisc.ngalo.cart.CartViewModel
+import com.aisc.ngalo.cart.CartViewModelFactory
 import com.aisc.ngalo.databinding.ActivityBikeDetailsBinding
 import com.aisc.ngalo.models.Bike
 import com.bumptech.glide.Glide
@@ -19,20 +21,39 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.UUID
 
 class BikeDetails : AppCompatActivity() {
     var counter = 0
-    private lateinit var cartViewModel: CartViewModel
     private val orders = mutableListOf<CartItem>()
     lateinit var binding: ActivityBikeDetailsBinding
+
+    private val cartRepository: CartRepository
+        get() = (application as NgaloApplication).cartRepository
+
+    // Access the CartViewModel using the CartRepository
+    private val cartViewModel: CartViewModel by viewModels {
+        CartViewModelFactory(cartRepository)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBikeDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        cartViewModel = ViewModelProvider(this)[CartViewModel::class.java]
+        binding.backarrow!!.setOnClickListener {
+            startActivity(
+                Intent(
+                    this,
+                    BikesOptions::class.java
+                )
+            )
+            finish()
+        }
+        //cartViewModel = ViewModelProvider(this)[CartViewModel::class.java]
 
 
         cartViewModel.getCartItemsCount()
@@ -62,17 +83,16 @@ class BikeDetails : AppCompatActivity() {
             }
 
 
-
             // create a new Cart instance outside of the click listeners
             val cart = CartItem()
 
             binding.checkoutBtn!!.setOnClickListener {
                 //binding.cartValue!!.text = binding.countTv!!.text
-                updateCartItemsQuantity(cart.id!!, counter)
-                var position = 1
+                updateCartItemsQuantity(cart.id, counter)
+                var position = 0
                 //val cartItem = activity.findViewById(R.id.cart_count) as TextView
 //            cartItems.add(Item(bike.name, bike.price.toInt(), bike.imageUrl))
-                cartViewModel = ViewModelProvider(this)[CartViewModel::class.java]
+                //cartViewModel = ViewModelProvider(this)[CartViewModel::class.java]
                 CoroutineScope(Dispatchers.IO).launch {
                     cartViewModel.addItem(
                         CartItem(
@@ -86,7 +106,12 @@ class BikeDetails : AppCompatActivity() {
 
                         )
                     )
-                    onCartItemAdded()
+                    // Wait for the addition to be confirmed
+                    delay(1000) // Adjust the delay as needed
+                    // Update the UI on the main thread
+                    withContext(Dispatchers.Main) {
+                        onCartItemAdded()
+                    }
                 }
 
                 cartViewModel.fetchCartItems().observe(this) { cartItems ->
@@ -106,7 +131,6 @@ class BikeDetails : AppCompatActivity() {
 
             binding.cart!!.setOnClickListener {
                 if (countNum == 0) {
-                    //TODO("remove  this check the real firebasedatabase")
                     Toast.makeText(this, "Cart is Empty", Toast.LENGTH_SHORT).show()
                 } else {
 
@@ -138,7 +162,7 @@ class BikeDetails : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+               //error
             }
         })
     }
@@ -149,11 +173,11 @@ class BikeDetails : AppCompatActivity() {
 
     private fun onCartItemAdded() {
         val cartItemsCount = cartViewModel.getCartItemsCount()
-        runOnUiThread {
-            val cartTv = binding.cartValue
-            cartTv!!.text = cartItemsCount.toString()
-            Toast.makeText(this, "Item added", Toast.LENGTH_SHORT).show()
+        val cartTv = binding.cartValue
+        //cartTv!!.text = cartItemsCount.toString()
+        // Toast.makeText(this, "Item added", Toast.LENGTH_SHORT).show()
 
-        }
+
     }
+
 }

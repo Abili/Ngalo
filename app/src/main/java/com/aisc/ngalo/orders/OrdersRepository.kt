@@ -1,7 +1,5 @@
 package com.aisc.ngalo.orders
 
-import android.app.Activity
-import android.widget.Toast
 import com.aisc.ngalo.LocationObject
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.tasks.Task
@@ -38,6 +36,7 @@ class OrdersRepository @Inject constructor() {
                             childSnapshot.child("latLng").child("name").getValue(String::class.java)
                         val time = childSnapshot.child("requestTime").getValue(String::class.java)
                         val id = childSnapshot.child("id").getValue(String::class.java)
+                        val category = childSnapshot.child("category").getValue(String::class.java)
 
                         uidRef.addValueEventListener(object : ValueEventListener {
                             override fun onDataChange(snapshot: DataSnapshot) {
@@ -53,7 +52,7 @@ class OrdersRepository @Inject constructor() {
                                                 LatLng(
                                                     latitude!!, longitude!!
                                                 ), name!!
-                                            ), userName!!, userImageUrl, time
+                                            ), userName!!, userImageUrl, time, category
                                         )
                                         repairs.clear()
                                         repairs.add(order)
@@ -82,7 +81,7 @@ class OrdersRepository @Inject constructor() {
         })
     }
 
-    fun deleteOrder(id: String) {
+    fun completedOrder(id: String) {
         val deleteRef = FirebaseDatabase.getInstance().getReference("RepaireRequest")
         val completedRef = FirebaseDatabase.getInstance().getReference("completed")
 
@@ -96,14 +95,17 @@ class OrdersRepository @Inject constructor() {
                         val description =
                             childSnapshot.child("description").getValue(String::class.java)
                         val imageUrl = childSnapshot.child("imageUrl").getValue(String::class.java)
-                        val latitude = childSnapshot.child("latLng").child("coordinates")
-                            .child("latitude").getValue(Double::class.java)
-                        val longitude = childSnapshot.child("latLng").child("coordinates")
-                            .child("longitude").getValue(Double::class.java)
+                        val latitude =
+                            childSnapshot.child("latLng").child("coordinates").child("latitude")
+                                .getValue(Double::class.java)
+                        val longitude =
+                            childSnapshot.child("latLng").child("coordinates").child("longitude")
+                                .getValue(Double::class.java)
                         val name =
                             childSnapshot.child("latLng").child("name").getValue(String::class.java)
                         val time = childSnapshot.child("requestTime").getValue(String::class.java)
                         val userid = childSnapshot.child("id").getValue(String::class.java)
+                        val category = childSnapshot.child("category").getValue(String::class.java)
                         val key = childSnapshot.key
 
                         uidRef.addValueEventListener(object : ValueEventListener {
@@ -119,9 +121,20 @@ class OrdersRepository @Inject constructor() {
                                         val userName =
                                             usersnap.child("username").getValue(String::class.java)
                                         val order = Order(
-                                            uidUser, description, imageUrl, LocationObject(
-                                                LatLng(latitude!!, longitude!!), name!!
-                                            ), userName!!, userImageUrl, time
+                                            uidUser,
+                                            description,
+                                            imageUrl,
+                                            LocationObject(
+                                                LatLng(
+                                                    latitude!!,
+                                                    longitude!!
+                                                ),
+                                                name!!
+                                            ),
+                                            userName!!,
+                                            userImageUrl,
+                                            time,
+                                            category
                                         )
                                         deletedRepairs.add(order)
 

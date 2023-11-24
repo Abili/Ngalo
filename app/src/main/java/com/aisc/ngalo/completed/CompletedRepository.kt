@@ -30,6 +30,7 @@ class CompletedRepository @Inject constructor() {
                         childSnapshot.child("location").child("name").getValue(String::class.java)
                     val time = childSnapshot.child("timeOfOrder").getValue(String::class.java)
                     val id = childSnapshot.child("id").getValue(String::class.java)
+                    val category = childSnapshot.child("category").getValue(String::class.java)
 
                     uidRef.addValueEventListener(object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
@@ -48,7 +49,8 @@ class CompletedRepository @Inject constructor() {
                                         LocationObject(LatLng(latitude!!, longitude!!), name!!),
                                         userName!!,
                                         userImageUrl,
-                                        time
+                                        time,
+                                        category
                                     )
 
                                     completedList.add(order)

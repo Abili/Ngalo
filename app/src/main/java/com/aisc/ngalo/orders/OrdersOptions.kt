@@ -12,12 +12,13 @@ import com.aisc.ngalo.R
 import com.aisc.ngalo.cart.CartViewModel
 import com.aisc.ngalo.completed.CompletedFragment
 import com.aisc.ngalo.databinding.ActivityBikesOptionsBinding
+import com.aisc.ngalo.databinding.ActivityOrdersOptionsBinding
 import com.aisc.ngalo.purchases.PurchasesViewModel
 import com.aisc.ngalo.purchases.UserPurchaseGroup
 
 class OrdersOptions : AppCompatActivity() {
 
-    private lateinit var binding: ActivityBikesOptionsBinding
+    private lateinit var binding: ActivityOrdersOptionsBinding
     private var bikesAdapter: BikesAdapter? = null
     private lateinit var cartViewModel: CartViewModel
     private lateinit var cartTextView: TextView
@@ -28,7 +29,7 @@ class OrdersOptions : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityBikesOptionsBinding.inflate(layoutInflater)
+        binding = ActivityOrdersOptionsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.viewPager.adapter = PagerAdapter(supportFragmentManager)
         binding.tabs.setupWithViewPager(binding.viewPager)

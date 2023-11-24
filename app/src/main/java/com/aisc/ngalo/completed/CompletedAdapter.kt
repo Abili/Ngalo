@@ -86,65 +86,6 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 completed.userImageUrl,
                 completed.timeOfOrder
             )
-//        binding.completedRb.setOnClickListener {
-//            val popupMenu = PopupMenu(itemView.context, binding.completedRb)
-//            popupMenu.menuInflater.inflate(R.menu.completed_menu, popupMenu.menu)
-//
-//            popupMenu.setOnMenuItemClickListener(object : OnMenuItemClickListener,
-//                PopupMenu.OnMenuItemClickListener {
-//                override fun onMenuItemClick(item: MenuItem): Boolean {
-//                    when (item.itemId) {
-////                        R.id.action_reactivate -> {
-////                            val hire =
-////                                FirebaseDatabase.getInstance().reference.child("RepaireRequests")
-////                            hire.push().setValue(completedOrder)
-////
-////                            Snackbar.make(
-////                                binding.root,
-////                                "Request Reactivated",
-////                                Snackbar.LENGTH_SHORT
-////                            ).show()
-////                        }
-//
-//                        R.id.action_completed -> {
-//                            FirebaseDatabase.getInstance().reference.child("completed")
-//                                .addListenerForSingleValueEvent(object : ValueEventListener {
-//                                    override fun onDataChange(snapshot: DataSnapshot) {
-//                                        for (comSnap in snapshot.children) {
-//                                            val id =
-//                                                comSnap.child("id").getValue(String::class.java)
-//                                            if (id == completed.id) {
-//                                                snapshot.ref.removeValue()
-//                                            }
-//                                        }
-//                                    }
-//
-//                                    override fun onCancelled(error: DatabaseError) {
-//                                        TODO("Not yet implemented")
-//                                    }
-//
-//                                })
-//
-////                                    .removeValue().addOnCompleteListener {
-////                                        if (it.isComplete) {
-////                                            Snackbar.make(
-////                                                binding.root,
-////                                                "Deleted Successfully",
-////                                                Snackbar.LENGTH_SHORT
-////                                            ).show()
-////                                        }
-////                                    }
-//
-//                        }
-//                    }
-//                    return true
-//                }
-//            })
-//
-//
-//            popupMenu.show()
-//
-//        }
 
 
         // Set up click listener for the playlist
@@ -159,6 +100,7 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             intent.putExtra("userImageUrl", completed.userImageUrl)
             intent.putExtra("orderimage", completed.imageUrl)
             intent.putExtra("id", completed.id)
+            intent.putExtra("category", completed.category)
             itemView.context.startActivity(intent)
         }
     }

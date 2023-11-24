@@ -2,32 +2,37 @@ package com.aisc.ngalo
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import androidx.lifecycle.ViewModelProvider
 import com.aisc.ngalo.cart.CartActivity
 import com.aisc.ngalo.cart.CartItem
+import com.aisc.ngalo.cart.CartRepository
 import com.aisc.ngalo.cart.CartViewModel
+import com.aisc.ngalo.cart.CartViewModelFactory
 import com.aisc.ngalo.databinding.ActivityBikesOptionsBinding
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 
-class BikesOptions : AppCompatActivity(), BikesAdapter.OnCartItemAddedListener {
+class BikesOptions : AppCompatActivity(),
+    BikesForPurchaseAdapter.OnCartItemAddedListener,
+    BikesForHireAdapter.OnCartItemAddedListener,
+    BikesPartsAdapter.OnCartItemAddedListener {
 
     private lateinit var binding: ActivityBikesOptionsBinding
     private var bikesAdapter: BikesAdapter? = null
+    private var bikesForPurchaseAdapter: BikesForPurchaseAdapter? = null
     private val orders = mutableListOf<CartItem>()
-    private lateinit var cartViewModel: CartViewModel
     private lateinit var cartTextView: TextView
+    private val cartRepository: CartRepository
+        get() = (application as NgaloApplication).cartRepository
+
+    // Access the CartViewModel using the CartRepository
+    private val cartViewModel: CartViewModel by viewModels {
+        CartViewModelFactory(cartRepository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,35 +45,49 @@ class BikesOptions : AppCompatActivity(), BikesAdapter.OnCartItemAddedListener {
         binding.tabs.setBackgroundColor(resources.getColor(R.color.white))
         // binding.tabs.setTabTextColors(R.color.ngalo_green,R.color.ngalo_green)
         setSupportActionBar(binding.optionstoolbar)
-        cartViewModel = ViewModelProvider(this)[CartViewModel::class.java]
+        //cartViewModel = ViewModelProvider(this)[CartViewModel::class.java]
         bikesAdapter = BikesAdapter(cartViewModel)
-        bikesAdapter!!.onCartItemAddedListener = this
+        bikesForPurchaseAdapter = BikesForPurchaseAdapter(cartViewModel)
+        bikesForPurchaseAdapter!!.onCartItemAddedListener = this
 
         //val cartCountView = findViewById<TextView>(R.id.cart_count)
         cartViewModel.getCartItemsCount()
 
+        // Observe both cart count and cart items
         cartViewModel.observeCartItemsCount().observe(this) { count ->
             // Update your UI with the count of items in the cart
             binding.cartCount.text = count.toString()
-
-
             binding.cartIcon.setOnClickListener {
-                if (count == 0) {
-                    Toast.makeText(this@BikesOptions, "Cart is Empty", Toast.LENGTH_SHORT).show()
-                } else {
+                if (count > 0) {
                     startActivity(Intent(this@BikesOptions, CartActivity::class.java))
                     finish()
+                } else {
+                    Toast.makeText(this@BikesOptions, "Cart is Empty", Toast.LENGTH_SHORT).show()
+
                 }
             }
         }
 
+//        // Observe the actual cart items and update the UI accordingly
+//        cartViewModel.fetchCartItems().observe(this) { cartItems ->
+//            // Perform UI updates based on the cart items
+//            // For example, you can update the adapter or any other UI elements
+//            if (cartItems != null && cartItems.isNotEmpty()) {
+//                // Do something with the cart items
+//                // For example, update your adapter with the new list of cart items
+//                bikesAdapter?.clear()
+//                bikesAdapter?.addAll(cartItems)
+//                bikesAdapter?.notifyDataSetChanged()
+//            }
+//        }
 
-        bikesAdapter!!.setOnCartUpdatedListener(object : BikesAdapter.OnCartUpdatedListener {
-            override fun onCartUpdated(count: Int) {
-                // handle cart update
-                Toast.makeText(this@BikesOptions, "Item added", Toast.LENGTH_SHORT).show()
-            }
-        })
+//        bikesAdapter!!.setOnCartUpdatedListener(object : BikesAdapter.OnCartUpdatedListener {
+//            override fun onCartUpdated(count: Int) {
+//                // Handle cart update
+//                binding.cartCount.text = count.toString()
+//                Toast.makeText(this@BikesOptions, "Item added", Toast.LENGTH_SHORT).show()
+//            }
+//        })
 
 
         when (intent.getIntExtra("position", 0)) {
@@ -88,13 +107,33 @@ class BikesOptions : AppCompatActivity(), BikesAdapter.OnCartItemAddedListener {
 
     }
 
+//    override fun onCartUpdated(count: Int) {
+//        runOnUiThread {
+//            binding.cartCount.text = count.toString()
+//            Toast.makeText(this@BikesOptions, "Item added", Toast.LENGTH_SHORT).show()
+//        }
+//    }
+
+
+//    fun onCartItemAdded(size: Int) {
+//        runOnUiThread {
+//            //cartViewModel.observeCartItemsCount().observe(this) {
+//            val cartTv = binding.cartCount
+//            cartTv.text = size.toString()
+//            Toast.makeText(this, "Item added", Toast.LENGTH_SHORT).show()
+//
+//
+//        }
+//
+//    }
 
     override fun onCartItemAdded() {
-        val cartItemsCount = cartViewModel.getCartItemsCount()
         runOnUiThread {
+            val cartViewModel = cartViewModel.getCartItemsCount()
             val cartTv = binding.cartCount
-            cartTv.text = cartItemsCount.toString()
+            //cartTv.text = cartViewModel.toString()
             Toast.makeText(this, "Item added", Toast.LENGTH_SHORT).show()
+
 
         }
     }

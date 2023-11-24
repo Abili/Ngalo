@@ -3,11 +3,13 @@ package com.aisc.ngalo
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import com.aisc.ngalo.cart.CartActivity
+import com.aisc.ngalo.cart.CartRepository
 import com.aisc.ngalo.cart.CartViewModel
+import com.aisc.ngalo.cart.CartViewModelFactory
 import com.aisc.ngalo.databinding.ActivityHomeBinding
 import com.aisc.ngalo.rides.RidesActivity
 import com.aisc.ngalo.usersorders.History
@@ -21,10 +23,21 @@ import com.google.firebase.database.ValueEventListener
 
 class HomeActivity : AppCompatActivity() {
     lateinit var binding: ActivityHomeBinding
-    private lateinit var cartViewModel: CartViewModel
+
+    // Access the CartRepository using the application instance
+    private val cartRepository: CartRepository
+        get() = (application as NgaloApplication).cartRepository
+
+    // Access the CartViewModel using the CartRepository
+    private val cartViewModel: CartViewModel by viewModels {
+        CartViewModelFactory(cartRepository)
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val theme = PreferenceManager.getDefaultSharedPreferences(this).getString("theme", "system") ?: "system"
+        val theme = PreferenceManager.getDefaultSharedPreferences(this).getString("theme", "system")
+            ?: "system"
         ThemeHelper.applyTheme(theme)
 
         binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -59,70 +72,71 @@ class HomeActivity : AppCompatActivity() {
             finish()
         }
 
-        cartViewModel = ViewModelProvider(this)[CartViewModel::class.java]
+        // cartViewModel = ViewModelProvider(this)[CartViewModel::class.java]
         cartViewModel.getCartItemsCount()
 
         cartViewModel.observeCartItemsCount().observe(this) { count ->
             // Update your UI with the count of items in the cart
             binding.cartHomeText.text = count.toString()
+        }
 
-            binding.buy.setOnClickListener {
-                val intent = Intent(this, BikesOptions::class.java)
-                intent.putExtra("position", 0)
-                startActivity(Intent(intent))
-            }
-            binding.hire.setOnClickListener {
-                val intent = Intent(this, BikesOptions::class.java)
-                intent.putExtra("position", 1)
-                startActivity(Intent(intent))
-            }
-            binding.bikeparts.setOnClickListener {
-                val intent = Intent(this, BikesOptions::class.java)
-                intent.putExtra("position", 2)
-                startActivity(Intent(intent))
-            }
-            binding.repairs.setOnClickListener {
-                val intent = Intent(this, BikeRepair::class.java)
-                intent.putExtra("position", 2)
-                startActivity(Intent(intent))
-            }
-            binding.rides.setOnClickListener {
-                val intent = Intent(this, RidesActivity::class.java)
-                startActivity(Intent(intent))
+        binding.buy.setOnClickListener {
+            val intent = Intent(this, BikesOptions::class.java)
+            intent.putExtra("position", 0)
+            startActivity(Intent(intent))
+        }
+        binding.hire.setOnClickListener {
+            val intent = Intent(this, BikesOptions::class.java)
+            intent.putExtra("position", 1)
+            startActivity(Intent(intent))
+        }
+        binding.bikeparts.setOnClickListener {
+            val intent = Intent(this, BikesOptions::class.java)
+            intent.putExtra("position", 2)
+            startActivity(Intent(intent))
+        }
+        binding.repairs.setOnClickListener {
+            val intent = Intent(this, BikeRepair::class.java)
+            intent.putExtra("position", 2)
+            startActivity(Intent(intent))
+        }
+        binding.rides.setOnClickListener {
+            val intent = Intent(this, RidesActivity::class.java)
+            startActivity(Intent(intent))
+        }
+
+        val addRef = FirebaseDatabase.getInstance().reference.child("adverts")
+        addRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val ads = snapshot.child("imageUrl").getValue(String::class.java)
+                Glide.with(binding.root)
+                    .load(ads)
+                    .into(binding.ngaloAd)
+
             }
 
-            val addRef = FirebaseDatabase.getInstance().reference.child("adverts")
-            addRef.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val ads = snapshot.child("imageUrl").getValue(String::class.java)
-                    Glide.with(binding.root)
-                        .load(ads)
-                        .into(binding.ngaloAd)
-
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(this@HomeActivity, error.message, Toast.LENGTH_SHORT).show()
-                }
-
-            })
-
-            binding.settingsHome.setOnClickListener {
-                startActivity(Intent(this, SettingsActivity::class.java))
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@HomeActivity, error.message, Toast.LENGTH_SHORT).show()
             }
-            binding.myaccountHome.setOnClickListener {
-                startActivity(Intent(this, MyAccount::class.java))
-            }
-            binding.historyHome.setOnClickListener {
-                startActivity(Intent(this, History::class.java))
-            }
-            binding.cartHome.setOnClickListener {
-                if (binding.cartHomeText.text == "0") {
-                    Toast.makeText(this, "Cart is Empty", Toast.LENGTH_SHORT).show()
-                } else {
-                    startActivity(Intent(this, CartActivity::class.java))
-                }
+
+        })
+
+        binding.settingsHome.setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
+        }
+        binding.myaccountHome.setOnClickListener {
+            startActivity(Intent(this, MyAccount::class.java))
+        }
+        binding.historyHome.setOnClickListener {
+            startActivity(Intent(this, History::class.java))
+        }
+        binding.cartHome.setOnClickListener {
+            if (binding.cartHomeText.text == "0") {
+                Toast.makeText(this, "Cart is Empty", Toast.LENGTH_SHORT).show()
+            } else {
+                startActivity(Intent(this, CartActivity::class.java))
             }
         }
+
     }
 }

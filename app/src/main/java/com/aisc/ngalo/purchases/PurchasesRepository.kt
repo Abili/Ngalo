@@ -1,6 +1,9 @@
 package com.aisc.ngalo.purchases
 
 import androidx.lifecycle.MutableLiveData
+import com.aisc.ngalo.LocationObject
+import com.aisc.ngalo.usersorders.UserOrder
+import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -14,8 +17,13 @@ class PurchasesRepository @Inject constructor() {
     private val uidRef = FirebaseDatabase.getInstance().reference.child("users").child(uid!!)
     private val userRef = FirebaseDatabase.getInstance().reference.child("users")
     private val userPurRef = FirebaseDatabase.getInstance().reference.child("users").child(userid)
+    val curUID = FirebaseAuth.getInstance().currentUser!!.uid
 
     private val databaseRef = FirebaseDatabase.getInstance().reference.child("purchases")
+
+    private val databaseHistRef =
+        FirebaseDatabase.getInstance().getReference("users")
+            .child(curUID).child("History")
 
     fun getAllPurchases(onCompletedRequestsLoaded: (List<PurchaseItem>) -> Unit) {
         databaseRef.addValueEventListener(object : ValueEventListener {
@@ -44,7 +52,11 @@ class PurchasesRepository @Inject constructor() {
                                             itemsnap.child("price").getValue(Int::class.java)
                                         val quantity =
                                             itemsnap.child("quantity").getValue(Long::class.java)
-                                        val desc = itemsnap.child("description").getValue(String::class.java)
+                                        val desc = itemsnap.child("description")
+                                            .getValue(String::class.java)
+                                        val category =
+                                            itemsnap.child("category").getValue(String::class.java)
+
 
 
                                         uidRef.addValueEventListener(object : ValueEventListener {
@@ -75,8 +87,9 @@ class PurchasesRepository @Inject constructor() {
                                                             null,
                                                             null,
                                                             null,
-                                                            desc
-                                                            )
+                                                            desc,
+                                                            category
+                                                        )
                                                         completedList.clear()
                                                         completedList.add(order)
                                                     }
@@ -94,7 +107,7 @@ class PurchasesRepository @Inject constructor() {
                                 }
 
                                 override fun onCancelled(error: DatabaseError) {
-                                    TODO("Not yet implemented")
+                                    //errors
                                 }
 
                             })
@@ -137,7 +150,10 @@ class PurchasesRepository @Inject constructor() {
                                         val quantity =
                                             itemsnap.child("quantity").getValue(Long::class.java)
                                         val desc =
-                                            itemsnap.child("description").getValue(String::class.java)
+                                            itemsnap.child("description")
+                                                .getValue(String::class.java)
+                                        val category =
+                                            itemsnap.child("category").getValue(String::class.java)
 
                                         uidRef.addValueEventListener(object : ValueEventListener {
                                             override fun onDataChange(snapshot: DataSnapshot) {
@@ -164,7 +180,8 @@ class PurchasesRepository @Inject constructor() {
                                                         null,
                                                         null,
                                                         null,
-                                                        desc
+                                                        desc,
+                                                        category
                                                     )
                                                     completedList.clear()
                                                     completedList.add(order)
@@ -183,7 +200,7 @@ class PurchasesRepository @Inject constructor() {
                                 }
 
                                 override fun onCancelled(error: DatabaseError) {
-                                    TODO("Not yet implemented")
+                                //error
                                 }
 
                             })
@@ -226,7 +243,10 @@ class PurchasesRepository @Inject constructor() {
                                 val position = itemSnap.child("position").getValue(Long::class.java)
                                 val price = itemSnap.child("price").getValue(Int::class.java)
                                 val quantity = itemSnap.child("quantity").getValue(Int::class.java)
-                                val desc = itemSnap.child("description").getValue(String::class.java)
+                                val desc =
+                                    itemSnap.child("description").getValue(String::class.java)
+                                val category =
+                                    itemSnap.child("category").getValue(String::class.java)
 
 
                                 val order = ItemsPurchased(
@@ -240,7 +260,8 @@ class PurchasesRepository @Inject constructor() {
                                     userLocation,
                                     pickupLocation,
                                     ordertime.toString(),
-                                    desc
+                                    desc,
+                                    category
                                 )
                                 itemsPurchasedList.add(order)
                             }
@@ -286,7 +307,10 @@ class PurchasesRepository @Inject constructor() {
                                 val position = itemSnap.child("position").getValue(Long::class.java)
                                 val price = itemSnap.child("price").getValue(Int::class.java)
                                 val quantity = itemSnap.child("quantity").getValue(Int::class.java)
-                                val desc = itemSnap.child("description").getValue(String::class.java)
+                                val desc =
+                                    itemSnap.child("description").getValue(String::class.java)
+                                val category =
+                                    itemSnap.child("category").getValue(String::class.java)
 
 
                                 val order = ItemsPurchased(
@@ -300,7 +324,8 @@ class PurchasesRepository @Inject constructor() {
                                     userLocation,
                                     pickupLocation,
                                     ordertime.toString(),
-                                    desc
+                                    desc,
+                                    category
                                 )
                                 itemsPurchasedList.add(order)
                             }
@@ -414,7 +439,7 @@ class PurchasesRepository @Inject constructor() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                //error
             }
         })
         return emptyString!!
@@ -433,7 +458,7 @@ class PurchasesRepository @Inject constructor() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                //error
             }
         })
         return userid.toString()
@@ -453,7 +478,7 @@ class PurchasesRepository @Inject constructor() {
                             }
 
                             override fun onCancelled(error: DatabaseError) {
-                                TODO("Not yet implemented")
+                                //error
                             }
 
                         })
@@ -467,7 +492,81 @@ class PurchasesRepository @Inject constructor() {
         })
 
     }
+
+
+    fun getUserOrders(uid: String, onOrdersReceived: (List<UserOrder>) -> Unit) {
+        val databaseRef =
+            FirebaseDatabase.getInstance().getReference("users").child(uid).child("History")
+
+        databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    val orders = mutableListOf<UserOrder>()
+
+                    for (childSnapshot in snapshot.children) {
+                        // Your existing logic to extract order details
+                        val description =
+                            childSnapshot.child("description").getValue(String::class.java)
+                        val imageUrl = childSnapshot.child("imageUrl").getValue(String::class.java)
+                        val latitude =
+                            childSnapshot.child("latLng").child("coordinates").child("latitude")
+                                .getValue(Double::class.java)
+                        val longitude =
+                            childSnapshot.child("latLng").child("coordinates").child("longitude")
+                                .getValue(Double::class.java)
+                        val name =
+                            childSnapshot.child("latLng").child("name").getValue(String::class.java)
+                        val category = childSnapshot.child("category").getValue(String::class.java)
+
+                        userPurRef.addValueEventListener(object : ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                val uidUser = snapshot.child("id").getValue(String::class.java)
+                                val userImageUrl =
+                                    snapshot.child("imageUrl").getValue(String::class.java)
+                                val userName =
+                                    snapshot.child("username").getValue(String::class.java)
+                                val time =
+                                    childSnapshot.child("requestTime").getValue(String::class.java)
+                                // Create UserOrder object
+                                val order = UserOrder(
+                                    uidUser!!,
+                                    description,
+                                    imageUrl,
+                                    LocationObject(LatLng(latitude!!, longitude!!), name!!),
+                                    userName!!,
+                                    userImageUrl,
+                                    time,
+                                    category
+                                )
+
+                                orders.add(order)
+                                onOrdersReceived(orders)
+
+                            }
+                            override fun onCancelled(error: DatabaseError) {
+                                //to handlel errors
+                            }
+                        })
+                    }
+                }
+            }
+
+
+            override fun onCancelled(error: DatabaseError) {
+                //to handlle errors
+            }
+
+        })
+
+    }
 }
+
+
+
+
+
+
+
 
 
 

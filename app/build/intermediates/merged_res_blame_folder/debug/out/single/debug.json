@@ -20,6 +20,10 @@
         "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/layout/fragment_bikes_for_hire.xml"
     },
     {
+        "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-merged_res-100:/menu_cart_menu.xml.flat",
+        "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/menu/cart_menu.xml"
+    },
+    {
         "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-merged_res-100:/layout_activity_addtocart.xml.flat",
         "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/layout/activity_addtocart.xml"
     },
@@ -72,12 +76,12 @@
         "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/drawable-nodpi/mostergears.webp"
     },
     {
-        "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-merged_res-100:/layout_connect_printer.xml.flat",
-        "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/layout/connect_printer.xml"
-    },
-    {
         "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-merged_res-100:/drawable_ic_ng_delete.xml.flat",
         "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/drawable/ic_ng_delete.xml"
+    },
+    {
+        "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-merged_res-100:/layout_connect_printer.xml.flat",
+        "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/layout/connect_printer.xml"
     },
     {
         "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-merged_res-100:/drawable-nodpi_bike_rides.png.flat",
@@ -114,6 +118,10 @@
     {
         "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-merged_res-100:/drawable_ic_add_location.xml.flat",
         "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/drawable/ic_add_location.xml"
+    },
+    {
+        "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-merged_res-100:/drawable_ic_nav.xml.flat",
+        "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/drawable/ic_nav.xml"
     },
     {
         "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-merged_res-100:/drawable_ic_search.xml.flat",
@@ -170,6 +178,10 @@
     {
         "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-merged_res-100:/drawable-nodpi_ngalo_ad.png.flat",
         "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/drawable-nodpi/ngalo_ad.png"
+    },
+    {
+        "merged": "com.aisc.ngalo.app-merged_res-100:/layout_activity_orders_options.xml.flat",
+        "source": "com.aisc.ngalo.app-main-102:/layout/activity_orders_options.xml"
     },
     {
         "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-merged_res-100:/drawable-v24_ic_launcher_foreground.xml.flat",
@@ -332,6 +344,10 @@
         "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/layout/fragment_request_bottom_sheet_dialog.xml"
     },
     {
+        "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-merged_res-100:/layout_menu_item_with_text.xml.flat",
+        "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/layout/menu_item_with_text.xml"
+    },
+    {
         "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-merged_res-100:/drawable_ic_ad_upload.xml.flat",
         "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/drawable/ic_ad_upload.xml"
     },
@@ -358,10 +374,6 @@
     {
         "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-merged_res-100:/layout_activity_admin_home_page.xml.flat",
         "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/layout/activity_admin_home_page.xml"
-    },
-    {
-        "merged": "com.aisc.ngalo.app-merged_res-100:/drawable_ic_nav.xml.flat",
-        "source": "com.aisc.ngalo.app-main-102:/drawable/ic_nav.xml"
     },
     {
         "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-merged_res-100:/drawable_ic_car.xml.flat",
@@ -624,6 +636,10 @@
         "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/xml/settings.xml"
     },
     {
+        "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-merged_res-100:/drawable_circular_tv.xml.flat",
+        "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/drawable/circular_tv.xml"
+    },
+    {
         "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-merged_res-100:/layout_saved.xml.flat",
         "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/layout/saved.xml"
     },
@@ -680,8 +696,8 @@
         "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/font/josefinslab_italic.ttf"
     },
     {
-        "merged": "com.aisc.ngalo.app-merged_res-100:/layout_activity_admin_home_page.xml.flat",
-        "source": "com.aisc.ngalo.app-main-102:/layout/activity_admin_home_page.xml"
+        "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-merged_res-100:/drawable_ic_arrow_back.xml.flat",
+        "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/drawable/ic_arrow_back.xml"
     },
     {
         "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-merged_res-100:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",

@@ -10,13 +10,15 @@ data class BikePart(
     val imageUrl: String = "",
     val name: String = "",
     val price: String = "",
-    val description: String = ""
+    val description: String = "",
+    val category: String = ""
 ) : Serializable {
     constructor() : this(
         id = "",
         imageUrl = "",
         name = "",
         price = "",
-        description = ""
+        description = "",
+        category = ""
     )
 }

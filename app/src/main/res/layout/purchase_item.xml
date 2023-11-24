@@ -44,6 +44,17 @@
                         android:textStyle="bold"
                         android:textColor="@color/ngalo_green"
                         android:textSize="20sp" />
+                    <TextView
+                        android:id="@+id/item_category"
+                        android:layout_width="wrap_content"
+                        android:fontFamily="@font/josefinslab_italic"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="end"
+                        android:text="Category"
+                        android:textColor="@color/ngalo_blue"
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/purchase_price"

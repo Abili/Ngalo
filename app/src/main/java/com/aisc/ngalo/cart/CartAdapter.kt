@@ -101,7 +101,7 @@ class CartAdapter() : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
+                    //to handel errors
                 }
             })
 
@@ -122,6 +122,7 @@ class CartAdapter() : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
             binding.cartItemName.text = item.name
             binding.cartItemPrice.text = CurrencyUtil.formatCurrency(item.price!!, "UGX")
             binding.itemNumber.text = item.price.toString()
+            binding.itemCategory.text = item.category
 
 
 
@@ -166,36 +167,30 @@ class CartAdapter() : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
                     orders.removeAt(position)
                     notifyItemRemoved(position)
 
-                    // Remove the item from Firebase
-                    cartRef.addListenerForSingleValueEvent(object : ValueEventListener {
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            for (cartSnap in snapshot.children) {
-                                val cartItemPosition =
-                                    cartSnap.child("position").getValue(Long::class.java)
-                                if (cartItemPosition == position.toLong()) {
+                    // Remove the item from Firebase using its unique identifier (id in this case)
+                    cartRef.orderByChild("id").equalTo(deletedItem.id)
+                        .addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                for (cartSnap in snapshot.children) {
                                     cartSnap.ref.removeValue()
+                                    orders.clear()
 
-                                    if (orders.size == 0) {
-                                        finishCurrentActivity()
-                                    }
-                                    //itemView.context.startActivity(Intent(itemView.context, CartActivity::class.java))
+                                    finishCurrentActivity()
+
                                     break // Exit the loop once the item is found and removed
+                                }
+
+                                // Check if there are no items left in the cart
+                                if (!snapshot.hasChildren()) {
+                                    // Close the current activity and go back to the previous one
+                                    //finishCurrentActivity()
                                 }
                             }
 
-                            // Check if there are no items left in the cart
-                            if (!snapshot.hasChildren()) {
-                                // Close the current activity and go back to the previous one
-                                //finishCurrentActivity()
+                            override fun onCancelled(error: DatabaseError) {
+                                // Handle the error if needed
                             }
-
-                        }
-
-
-                        override fun onCancelled(error: DatabaseError) {
-                            // Handle the error if needed
-                        }
-                    })
+                        })
 
                     // Show a Snackbar with an undo option
                     Snackbar.make(binding.root, "Item deleted", Snackbar.LENGTH_LONG)
@@ -215,11 +210,12 @@ class CartAdapter() : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
                 }
             }
 
+
         }
 
         private fun finishCurrentActivity() {
             (itemView.context as? AppCompatActivity)?.finish()
-            itemView.context.startActivity(Intent(itemView.context, BikesOptions::class.java))
+            itemView.context.startActivity(Intent(itemView.context, CartActivity::class.java))
 
         }
 
@@ -239,7 +235,7 @@ class CartAdapter() : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
+                   //to handlle errors
                 }
             })
         }

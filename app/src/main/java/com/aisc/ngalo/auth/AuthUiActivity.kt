@@ -152,4 +152,5 @@ class AuthUiActivity : ComponentActivity() {
             Text("Sign in with Google")
         }
     }
+
 }

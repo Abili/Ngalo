@@ -1,14 +1,13 @@
 package com.aisc.ngalo.cart
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import javax.inject.Inject
 
 class AddToCartViewModel
-@Inject constructor(application: Application) : AndroidViewModel(application) {
-    private val repository: CartRepository = CartRepository()
+@Inject constructor(private val repository: CartRepository) : ViewModel() {
+
     private val mTeaSaved = MutableLiveData<Boolean>()
 
     var num: Int = 0
@@ -18,7 +17,14 @@ class AddToCartViewModel
         return mTeaSaved
     }
 
-    fun addToCart(id: String, itemAmount: Int, name: String, price: Int, imageUrl: String, position:Int) {
+    fun addToCart(
+        id: String,
+        itemAmount: Int,
+        name: String,
+        price: Int,
+        imageUrl: String,
+        position: Int
+    ) {
         if (itemAmount == 0) {
             mTeaSaved.value = false
             return

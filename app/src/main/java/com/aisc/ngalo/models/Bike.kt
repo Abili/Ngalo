@@ -9,16 +9,15 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "mylobikes")
 data class Bike(
-    @PrimaryKey
-    @ColumnInfo(name = "id")
-    val id: String = "",
+    @PrimaryKey @ColumnInfo(name = "id") val id: String = "",
     val imageUrl: String? = "",
     val name: String? = "",
     val price: String? = "",
     val description: String? = "",
     val options: Category?,
     val quantity: Int? = 1,
-    val position: Int? = null
+    val position: Int? = null,
+    val category: String? = ""
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
@@ -26,7 +25,7 @@ data class Bike(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
-        TODO("options"),
+        null,
 
         )
 
@@ -38,7 +37,8 @@ data class Bike(
         description = "",
         options = null,
         quantity = null,
-        position = null
+        position = null,
+        category = ""
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

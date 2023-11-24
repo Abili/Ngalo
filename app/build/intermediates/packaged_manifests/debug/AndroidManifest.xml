@@ -280,11 +280,7 @@
             android:name="com.aisc.ngalo.BikeDetails"
             android:exported="false"
             android:label="Details"
-            android:parentActivityName="com.aisc.ngalo.BikeDetails" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".BikeDetails" />
-        </activity>
+            android:theme="@style/Theme.Ngalo.NoActionBar" />
         <activity
             android:name="com.aisc.ngalo.MainActivity"
             android:exported="false" />

@@ -16,10 +16,11 @@ public class ActivityPurchaseHistoryDetailsBindingImpl extends ActivityPurchaseH
         sViewsWithIds = new android.util.SparseIntArray();
         sViewsWithIds.put(R.id.bikeImage, 1);
         sViewsWithIds.put(R.id.textViewsContainer, 2);
-        sViewsWithIds.put(R.id.textBikeName, 3);
-        sViewsWithIds.put(R.id.textViewPrice, 4);
-        sViewsWithIds.put(R.id.detailsDesc, 5);
-        sViewsWithIds.put(R.id.textViewDesc, 6);
+        sViewsWithIds.put(R.id.item_category, 3);
+        sViewsWithIds.put(R.id.textBikeName, 4);
+        sViewsWithIds.put(R.id.textViewPrice, 5);
+        sViewsWithIds.put(R.id.detailsDesc, 6);
+        sViewsWithIds.put(R.id.textViewDesc, 7);
     }
     // views
     @NonNull
@@ -30,15 +31,16 @@ public class ActivityPurchaseHistoryDetailsBindingImpl extends ActivityPurchaseH
     // Inverse Binding Event Handlers
 
     public ActivityPurchaseHistoryDetailsBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 7, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 8, sIncludes, sViewsWithIds));
     }
     private ActivityPurchaseHistoryDetailsBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 0
             , (android.widget.ImageView) bindings[1]
-            , (android.widget.TextView) bindings[5]
-            , (android.widget.TextView) bindings[3]
             , (android.widget.TextView) bindings[6]
+            , (android.widget.TextView) bindings[3]
             , (android.widget.TextView) bindings[4]
+            , (android.widget.TextView) bindings[7]
+            , (android.widget.TextView) bindings[5]
             , (android.widget.LinearLayout) bindings[2]
             );
         this.mboundView0 = (android.widget.RelativeLayout) bindings[0];

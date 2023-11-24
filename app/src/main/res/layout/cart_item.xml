@@ -33,8 +33,18 @@
                     android:id="@+id/cart_item_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_margin="5dp"
                     android:text="item_name"
+                    android:textColor="@color/ngalo_blue"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/item_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="Category"
                     android:textColor="@color/ngalo_blue"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -43,7 +53,7 @@
                     android:id="@+id/cart_item_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_marginStart="5dp"
                     android:text="price"
                     android:textColor="@color/ngalo_blue"
                     android:textSize="18sp" />
@@ -58,42 +68,42 @@
                 android:background="@android:color/darker_gray" />
 
             <LinearLayout
-                android:weightSum="15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/cart_separator"
-                android:layout_alignParentEnd="true">
+                android:layout_alignParentEnd="true"
+                android:weightSum="15">
 
                 <Button
-                    android:layout_weight="5"
                     android:id="@+id/cart_item_sub"
                     android:layout_width="50dp"
                     android:layout_height="60dp"
-                    android:backgroundTint="@color/ngalo_green"
                     android:layout_gravity="center_vertical"
+                    android:layout_weight="5"
+                    android:backgroundTint="@color/ngalo_green"
                     android:text="-"
                     android:textColor="@color/white"
                     android:textSize="30sp" />
 
                 <TextView
-                    android:layout_weight="5"
                     android:id="@+id/item_number"
-                    android:padding="25dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1"
                     android:layout_gravity="center_horizontal"
+                    android:layout_weight="5"
+                    android:padding="25dp"
+                    android:text="1"
                     android:textColor="@color/ngalo_blue"
                     android:textSize="18sp" />
 
                 <Button
-                    android:layout_weight="5"
                     android:id="@+id/cart_item_add"
-                    android:layout_marginEnd="10dp"
                     android:layout_width="50dp"
                     android:layout_height="60dp"
-                    android:backgroundTint="@color/ngalo_green"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="5"
+                    android:backgroundTint="@color/ngalo_green"
                     android:text="+"
                     android:textColor="@color/white"
                     android:textSize="30sp" />

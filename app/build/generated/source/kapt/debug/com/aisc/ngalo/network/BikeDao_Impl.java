@@ -43,7 +43,7 @@ public final class BikeDao_Impl implements BikeDao {
       @Override
       @NonNull
       protected String createQuery() {
-        return "INSERT OR ABORT INTO `mylobikes` (`id`,`imageUrl`,`name`,`price`,`description`,`options`,`quantity`,`position`) VALUES (?,?,?,?,?,?,?,?)";
+        return "INSERT OR ABORT INTO `mylobikes` (`id`,`imageUrl`,`name`,`price`,`description`,`options`,`quantity`,`position`,`category`) VALUES (?,?,?,?,?,?,?,?,?)";
       }
 
       @Override
@@ -88,6 +88,11 @@ public final class BikeDao_Impl implements BikeDao {
           statement.bindNull(8);
         } else {
           statement.bindLong(8, entity.getPosition());
+        }
+        if (entity.getCategory() == null) {
+          statement.bindNull(9);
+        } else {
+          statement.bindString(9, entity.getCategory());
         }
       }
     };
@@ -112,7 +117,7 @@ public final class BikeDao_Impl implements BikeDao {
       @Override
       @NonNull
       protected String createQuery() {
-        return "UPDATE OR ABORT `mylobikes` SET `id` = ?,`imageUrl` = ?,`name` = ?,`price` = ?,`description` = ?,`options` = ?,`quantity` = ?,`position` = ? WHERE `id` = ?";
+        return "UPDATE OR ABORT `mylobikes` SET `id` = ?,`imageUrl` = ?,`name` = ?,`price` = ?,`description` = ?,`options` = ?,`quantity` = ?,`position` = ?,`category` = ? WHERE `id` = ?";
       }
 
       @Override
@@ -158,10 +163,15 @@ public final class BikeDao_Impl implements BikeDao {
         } else {
           statement.bindLong(8, entity.getPosition());
         }
-        if (entity.getId() == null) {
+        if (entity.getCategory() == null) {
           statement.bindNull(9);
         } else {
-          statement.bindString(9, entity.getId());
+          statement.bindString(9, entity.getCategory());
+        }
+        if (entity.getId() == null) {
+          statement.bindNull(10);
+        } else {
+          statement.bindString(10, entity.getId());
         }
       }
     };
@@ -221,6 +231,7 @@ public final class BikeDao_Impl implements BikeDao {
           final int _cursorIndexOfOptions = CursorUtil.getColumnIndexOrThrow(_cursor, "options");
           final int _cursorIndexOfQuantity = CursorUtil.getColumnIndexOrThrow(_cursor, "quantity");
           final int _cursorIndexOfPosition = CursorUtil.getColumnIndexOrThrow(_cursor, "position");
+          final int _cursorIndexOfCategory = CursorUtil.getColumnIndexOrThrow(_cursor, "category");
           final List<Bike> _result = new ArrayList<Bike>(_cursor.getCount());
           while (_cursor.moveToNext()) {
             final Bike _item;
@@ -272,7 +283,13 @@ public final class BikeDao_Impl implements BikeDao {
             } else {
               _tmpPosition = _cursor.getInt(_cursorIndexOfPosition);
             }
-            _item = new Bike(_tmpId,_tmpImageUrl,_tmpName,_tmpPrice,_tmpDescription,_tmpOptions,_tmpQuantity,_tmpPosition);
+            final String _tmpCategory;
+            if (_cursor.isNull(_cursorIndexOfCategory)) {
+              _tmpCategory = null;
+            } else {
+              _tmpCategory = _cursor.getString(_cursorIndexOfCategory);
+            }
+            _item = new Bike(_tmpId,_tmpImageUrl,_tmpName,_tmpPrice,_tmpDescription,_tmpOptions,_tmpQuantity,_tmpPosition,_tmpCategory);
             _result.add(_item);
           }
           return _result;
@@ -308,6 +325,7 @@ public final class BikeDao_Impl implements BikeDao {
           final int _cursorIndexOfOptions = CursorUtil.getColumnIndexOrThrow(_cursor, "options");
           final int _cursorIndexOfQuantity = CursorUtil.getColumnIndexOrThrow(_cursor, "quantity");
           final int _cursorIndexOfPosition = CursorUtil.getColumnIndexOrThrow(_cursor, "position");
+          final int _cursorIndexOfCategory = CursorUtil.getColumnIndexOrThrow(_cursor, "category");
           final Bike _result;
           if (_cursor.moveToFirst()) {
             final String _tmpId;
@@ -358,7 +376,13 @@ public final class BikeDao_Impl implements BikeDao {
             } else {
               _tmpPosition = _cursor.getInt(_cursorIndexOfPosition);
             }
-            _result = new Bike(_tmpId,_tmpImageUrl,_tmpName,_tmpPrice,_tmpDescription,_tmpOptions,_tmpQuantity,_tmpPosition);
+            final String _tmpCategory;
+            if (_cursor.isNull(_cursorIndexOfCategory)) {
+              _tmpCategory = null;
+            } else {
+              _tmpCategory = _cursor.getString(_cursorIndexOfCategory);
+            }
+            _result = new Bike(_tmpId,_tmpImageUrl,_tmpName,_tmpPrice,_tmpDescription,_tmpOptions,_tmpQuantity,_tmpPosition,_tmpCategory);
           } else {
             _result = null;
           }
@@ -382,20 +406,20 @@ public final class BikeDao_Impl implements BikeDao {
 
   private String __Category_enumToString(@NonNull final Category _value) {
     switch (_value) {
-      case BUY: return "BUY";
-      case HIRE: return "HIRE";
-      case BIKEPART: return "BIKEPART";
-      case REPAIR: return "REPAIR";
+      case Purchase: return "Purchase";
+      case ForHire: return "ForHire";
+      case BikePart: return "BikePart";
+      case Repair: return "Repair";
       default: throw new IllegalArgumentException("Can't convert enum to string, unknown enum value: " + _value);
     }
   }
 
   private Category __Category_stringToEnum(@NonNull final String _value) {
     switch (_value) {
-      case "BUY": return Category.BUY;
-      case "HIRE": return Category.HIRE;
-      case "BIKEPART": return Category.BIKEPART;
-      case "REPAIR": return Category.REPAIR;
+      case "Purchase": return Category.Purchase;
+      case "ForHire": return Category.ForHire;
+      case "BikePart": return Category.BikePart;
+      case "Repair": return Category.Repair;
       default: throw new IllegalArgumentException("Can't convert value to enum, unknown value: " + _value);
     }
   }
