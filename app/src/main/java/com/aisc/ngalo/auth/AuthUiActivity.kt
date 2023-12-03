@@ -8,9 +8,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -18,11 +21,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.aisc.ngalo.AdminOUserActivity
+import com.aisc.ngalo.HomeActivity
 import com.aisc.ngalo.R
 import com.aisc.ngalo.ui.ui.theme.NgaloTheme
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -63,7 +70,7 @@ class AuthUiActivity : ComponentActivity() {
         }
     }
 
-    private fun signInWithGoogle(context: Context) {
+     private fun signInWithGoogle(context: Context) {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(context.getString(R.string.default_web_client_id))
             .requestEmail()
@@ -114,7 +121,7 @@ class AuthUiActivity : ComponentActivity() {
         if (user != null) {
             // Successfully signed in, navigate to the next screen
             // navController.navigate(Screens.AdminOrUser.route)
-            startActivity(Intent(this, AdminOUserActivity::class.java))
+            startActivity(Intent(this, HomeActivity::class.java))
 
             Toast.makeText(
                 this,
@@ -145,12 +152,25 @@ class AuthUiActivity : ComponentActivity() {
             GoogleSignInButton(onClick = { signInWithGoogle(context) })
         }
     }
-
+    
     @Composable
     fun GoogleSignInButton(onClick: () -> Unit) {
-        Button(onClick = onClick) {
-            Text("Sign in with Google")
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+                .background(colorResource(id = R.color.ngalo_blue))
+
+        ) {
+            Button(onClick = onClick) {
+                Text("Sign in with Google", color = Color.White)
+            }
         }
+    }
+    @Preview(showBackground = true)
+    @Composable
+    fun AuthUiPreview() {
+        SignInScreen(navController =navController )
     }
 
 }

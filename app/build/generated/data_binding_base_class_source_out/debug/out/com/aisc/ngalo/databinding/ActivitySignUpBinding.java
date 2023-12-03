@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,22 +38,26 @@ public final class ActivitySignUpBinding implements ViewBinding {
   public final EditText editTextPassword;
 
   @NonNull
-  public final Button phonenumber;
+  public final LinearLayout googleSignIn;
+
+  @NonNull
+  public final ProgressBar signInProgress;
 
   @NonNull
   public final TextView textViewStatus;
 
   private ActivitySignUpBinding(@NonNull LinearLayout rootView, @NonNull Button buttonLogIn,
       @NonNull Button buttonSignOut, @NonNull Button buttonSignUp, @NonNull EditText editTextEmail,
-      @NonNull EditText editTextPassword, @NonNull Button phonenumber,
-      @NonNull TextView textViewStatus) {
+      @NonNull EditText editTextPassword, @NonNull LinearLayout googleSignIn,
+      @NonNull ProgressBar signInProgress, @NonNull TextView textViewStatus) {
     this.rootView = rootView;
     this.buttonLogIn = buttonLogIn;
     this.buttonSignOut = buttonSignOut;
     this.buttonSignUp = buttonSignUp;
     this.editTextEmail = editTextEmail;
     this.editTextPassword = editTextPassword;
-    this.phonenumber = phonenumber;
+    this.googleSignIn = googleSignIn;
+    this.signInProgress = signInProgress;
     this.textViewStatus = textViewStatus;
   }
 
@@ -113,9 +118,15 @@ public final class ActivitySignUpBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.phonenumber;
-      Button phonenumber = ViewBindings.findChildViewById(rootView, id);
-      if (phonenumber == null) {
+      id = R.id.google_sign_in;
+      LinearLayout googleSignIn = ViewBindings.findChildViewById(rootView, id);
+      if (googleSignIn == null) {
+        break missingId;
+      }
+
+      id = R.id.signInProgress;
+      ProgressBar signInProgress = ViewBindings.findChildViewById(rootView, id);
+      if (signInProgress == null) {
         break missingId;
       }
 
@@ -126,7 +137,8 @@ public final class ActivitySignUpBinding implements ViewBinding {
       }
 
       return new ActivitySignUpBinding((LinearLayout) rootView, buttonLogIn, buttonSignOut,
-          buttonSignUp, editTextEmail, editTextPassword, phonenumber, textViewStatus);
+          buttonSignUp, editTextEmail, editTextPassword, googleSignIn, signInProgress,
+          textViewStatus);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

@@ -97,7 +97,8 @@ class BikesForPurchaseAdapter(var viewModel: CartViewModel?) :
             }
             binding.textBikeName.text = bike.name
             binding.textViewPrice.text =
-                "${CurrencyUtil.formatCurrency(bike.price!!.toInt(), "UGX")}"
+                CurrencyUtil.formatCurrency(bike.price!!.replace(",", "").toInt(), "UGX")
+
             binding.textViewDesc.text = bike.description
             binding.deleteBike.setOnClickListener {
                 val hire = FirebaseDatabase.getInstance().reference.child("bikes").child("hire")

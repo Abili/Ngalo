@@ -39,7 +39,6 @@ public class ActivityBikeDetailsBindingLandImpl extends ActivityBikeDetailsBindi
             , null
             , null
             , null
-            , null
             , (android.widget.TextView) bindings[5]
             , (android.widget.TextView) bindings[3]
             , (android.widget.TextView) bindings[6]

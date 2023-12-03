@@ -32,6 +32,7 @@
         </RelativeLayout>
 
         <EditText
+            style="@style/AppTheme.EditText"
             android:id="@+id/editTextTextPersonFirstName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -48,6 +49,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imageview_layout" />
 
         <EditText
+            style="@style/AppTheme.EditText"
             android:id="@+id/editTextTextPersonLastName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -64,6 +66,7 @@
             app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonFirstName" />
 
         <EditText
+            style="@style/AppTheme.EditText"
             android:id="@+id/editTextTextEmailAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -80,6 +83,7 @@
             app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonLastName" />
 
         <EditText
+            style="@style/AppTheme.EditText"
             android:id="@+id/editTextPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -96,11 +100,13 @@
             app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress" />
 
         <Button
+            android:background="@drawable/border_color"
             android:id="@+id/profile_create_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
+            android:textColor="@color/white"
             android:layout_marginBottom="20dp"
             android:text="Create Profile"
             app:layout_constraintBottom_toBottomOf="parent"

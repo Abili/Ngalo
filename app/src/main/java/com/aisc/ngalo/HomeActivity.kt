@@ -1,10 +1,14 @@
 package com.aisc.ngalo
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
 import com.aisc.ngalo.cart.CartActivity
 import com.aisc.ngalo.cart.CartRepository
@@ -23,6 +27,7 @@ import com.google.firebase.database.ValueEventListener
 
 class HomeActivity : AppCompatActivity() {
     lateinit var binding: ActivityHomeBinding
+    private val locationPermissionCode = 42
 
     // Access the CartRepository using the application instance
     private val cartRepository: CartRepository
@@ -44,14 +49,13 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val currentUser = FirebaseAuth.getInstance().currentUser
+        // Check if location permission is granted
+
         if (currentUser != null) {
             val currentUserUID = currentUser.uid
             // do something with currentUserUID
-            val userRef = FirebaseDatabase
-                .getInstance()
-                .reference
-                .child("users")
-                .child(currentUserUID)
+            val userRef =
+                FirebaseDatabase.getInstance().reference.child("users").child(currentUserUID)
             userRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (!snapshot.exists()) {
@@ -72,6 +76,19 @@ class HomeActivity : AppCompatActivity() {
             finish()
         }
 
+        if (isLocationPermissionGranted()) {
+            // Location permission is granted, proceed with your app logic
+            appLogic()
+            // ...
+        } else {
+            // Location permission is not granted, request it
+            requestLocationPermission()
+        }
+
+
+    }
+
+    private fun appLogic() {
         // cartViewModel = ViewModelProvider(this)[CartViewModel::class.java]
         cartViewModel.getCartItemsCount()
 
@@ -101,7 +118,7 @@ class HomeActivity : AppCompatActivity() {
             startActivity(Intent(intent))
         }
         binding.rides.setOnClickListener {
-            val intent = Intent(this, RidesActivity::class.java)
+            val intent = Intent(this, RidesForBooking::class.java)
             startActivity(Intent(intent))
         }
 
@@ -109,9 +126,7 @@ class HomeActivity : AppCompatActivity() {
         addRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val ads = snapshot.child("imageUrl").getValue(String::class.java)
-                Glide.with(binding.root)
-                    .load(ads)
-                    .into(binding.ngaloAd)
+                Glide.with(binding.root).load(ads).into(binding.ngaloAd)
 
             }
 
@@ -137,6 +152,35 @@ class HomeActivity : AppCompatActivity() {
                 startActivity(Intent(this, CartActivity::class.java))
             }
         }
-
     }
+
+    private fun isLocationPermissionGranted(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            this, Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun requestLocationPermission() {
+        ActivityCompat.requestPermissions(
+            this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), locationPermissionCode
+        )
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<String>, grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == locationPermissionCode) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Location permission granted, proceed with your app logic
+                appLogic()
+                // ...
+            } else {
+                // Location permission denied, handle accordingly
+                finish()
+                // ...
+            }
+        }
+    }
+
 }

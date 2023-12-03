@@ -3710,6 +3710,7 @@ drawable design_password_eye
 drawable design_snackbar_background
 drawable distancepng
 drawable email
+drawable end_race
 drawable facebook_icon
 drawable filta
 drawable filter
@@ -3741,6 +3742,7 @@ drawable ic_arrow_down_24dp
 drawable ic_back
 drawable ic_bicycle
 drawable ic_bikeparts_upload
+drawable ic_call
 drawable ic_call_answer
 drawable ic_call_answer_low
 drawable ic_call_answer_video
@@ -3861,9 +3863,11 @@ drawable mtrl_switch_track
 drawable mtrl_switch_track_decoration
 drawable mtrl_tabs_default_indicator
 drawable navigation_empty_icon
+drawable ngallo_llogo
 drawable ngalo_ad
 drawable ngalo_logo
 drawable ngalobg
+drawable ngalogo
 drawable no_data
 drawable notification_action_background
 drawable notification_bg
@@ -4050,6 +4054,8 @@ id bikepartsRecyclerView
 id bikepurchaseRecyclerView
 id bikerepairImageView
 id blocking
+id bookride
+id bookridesrecycler
 id bottom
 id bottomSheet
 id bounce
@@ -4075,10 +4081,12 @@ id button_sign_in
 id buy
 id cache_measures
 id callMeasure
+id call_user
 id camera
 id cancelRepairRequest
 id cancel_action
 id cancel_button
+id cancelride
 id cardView
 id cardView2
 id carryVelocity
@@ -4170,7 +4178,6 @@ id design_menu_item_action_area
 id design_menu_item_action_area_stub
 id design_menu_item_text
 id design_navigation_view
-id details
 id detailsDesc
 id dialogTB
 id dialog_button
@@ -4254,12 +4261,14 @@ id ghost_view_holder
 id glide_custom_view_target_tag
 id gone
 id google_provider
+id google_sign_in
 id graph
 id graph_wrap
 id group_divider
 id grouping
 id groups
 id gtotal
+id guideline2
 id hardware
 id header
 id header_text
@@ -4295,6 +4304,7 @@ id imageView3
 id imageView4
 id imageView5
 id imageView6
+id imageView7
 id image_view_crop
 id image_view_logo
 id image_view_state_aspect_ratio
@@ -4334,6 +4344,7 @@ id line3
 id linear
 id linearId
 id linearLayout
+id linearLayout2
 id linkedin
 id listMode
 id list_item
@@ -4428,6 +4439,7 @@ id neverCompleteToStart
 id ngalo_ad
 id noScroll
 id noState
+id nodata
 id nodata_layout
 id nodata_tv
 id none
@@ -4484,7 +4496,6 @@ id phone_button
 id phone_layout
 id phone_number
 id phone_provider
-id phonenumber
 id pickuplocation
 id pin
 id places_autocomplete_back_button
@@ -4599,6 +4610,7 @@ id shortcut
 id showCustom
 id showHome
 id showTitle
+id signInProgress
 id sign_in
 id sign_in_email_sent_text
 id sin
@@ -4630,6 +4642,7 @@ id startDrive
 id startHorizontal
 id startToEnd
 id startVertical
+id start_ride
 id startride_btn
 id state_aspect_ratio
 id state_rotate
@@ -4941,6 +4954,7 @@ layout activity_receipt_details
 layout activity_reciepts
 layout activity_rides
 layout activity_rides2
+layout activity_rides_for_booking
 layout activity_settings
 layout activity_sign_up
 layout activity_social_media
@@ -4957,6 +4971,7 @@ layout amu_webview
 layout auth_ui_layout
 layout bike_item
 layout bikerepair_bottom_sheet
+layout book_ride_item
 layout browser_actions_context_menu_page
 layout browser_actions_context_menu_row
 layout cart_item
@@ -5147,7 +5162,9 @@ menu reciept
 menu ucrop_menu_activity
 mipmap ic_launcher
 mipmap ic_launcher_round
+mipmap ngallo_llogo
 mipmap ngalo_logo
+mipmap ngalogo
 plurals fui_error_weak_password
 plurals mtrl_badge_content_description
 raw amu_ballon_gx_prefix
@@ -5725,6 +5742,7 @@ style Animation_Material3_SideSheetDialog_Left
 style Animation_Material3_SideSheetDialog_Right
 style Animation_MaterialComponents_BottomSheetDialog
 style AppTheme
+style AppTheme_EditText
 style Base_AlertDialog_AppCompat
 style Base_AlertDialog_AppCompat_Light
 style Base_Animation_AppCompat_Dialog

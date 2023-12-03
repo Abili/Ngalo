@@ -98,7 +98,7 @@ class BikeDetails : AppCompatActivity() {
                         CartItem(
                             UUID.randomUUID().toString(),
                             bikename,
-                            price!!.toInt(),
+                            price!!.replace(",", "").toInt(),
                             img!!,
                             1,
                             position++,
@@ -162,7 +162,7 @@ class BikeDetails : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-               //error
+                //error
             }
         })
     }

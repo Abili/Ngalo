@@ -64,16 +64,16 @@
         "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/layout/bikerepair_bottom_sheet.xml"
     },
     {
+        "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-mergeDebugResources-99:/layout/activity_purchase_history_details.xml",
+        "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/layout/activity_purchase_history_details.xml"
+    },
+    {
         "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-mergeDebugResources-99:/layout/fragment_trial.xml",
         "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/layout/fragment_trial.xml"
     },
     {
         "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-mergeDebugResources-99:/layout/purchase_item.xml",
         "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/layout/purchase_item.xml"
-    },
-    {
-        "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-mergeDebugResources-99:/layout/activity_purchase_history_details.xml",
-        "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/layout/activity_purchase_history_details.xml"
     },
     {
         "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-mergeDebugResources-99:/layout/activity_upload_images.xml",
@@ -104,6 +104,10 @@
         "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/layout/activity_settings.xml"
     },
     {
+        "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-mergeDebugResources-99:/layout/activity_rides_for_booking.xml",
+        "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/layout/activity_rides_for_booking.xml"
+    },
+    {
         "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-mergeDebugResources-99:/layout/activity_add_bicycle_part.xml",
         "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/layout/activity_add_bicycle_part.xml"
     },
@@ -124,6 +128,10 @@
         "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/layout/activity_my_account.xml"
     },
     {
+        "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-mergeDebugResources-99:/layout/activity_orders_options.xml",
+        "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/layout/activity_orders_options.xml"
+    },
+    {
         "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-mergeDebugResources-99:/layout/activity_order_details.xml",
         "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/layout/activity_order_details.xml"
     },
@@ -142,10 +150,6 @@
     {
         "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-mergeDebugResources-99:/layout/activity_users_orders.xml",
         "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/layout/activity_users_orders.xml"
-    },
-    {
-        "merged": "com.aisc.ngalo.app-mergeDebugResources-99:/layout/activity_orders_options.xml",
-        "source": "com.aisc.ngalo.app-main-102:/layout/activity_orders_options.xml"
     },
     {
         "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-mergeDebugResources-99:/layout/menu_cart.xml",
@@ -184,12 +188,12 @@
         "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/layout/activity_bike_repair.xml"
     },
     {
-        "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-mergeDebugResources-99:/layout/cart_item.xml",
-        "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/layout/cart_item.xml"
-    },
-    {
         "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-mergeDebugResources-99:/layout/activity_cart.xml",
         "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/layout/activity_cart.xml"
+    },
+    {
+        "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-mergeDebugResources-99:/layout/cart_item.xml",
+        "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/layout/cart_item.xml"
     },
     {
         "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-mergeDebugResources-99:/layout/activity_completed_details.xml",
@@ -220,6 +224,10 @@
         "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/layout/activity_home.xml"
     },
     {
+        "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-mergeDebugResources-99:/layout/book_ride_item.xml",
+        "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/layout/book_ride_item.xml"
+    },
+    {
         "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-mergeDebugResources-99:/layout/item_marker.xml",
         "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/layout/item_marker.xml"
     },
@@ -242,6 +250,10 @@
     {
         "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-mergeDebugResources-99:/layout/images_dialog.xml",
         "source": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-main-102:/layout/images_dialog.xml"
+    },
+    {
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-99:/layout/book_ride_item.xml",
+        "source": "com.aisc.ngalo.app-main-102:/layout/book_ride_item.xml"
     },
     {
         "merged": "/Users/user/.gradle/daemon/8.0/com.aisc.ngalo.app-mergeDebugResources-99:/layout/activity_user_group.xml",

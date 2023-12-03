@@ -362,25 +362,39 @@ class BikeRepair : AppCompatActivity(), OnMapReadyCallback {
             ), binding.userLocationTextView.text.toString()
         )
 
-        val repair = Repair(
-            uid,
-            downloadUrl.toString(),
-            descriptionOfProblems,
-            latLng,
-            System.currentTimeMillis().toString(),
-            "Bike Repair"
-        )
-        // val uid = FirebaseAuth.getInstance().currentUser!!.uid
+        FirebaseDatabase.getInstance().reference.child("users").child(uid)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val phoneNumber = snapshot.child("phone").getValue(String::class.java)
 
-        repairRequestRef.push().setValue(repair).addOnCompleteListener {
-            if (it.isSuccessful) {
-                finish()
-                binding.repairDescriptionEditText.text.clear()
-                userRequestRef.push().setValue(repair)
+                    val repair = Repair(
+                        uid,
+                        downloadUrl.toString(),
+                        descriptionOfProblems,
+                        latLng,
+                        System.currentTimeMillis().toString(),
+                        "Bike Repair",
+                        phoneNumber
+                    )
+                    // val uid = FirebaseAuth.getInstance().currentUser!!.uid
 
-            }
+                    repairRequestRef.push().setValue(repair).addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            finish()
+                            binding.repairDescriptionEditText.text.clear()
+                            userRequestRef.push().setValue(repair)
 
-        }
+                        }
+
+                    }
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    //error
+                }
+
+            })
     }
 
 

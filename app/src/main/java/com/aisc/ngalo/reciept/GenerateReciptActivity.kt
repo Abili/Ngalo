@@ -89,8 +89,8 @@ class GenerateReceiptActivity : AppCompatActivity() {
             binding.recyclerView.layoutManager = LinearLayoutManager(this)
 
             // Update grand total
-            binding.customerContact.text = "Contact: $username"
-            binding.username.text = "Customer: $contact"
+            binding.customerContact.text = "Contact: $contact"
+            binding.username.text = "Customer: $username"
             binding.pickuplocation.text = "Pickup Location: $pickupLocation"
             binding.paymentMethod.text = "Payment Method: $paymentmethod"
             binding.textViewTransportFares.text = "TransportationFare: $transportationFare"

@@ -88,8 +88,6 @@
 
 
         </LinearLayout>
-
-
         <Button
             android:id="@+id/requestRepairButton"
             android:layout_width="match_parent"

@@ -8,6 +8,10 @@
         android:minSdkVersion="26"
         android:targetSdkVersion="33" />
 
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
@@ -17,6 +21,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
@@ -93,13 +98,13 @@
         android:testOnly="true"
         android:theme="@style/Theme.Ngalo.ActionBar" >
         <activity
-            android:name="com.aisc.ngalo.reciept.Reciepts"
+            android:name="com.aisc.ngalo.RidesForBooking"
             android:exported="false"
-            android:label="Receipts"
-            android:parentActivityName="com.aisc.ngalo.admin.AdminPanel" >
+            android:label="Book Ride"
+            android:parentActivityName="com.aisc.ngalo.HomeActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".admin.AdminPanel" />
+                android:value=".HomeActivity" />
         </activity>
         <activity
             android:name="com.aisc.ngalo.reciept.RecieptDetails"
@@ -169,7 +174,7 @@
             android:label="@string/title_activity_progress"
             android:theme="@style/Theme.Ngalo.NoActionBar" />
         <activity
-            android:name="com.aisc.ngalo.admin.ConfirmationActivity"
+            android:name="com.aisc.ngalo.cart.ConfirmationActivity"
             android:exported="false"
             android:label="@string/title_activity_confirmation"
             android:theme="@style/Theme.Ngalo.NoActionBar" />
@@ -195,41 +200,11 @@
             android:exported="false"
             android:label="Completed" />
         <activity
-            android:name="com.aisc.ngalo.admin.AdminPanel"
-            android:exported="false"
-            android:label="@string/title_activity_admin_panel"
-            android:theme="@style/Theme.Ngalo.NoActionBar" />
-        <activity
-            android:name="com.aisc.ngalo.orders.OrderDetails"
-            android:exported="false"
-            android:label="Details"
-            android:theme="@style/Theme.Ngalo.NoActionBar" />
-        <activity
-            android:name="com.aisc.ngalo.orders.OrdersOptions"
-            android:exported="false"
-            android:label="@string/title_activity_orders"
-            android:theme="@style/Theme.Ngalo.NoActionBar" />
-        <activity
-            android:name="com.aisc.ngalo.admin.AdminHomePage"
-            android:exported="false"
-            android:label="Home"
-            android:theme="@style/Theme.Ngalo.NoActionBar" />
-        <activity
             android:name="com.aisc.ngalo.SignUp"
             android:exported="false"
             android:label="@string/title_activity_admin_home_page"
             android:theme="@style/Theme.Ngalo.NoActionBar" />
-        <!--
-             TODO: Before you run your application, you need a Google Maps API key.
 
-             To get one, follow the directions here:
-
-                https://developers.google.com/maps/documentation/android-sdk/get-api-key
-
-             Once you have your API key (it starts with "AIza"), define a new property in your
-             project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
-             "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
-        -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAJBlxp2SUfwdh5GMfGP19Q_aetYtKybgs" />
@@ -246,19 +221,6 @@
             android:exported="false"
             android:label="Profile" />
         <activity
-            android:name="com.aisc.ngalo.admin.AddBicyclePart"
-            android:exported="false"
-            android:label="AddBicyclePart" />
-        <activity
-            android:name="com.aisc.ngalo.admin.UploadItems"
-            android:exported="false"
-            android:label="@string/title_activity_upload_items"
-            android:theme="@style/Theme.Ngalo.NoActionBar" />
-        <activity
-            android:name="com.aisc.ngalo.HomeActivity"
-            android:exported="false"
-            android:label="Home" />
-        <activity
             android:name="com.aisc.ngalo.SettingsActivity"
             android:exported="false"
             android:label="Settings"
@@ -267,10 +229,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".HomeActivity" />
         </activity>
-        <activity
-            android:name="com.aisc.ngalo.admin.CreateAdvert"
-            android:exported="false"
-            android:label="Create Advert" />
         <activity
             android:name="com.aisc.ngalo.BikesScreen"
             android:exported="false"
@@ -283,9 +241,6 @@
             android:theme="@style/Theme.Ngalo.NoActionBar" />
         <activity
             android:name="com.aisc.ngalo.MainActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.aisc.ngalo.admin.UploadBikeImages"
             android:exported="false" />
         <activity
             android:name="com.aisc.ngalo.BikesOptions"
@@ -305,7 +260,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name="com.aisc.ngalo.AdminOUserActivity"
+            android:name="com.aisc.ngalo.HomeActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar" >
             <intent-filter>
@@ -318,11 +273,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity
-            android:name="com.aisc.ngalo.SplashScreen"
-            android:exported="false"
-            android:label="@string/main_screen"
-            android:theme="@style/Theme.AppCompat" />
         <activity
             android:name="com.aisc.ngalo.models.BikeHireModel"
             android:exported="false"
@@ -484,9 +434,6 @@
                 android:value="com.google.firebase.components.ComponentRegistrar" />
             <meta-data
                 android:name="com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonLegacyRegistrar"
-                android:value="com.google.firebase.components.ComponentRegistrar" />
-            <meta-data
-                android:name="com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar"
                 android:value="com.google.firebase.components.ComponentRegistrar" />
             <meta-data
                 android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"

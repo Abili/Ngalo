@@ -32,7 +32,7 @@ public abstract class ActivityBikeDetailsBinding extends ViewDataBinding {
    * </ul>
    */
   @Nullable
-  public final ImageView backarrow;
+  public final TextView backarrow;
 
   @NonNull
   public final ImageView bikeImage;
@@ -85,22 +85,6 @@ public abstract class ActivityBikeDetailsBinding extends ViewDataBinding {
   @Nullable
   public final Button checkoutBtn;
 
-  /**
-   * This binding is not available in all configurations.
-   * <p>
-   * Present:
-   * <ul>
-   *   <li>layout/</li>
-   * </ul>
-   *
-   * Absent:
-   * <ul>
-   *   <li>layout-land/</li>
-   * </ul>
-   */
-  @Nullable
-  public final TextView details;
-
   @NonNull
   public final TextView detailsDesc;
 
@@ -133,17 +117,15 @@ public abstract class ActivityBikeDetailsBinding extends ViewDataBinding {
   public final Toolbar toolbar3;
 
   protected ActivityBikeDetailsBinding(Object _bindingComponent, View _root, int _localFieldCount,
-      ImageView backarrow, ImageView bikeImage, ImageView cart, TextView cartValue,
-      Button checkoutBtn, TextView details, TextView detailsDesc, TextView textBikeName,
-      TextView textViewDesc, TextView textViewPrice, LinearLayout textViewsContainer,
-      Toolbar toolbar3) {
+      TextView backarrow, ImageView bikeImage, ImageView cart, TextView cartValue,
+      Button checkoutBtn, TextView detailsDesc, TextView textBikeName, TextView textViewDesc,
+      TextView textViewPrice, LinearLayout textViewsContainer, Toolbar toolbar3) {
     super(_bindingComponent, _root, _localFieldCount);
     this.backarrow = backarrow;
     this.bikeImage = bikeImage;
     this.cart = cart;
     this.cartValue = cartValue;
     this.checkoutBtn = checkoutBtn;
-    this.details = details;
     this.detailsDesc = detailsDesc;
     this.textBikeName = textBikeName;
     this.textViewDesc = textViewDesc;

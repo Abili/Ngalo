@@ -1,6 +1,7 @@
 package com.aisc.ngalo.purchases
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -64,6 +65,17 @@ class PurchasesDetails : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.callUser.setOnClickListener {
+            if (contact != null) {
+                callUser(contact)
+            }
+        }
 
+    }
+
+    private fun callUser(phoneNumber: String) {
+        val dialIntent = Intent(Intent.ACTION_DIAL)
+        dialIntent.data = Uri.parse("tel:$phoneNumber")
+        startActivity(dialIntent)
     }
 }

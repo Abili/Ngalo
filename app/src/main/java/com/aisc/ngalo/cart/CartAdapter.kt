@@ -20,7 +20,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class CartAdapter() : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
+class CartAdapter : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
 
     private val orders = mutableListOf<CartItem>()
     private val cart = mutableListOf<List<CartItem>>()
@@ -146,13 +146,7 @@ class CartAdapter() : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
                     binding.itemNumber.text = count.toString()
                     updateCartItemsQuantity(item.id!!, count)
                     item.quantity = count
-//                    itemView.context.startActivity(
-//                        Intent(
-//                            itemView.context,
-//                            CartActivity::class.java
-//                        )
-//                    )
-//                    binding.itemNumber.text = count.toString()
+//
                 }
             }
 

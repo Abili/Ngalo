@@ -94,7 +94,6 @@ class RidesActivity : AppCompatActivity(), OnMapReadyCallback {
         binding.stoprideBtn.setOnClickListener {
             // Stop the ride
             stopRide()
-
         }
 
 
@@ -403,7 +402,7 @@ class RidesActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun saveRideToFirebase(rideName: String, distance: Float, elapsedTime: String) {
         // Save ride details (distance and elapsed time) to Firebase Database
-        // TODO: Initialize your Firebase Realtime Database reference
+
         val uid = FirebaseAuth.getInstance().currentUser!!.uid
         val databaseReference =
             FirebaseDatabase.getInstance().reference.child("rides")

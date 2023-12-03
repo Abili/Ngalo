@@ -25,7 +25,6 @@ class History : AppCompatActivity() {
         binding = ActivityUsersOrdersBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         binding.usersOrdersRecycler.adapter = adapter
         binding.usersOrdersRecycler.layoutManager = LinearLayoutManager(this)
 
@@ -39,8 +38,7 @@ class History : AppCompatActivity() {
         val uid = FirebaseAuth.getInstance().uid
         // Replace with your own Firebase Realtime Database reference
         val databaseRef =
-            FirebaseDatabase.getInstance().getReference("users")
-                .child(curUID).child("History")
+            FirebaseDatabase.getInstance().getReference("users").child(curUID).child("History")
 
         purchasesViewModel = ViewModelProvider(this)[PurchasesViewModel::class.java]
         purchasesViewModel!!.loadUserPurchasedItems()
@@ -49,6 +47,7 @@ class History : AppCompatActivity() {
             if (it.isNotEmpty()) {
                 purchasesAdapter.add(it)
                 binding.purchasesTag.visibility = View.VISIBLE
+                binding.nodata.visibility = View.GONE
             }
         }
 
@@ -58,6 +57,7 @@ class History : AppCompatActivity() {
             if (it.isNotEmpty()) {
                 ridesAdapter.add(it)
                 binding.ridesTag.visibility = View.VISIBLE
+                binding.nodata.visibility = View.GONE
             }
         }
         purchasesViewModel = ViewModelProvider(this)[PurchasesViewModel::class.java]
@@ -67,6 +67,7 @@ class History : AppCompatActivity() {
                 adapter.clear()
                 adapter.add(orders)
                 binding.ordersTag.visibility = View.VISIBLE
+                binding.nodata.visibility = View.GONE
             }
         }
     }

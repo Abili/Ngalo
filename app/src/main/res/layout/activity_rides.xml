@@ -112,7 +112,7 @@
         android:layout_margin="20dp"
         android:background="@drawable/border_color"
         android:text="Start Ride"
-        android:textColor="@color/ngalo_blue"
+        android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold" />
 

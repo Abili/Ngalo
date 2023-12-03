@@ -28,6 +28,11 @@
         <item name="toolbarStyle">@style/Widget.AppCompat.Toolbar.Ngalo</item>
     </style>
 
+    <style name="AppTheme.EditText" parent="Widget.AppCompat.EditText">
+        <item name="android:textColor">@color/ngalo_blue</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
     <!-- Toolbar style -->
     <style name="Widget.AppCompat.Toolbar.Ngalo" parent="Widget.AppCompat.Toolbar">
         <item name="android:background">@color/ngalo_green</item> <!-- Toolbar background color -->

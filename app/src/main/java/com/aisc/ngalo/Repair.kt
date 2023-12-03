@@ -6,7 +6,8 @@ class Repair(
     var description: String = "",
     var latLng: LocationObject? = null,
     val requestTime: String? = "",
-    val category: String? = ""
+    val category: String? = "",
+    val phoneNumber: String? = ""
 ) {
     constructor() : this(
         id = "",
@@ -14,6 +15,7 @@ class Repair(
         description = "",
         latLng = null,
         requestTime = "",
-        category = ""
+        category = "",
+        phoneNumber = ""
     )
 }

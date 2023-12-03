@@ -175,7 +175,7 @@ class RequestBottomSheetDialog : BottomSheetDialogFragment() {
                     }
                 }
                 AutocompleteActivity.RESULT_ERROR -> {
-                    // TODO: Handle the error.
+                    //handleerror
                     data?.let {
                         val status = Autocomplete.getStatusFromIntent(data)
                         Snackbar.make(

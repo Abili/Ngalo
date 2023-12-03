@@ -4,7 +4,6 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -98,7 +97,7 @@ class BikesForHireAdapter(var viewModel: CartViewModel?) :
             }
             binding.textBikeName.text = bike.name
             binding.textViewPrice.text =
-                "${CurrencyUtil.formatCurrency(bike.price!!.toInt(), "UGX")}"
+                CurrencyUtil.formatCurrency(bike.price!!.replace(",", "").toInt(), "UGX")
             binding.textViewDesc.text = bike.description
             binding.deleteBike.setOnClickListener {
                 val hire = FirebaseDatabase.getInstance().reference.child("bikes").child("hire")
@@ -130,7 +129,7 @@ class BikesForHireAdapter(var viewModel: CartViewModel?) :
                         CartItem(
                             UUID.randomUUID().toString(),
                             bike.name,
-                            bike.price.toInt(),
+                            bike.price.replace(",","").toInt(),
                             bike.imageUrl!!,
                             1,
                             position++,

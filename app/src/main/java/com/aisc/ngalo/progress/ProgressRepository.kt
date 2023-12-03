@@ -26,7 +26,7 @@ class ProgressRepository(context: Context) {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
+                    //errors
                 }
             })
 
@@ -48,7 +48,7 @@ class ProgressRepository(context: Context) {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
+                    //error
                 }
             })
 
@@ -75,7 +75,7 @@ class ProgressRepository(context: Context) {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
+                    //errors
                 }
 
             })

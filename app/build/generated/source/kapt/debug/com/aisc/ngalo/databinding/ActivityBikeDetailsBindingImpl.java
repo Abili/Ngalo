@@ -16,16 +16,15 @@ public class ActivityBikeDetailsBindingImpl extends ActivityBikeDetailsBinding  
         sViewsWithIds = new android.util.SparseIntArray();
         sViewsWithIds.put(R.id.toolbar3, 1);
         sViewsWithIds.put(R.id.backarrow, 2);
-        sViewsWithIds.put(R.id.details, 3);
-        sViewsWithIds.put(R.id.cart, 4);
-        sViewsWithIds.put(R.id.cartValue, 5);
-        sViewsWithIds.put(R.id.bikeImage, 6);
-        sViewsWithIds.put(R.id.textViewsContainer, 7);
-        sViewsWithIds.put(R.id.textBikeName, 8);
-        sViewsWithIds.put(R.id.textViewPrice, 9);
-        sViewsWithIds.put(R.id.detailsDesc, 10);
-        sViewsWithIds.put(R.id.textViewDesc, 11);
-        sViewsWithIds.put(R.id.checkoutBtn, 12);
+        sViewsWithIds.put(R.id.cart, 3);
+        sViewsWithIds.put(R.id.cartValue, 4);
+        sViewsWithIds.put(R.id.bikeImage, 5);
+        sViewsWithIds.put(R.id.textViewsContainer, 6);
+        sViewsWithIds.put(R.id.textBikeName, 7);
+        sViewsWithIds.put(R.id.textViewPrice, 8);
+        sViewsWithIds.put(R.id.detailsDesc, 9);
+        sViewsWithIds.put(R.id.textViewDesc, 10);
+        sViewsWithIds.put(R.id.checkoutBtn, 11);
     }
     // views
     @NonNull
@@ -36,21 +35,20 @@ public class ActivityBikeDetailsBindingImpl extends ActivityBikeDetailsBinding  
     // Inverse Binding Event Handlers
 
     public ActivityBikeDetailsBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 13, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 12, sIncludes, sViewsWithIds));
     }
     private ActivityBikeDetailsBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 0
-            , (android.widget.ImageView) bindings[2]
-            , (android.widget.ImageView) bindings[6]
-            , (android.widget.ImageView) bindings[4]
-            , (android.widget.TextView) bindings[5]
-            , (android.widget.Button) bindings[12]
-            , (android.widget.TextView) bindings[3]
+            , (android.widget.TextView) bindings[2]
+            , (android.widget.ImageView) bindings[5]
+            , (android.widget.ImageView) bindings[3]
+            , (android.widget.TextView) bindings[4]
+            , (android.widget.Button) bindings[11]
+            , (android.widget.TextView) bindings[9]
+            , (android.widget.TextView) bindings[7]
             , (android.widget.TextView) bindings[10]
             , (android.widget.TextView) bindings[8]
-            , (android.widget.TextView) bindings[11]
-            , (android.widget.TextView) bindings[9]
-            , (android.widget.LinearLayout) bindings[7]
+            , (android.widget.LinearLayout) bindings[6]
             , (androidx.appcompat.widget.Toolbar) bindings[1]
             );
         this.mboundView0 = (android.widget.RelativeLayout) bindings[0];

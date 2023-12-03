@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
@@ -10,7 +14,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
@@ -24,13 +28,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ngalo.ActionBar">
         <activity
-            android:name=".reciept.Reciepts"
+            android:name=".RidesForBooking"
+            android:label="Book Ride"
             android:exported="false"
-            android:label="Receipts"
-            android:parentActivityName=".admin.AdminPanel">
+            android:parentActivityName=".HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".admin.AdminPanel" />
+                android:value=".HomeActivity" />
         </activity>
         <activity
             android:name=".reciept.RecieptDetails"
@@ -50,13 +54,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".usersorders.History" />
         </activity>
-
         <activity
             android:name=".reciept.GenerateReceiptActivity"
             android:exported="false"
             android:label="Reciept" />
-
-
         <activity
             android:name=".auth.VerificationActivity"
             android:exported="false"
@@ -103,7 +104,7 @@
             android:label="@string/title_activity_progress"
             android:theme="@style/Theme.Ngalo.NoActionBar" />
         <activity
-            android:name=".admin.ConfirmationActivity"
+            android:name=".cart.ConfirmationActivity"
             android:exported="false"
             android:label="@string/title_activity_confirmation"
             android:theme="@style/Theme.Ngalo.NoActionBar" />
@@ -129,26 +130,6 @@
             android:exported="false"
             android:label="Completed" />
         <activity
-            android:name=".admin.AdminPanel"
-            android:exported="false"
-            android:label="@string/title_activity_admin_panel"
-            android:theme="@style/Theme.Ngalo.NoActionBar" />
-        <activity
-            android:name=".orders.OrderDetails"
-            android:exported="false"
-            android:label="Details"
-            android:theme="@style/Theme.Ngalo.NoActionBar" />
-        <activity
-            android:name=".orders.OrdersOptions"
-            android:exported="false"
-            android:label="@string/title_activity_orders"
-            android:theme="@style/Theme.Ngalo.NoActionBar" />
-        <activity
-            android:name=".admin.AdminHomePage"
-            android:exported="false"
-            android:label="Home"
-            android:theme="@style/Theme.Ngalo.NoActionBar" />
-        <activity
             android:name=".SignUp"
             android:exported="false"
             android:label="@string/title_activity_admin_home_page"
@@ -170,19 +151,6 @@
             android:exported="false"
             android:label="Profile" />
         <activity
-            android:name=".admin.AddBicyclePart"
-            android:exported="false"
-            android:label="AddBicyclePart" />
-        <activity
-            android:name=".admin.UploadItems"
-            android:exported="false"
-            android:label="@string/title_activity_upload_items"
-            android:theme="@style/Theme.Ngalo.NoActionBar" />
-        <activity
-            android:name=".HomeActivity"
-            android:exported="false"
-            android:label="Home" />
-        <activity
             android:name=".SettingsActivity"
             android:exported="false"
             android:label="Settings"
@@ -191,10 +159,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".HomeActivity" />
         </activity>
-        <activity
-            android:name=".admin.CreateAdvert"
-            android:exported="false"
-            android:label="Create Advert" />
         <activity
             android:name=".BikesScreen"
             android:exported="false"
@@ -207,9 +171,6 @@
             android:theme="@style/Theme.Ngalo.NoActionBar" />
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".admin.UploadBikeImages"
             android:exported="false" />
         <activity
             android:name=".BikesOptions"
@@ -229,7 +190,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".AdminOUserActivity"
+            android:name=".HomeActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
@@ -242,11 +203,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity
-            android:name=".SplashScreen"
-            android:exported="false"
-            android:label="@string/main_screen"
-            android:theme="@style/Theme.AppCompat" />
         <activity
             android:name=".models.BikeHireModel"
             android:exported="false"

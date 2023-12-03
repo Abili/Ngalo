@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -12,17 +13,24 @@
         android:textSize="18sp" />
 
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/ngalo_logo" />
+        android:src="@drawable/ngallo_llogo" />
+
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/signInProgress"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <EditText
         android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="30dp"
         android:drawableStart="@drawable/email"
         android:drawablePadding="10dp"
@@ -50,13 +58,13 @@
         android:id="@+id/buttonSignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="30dp"
         android:background="@drawable/border_color"
-        android:text="@string/sign_up" />
+        android:text="@string/sign_up"
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/buttonLogIn"
@@ -65,10 +73,10 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
-        android:textColor="@color/white"
         android:layout_marginEnd="30dp"
         android:background="@drawable/border_color"
-        android:text="@string/log_in" />
+        android:text="@string/log_in"
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/buttonSignOut"
@@ -88,16 +96,28 @@
         android:textColor="@color/ngalo_blue"
         android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/phonenumber"
+    <LinearLayout
+        android:id="@+id/google_sign_in"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginStart="30dp"
         android:background="@drawable/border_color"
-        android:backgroundTint="@color/white"
-        android:layout_marginEnd="30dp"
-        android:text="Google SignIn"/>
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/fui_ic_googleg_color_24dp" />
+
+        <TextView
+            android:layout_marginStart="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Google SignIn"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:textColor="@color/ngalo_blue"
+            app:drawableStartCompat="@drawable/ic_arrow_back" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -145,7 +145,7 @@ class UserProfile : AppCompatActivity() {
                         val handler = Handler()
                         handler.postDelayed({
                             binding.progressBar.visibility = View.VISIBLE
-                            startActivity(Intent(this@UserProfile, AdminOUserActivity::class.java))
+                            startActivity(Intent(this@UserProfile, HomeActivity::class.java))
                         },0)
                     }
 
