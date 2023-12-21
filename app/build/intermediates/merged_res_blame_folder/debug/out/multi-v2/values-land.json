@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-98:/values-land/values-land.xml",
+            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-103:/values-land/values-land.xml",
             "map": [
                 {
                     "source": "/Users/user/Desktop/AndroidStudioProjects/Ngalo/app/src/main/res/values-land/dimens.xml",
@@ -21,7 +21,17 @@
                     }
                 },
                 {
-                    "source": "/Users/user/.gradle/caches/transforms-3/eef2ad4625cb88521fc9c3da2693f588/transformed/material-1.10.0/res/values-land/values-land.xml",
+                    "source": "/Users/user/.gradle/caches/transforms-3/2ffbded22b94b44b7e9376df48f749a9/transformed/appcompat-1.6.1/res/values-land/values-land.xml",
+                    "from": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,125,196",
+                        "endColumns": "69,70,67",
+                        "endOffsets": "120,191,259"
+                    }
+                },
+                {
+                    "source": "/Users/user/.gradle/caches/transforms-3/383eae4fc16a3e8f4e2dcf7cc238e4ea/transformed/material-1.10.0/res/values-land/values-land.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,26,35,40",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -31,39 +41,29 @@
                         "endOffsets": "125,199,272,342,414,484,549,616,686,758,827,896,978,1068,1144,1212,1279,1357,1422,1489,1661,2230,2499,2727"
                     },
                     "to": {
-                        "startLines": "6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,31,35,44,49",
+                        "startLines": "6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,39,43,52,57",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "306,381,455,528,598,670,740,805,872,942,1014,1083,1152,1234,1324,1400,1468,1535,1613,1678,2084,2256,2825,3094",
-                        "endLines": "6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,34,43,48,51",
+                        "startOffsets": "306,381,455,528,598,670,740,805,872,942,1014,1083,1152,1234,1324,1400,1468,1535,1613,1678,2506,2678,3247,3516",
+                        "endLines": "6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,42,51,56,59",
                         "endColumns": "74,73,72,69,71,69,64,66,69,71,68,68,81,89,75,67,66,77,64,66,10,10,10,10",
-                        "endOffsets": "376,450,523,593,665,735,800,867,937,1009,1078,1147,1229,1319,1395,1463,1530,1608,1673,1740,2251,2820,3089,3317"
+                        "endOffsets": "376,450,523,593,665,735,800,867,937,1009,1078,1147,1229,1319,1395,1463,1530,1608,1673,1740,2673,3242,3511,3739"
                     }
                 },
                 {
                     "source": "/Users/user/Desktop/AndroidStudioProjects/Ngalo/app/src/main/res/values-land/strings.xml",
                     "from": {
-                        "startLines": "4,6,2,5,3",
-                        "startColumns": "4,4,4,4,4",
-                        "startOffsets": "161,331,55,255,103",
-                        "endColumns": "93,62,47,75,57",
-                        "endOffsets": "250,389,98,326,156"
+                        "startLines": "9,10,8,4,6,7,14,2,12,13,5,3,11",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "494,547,446,161,331,394,758,55,648,704,255,103,598",
+                        "endColumns": "52,50,47,93,62,51,57,47,55,53,75,57,49",
+                        "endOffsets": "542,593,489,250,389,441,811,98,699,753,326,156,643"
                     },
                     "to": {
-                        "startLines": "26,27,28,29,30",
-                        "startColumns": "4,4,4,4,4",
-                        "startOffsets": "1745,1839,1902,1950,2026",
-                        "endColumns": "93,62,47,75,57",
-                        "endOffsets": "1834,1897,1945,2021,2079"
-                    }
-                },
-                {
-                    "source": "/Users/user/.gradle/caches/transforms-3/b93092946ea890e85ea440d74e7ce3df/transformed/appcompat-1.6.1/res/values-land/values-land.xml",
-                    "from": {
-                        "startLines": "2,3,4",
-                        "startColumns": "4,4,4",
-                        "startOffsets": "55,125,196",
-                        "endColumns": "69,70,67",
-                        "endOffsets": "120,191,259"
+                        "startLines": "26,27,28,29,30,31,32,33,34,35,36,37,38",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "1745,1798,1849,1897,1991,2054,2106,2164,2212,2268,2322,2398,2456",
+                        "endColumns": "52,50,47,93,62,51,57,47,55,53,75,57,49",
+                        "endOffsets": "1793,1844,1892,1986,2049,2101,2159,2207,2263,2317,2393,2451,2501"
                     }
                 }
             ]

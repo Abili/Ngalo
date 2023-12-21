@@ -6,6 +6,8 @@ plugins {
     id 'com.google.gms.google-services'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
     id 'dagger.hilt.android.plugin'
+
+
 }
 
 android {
@@ -14,9 +16,9 @@ android {
     defaultConfig {
         applicationId "com.aisc.ngalo"
         minSdk 26
-        targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        targetSdk 34
+        versionCode 3
+        versionName "1.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -28,11 +30,20 @@ android {
             }
         }
     }
+    signingConfigs {
+        release {
+            storeFile file('/Users/user/Desktop/private_key.pepk')
+            storePassword 'mynameisA20@aisc.com'
+            keyAlias 'key0'
+            keyPassword 'mynameisA20@aisc.com'
+        }
+    }
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {
@@ -90,6 +101,7 @@ dependencies {
     implementation platform('androidx.compose:compose-bom:2023.03.00')
     implementation 'androidx.constraintlayout:constraintlayout-core:1.0.4'
     implementation platform('androidx.compose:compose-bom:2023.03.00')
+    implementation 'com.google.firebase:firebase-messaging-ktx:23.3.1'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
@@ -170,6 +182,22 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-storage:8.0.2'
     implementation 'com.google.zxing:core:3.4.1'
     implementation 'com.journeyapps:zxing-android-embedded:4.2.0'
+
+    // Import the BoM for the Firebase platform
+    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+
+    // Add the dependencies for the Crashlytics and Analytics libraries
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+//    implementation("com.google.firebase:firebase-crashlytics")
+//    implementation("com.google.firebase:firebase-analytics")
+
+    implementation 'com.google.android.gms:play-services-ads:22.6.0'
+    implementation 'com.google.android.gms:play-services-auth:20.7.0'
+    implementation 'com.google.android.gms:play-services-auth-api-phone:18.0.1'
+
+    implementation 'com.hbb20:ccp:2.5.0'
+
+
 
 
 

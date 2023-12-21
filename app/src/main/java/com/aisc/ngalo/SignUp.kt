@@ -3,31 +3,31 @@ package com.aisc.ngalo
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.preference.PreferenceManager
+import com.aisc.ngalo.auth.PhoneAuthHelper
 import com.aisc.ngalo.databinding.ActivitySignUpBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
+import com.hbb20.CountryCodePicker
 
 class SignUp : AppCompatActivity() {
 
-    // ViewBinding variable for the login form layout
     private lateinit var binding: ActivitySignUpBinding
-
-    // FirebaseAuth instance
     private lateinit var auth: FirebaseAuth
-
     private val signInLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
@@ -38,81 +38,76 @@ class SignUp : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // FirebaseDatabase.getInstance().setPersistenceEnabled(true)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        val themeOption = sharedPreferences.getString("theme", "0")
-        ThemeHelper.applyTheme(themeOption!!)
 
-
-        val ref = FirebaseDatabase.getInstance().getReference("bikes")
-        ref.keepSynced(true)
+        // Initialize Firebase
         FirebaseApp.initializeApp(this)
+        val ref = FirebaseDatabase.getInstance()
+        ref.setPersistenceEnabled(true)
+
         // Initialize FirebaseAuth
         auth = FirebaseAuth.getInstance()
-
-        if (auth.currentUser != null) {
-            // User is already signed in, skip the sign-up screen
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
+        if (auth.currentUser!=null){
+            startActivity(Intent(this@SignUp, HomeActivity::class.java))
             finish()
+
         }
+
+
+        // Set up click listener for phone authentication
+        binding.phoneAuth.setOnClickListener {
+            signIn("phone")
+            binding.phoneauthLayout!!.visibility = View.VISIBLE
+            binding.verifyCode!!.visibility = View.VISIBLE
+            binding.phoneAuth.visibility = View.GONE
+        }
+
         // Set up click listener for the "Sign Up" button
-        binding.buttonSignUp.setOnClickListener {
-            // Get the email and password from the form
-            val email = binding.editTextEmail.text.toString()
-            val password = binding.editTextPassword.text.toString()
+        binding.verifyCode!!.setOnClickListener {
+            binding.phoneAuth.visibility = View.VISIBLE
+            binding.verifyCode!!.visibility = View.GONE
 
-            // Create a new account with the email and password
-            auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    // Account creation successful
-                    Log.d(TAG, "createUserWithEmail:success")
-                    val user = auth.currentUser
-                    updateUI(user)
-                    startActivity(Intent(this, UserProfile::class.java))
-                    finish()
-                } else {
-                    // Account creation failed
-                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(
-                        baseContext, "Authentication failed.", Toast.LENGTH_SHORT
-                    ).show()
-                    updateUI(null)
+            // Get the phone number from the form
+            val countryCodePicker: CountryCodePicker = findViewById(R.id.ccp)
+            val countryCode = countryCodePicker.selectedCountryCode
+            val phoneNumber = binding.editTextPhone.text?.toString()
+
+            if (!phoneNumber.isNullOrEmpty()) {
+                binding.signInProgress.visibility = View.VISIBLE
+                val phone = "+$countryCode$phoneNumber"
+
+                // Send verification code
+                PhoneAuthHelper(this).sendVerificationCode(phone) { success ->
+                    if (success) {
+                        binding.signInProgress.visibility = View.GONE
+                        Snackbar.make(
+                            binding.root, "Verification Successful", Snackbar.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        if (binding.phoneAuth.visibility == View.GONE) {
+                            binding.phoneAuth.visibility = View.VISIBLE
+                        }
+                        Snackbar.make(
+                            binding.root, "Verification failed. Try Again", Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
                 }
+            } else {
+                Snackbar.make(
+                    binding.root, "PhoneNumber Required!", Snackbar.LENGTH_SHORT
+                ).show()
             }
         }
 
-        // Set up click listener for the "Log In" button
-        binding.buttonLogIn.setOnClickListener {
-            // Get the email and password from the form
-            val email = binding.editTextEmail.text.toString()
-            val password = binding.editTextPassword.text.toString()
-
-            // Log in with the email and password
-            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    // Log in successful
-                    Log.d(TAG, "signInWithEmail:success")
-                    val user = auth.currentUser
-                    updateUI(user)
-                    startActivity(Intent(this, UserProfile::class.java))
-                    finish()
-                } else {
-                    // Log in failed
-                    Log.w(TAG, "signInWithEmail:failure", task.exception)
-                    Toast.makeText(
-                        baseContext, "Authentication failed.", Toast.LENGTH_SHORT
-                    ).show()
-                    updateUI(null)
-                }
-            }
-        }
+        // Set up click listener for sign-out
         binding.buttonSignOut.setOnClickListener {
             signOut()
         }
+
+        // Set up click listener for Google sign-in
         binding.googleSignIn.setOnClickListener {
+            signIn("google")
             binding.signInProgress.visibility = View.VISIBLE
             signInWithGoogle(this)
         }
@@ -129,7 +124,21 @@ class SignUp : AppCompatActivity() {
         signInLauncher.launch(signInIntent)
     }
 
+    private fun signIn(method: String) {
+        // Store sign-in method in shared preferences
+        val sharedPreferences: SharedPreferences =
+            getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+        editor.putString("signInMethod", method)
+        editor.apply()
+
+        // Store sign-in state
+        editor.putBoolean("isSignedIn", true)
+        editor.apply()
+    }
+
     private fun handleSignInResult(data: Intent?) {
+        // Handle result of Google sign-in
         val task = GoogleSignIn.getSignedInAccountFromIntent(data)
         try {
             if (task.isSuccessful) {
@@ -146,11 +155,12 @@ class SignUp : AppCompatActivity() {
     }
 
     private fun firebaseAuthWithGoogle(idToken: String?) {
+        // Authenticate with Firebase using Google credentials
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
                 val user = auth.currentUser
-                updateUI(user)
+                uploadImageToStorage(user!!.photoUrl!!)
                 binding.signInProgress.visibility = View.GONE
             } else {
                 Toast.makeText(
@@ -160,29 +170,57 @@ class SignUp : AppCompatActivity() {
         }
     }
 
-    // Update the UI based on the current user
+    private fun uploadImageToStorage(imageUri: Uri) {
+        val currentUser = auth.currentUser
+        val storageRef = FirebaseStorage.getInstance().reference
+        val imageRef = storageRef.child("profile_images/${FirebaseAuth.getInstance().currentUser!!.uid}")
+        val uploadTask = imageRef.putFile(imageUri)
+
+        uploadTask.continueWithTask { task ->
+            if (!task.isSuccessful) {
+                task.exception?.let {
+                    throw it
+                }
+            }
+            imageRef.downloadUrl
+        }.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                // Image uploaded successfully, get the download URL
+                val downloadUrl = task.result
+                // Pass the download URL to the updateUI method
+                updateUI(currentUser, downloadUrl)
+            } else {
+                // Handle failure
+                Snackbar.make(binding.root, "Failed To Create Profile !!", Snackbar.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     @SuppressLint("StringFormatInvalid")
-    private fun updateUI(currentUser: FirebaseUser?) {
+    private fun updateUI(currentUser: FirebaseUser?, downloadUrl: Uri?) {
         if (currentUser != null) {
-            // User is signed in, show the main app screen
             binding.textViewStatus.text = getString(R.string.status_signed_in, currentUser.email)
-            binding.buttonSignUp.visibility = View.GONE
-            binding.buttonLogIn.visibility = View.GONE
+            binding.phoneAuth.visibility = View.GONE
             binding.buttonSignOut.visibility = View.VISIBLE
 
-            // Successfully signed in, navigate to the next screen
-            // navController.navigate(Screens.AdminOrUser.route)
-            startActivity(Intent(this, HomeActivity::class.java))
+            // Successfully signed in, navigate to UserProfile
+            // ...
+            val intent = Intent(this, UserProfile::class.java)
+            intent.putExtra("signInMethod", getSignInMethod())
+            intent.putExtra("imageUrl", downloadUrl.toString()) // Pass the download URL as a string
+            intent.putExtra("email", currentUser.email)
+            intent.putExtra("name", currentUser.displayName)
+            startActivity(intent)
+            finish()
+            // ...
+
             Toast.makeText(
                 this, "You are signed in as: ${currentUser.displayName}", Toast.LENGTH_SHORT
             ).show()
             finish()
-
         } else {
-            // User is signed out, show the login form
             binding.textViewStatus.text = getString(R.string.status_signed_out)
-            binding.buttonSignUp.visibility = View.VISIBLE
-            binding.buttonLogIn.visibility = View.VISIBLE
+            binding.phoneAuth.visibility = View.VISIBLE
             binding.buttonSignOut.visibility = View.GONE
 
             Toast.makeText(
@@ -191,14 +229,19 @@ class SignUp : AppCompatActivity() {
         }
     }
 
-    // Sign out the current user
     private fun signOut() {
         auth.signOut()
-        updateUI(null)
+        updateUI(auth.currentUser, auth.currentUser!!.photoUrl)
+    }
+
+    private fun getSignInMethod(): String {
+        // Retrieve sign-in method from shared preferences
+        val sharedPreferences: SharedPreferences =
+            getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+        return sharedPreferences.getString("signInMethod", "") ?: ""
     }
 
     companion object {
         private const val TAG = "MainActivity"
     }
 }
-

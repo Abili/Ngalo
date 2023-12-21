@@ -12,6 +12,7 @@ import com.aisc.ngalo.databinding.BookRideItemBinding
 import com.aisc.ngalo.models.BookRide
 import com.aisc.ngalo.rides.RidesActivity
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -52,37 +53,65 @@ class RideAdapter : RecyclerView.Adapter<RideAdapter.RideViewHolder>() {
 
         fun bind(ride: BookRide) {
             // Bind the data to the views
-            binding.name.text = ride.name
-            binding.distance.text = ride.distance
-            binding.date.text = "Start Date: ${ride.date}"
-            binding.time.text = "Start Time: ${ride.time}"
+            binding.name.text = "${ride.name}"
+            binding.distance.text = "${ride.distance}"
+            binding.date.text = "${ride.date}"
+            binding.time.text = "${ride.time}"
+            binding.meetingTime.text = "${ride.meetingTime}"
+            binding.meetingPoint.text = "${ride.meetingPlace}"
+            binding.moreinfo.text = "${ride.moreInfo}"
 
+            val uid = FirebaseAuth.getInstance().currentUser!!.uid
             val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(itemView.context)
             var isRideBooked = sharedPreferences.getBoolean(ride.rideId, false)
             val bookRideRef = FirebaseDatabase.getInstance().reference.child("bookedRides")
             val mBookedRideRef = FirebaseDatabase.getInstance().reference.child("bookride")
+            val mUsers = FirebaseDatabase.getInstance().reference.child("users").child(uid)
+            mUsers.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val username = snapshot.child("username").getValue(String::class.java)
+                    val phone = snapshot.child("phone").getValue(String::class.java)
+                    val imageUrl = snapshot.child("imageUrl").getValue(String::class.java)
+                    binding.bookride.setOnClickListener {
+                        isRideBooked = true
 
-            binding.bookride.setOnClickListener {
-                isRideBooked = true
+                        // Book the ride
+                        val bookedRide = BookRide(
+                            ride.rideId,
+                            ride.name,
+                            ride.distance,
+                            ride.date,
+                            ride.time,
+                            true,
+                            username,
+                            phone,
+                            imageUrl,
+                            ride.meetingPlace,
+                            ride.meetingTime,
+                            ride.moreInfo
+                        )
+                        bookRideRef.child(ride.rideId!!).setValue(bookedRide)
 
-                // Book the ride
-                val bookedRide = BookRide(
-                    ride.rideId, ride.name, ride.distance, ride.date, ride.time, true
-                )
+                        // Save the booking state in SharedPreferences
+                        sharedPreferences.edit().putBoolean(ride.rideId, true).apply()
 
-                // Save the booking state in SharedPreferences
-                sharedPreferences.edit().putBoolean(ride.rideId, true).apply()
+                        // Update the UI
+                        updateButtonVisibility(isRideBooked)
+                        notifyDataSetChanged()
 
-                // Update the UI
-                updateButtonVisibility(isRideBooked)
-                notifyDataSetChanged()
+                        // Show a Snackbar
+                        Snackbar.make(itemView, "${ride.name} Booked", Snackbar.LENGTH_SHORT).show()
 
-                // Show a Snackbar
-                Snackbar.make(itemView, "${ride.name} Booked", Snackbar.LENGTH_SHORT).show()
+                        // Offer to add the ride to the user's calendar
+                        offerToAddToCalendar(bookedRide, itemView.context)
+                    }
 
-                // Offer to add the ride to the user's calendar
-                offerToAddToCalendar(bookedRide, itemView.context)
-            }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+            })
 
 
             val customFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME
@@ -139,9 +168,15 @@ class RideAdapter : RecyclerView.Adapter<RideAdapter.RideViewHolder>() {
             val intent = Intent(Intent.ACTION_INSERT)
                 .setData(CalendarContract.Events.CONTENT_URI)
                 .putExtra(CalendarContract.Events.TITLE, "Ride: ${bookedRide.name}")
-                .putExtra(CalendarContract.Events.DESCRIPTION, "Details for the ride: ${bookedRide.distance}")
+                .putExtra(
+                    CalendarContract.Events.DESCRIPTION,
+                    "Details for the ride: ${bookedRide.distance}"
+                )
                 //.putExtra(CalendarContract.Events.EVENT_LOCATION, "Location: ${bookedRide.location}")
-                .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, getDateTimeInMillis(bookedRide.date!!, bookedRide.time!!))
+                .putExtra(
+                    CalendarContract.EXTRA_EVENT_BEGIN_TIME,
+                    getDateTimeInMillis(bookedRide.date!!, bookedRide.time!!)
+                )
 
             if (intent.resolveActivity(context.packageManager) != null) {
                 // There's an app that can handle this Intent, prompt the user to choose an app
@@ -160,7 +195,6 @@ class RideAdapter : RecyclerView.Adapter<RideAdapter.RideViewHolder>() {
         }
 
 
-
         private fun updateButtonVisibility(
             isRideBooked: Boolean,
             localDateTime: LocalDateTime = LocalDateTime.now(),
@@ -171,14 +205,20 @@ class RideAdapter : RecyclerView.Adapter<RideAdapter.RideViewHolder>() {
 
             // Show cancelride button if the ride is booked and the date and time conditions are not met
             binding.cancelride.visibility =
-                if (isRideBooked && !(localDateTime.isEqual(firebaseDateTime) || localDateTime.isAfter(firebaseDateTime)))
+                if (isRideBooked && !(localDateTime.isEqual(firebaseDateTime) || localDateTime.isAfter(
+                        firebaseDateTime
+                    ))
+                )
                     View.VISIBLE
                 else
                     View.GONE
 
             // Show startride button if the ride is booked and the date and time conditions are met
             binding.startRide.visibility =
-                if (isRideBooked && (localDateTime.isEqual(firebaseDateTime) || localDateTime.isAfter(firebaseDateTime)))
+                if (isRideBooked && (localDateTime.isEqual(firebaseDateTime) || localDateTime.isAfter(
+                        firebaseDateTime
+                    ))
+                )
                     View.VISIBLE
                 else
                     View.GONE

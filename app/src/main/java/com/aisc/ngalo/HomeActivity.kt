@@ -5,61 +5,65 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import com.aisc.ngalo.cart.CartActivity
-import com.aisc.ngalo.cart.CartRepository
 import com.aisc.ngalo.cart.CartViewModel
 import com.aisc.ngalo.cart.CartViewModelFactory
 import com.aisc.ngalo.databinding.ActivityHomeBinding
-import com.aisc.ngalo.rides.RidesActivity
 import com.aisc.ngalo.usersorders.History
 import com.bumptech.glide.Glide
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class HomeActivity : AppCompatActivity() {
-    lateinit var binding: ActivityHomeBinding
-    private val locationPermissionCode = 42
+    private val LOCATION_PERMISSION_CODE = 42
+    private lateinit var binding: ActivityHomeBinding
+    private lateinit var cartViewModel: CartViewModel
 
     // Access the CartRepository using the application instance
-    private val cartRepository: CartRepository
-        get() = (application as NgaloApplication).cartRepository
 
     // Access the CartViewModel using the CartRepository
-    private val cartViewModel: CartViewModel by viewModels {
-        CartViewModelFactory(cartRepository)
-    }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val theme = PreferenceManager.getDefaultSharedPreferences(this).getString("theme", "system")
-            ?: "system"
-        ThemeHelper.applyTheme(theme)
-
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val currentUser = FirebaseAuth.getInstance().currentUser
-        // Check if location permission is granted
+        // Set Firebase Database persistence
 
+        val theme = PreferenceManager.getDefaultSharedPreferences(this).getString("theme", "system")
+            ?: "system"
+        ThemeHelper.applyTheme(theme)
+        appLogic()
+
+
+    }
+
+    private fun appLogic() {
+        val currentUser = FirebaseAuth.getInstance().currentUser
         if (currentUser != null) {
             val currentUserUID = currentUser.uid
             // do something with currentUserUID
-            val userRef =
-                FirebaseDatabase.getInstance().reference.child("users").child(currentUserUID)
+            val userRef = FirebaseDatabase
+                .getInstance()
+                .reference
+                .child("users")
+                .child(currentUserUID)
             userRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (!snapshot.exists()) {
-                        startActivity(Intent(this@HomeActivity, UserProfile::class.java))
+                        startActivity(Intent(this@HomeActivity, SignUp::class.java))
                         finish()
                     }
                 }
@@ -76,31 +80,31 @@ class HomeActivity : AppCompatActivity() {
             finish()
         }
 
-        if (isLocationPermissionGranted()) {
-            // Location permission is granted, proceed with your app logic
-            appLogic()
-            // ...
-        } else {
-            // Location permission is not granted, request it
-            requestLocationPermission()
+        cartViewModel =
+            ViewModelProvider(
+                this,
+                CartViewModelFactory()
+            )[CartViewModel::class.java]
+
+        MobileAds.initialize(this) { initiallized ->
+            if (initiallized.equals(true)) {
+                val adRequest = AdRequest.Builder().build()
+                binding.adView!!.loadAd(adRequest)
+            }
         }
 
 
-    }
-
-    private fun appLogic() {
-        // cartViewModel = ViewModelProvider(this)[CartViewModel::class.java]
+        // Example: Update the cart count when the data changes
         cartViewModel.getCartItemsCount()
-
         cartViewModel.observeCartItemsCount().observe(this) { count ->
-            // Update your UI with the count of items in the cart
             binding.cartHomeText.text = count.toString()
         }
 
+        // Example: Handle button clicks
         binding.buy.setOnClickListener {
             val intent = Intent(this, BikesOptions::class.java)
             intent.putExtra("position", 0)
-            startActivity(Intent(intent))
+            startActivity(intent)
         }
         binding.hire.setOnClickListener {
             val intent = Intent(this, BikesOptions::class.java)
@@ -121,12 +125,24 @@ class HomeActivity : AppCompatActivity() {
             val intent = Intent(this, RidesForBooking::class.java)
             startActivity(Intent(intent))
         }
+        binding.lessons.setOnClickListener {
+            val intent = Intent(this, BookRidingLessons::class.java)
+            startActivity(Intent(intent))
+        }
 
         val addRef = FirebaseDatabase.getInstance().reference.child("adverts")
         addRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val ads = snapshot.child("imageUrl").getValue(String::class.java)
-                Glide.with(binding.root).load(ads).into(binding.ngaloAd)
+                if (snapshot.exists()) {
+                    val ads = snapshot.child("imageUrl").getValue(String::class.java)
+                    Glide.with(binding.root).load(ads).into(binding.ngaloAd)
+                } else {
+                    Glide
+                        .with(binding.root)
+                        .load(R.drawable.placeholder_with)
+                        .into(binding.ngaloAd)
+
+                }
 
             }
 
@@ -154,6 +170,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+
     private fun isLocationPermissionGranted(): Boolean {
         return ContextCompat.checkSelfPermission(
             this, Manifest.permission.ACCESS_FINE_LOCATION
@@ -162,7 +179,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun requestLocationPermission() {
         ActivityCompat.requestPermissions(
-            this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), locationPermissionCode
+            this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_CODE
         )
     }
 
@@ -170,7 +187,7 @@ class HomeActivity : AppCompatActivity() {
         requestCode: Int, permissions: Array<String>, grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == locationPermissionCode) {
+        if (requestCode == LOCATION_PERMISSION_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Location permission granted, proceed with your app logic
                 appLogic()
@@ -181,6 +198,11 @@ class HomeActivity : AppCompatActivity() {
                 // ...
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        appLogic()
     }
 
 }

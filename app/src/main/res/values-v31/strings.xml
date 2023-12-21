@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="log_in">LogIn</string>
+    <string name="cancel_ride">Cancel Ride</string>
+    <string name="book_ride">book Ride</string>
+    <string name="_01_12_20023">01/12/20023</string>
+    <string name="_21km_1day">21km (1day)</string>
+    <string name="start_ride">Start Ride</string>
+    <string name="meeting_point">Meeting Point</string>
+    <string name="meeting_time">Meeting Time</string>
 </resources>

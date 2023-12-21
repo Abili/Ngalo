@@ -15,7 +15,10 @@ import com.aisc.ngalo.models.Category
 import com.aisc.ngalo.util.CurrencyUtil
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -72,32 +75,28 @@ class BikesPartsAdapter(var viewModel: CartViewModel?) :
 
 
     inner class ViewHolder(
-        itemView: View,
-        private val listener: OnCartUpdatedListener?
-    ) :
-        RecyclerView.ViewHolder(itemView) {
+        itemView: View, private val listener: OnCartUpdatedListener?
+    ) : RecyclerView.ViewHolder(itemView) {
         private lateinit var auth: FirebaseAuth
         private val binding: BikeItemBinding = BikeItemBinding.bind(itemView)
         fun bind(bike: Bike) {
             val cartItems = mutableListOf<Item>()
             auth = FirebaseAuth.getInstance()
+            val priceWithoutCommas = if (bike.price!!.contains(",")) {
+                bike.price.replace(",", "").toInt()
+            } else {
+                bike.price.toInt()
+            }
             //current user's profile pic
             if (auth.currentUser!!.photoUrl.toString().isNotEmpty()) {
-                Glide
-                    .with(binding.root)
-                    .load(bike.imageUrl)
-                    .centerInside()
-                    .into(binding.bikeImage);
+                Glide.with(binding.root).load(bike.imageUrl).centerInside().into(binding.bikeImage);
             } else {
-                Glide
-                    .with(binding.root)
-                    .load(R.drawable.placeholder_with)
-                    .centerInside()
+                Glide.with(binding.root).load(R.drawable.placeholder_with).centerInside()
                     .into(binding.bikeImage);
             }
             binding.textBikeName.text = bike.name
             binding.textViewPrice.text =
-                CurrencyUtil.formatCurrency(bike.price!!.replace(",", "").toInt(), "UGX")
+                CurrencyUtil.formatCurrency(priceWithoutCommas, "UGX")
             binding.textViewDesc.text = bike.description
             binding.deleteBike.setOnClickListener {
                 val hire = FirebaseDatabase.getInstance().reference.child("bikes").child("hire")
@@ -125,11 +124,13 @@ class BikesPartsAdapter(var viewModel: CartViewModel?) :
 //            cartItems.add(Item(bike.name, bike.price.toInt(), bike.imageUrl))
                 viewModel = ViewModelProvider(activity)[CartViewModel::class.java]
                 CoroutineScope(Dispatchers.IO).launch {
+
+
                     viewModel?.addItem(
                         CartItem(
                             UUID.randomUUID().toString(),
                             bike.name,
-                            bike.price.replace(",", "").toInt(),
+                            priceWithoutCommas,
                             bike.imageUrl!!,
                             1,
                             position++,
@@ -151,8 +152,7 @@ class BikesPartsAdapter(var viewModel: CartViewModel?) :
                         val itemNames = cartItems.joinToString(separator = "\n") { it.name!! }
                         val itemPrices =
                             cartItems.joinToString(separator = "\n") { it.price.toString() }
-                        val items = itemNames.split("\n")
-                            .zip(itemPrices.split("\n"))
+                        val items = itemNames.split("\n").zip(itemPrices.split("\n"))
                             .joinToString(separator = "\n") { (name, price) -> "$name ($price)" }
                         val message = "Added to cart:\n$items"
                         //Toast.makeText(itemView.context, message, Toast.LENGTH_SHORT).show()
@@ -160,6 +160,41 @@ class BikesPartsAdapter(var viewModel: CartViewModel?) :
                 }
                 //listener?.onCartUpdated(cartItems.size)
                 //cartItem.text = "0"
+            }
+
+//            val adminref = FirebaseDatabase.getInstance().reference.child("users")
+//            adminref.addListenerForSingleValueEvent(object : ValueEventListener {
+//                override fun onDataChange(snapshot: DataSnapshot) {
+//                    for (adminsnap in snapshot.children) {
+//                        val category = adminsnap.child("category").getValue(String::class.java)
+//                        if (category == "admin") {
+//                            binding.deleteBike.visibility = View.VISIBLE
+//                        }
+//                    }
+//                }
+//
+//                override fun onCancelled(error: DatabaseError) {
+//                    //error
+//                }
+//            })
+
+            binding.deleteBike.setOnClickListener {
+                val bikepart = FirebaseDatabase.getInstance().reference.child("bikepart")
+                bikepart.addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        for (bikeSnap in snapshot.children) {
+                            val pushkey = bikeSnap.key
+                            if (pushkey == bike.id) {
+                                bikepart.child(pushkey).removeValue()
+                            }
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+                })
+
             }
 
         }

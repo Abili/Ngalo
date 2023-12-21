@@ -15,6 +15,21 @@
         android:layout_height="match_parent"
         tools:context=".MapsActivities.MapsActivity" />
 
+    <com.google.android.gms.ads.AdView
+        android:elevation="5dp"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="52dp"
+        app:adSize="BANNER"
+        app:adUnitId="ca-app-pub-3940256099942544/6300978111"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
     <LinearLayout
         android:id="@+id/bottomSheet"
         android:layout_width="match_parent"
@@ -26,6 +41,7 @@
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <TextView
+            android:id="@+id/bottomSheet_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/ngalo_blue"

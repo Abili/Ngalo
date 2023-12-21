@@ -15,11 +15,62 @@
       },
       "oauth_client": [
         {
-          "client_id": "241682691747-36pah3ljqvi8i8khbohggp6mrkkdp3v0.apps.googleusercontent.com",
+          "client_id": "241682691747-omal32ashoa608h7b7dgrno4cf5d1aea.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aisc.ngalo",
+            "certificate_hash": "fefae0dc1d340ee3d88be651d5a692929dc0f111"
+          }
+        },
+        {
+          "client_id": "241682691747-kfp98torgpsqnudr584a8hp4gubma1fj.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
+        {
+          "current_key": "AIzaSyBq9LKJGuIJR6RHy3kR4bjATd_CGNBcy_Q"
+        },
+        {
+          "current_key": "AIzaSyAukVqs-djwOxBK-cIcpL47yufheB6YzaQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "241682691747-36pah3ljqvi8i8khbohggp6mrkkdp3v0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:241682691747:android:d4d19737bb098647f47116",
+        "android_client_info": {
+          "package_name": "com.aisc.ngaloadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "241682691747-i9fc3pq99hc6vn8rigt8ln22lso13jrb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aisc.ngaloadmin",
+            "certificate_hash": "fefae0dc1d340ee3d88be651d5a692929dc0f111"
+          }
+        },
+        {
+          "client_id": "241682691747-kfp98torgpsqnudr584a8hp4gubma1fj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBq9LKJGuIJR6RHy3kR4bjATd_CGNBcy_Q"
+        },
         {
           "current_key": "AIzaSyAukVqs-djwOxBK-cIcpL47yufheB6YzaQ"
         }

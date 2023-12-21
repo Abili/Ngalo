@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
@@ -21,8 +22,42 @@ public abstract class ActivityUserProfileBinding extends ViewDataBinding {
   @NonNull
   public final EditText editTextPhone;
 
+  /**
+   * This binding is not available in all configurations.
+   * <p>
+   * Present:
+   * <ul>
+   *   <li>layout/</li>
+   * </ul>
+   *
+   * Absent:
+   * <ul>
+   *   <li>layout-land/</li>
+   *   <li>layout-sw600dp/</li>
+   * </ul>
+   */
+  @Nullable
+  public final LinearLayout editTextPhonelayout;
+
   @NonNull
   public final EditText editTextTextEmailAddress;
+
+  /**
+   * This binding is not available in all configurations.
+   * <p>
+   * Present:
+   * <ul>
+   *   <li>layout/</li>
+   * </ul>
+   *
+   * Absent:
+   * <ul>
+   *   <li>layout-land/</li>
+   *   <li>layout-sw600dp/</li>
+   * </ul>
+   */
+  @Nullable
+  public final LinearLayout editTextTextEmailAddresslayout;
 
   @NonNull
   public final EditText editTextTextPersonFirstName;
@@ -42,20 +77,59 @@ public abstract class ActivityUserProfileBinding extends ViewDataBinding {
   @NonNull
   public final ProgressBar progressBar;
 
+  /**
+   * This binding is not available in all configurations.
+   * <p>
+   * Present:
+   * <ul>
+   *   <li>layout/</li>
+   * </ul>
+   *
+   * Absent:
+   * <ul>
+   *   <li>layout-land/</li>
+   *   <li>layout-sw600dp/</li>
+   * </ul>
+   */
+  @Nullable
+  public final Button verifEmail;
+
+  /**
+   * This binding is not available in all configurations.
+   * <p>
+   * Present:
+   * <ul>
+   *   <li>layout/</li>
+   * </ul>
+   *
+   * Absent:
+   * <ul>
+   *   <li>layout-land/</li>
+   *   <li>layout-sw600dp/</li>
+   * </ul>
+   */
+  @Nullable
+  public final Button verifPhone;
+
   protected ActivityUserProfileBinding(Object _bindingComponent, View _root, int _localFieldCount,
-      EditText editTextPhone, EditText editTextTextEmailAddress,
-      EditText editTextTextPersonFirstName, EditText editTextTextPersonLastName,
-      CircleImageView imageView, RelativeLayout imageviewLayout, Button profileCreateButton,
-      ProgressBar progressBar) {
+      EditText editTextPhone, LinearLayout editTextPhonelayout, EditText editTextTextEmailAddress,
+      LinearLayout editTextTextEmailAddresslayout, EditText editTextTextPersonFirstName,
+      EditText editTextTextPersonLastName, CircleImageView imageView,
+      RelativeLayout imageviewLayout, Button profileCreateButton, ProgressBar progressBar,
+      Button verifEmail, Button verifPhone) {
     super(_bindingComponent, _root, _localFieldCount);
     this.editTextPhone = editTextPhone;
+    this.editTextPhonelayout = editTextPhonelayout;
     this.editTextTextEmailAddress = editTextTextEmailAddress;
+    this.editTextTextEmailAddresslayout = editTextTextEmailAddresslayout;
     this.editTextTextPersonFirstName = editTextTextPersonFirstName;
     this.editTextTextPersonLastName = editTextTextPersonLastName;
     this.imageView = imageView;
     this.imageviewLayout = imageviewLayout;
     this.profileCreateButton = profileCreateButton;
     this.progressBar = progressBar;
+    this.verifEmail = verifEmail;
+    this.verifPhone = verifPhone;
   }
 
   @NonNull

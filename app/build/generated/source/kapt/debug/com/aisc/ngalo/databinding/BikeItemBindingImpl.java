@@ -19,12 +19,12 @@ public class BikeItemBindingImpl extends BikeItemBinding  {
         sViewsWithIds.put(R.id.textBikeName, 3);
         sViewsWithIds.put(R.id.textViewPrice, 4);
         sViewsWithIds.put(R.id.textViewDesc, 5);
-        sViewsWithIds.put(R.id.deleteBike, 6);
-        sViewsWithIds.put(R.id.add_to_cart, 7);
+        sViewsWithIds.put(R.id.add_to_cart, 6);
+        sViewsWithIds.put(R.id.deleteBike, 7);
     }
     // views
     @NonNull
-    private final android.widget.LinearLayout mboundView0;
+    private final androidx.constraintlayout.widget.ConstraintLayout mboundView0;
     // variables
     // values
     // listeners
@@ -35,15 +35,15 @@ public class BikeItemBindingImpl extends BikeItemBinding  {
     }
     private BikeItemBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 0
-            , (android.widget.TextView) bindings[7]
+            , (android.widget.TextView) bindings[6]
             , (android.widget.ImageView) bindings[1]
-            , (android.widget.ImageView) bindings[6]
+            , (android.widget.ImageView) bindings[7]
             , (android.widget.TextView) bindings[3]
             , (android.widget.TextView) bindings[5]
             , (android.widget.TextView) bindings[4]
             , (android.widget.LinearLayout) bindings[2]
             );
-        this.mboundView0 = (android.widget.LinearLayout) bindings[0];
+        this.mboundView0 = (androidx.constraintlayout.widget.ConstraintLayout) bindings[0];
         this.mboundView0.setTag(null);
         setRootTag(root);
         // listeners

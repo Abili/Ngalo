@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-98:/values-sw360dp-v13/values-sw360dp-v13.xml",
+            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-103:/values-sw360dp-v13/values-sw360dp-v13.xml",
             "map": [
                 {
-                    "source": "/Users/user/.gradle/caches/transforms-3/3a657a803b2c975879f8ba5e66a06406/transformed/preference-1.2.1/res/values-sw360dp-v13/values-sw360dp-v13.xml",
+                    "source": "/Users/user/.gradle/caches/transforms-3/a8a88d13df346f75081dfc522c292d37/transformed/preference-1.2.1/res/values-sw360dp-v13/values-sw360dp-v13.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "/Users/user/.gradle/caches/transforms-3/b52d14157e175f932d506109f979e9cb/transformed/jetified-firebase-ui-auth-8.0.2/res/values-sw360dp-v13/values-sw360dp-v13.xml",
+                    "source": "/Users/user/.gradle/caches/transforms-3/2993d04caf999c53ab9f884706699e6d/transformed/jetified-firebase-ui-auth-8.0.2/res/values-sw360dp-v13/values-sw360dp-v13.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8",
                         "startColumns": "4,4,4,4,4,4,4",

@@ -1,15 +1,15 @@
 package com.aisc.ngalo.cart
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
-class CartViewModel(private val cartRepository: CartRepository) : ViewModel() {
-
+class CartViewModel(application: Application) : AndroidViewModel(application) {
+    private val cartRepository = CartRepository()
 
     //private val locationRepository: LocationRepository = LocationRepository(this.getApplication())
     private val _cartItems = MutableLiveData<List<CartItem>>()

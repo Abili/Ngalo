@@ -3,18 +3,18 @@
     <style name="Theme.Ngalo" parent="Theme.MaterialComponents.DayNight">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/ngalo_blue</item>
-        <item name="colorOnPrimary">@color/ngalo_blue</item> <!-- Text color on primary -->
+        <item name="colorOnPrimary">@color/ngalo_green</item> <!-- Text color on primary -->
 
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/ngalo_blue</item>
-        <item name="colorOnSecondary">@color/ngalo_blue</item> <!-- Text color on secondary -->
+        <item name="colorOnSecondary">@color/ngalo_green</item> <!-- Text color on secondary -->
 
         <!-- Background colors -->
         <item name="android:colorBackground">@color/ngalo_green</item> <!-- Background color -->
         <item name="android:windowBackground">@color/black</item> <!-- Window background color -->
 
         <!-- Text colors -->
-        <item name="android:textColorPrimary">@color/ngalo_blue</item> <!-- Primary text color -->
+        <item name="android:textColorPrimary">@color/ngalo_green</item> <!-- Primary text color -->
         <item name="android:textColorSecondary">@color/white</item> <!-- Secondary text color -->
         <item name="android:textColorPrimaryInverse">@color/black</item> <!-- Primary text color on inverse background -->
         <item name="android:textColorSecondaryInverse">@color/white</item> <!-- Secondary text color on inverse background -->

@@ -10,6 +10,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aisc.ngalo.databinding.FragmentBikeForPurchaseBinding
 import com.aisc.ngalo.models.Bike
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import com.google.firebase.FirebaseApp
 import com.google.firebase.database.*
 import kotlinx.coroutines.Dispatchers
@@ -49,20 +51,17 @@ class BikeForPurchaseFragment : Fragment() {
                 BikeViewModel.BikeViewModelFactory(repository)
             )[BikeViewModel::class.java]
 
+        MobileAds.initialize(requireContext()) { initiallized ->
+            if (initiallized.equals(true)) {
+                val adRequest = AdRequest.Builder().build()
+                binding.adView.loadAd(adRequest)
+            }
+        }
+
         lifecycleScope.launch(Dispatchers.IO) {
             bikeViewModel.fetchData()
             withContext(Dispatchers.Main) {
-//                binding.bikeRecyclerView.adapter = bikesAdapter
 
-//                bikeViewModel.getAllBikes().observe(this@BikesScreen) {
-//                    Toast.makeText(this@BikesScreen, it.toString(), Toast.LENGTH_SHORT).show()
-//                    bikesAdapter.currentList
-//                    binding.bikeRecyclerView.layoutManager = LinearLayoutManager(this@BikesScreen)
-//                }
-//                bikeViewModel.getAllBikes().observe(this@BikesScreen) {
-//                    //update UI
-//                    binding.bikeRecyclerView.adapter = bikesAdapter
-//                }
                 bikesAdapter = BikesForPurchaseAdapter(null)
                 binding.bikepurchaseRecyclerView.adapter = bikesAdapter
                 binding.bikepurchaseRecyclerView.layoutManager = LinearLayoutManager(
@@ -96,9 +95,7 @@ class BikeForPurchaseFragment : Fragment() {
             }
 
         }
-//        binding.fbAddBike.setOnClickListener {
-//            startActivity(Intent(this@BikesScreen, UploadImages::class.java))
-//        }
+
     }
 
     override fun onDestroy() {

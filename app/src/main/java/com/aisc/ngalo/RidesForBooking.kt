@@ -32,7 +32,19 @@ class RidesForBooking : AppCompatActivity() {
                     val time = ridesnap.child("time").getValue(String::class.java)
                     val distance = ridesnap.child("distance").getValue(String::class.java)
                     val name = ridesnap.child("name").getValue(String::class.java)
-                    val rides = BookRide(rideId, name, distance, date, time)
+                    val meetingPlace = ridesnap.child("meetingPlace").getValue(String::class.java)
+                    val meetingTime = ridesnap.child("meetingTime").getValue(String::class.java)
+                    val moreInfo = ridesnap.child("moreinfor").getValue(String::class.java)
+                    val rides =
+                        BookRide(rideId, name, distance, date, time,
+                            null,
+                            null,
+                            null,
+                            null,
+                            meetingPlace,
+                            meetingTime,
+                            moreInfo
+                        )
 
                     adapter.add(rides)
                 }

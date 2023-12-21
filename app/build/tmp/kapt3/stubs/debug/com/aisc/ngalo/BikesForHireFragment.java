@@ -9,6 +9,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.aisc.ngalo.databinding.FragmentBikesForHireBinding;
 import com.aisc.ngalo.models.Bike;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.*;
 import kotlinx.coroutines.Dispatchers;

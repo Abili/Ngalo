@@ -1,13 +1,14 @@
 package com.aisc.ngalo.cart
 
+import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
-class CartViewModelFactory(private val cartRepository: CartRepository) : ViewModelProvider.Factory {
+class CartViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CartViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return CartViewModel(cartRepository) as T
+            return CartViewModel(Application()) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

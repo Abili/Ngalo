@@ -18,34 +18,42 @@ public class ActivityUserProfileBindingImpl extends ActivityUserProfileBinding  
         sViewsWithIds.put(R.id.imageView, 2);
         sViewsWithIds.put(R.id.editTextTextPersonFirstName, 3);
         sViewsWithIds.put(R.id.editTextTextPersonLastName, 4);
-        sViewsWithIds.put(R.id.editTextTextEmailAddress, 5);
-        sViewsWithIds.put(R.id.editTextPhone, 6);
-        sViewsWithIds.put(R.id.profile_create_button, 7);
-        sViewsWithIds.put(R.id.progressBar, 8);
+        sViewsWithIds.put(R.id.editTextTextEmailAddresslayout, 5);
+        sViewsWithIds.put(R.id.editTextTextEmailAddress, 6);
+        sViewsWithIds.put(R.id.verifEmail, 7);
+        sViewsWithIds.put(R.id.editTextPhonelayout, 8);
+        sViewsWithIds.put(R.id.editTextPhone, 9);
+        sViewsWithIds.put(R.id.verifPhone, 10);
+        sViewsWithIds.put(R.id.profile_create_button, 11);
+        sViewsWithIds.put(R.id.progressBar, 12);
     }
     // views
     @NonNull
-    private final androidx.constraintlayout.widget.ConstraintLayout mboundView0;
+    private final androidx.core.widget.NestedScrollView mboundView0;
     // variables
     // values
     // listeners
     // Inverse Binding Event Handlers
 
     public ActivityUserProfileBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 9, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 13, sIncludes, sViewsWithIds));
     }
     private ActivityUserProfileBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 0
+            , (android.widget.EditText) bindings[9]
+            , (android.widget.LinearLayout) bindings[8]
             , (android.widget.EditText) bindings[6]
-            , (android.widget.EditText) bindings[5]
+            , (android.widget.LinearLayout) bindings[5]
             , (android.widget.EditText) bindings[3]
             , (android.widget.EditText) bindings[4]
             , (de.hdodenhof.circleimageview.CircleImageView) bindings[2]
             , (android.widget.RelativeLayout) bindings[1]
+            , (android.widget.Button) bindings[11]
+            , (android.widget.ProgressBar) bindings[12]
             , (android.widget.Button) bindings[7]
-            , (android.widget.ProgressBar) bindings[8]
+            , (android.widget.Button) bindings[10]
             );
-        this.mboundView0 = (androidx.constraintlayout.widget.ConstraintLayout) bindings[0];
+        this.mboundView0 = (androidx.core.widget.NestedScrollView) bindings[0];
         this.mboundView0.setTag(null);
         setRootTag(root);
         // listeners

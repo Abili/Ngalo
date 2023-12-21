@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-98:/values-zh/values-zh.xml",
+            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-103:/values-zh/values-zh.xml",
             "map": [
                 {
-                    "source": "/Users/user/.gradle/caches/transforms-3/a53b46b5f34e16a92c27e72c85a2e1f1/transformed/jetified-android-image-cropper-4.5.0/res/values-zh/values-zh.xml",
+                    "source": "/Users/user/.gradle/caches/transforms-3/c48293a663d7728da2368d01b3de8129/transformed/jetified-android-image-cropper-4.5.0/res/values-zh/values-zh.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8",
                         "startColumns": "4,4,4,4,4,4,4",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "/Users/user/.gradle/caches/transforms-3/4561f635fddc2c404e9b1a2dc401280d/transformed/jetified-ucrop-2.2.0/res/values-zh/values-zh.xml",
+                    "source": "/Users/user/.gradle/caches/transforms-3/b86d422c5c8eda77c4eff3831b42c876/transformed/jetified-ucrop-2.2.0/res/values-zh/values-zh.xml",
                     "from": {
                         "startLines": "2,3,4",
                         "startColumns": "4,4,4",
@@ -38,7 +38,7 @@
                     }
                 },
                 {
-                    "source": "/Users/user/.gradle/caches/transforms-3/b52d14157e175f932d506109f979e9cb/transformed/jetified-firebase-ui-auth-8.0.2/res/values-zh/values-zh.xml",
+                    "source": "/Users/user/.gradle/caches/transforms-3/2993d04caf999c53ab9f884706699e6d/transformed/jetified-firebase-ui-auth-8.0.2/res/values-zh/values-zh.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",

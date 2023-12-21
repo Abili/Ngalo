@@ -15,7 +15,10 @@ import com.aisc.ngalo.models.Category
 import com.aisc.ngalo.util.CurrencyUtil
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -77,10 +80,16 @@ class BikesForPurchaseAdapter(var viewModel: CartViewModel?) :
     ) :
         RecyclerView.ViewHolder(itemView) {
         private lateinit var auth: FirebaseAuth
-        private val binding: BikeItemBinding = BikeItemBinding.bind(itemView)
+        val binding: BikeItemBinding = BikeItemBinding.bind(itemView)
         fun bind(bike: Bike) {
             val cartItems = mutableListOf<Item>()
             auth = FirebaseAuth.getInstance()
+
+            val priceWithoutCommas = if (bike.price!!.contains(",")) {
+                bike.price.replace(",", "").toInt()
+            } else {
+                bike.price.toInt()
+            }
             //current user's profile pic
             if (auth.currentUser!!.photoUrl.toString().isNotEmpty()) {
                 Glide
@@ -95,19 +104,14 @@ class BikesForPurchaseAdapter(var viewModel: CartViewModel?) :
                     .centerInside()
                     .into(binding.bikeImage);
             }
+
+
             binding.textBikeName.text = bike.name
             binding.textViewPrice.text =
-                CurrencyUtil.formatCurrency(bike.price!!.replace(",", "").toInt(), "UGX")
+                CurrencyUtil.formatCurrency(priceWithoutCommas, "UGX")
 
             binding.textViewDesc.text = bike.description
-            binding.deleteBike.setOnClickListener {
-                val hire = FirebaseDatabase.getInstance().reference.child("bikes").child("hire")
-                if (FirebaseDatabase.getInstance().reference == hire) {
-                    FirebaseDatabase.getInstance().reference.child("bikes").child("hire")
-                        .removeValue()
-                }
 
-            }
             // Set up click listener for the playlist
             itemView.setOnClickListener {
                 val activity = itemView.context as AppCompatActivity
@@ -128,11 +132,12 @@ class BikesForPurchaseAdapter(var viewModel: CartViewModel?) :
 //            cartItems.add(Item(bike.name, bike.price.toInt(), bike.imageUrl))
                 viewModel = ViewModelProvider(activity)[CartViewModel::class.java]
                 CoroutineScope(Dispatchers.IO).launch {
+
                     viewModel?.addItem(
                         CartItem(
                             UUID.randomUUID().toString(),
                             bike.name,
-                            bike.price.toInt(),
+                            priceWithoutCommas,
                             bike.imageUrl!!,
                             1,
                             position++,
@@ -165,6 +170,48 @@ class BikesForPurchaseAdapter(var viewModel: CartViewModel?) :
                 }
                 //listener?.onCartUpdated(cartItems.size)
                 //cartItem.text = "0"
+            }
+
+            // Assuming you have the UID of the currently logged-in user
+//            val currentUserUid = "NF80XGHDcuUsB15eI2LFzC7YbW83" // Replace this with the actual UID
+//
+//            val adminref = FirebaseDatabase.getInstance().reference.child("users")
+//            adminref.addListenerForSingleValueEvent(object : ValueEventListener {
+//                override fun onDataChange(snapshot: DataSnapshot) {
+//                    for (adminsnap in snapshot.children) {
+//                        val uid = adminsnap.key
+//                        val category = adminsnap.child("category").getValue(String::class.java)
+//
+//                        // Check if the user is an admin with the correct UID
+//                        if (currentUserUid ==uid) {
+//                            binding.deleteBike.visibility = View.VISIBLE
+//                        }
+//                    }
+//                }
+//
+//                override fun onCancelled(error: DatabaseError) {
+//                    // Handle error if needed
+//                }
+//            })
+
+
+            binding.deleteBike.setOnClickListener {
+                val buy = FirebaseDatabase.getInstance().reference.child("bikes").child("buy")
+                buy.addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        for (bikeSnap in snapshot.children) {
+                            val pushkey = bikeSnap.key
+                            if (pushkey == bike.id) {
+                                buy.child(pushkey).removeValue()
+                            }
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+                })
+
             }
 
         }

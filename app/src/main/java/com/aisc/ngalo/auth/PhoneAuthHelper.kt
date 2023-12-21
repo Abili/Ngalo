@@ -6,7 +6,11 @@ import android.content.Intent
 import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
-import com.aisc.ngalo.HomeActivity
+import com.aisc.ngalo.UserProfile
+import com.aisc.ngalo.models.Screens
+import com.google.android.gms.auth.api.phone.SmsRetriever
+import com.google.android.gms.auth.api.phone.SmsRetrieverClient
+import com.google.android.gms.tasks.Task
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
@@ -20,24 +24,27 @@ class PhoneAuthHelper(private val context: Context) {
     private var verificationId: String? = null
 
     fun sendVerificationCode(phoneNumber: String, onComplete: (Boolean) -> Unit) {
-        val options = PhoneAuthOptions.newBuilder(auth)
-            .setPhoneNumber(phoneNumber)
-            .setTimeout(60L, TimeUnit.SECONDS)
-            .setActivity(context as Activity)
-            .setCallbacks(callbacks(onComplete, phoneNumber))
-            .build()
-        PhoneAuthProvider.verifyPhoneNumber(options)
-    }
+        if (phoneNumber == "") {
+            Toast.makeText(context, "PhoneNumber Required", Toast.LENGTH_SHORT).show()
+        } else {
+            val options = PhoneAuthOptions.newBuilder(auth)
+                .setPhoneNumber(phoneNumber)
+                .setTimeout(60L, TimeUnit.SECONDS)
+                .setActivity(context as Activity)
+                .setCallbacks(callbacks(onComplete, phoneNumber))
+                .build()
 
-    fun verifyCode(code: String, onComplete: (Boolean) -> Unit) {
-        val credential = PhoneAuthProvider.getCredential(verificationId!!, code)
-        signInWithPhoneAuthCredential(credential, onComplete)
+            val smsRetrieverClient: SmsRetrieverClient = SmsRetriever.getClient(context)
+            val task: Task<Void> = smsRetrieverClient.startSmsRetriever()
+            PhoneAuthProvider.verifyPhoneNumber(options)
+        }
+
     }
 
     private fun callbacks(onComplete: (Boolean) -> Unit, phoneNumber: String) =
         object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                signInWithPhoneAuthCredential(credential, onComplete)
+                signInWithPhoneAuthCredential(credential, phoneNumber, onComplete)
             }
 
             override fun onVerificationFailed(exception: FirebaseException) {
@@ -58,11 +65,26 @@ class PhoneAuthHelper(private val context: Context) {
                 super.onCodeSent(verificationId, token)
                 this@PhoneAuthHelper.verificationId = verificationId
                 runOnUiThread {
+                    if (context is VerificationCodeActivity) {
+                        // Finish the current VerificationCodeActivity
+                        (context as Activity).finish()
+                    }
                     Toast.makeText(context, "Verification code sent", Toast.LENGTH_SHORT).show()
-                    savePhoneNumberToPrefs(phoneNumber)
+                    //savePhoneNumberToPrefs(phoneNumber)
+
+                    // Launch VerificationActivity on successful code sent
+                    val intent = Intent(context, VerificationCodeActivity::class.java)
+                    intent.putExtra("verificationId", verificationId)
+                    intent.putExtra("phone", phoneNumber)
+                    intent.putExtra("screen", Screens.phoneauth.name)
+                    intent.putExtra("signInMethod","phone")
+                    context.startActivity(intent)
+                    (context as Activity).finish()
                 }
             }
+
         }
+
     fun getStoredPhoneNumber(): String? {
         val prefs = context.getSharedPreferences("VerificationPrefs", Context.MODE_PRIVATE)
         return prefs.getString("phoneNumber", null)
@@ -70,13 +92,16 @@ class PhoneAuthHelper(private val context: Context) {
 
     private fun signInWithPhoneAuthCredential(
         credential: PhoneAuthCredential,
+        phoneNumber: String,
         onComplete: (Boolean) -> Unit
     ) {
         auth.signInWithCredential(credential)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     runOnUiThread {
-                        val intent = Intent(context, HomeActivity::class.java)
+                        val intent = Intent(context, UserProfile::class.java)
+                        intent.putExtra("signInMethod", "phone")
+                        intent.putExtra("phone", phoneNumber)
                         context.startActivity(intent)
                         onComplete(true)
                     }
@@ -104,4 +129,5 @@ class PhoneAuthHelper(private val context: Context) {
             prefs.edit().putString("phoneNumber", it).apply()
         }
     }
+
 }

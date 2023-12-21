@@ -11,17 +11,15 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.lifecycleScope
+import com.aisc.ngalo.auth.VerifyPhone
 import com.aisc.ngalo.databinding.ActivityUserProfileBinding
 import com.aisc.ngalo.models.User
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.launch
 
@@ -32,8 +30,7 @@ class UserProfile : AppCompatActivity() {
 
     // FirebaseAuth instance
     private lateinit var auth: FirebaseAuth
-    val imageUri = mutableStateOf<Uri?>(null)
-    private lateinit var downloadUrl: Uri
+    private var imageUri: Uri? = null // Nullable Uri for the profile picture
 
     // FirebaseDatabase instance
     private lateinit var database: FirebaseDatabase
@@ -44,9 +41,6 @@ class UserProfile : AppCompatActivity() {
     private lateinit var firstName: String
     private lateinit var lastName: String
 
-    // RecyclerView adapter for displaying the playlists
-    //private lateinit var adapter: UserAdapter
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -56,202 +50,242 @@ class UserProfile : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
 
-        //val username = firstName + lastName
-        //open the audio files
-        openAudioFiles()
-        // Set up the RecyclerView
-        // ...
-        // Initialize the adapters for the RecyclerViews
 
-//        if (auth.currentUser != null) {
-//            // User is already signed in, skip the sign-up screen
-//            val intent = Intent(this, HomeActivity::class.java)
-//            startActivity(intent)
-//        }
+        val signInMethod = intent.getStringExtra("signInMethod")
 
-        // setValue to the users node
-        database.reference.child("users")
+        if (signInMethod == "phone") {
+            //binding.verifPhone!!.visibility = View.VISIBLE
+            handlePhoneSignUp()
+        } else if (signInMethod == "google") {
+            handleGoogleSignUp()
+        }
+
+        // Open the image files
+        openImageFiles()
 
         // Set up the floating action button
         binding.imageView.setOnClickListener {
             val intent =
                 Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            activityResultLauncher!!.launch(intent)
-
+            activityResultLauncher?.launch(intent)
         }
+
         binding.profileCreateButton.setOnClickListener {
             firstName = binding.editTextTextPersonFirstName.text.toString()
             lastName = binding.editTextTextPersonLastName.text.toString()
-            val username = firstName + lastName
+            username = "$firstName $lastName"
             email = binding.editTextTextEmailAddress.text.toString()
-            validateInput(username, email)
+            phone = binding.editTextPhone.text.toString()
 
+            // Validate input and handle registration
+            if (phone.isEmpty() || username.isEmpty() || email.isEmpty()) {
+                Snackbar.make(
+                    binding.root, "Empty Field, Check and try again!!", Snackbar.LENGTH_SHORT
+                ).show()
+            } else {
+                validateInput(
+                    username,
+                    email,
+                    phone
+                )
+            }
+        }
+
+//        binding.verifEmail!!.setOnClickListener {
+//            sendEmailVerification(auth.currentUser)
+//        }
+//        binding.verifPhone!!.setOnClickListener {
+//            binding.progressBar.visibility = View.VISIBLE
+//            binding.profileCreateButton.isEnabled = true
+//            binding.verifPhone!!.isEnabled = false
+//            val userPhone = binding.editTextPhone.text.toString()
+//            VerifyPhone(this).sendVerificationCode(userPhone, binding.verifPhone!!) {
+//
+//            }
+//        }
+    }
+
+
+    private fun sendEmailVerification(user: FirebaseUser?) {
+        // [START send_email_verification]
+        user?.sendEmailVerification()
+            ?.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    showSnackbar("Verification email sent. Please check your email.")
+                } else {
+                    showSnackbar("Failed to send verification email.")
+                }
+            }
+        // [END send_email_verification]
+    }
+
+
+
+    private fun showSnackbar(s: String) {
+        Snackbar.make(binding.root, s, Snackbar.LENGTH_SHORT).show()
+    }
+
+    private fun handlePhoneSignUp() {
+        phone = intent.getStringExtra("phone").toString()
+        binding.editTextPhone.setText(phone)
+        //binding.verifEmail!!.visibility = View.VISIBLE
+    }
+
+    private fun handleGoogleSignUp() {
+        //binding.verifPhone!!.visibility = View.VISIBLE
+        val imageUrlExtra = intent.getStringExtra("imageUrl")
+        email = intent.getStringExtra("email").toString()
+        firstName = intent.getStringExtra("name").toString()
+
+
+        Glide.with(this)
+            .load(imageUrlExtra)
+            .into(binding.imageView)
+
+        if (firstName.isNotEmpty()) {
+            binding.editTextTextPersonFirstName.setText(firstName)
+        } else {
+            binding.editTextTextPersonFirstName.hint = "First Name"
+            binding.editTextTextPersonFirstName.setText("") // Clear the text if it's empty
+        }
+
+        if (email.isNotEmpty()) {
+            binding.editTextTextEmailAddress.setText(email)
+        } else {
+            binding.editTextTextEmailAddress.hint = "Email Address"
+            binding.editTextTextEmailAddress.setText("") // Clear the text if it's empty
         }
     }
 
-    private fun openAudioFiles() {
+    private fun openImageFiles() {
         activityResultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == RESULT_OK) {
-                    imageUri.value = result.data!!.data
-                    Glide.with(binding.imageView)
-                        .load(imageUri.value)
-                        .centerCrop()
-                        .placeholder(R.drawable.placeholder_with)
-                        .into(binding.imageView)
-
+                    imageUri = result.data?.data!!
+                    Glide.with(binding.imageView).load(imageUri).centerCrop()
+                        .placeholder(R.drawable.placeholder_with).into(binding.imageView)
                 }
             }
     }
 
-    companion object {
-        private const val REQUEST_CODE_SELECT_SONGS = 3
-        private const val TAG = "HomeActivity"
-    }
-
-    private fun uploadImage(downloadUri: Uri) {
-        val firstName = binding.editTextTextPersonFirstName.text.toString()
-        //var imageUrl = binding.imageView.setImageURI(imageUri.value)
-        val lastName = binding.editTextTextPersonLastName.text.toString()
-        val phone = binding.editTextPhone.text.toString()
-        val email = binding.editTextTextEmailAddress.text.toString()
-        val username = "$firstName $lastName"
+    private fun uploadImage(downloadUri: Uri?) {
+        val userId = FirebaseAuth.getInstance().currentUser!!.uid
+        val imageUrl = downloadUri?.toString() // Keep image URL as nullable
         val user = User(
-            FirebaseAuth.getInstance().currentUser!!.uid,
-            downloadUri.toString(),
-            username,
-            phone,
-            email
+            userId, imageUrl!!, username, phone, email, "client"
         )
 
-        // Add the playlist to the Firebase database
+        // Add the user to the Firebase database
         val usrRef = FirebaseDatabase.getInstance().reference.child("users")
-        val userId = FirebaseAuth.getInstance().currentUser!!.uid
         user.id = userId
-        if (!(firstName.isEmpty() || lastName.isEmpty()
-                    || email.isEmpty()
-                    || phone.isEmpty())
-        ) {
-            usrRef.child(userId).setValue(user)
-                .addOnCompleteListener {
-                    Snackbar.make(
-                        binding.root,
-                        "Profile Created",
-                        Snackbar.LENGTH_SHORT
-                    )
-                        .show()
 
-                    lifecycleScope.launch {
-                        val handler = Handler()
-                        handler.postDelayed({
-                            binding.progressBar.visibility = View.VISIBLE
-                            startActivity(Intent(this@UserProfile, HomeActivity::class.java))
-                        },0)
-                    }
-
-                }.addOnFailureListener {
-                    Snackbar.make(
-                        binding.root,
-                        it.message.toString(),
-                        Snackbar.LENGTH_SHORT
-                    )
-                        .show()
-                }
-        } else {
+        usrRef.child(userId).setValue(user).addOnCompleteListener {
             Snackbar.make(
-                binding.root,
-                "Fields Required",
-                Snackbar.LENGTH_SHORT
-            )
+                binding.root, "Profile Created", Snackbar.LENGTH_SHORT
+            ).show()
+
+            lifecycleScope.launch {
+                val handler = Handler()
+                handler.postDelayed({
+                    binding.progressBar.visibility = View.VISIBLE
+                    startActivity(Intent(this@UserProfile, HomeActivity::class.java))
+                    finish()
+                }, 0)
+            }
+
+        }.addOnFailureListener {
+            Snackbar.make(
+                binding.root, it.message.toString(), Snackbar.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    private fun noImage() {
+        val userId = FirebaseAuth.getInstance().currentUser!!.uid
+        //val imageUrl = downloadUri?.toString() // Keep image URL as nullable
+        val user = User(
+            userId, null, username, phone, email, "client"
+        )
+
+        // Add the user to the Firebase database
+        val usrRef = FirebaseDatabase.getInstance().reference.child("users")
+        user.id = userId
+
+        usrRef.child(userId).setValue(user).addOnCompleteListener {
+            Snackbar.make(
+                binding.root, "Profile Created", Snackbar.LENGTH_SHORT
+            ).show()
+
+            lifecycleScope.launch {
+                val handler = Handler()
+                handler.postDelayed({
+                    binding.progressBar.visibility = View.VISIBLE
+                    startActivity(Intent(this@UserProfile, HomeActivity::class.java))
+                    finish()
+                }, 0)
+            }
+
+        }.addOnFailureListener {
+            Snackbar.make(
+                binding.root, it.message.toString(), Snackbar.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    private fun isValidEmail(email: String) = Patterns.EMAIL_ADDRESS.matcher(email).matches()
+
+    private fun validateInput(username: String, email: String, phone: String) {
+        if (username.isEmpty() || email.isEmpty() || phone.isEmpty()) {
+            Toast.makeText(this, "Empty fields", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        //val useremail = binding.editTextTextEmailAddress.text.toString()
+        if (!isValidEmail(email)) {
+            Toast.makeText(this, "Invalid email format", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Continue with registration
+        handleRegistration()
+
+    }
+
+    private fun handleRegistration() {
+        // Check if the user has uploaded a profile picture
+        if (imageUri != null) {
+            // Upload the profile picture to Firebase Storage
+            val storageRef = FirebaseStorage.getInstance().reference
+            val imageRef = storageRef.child("userimages/${imageUri!!.lastPathSegment}")
+            val uploadTask = imageRef.putFile(imageUri!!)
+
+            uploadTask.continueWithTask { task ->
+                if (!task.isSuccessful) {
+                    task.exception?.let {
+                        throw it
+                    }
+                }
+                imageRef.downloadUrl
+            }.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // Image uploaded successfully, get the download URL
+                    val downloadUrl = task.result
+                    // Save downloadUrl to database
+                    uploadImage(downloadUrl)
+                } else {
+                    // Handle failure
+                    Snackbar.make(
+                        binding.root,
+                        "Failed To Create Profile !!",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        } else {
+            // User didn't upload a profile picture, proceed with registration
+            noImage()
+            Snackbar.make(binding.root, "Please wait Creating Profile ...", Snackbar.LENGTH_SHORT)
                 .show()
         }
     }
-
-    private fun isValidEmail(email: String) =
-        Patterns.EMAIL_ADDRESS.matcher(email).matches()
-
-    private fun validateInput(username: String, email: String): Boolean {
-        if (username.isEmpty() || email.isEmpty()) {
-            return false
-        }
-        // check if the email is in the correct format
-        this.email = binding.editTextTextEmailAddress.text.toString()
-        if (!isValidEmail(email)) {
-            Toast.makeText(this, "Invalid email format", Toast.LENGTH_SHORT).show()
-            return false
-        }
-        val emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}$"
-        if (!this.email.matches(emailRegex.toRegex())) {
-            return false
-        }
-        // check if the username already exists in the Firebase Database
-        val usersRef = FirebaseDatabase.getInstance().getReference("users")
-        usersRef.orderByChild("username").equalTo(username)
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        // username already exists
-                        Snackbar.make(
-                            binding.root,
-                            "UserName exists already Exists",
-                            Snackbar.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-
-                override fun onCancelled(databaseError: DatabaseError) {
-                    // Handle error
-                }
-            })
-
-        // check if the email already exists in the Firebase Database
-        usersRef.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(object :
-            ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-
-                    binding.progressBar.visibility = View.VISIBLE
-                    downloadUrl = imageUri.value!!
-                    //val downloadUrl = it.metadata!!.reference!!.downloadUrl
-
-                    val filePath = downloadUrl
-
-                    val storageRef = FirebaseStorage.getInstance().reference
-                    val imageRef = storageRef.child("userimages/" + filePath.lastPathSegment)
-                    val uploadTask = imageRef.putFile(filePath)
-
-                    uploadTask.continueWithTask { task ->
-                        if (!task.isSuccessful) {
-                            task.exception?.let {
-                                throw it
-                            }
-                        }
-                        imageRef.downloadUrl
-                    }.addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            val downloadUrl = task.result
-                            // save downloadUrl to database
-                            uploadImage(downloadUrl)
-                        } else {
-                            // Handle failure
-                            Snackbar.make(binding.root, "Uploading...", Snackbar.LENGTH_SHORT)
-                                .show()
-                        }
-
-
-                    }
-
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                // Handle error
-            }
-        })
-        return true
-    }
-
-    private fun validatePhone(phone: String): Boolean {
-        val phonePattern = Patterns.PHONE
-        return phonePattern.matcher(phone).matches()
-    }
-
 }

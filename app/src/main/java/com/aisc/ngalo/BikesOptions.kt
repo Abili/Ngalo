@@ -24,14 +24,11 @@ class BikesOptions : AppCompatActivity(),
     private lateinit var binding: ActivityBikesOptionsBinding
     private var bikesAdapter: BikesAdapter? = null
     private var bikesForPurchaseAdapter: BikesForPurchaseAdapter? = null
-    private val orders = mutableListOf<CartItem>()
-    private lateinit var cartTextView: TextView
-    private val cartRepository: CartRepository
-        get() = (application as NgaloApplication).cartRepository
+
 
     // Access the CartViewModel using the CartRepository
     private val cartViewModel: CartViewModel by viewModels {
-        CartViewModelFactory(cartRepository)
+        CartViewModelFactory()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,12 +42,10 @@ class BikesOptions : AppCompatActivity(),
         binding.tabs.setBackgroundColor(resources.getColor(R.color.white))
         // binding.tabs.setTabTextColors(R.color.ngalo_green,R.color.ngalo_green)
         setSupportActionBar(binding.optionstoolbar)
-        //cartViewModel = ViewModelProvider(this)[CartViewModel::class.java]
+
         bikesAdapter = BikesAdapter(cartViewModel)
         bikesForPurchaseAdapter = BikesForPurchaseAdapter(cartViewModel)
         bikesForPurchaseAdapter!!.onCartItemAddedListener = this
-
-        //val cartCountView = findViewById<TextView>(R.id.cart_count)
         cartViewModel.getCartItemsCount()
 
         // Observe both cart count and cart items
@@ -68,27 +63,6 @@ class BikesOptions : AppCompatActivity(),
             }
         }
 
-//        // Observe the actual cart items and update the UI accordingly
-//        cartViewModel.fetchCartItems().observe(this) { cartItems ->
-//            // Perform UI updates based on the cart items
-//            // For example, you can update the adapter or any other UI elements
-//            if (cartItems != null && cartItems.isNotEmpty()) {
-//                // Do something with the cart items
-//                // For example, update your adapter with the new list of cart items
-//                bikesAdapter?.clear()
-//                bikesAdapter?.addAll(cartItems)
-//                bikesAdapter?.notifyDataSetChanged()
-//            }
-//        }
-
-//        bikesAdapter!!.setOnCartUpdatedListener(object : BikesAdapter.OnCartUpdatedListener {
-//            override fun onCartUpdated(count: Int) {
-//                // Handle cart update
-//                binding.cartCount.text = count.toString()
-//                Toast.makeText(this@BikesOptions, "Item added", Toast.LENGTH_SHORT).show()
-//            }
-//        })
-
 
         when (intent.getIntExtra("position", 0)) {
             0 -> {
@@ -104,28 +78,8 @@ class BikesOptions : AppCompatActivity(),
             }
         }
 
-
     }
 
-//    override fun onCartUpdated(count: Int) {
-//        runOnUiThread {
-//            binding.cartCount.text = count.toString()
-//            Toast.makeText(this@BikesOptions, "Item added", Toast.LENGTH_SHORT).show()
-//        }
-//    }
-
-
-//    fun onCartItemAdded(size: Int) {
-//        runOnUiThread {
-//            //cartViewModel.observeCartItemsCount().observe(this) {
-//            val cartTv = binding.cartCount
-//            cartTv.text = size.toString()
-//            Toast.makeText(this, "Item added", Toast.LENGTH_SHORT).show()
-//
-//
-//        }
-//
-//    }
 
     override fun onCartItemAdded() {
         runOnUiThread {
@@ -159,7 +113,7 @@ class PagerAdapter(fragmentManager: FragmentManager) :
         return when (position) {
             0 -> "Buy Bikes"
             1 -> "Hire Bikes"
-            2 -> "Bike Parts"
+            2 -> "Parts/Access'"
             else -> ""
         }
     }

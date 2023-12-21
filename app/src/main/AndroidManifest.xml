@@ -15,6 +15,10 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+
+
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
@@ -27,10 +31,28 @@
         android:roundIcon="@mipmap/ngalo_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Ngalo.ActionBar">
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3562966815138772~8965443035"/>
+
+        <meta-data
+            android:name="com.google.android.gms.auth.api.phone.api_key"
+            android:value="AIzaSyBq9LKJGuIJR6RHy3kR4bjATd_CGNBcy_Q" />
+
+
+        <activity
+            android:name=".BookRidingLessons"
+            android:exported="false"
+            android:label="Book Cycling lessons" />
+        <activity
+            android:name=".VerifyPhoneNumber"
+            android:exported="false"
+            android:label="Book Cycling lessons" />
         <activity
             android:name=".RidesForBooking"
-            android:label="Book Ride"
             android:exported="false"
+            android:label="Book Ride"
             android:parentActivityName=".HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -59,7 +81,7 @@
             android:exported="false"
             android:label="Reciept" />
         <activity
-            android:name=".auth.VerificationActivity"
+            android:name=".auth.VerificationCodeActivity"
             android:exported="false"
             android:label="@string/title_activity_verification"
             android:theme="@style/Theme.Ngalo.ActionBar" />
@@ -130,9 +152,9 @@
             android:exported="false"
             android:label="Completed" />
         <activity
-            android:name=".SignUp"
+            android:name=".HomeActivity"
             android:exported="false"
-            android:label="@string/title_activity_admin_home_page"
+            android:label="Home"
             android:theme="@style/Theme.Ngalo.NoActionBar" />
 
         <meta-data
@@ -190,7 +212,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".HomeActivity"
+            android:name=".SignUp"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>

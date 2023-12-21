@@ -1,14 +1,70 @@
 [
     {
-        "merged": "com.aisc.ngalo.app-mergeDebugResources-99:/layout-land/activity_bikes_screen.xml",
-        "source": "com.aisc.ngalo.app-main-102:/layout-land/activity_bikes_screen.xml"
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-104:/layout-land/activity_bikes_options.xml",
+        "source": "com.aisc.ngalo.app-main-107:/layout-land/activity_bikes_options.xml"
     },
     {
-        "merged": "com.aisc.ngalo.app-mergeDebugResources-99:/layout-land/user_item.xml",
-        "source": "com.aisc.ngalo.app-main-102:/layout-land/user_item.xml"
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-104:/layout-land/fragment_bike_for_purchase.xml",
+        "source": "com.aisc.ngalo.app-main-107:/layout-land/fragment_bike_for_purchase.xml"
     },
     {
-        "merged": "com.aisc.ngalo.app-mergeDebugResources-99:/layout-land/activity_bike_details.xml",
-        "source": "com.aisc.ngalo.app-main-102:/layout-land/activity_bike_details.xml"
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-104:/layout-land/purchase_item.xml",
+        "source": "com.aisc.ngalo.app-main-107:/layout-land/purchase_item.xml"
+    },
+    {
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-104:/layout-land/activity_user_profile.xml",
+        "source": "com.aisc.ngalo.app-main-107:/layout-land/activity_user_profile.xml"
+    },
+    {
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-104:/layout-land/activity_sign_up.xml",
+        "source": "com.aisc.ngalo.app-main-107:/layout-land/activity_sign_up.xml"
+    },
+    {
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-104:/layout-land/activity_home.xml",
+        "source": "com.aisc.ngalo.app-main-107:/layout-land/activity_home.xml"
+    },
+    {
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-104:/layout-land/fragment_bike_parts.xml",
+        "source": "com.aisc.ngalo.app-main-107:/layout-land/fragment_bike_parts.xml"
+    },
+    {
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-104:/layout-land/fragment_bikes_for_hire.xml",
+        "source": "com.aisc.ngalo.app-main-107:/layout-land/fragment_bikes_for_hire.xml"
+    },
+    {
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-104:/layout-land/user_item.xml",
+        "source": "com.aisc.ngalo.app-main-107:/layout-land/user_item.xml"
+    },
+    {
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-104:/layout-land/activity_bike_repair.xml",
+        "source": "com.aisc.ngalo.app-main-107:/layout-land/activity_bike_repair.xml"
+    },
+    {
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-104:/layout-land/activity_settings.xml",
+        "source": "com.aisc.ngalo.app-main-107:/layout-land/activity_settings.xml"
+    },
+    {
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-104:/layout-land/activity_book_ridding_lessions.xml",
+        "source": "com.aisc.ngalo.app-main-107:/layout-land/activity_book_ridding_lessions.xml"
+    },
+    {
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-104:/layout-land/activity_bikes_screen.xml",
+        "source": "com.aisc.ngalo.app-main-107:/layout-land/activity_bikes_screen.xml"
+    },
+    {
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-104:/layout-land/activity_cart.xml",
+        "source": "com.aisc.ngalo.app-main-107:/layout-land/activity_cart.xml"
+    },
+    {
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-104:/layout-land/activity_order_details.xml",
+        "source": "com.aisc.ngalo.app-main-107:/layout-land/activity_order_details.xml"
+    },
+    {
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-104:/layout-land/activity_rides.xml",
+        "source": "com.aisc.ngalo.app-main-107:/layout-land/activity_rides.xml"
+    },
+    {
+        "merged": "com.aisc.ngalo.app-mergeDebugResources-104:/layout-land/activity_bike_details.xml",
+        "source": "com.aisc.ngalo.app-main-107:/layout-land/activity_bike_details.xml"
     }
 ]

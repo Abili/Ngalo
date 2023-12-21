@@ -11,7 +11,6 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.location.Geocoder
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Looper
 import android.provider.MediaStore
@@ -32,6 +31,8 @@ import androidx.core.content.ContextCompat
 import com.aisc.ngalo.databinding.ActivityBikeRepairBinding
 import com.bumptech.glide.Glide
 import com.firebase.geofire.GeoFire
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -95,7 +96,28 @@ class BikeRepair : AppCompatActivity(), OnMapReadyCallback {
         mapFragment!!.getMapAsync(this)
         //destinationLatLng = LatLng(0.0, 0.0)
         mRepairRequestsRef = FirebaseDatabase.getInstance().reference.child(repairRequests)
-        Places.initialize(this@BikeRepair, getString(R.string.Api_key));
+
+        FirebaseDatabase.getInstance().reference.child("ApiKey")
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        val apiKey = snapshot.getValue(String::class.java)
+                        Places.initialize(this@BikeRepair, apiKey!!);
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+            })
+
+
+        MobileAds.initialize(this) { initiallized ->
+            if (initiallized.equals(true)) {
+                val adRequest = AdRequest.Builder().build()
+                binding.adView!!.loadAd(adRequest)
+            }
+        }
 
 
         //user request sending location
@@ -213,6 +235,51 @@ class BikeRepair : AppCompatActivity(), OnMapReadyCallback {
         }
 
         binding.requestRepairButton.setOnClickListener {
+            binding.orderForRepair.isEnabled = false
+            binding.btmsheetloader.visibility = View.VISIBLE
+
+            if (mMap == null) {
+                Snackbar.make(binding.root, "Map is not ready yet", Snackbar.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Check if the current location is null
+            if (currentLocation == null) {
+                Snackbar.make(
+                    binding.root,
+                    "Location is not available, check internet connection",
+                    Snackbar.LENGTH_SHORT
+                )
+                    .show()
+                return@setOnClickListener
+            }
+
+            if (imageUri.value == null) {
+                Snackbar.make(
+                    binding.root,
+                    "Please Upload Damage Image First",
+                    Snackbar.LENGTH_SHORT
+                )
+                    .show()
+                binding.orderForRepair.isEnabled = true
+                binding.btmsheetloader.visibility = View.GONE
+                return@setOnClickListener
+            }
+
+            // Check if the description EditText is empty
+            descriptionOfProblems = binding.repairDescriptionEditText.text.toString()
+            if (descriptionOfProblems.isEmpty()) {
+                Snackbar.make(
+                    binding.root,
+                    "Please provide a description of the problems",
+                    Snackbar.LENGTH_SHORT
+                )
+                    .show()
+                binding.orderForRepair.isEnabled = true
+                binding.btmsheetloader.visibility = View.GONE
+                return@setOnClickListener
+            }
+
             //sendImage to storage
             downloadUrl = imageUri.value!!
             val filePath = downloadUrl
@@ -237,13 +304,14 @@ class BikeRepair : AppCompatActivity(), OnMapReadyCallback {
                     // Handle failure
                     Snackbar.make(binding.root, "Uploading Failed", Snackbar.LENGTH_SHORT)
                         .show()
+                    binding.orderForRepair.isEnabled = true
                 }
             }
 
         }
         binding.cancelRepairRequest.setOnClickListener {
             binding.bottomSheet.visibility = View.GONE
-            binding.orderForRepair.visibility=View.VISIBLE
+            binding.orderForRepair.visibility = View.VISIBLE
             pickupMarker!!.remove()
         }
 
@@ -347,7 +415,7 @@ class BikeRepair : AppCompatActivity(), OnMapReadyCallback {
 
 
     private fun uploadToFirebase(downloadUrl: Uri?) {
-        val descriptionOfProblems = binding.repairDescriptionEditText.text.toString()
+        descriptionOfProblems = binding.repairDescriptionEditText.text.toString()
         val uid = FirebaseAuth.getInstance().currentUser!!.uid
         val repairRequestRef =
             FirebaseDatabase.getInstance().reference.child("RepaireRequests")
@@ -383,6 +451,7 @@ class BikeRepair : AppCompatActivity(), OnMapReadyCallback {
                             finish()
                             binding.repairDescriptionEditText.text.clear()
                             userRequestRef.push().setValue(repair)
+                            binding.btmsheetloader.visibility = View.GONE
 
                         }
 

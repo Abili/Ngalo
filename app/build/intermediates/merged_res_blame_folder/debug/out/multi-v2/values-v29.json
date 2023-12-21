@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-98:/values-v29/values-v29.xml",
+            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-103:/values-v29/values-v29.xml",
             "map": [
                 {
-                    "source": "/Users/user/.gradle/caches/transforms-3/02f537c590a2ed945c896708b77afac9/transformed/jetified-core-splashscreen-1.0.1/res/values-v29/values-v29.xml",
+                    "source": "/Users/user/.gradle/caches/transforms-3/36f9511740409a05b7ea290dd37ea7c0/transformed/jetified-core-splashscreen-1.0.1/res/values-v29/values-v29.xml",
                     "from": {
                         "startLines": "2,7",
                         "startColumns": "4,4",
@@ -12,6 +12,31 @@
                         "endLines": "6,8",
                         "endColumns": "12,12",
                         "endOffsets": "369,464"
+                    },
+                    "to": {
+                        "startLines": "9,14",
+                        "startColumns": "4,4",
+                        "startOffsets": "419,738",
+                        "endLines": "13,15",
+                        "endColumns": "12,12",
+                        "endOffsets": "733,828"
+                    }
+                },
+                {
+                    "source": "/Users/user/Desktop/AndroidStudioProjects/Ngalo/app/src/main/res/values-v29/strings.xml",
+                    "from": {
+                        "startLines": "4,5,3,2,7,8,6",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "155,208,107,55,309,365,259",
+                        "endColumns": "52,50,47,51,55,53,49",
+                        "endOffsets": "203,254,150,102,360,414,304"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "55,108,159,207,259,315,369",
+                        "endColumns": "52,50,47,51,55,53,49",
+                        "endOffsets": "103,154,202,254,310,364,414"
                     }
                 }
             ]

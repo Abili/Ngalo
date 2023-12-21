@@ -23,6 +23,8 @@ import androidx.core.content.ContextCompat
 import com.aisc.ngalo.LocationObject
 import com.aisc.ngalo.R
 import com.aisc.ngalo.databinding.ActivityRidesBinding
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -74,6 +76,10 @@ class RidesActivity : AppCompatActivity(), OnMapReadyCallback {
         mapFragment = supportFragmentManager.findFragmentById(R.id.map_view) as SupportMapFragment?
         mapFragment!!.getMapAsync(this)
 
+        val rideId = intent.getStringExtra("rideId")
+        val name = intent.getStringExtra("name")
+        val distance = intent.getStringExtra("distance")
+
         // Check for location permission
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // Request the permission if not granted
@@ -83,17 +89,29 @@ class RidesActivity : AppCompatActivity(), OnMapReadyCallback {
         // Get the LocationManager instance
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
+        MobileAds.initialize(this) { initiallized ->
+            if (initiallized.equals(true)) {
+                val adRequest = AdRequest.Builder().build()
+                binding.adView!!.loadAd(adRequest)
+            }
+        }
 
         binding.startrideBtn.setOnClickListener {
             // Start the ride
             startRide()
             binding.bottomSheet.visibility = View.VISIBLE
             binding.startrideBtn.visibility = View.GONE
+            binding.bottomSheetTitle.text = buildString {
+                append(name)
+                append(" ")
+                append(distance)
+            }
         }
+
 
         binding.stoprideBtn.setOnClickListener {
             // Stop the ride
-            stopRide()
+            stopRide(name, distance)
         }
 
 
@@ -122,8 +140,7 @@ class RidesActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun updatePositionMarker(latLng: LatLng) {
         if (positionMarker == null) {
-            val markerOptions = MarkerOptions()
-                .position(latLng)
+            val markerOptions = MarkerOptions().position(latLng)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
             positionMarker = googleMap.addMarker(markerOptions)
         } else {
@@ -155,16 +172,13 @@ class RidesActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(map: GoogleMap) {
         googleMap = map
 
-        polylineOptions = PolylineOptions()
-            .width(10f)
-            .color(Color.BLUE)
+        polylineOptions = PolylineOptions().width(10f).color(Color.BLUE)
 
         mLastLocation = currentLocation
         map.moveCamera(
             CameraUpdateFactory.newLatLngZoom(
                 LatLng(
-                    startLocation?.latitude ?: 0.0,
-                    startLocation?.longitude ?: 0.0
+                    startLocation?.latitude ?: 0.0, startLocation?.longitude ?: 0.0
                 ), 17f
             )
         )
@@ -174,14 +188,11 @@ class RidesActivity : AppCompatActivity(), OnMapReadyCallback {
         mLocationRequest!!.fastestInterval = 1000
         mLocationRequest!!.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
+                this, Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             mFusedLocationClient!!.requestLocationUpdates(
-                mLocationRequest!!,
-                mLocationCallback,
-                Looper.myLooper()
+                mLocationRequest!!, mLocationCallback, Looper.myLooper()
             )
             map.isMyLocationEnabled = true
         } else {
@@ -195,34 +206,30 @@ class RidesActivity : AppCompatActivity(), OnMapReadyCallback {
         shouldDrawPolyline = true
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             locationManager.requestLocationUpdates(
-                LocationManager.GPS_PROVIDER,
-                0L,
-                0f,
-                locationListener
+                LocationManager.GPS_PROVIDER, 0L, 0f, locationListener
             )
 
             // Start the countdown timer
             startTime = System.currentTimeMillis()
             binding.tracktrideTime.text = startTime.toString()
-            countDownTimer =
-                object : CountDownTimer(Long.MAX_VALUE, 1000) {
-                    override fun onTick(millisUntilFinished: Long) {
-                        val elapsedTime = System.currentTimeMillis() - startTime
-                        remainingTime = (elapsedTime) / 1000
-                        updateTimerText(remainingTime)
-                    }
-
-                    override fun onFinish() {
-                        // Countdown timer has finished
-                        stopRide()
-                    }
+            countDownTimer = object : CountDownTimer(Long.MAX_VALUE, 1000) {
+                override fun onTick(millisUntilFinished: Long) {
+                    val elapsedTime = System.currentTimeMillis() - startTime
+                    remainingTime = (elapsedTime) / 1000
+                    updateTimerText(remainingTime)
                 }
+
+                override fun onFinish() {
+                    // Countdown timer has finished
+                    stopRide(null, null)
+                }
+            }
 
             countDownTimer!!.start()
         }
     }
 
-    private fun stopRide() {
+    private fun stopRide(name: String?, distance: String?) {
         // Cancel the countdown timer
         countDownTimer?.cancel()
 
@@ -234,21 +241,19 @@ class RidesActivity : AppCompatActivity(), OnMapReadyCallback {
         googleMap.clear()
 
         // Show the summary dialog
-        showRideSummaryDialog()
+        showRideSummaryDialog(name, distance)
     }
 
 
-    private fun showRideSummaryDialog() {
-        AlertDialog.Builder(this)
-            .setTitle("Ride Summary")
-            .setMessage("Distance: $distance m\nTime: ${getElapsedTime(startTime)} seconds")
+    private fun showRideSummaryDialog(name: String?, distance: String?) {
+        AlertDialog.Builder(this).setTitle("Ride Summary")
+            .setMessage("Distance: ${this.distance} m\nTime: ${getElapsedTime(startTime)} seconds")
             .setPositiveButton("Save") { dialog, _ ->
                 // Save the ride details
-                nameRideSummaryDialog()
+                nameRideSummaryDialog(name, distance)
                 //captureAndSaveScreenshot(remainingTime.toString())
                 dialog.dismiss()
-            }
-            .setNegativeButton("Reset Ride") { dialog, _ ->
+            }.setNegativeButton("Reset Ride") { dialog, _ ->
                 // Resume the ride
                 resetRide()
                 binding.bottomSheet.visibility = View.GONE
@@ -256,38 +261,39 @@ class RidesActivity : AppCompatActivity(), OnMapReadyCallback {
                 // Start the countdown timer with the remaining time
                 //updateTimerText(remainingTime)
                 dialog.dismiss()
-            }
-            .show()
+            }.show()
     }
 
 
-    private fun nameRideSummaryDialog() {
+    private fun nameRideSummaryDialog(name: String?, distance: String?) {
         val dialogView = layoutInflater.inflate(R.layout.dialog_ride_summary, null)
         val editTextRideName = dialogView.findViewById<EditText>(R.id.editTextRideName)
+        editTextRideName.text.append(name).append(" - ").append(distance)
 
-        AlertDialog.Builder(this)
-            .setView(dialogView)
-            .setPositiveButton("Save") { dialog, _ ->
-                val rideName = editTextRideName.text.toString().trim()
-                if (rideName.isNotEmpty()) {
-                    // Save the ride details
-                    saveRide(rideName, distance, getElapsedTime(startTime))
-                    resetRide()
-                    googleMap.clear()
-                    finish()
-                } else {
-                    Toast.makeText(this, "Please enter a ride name", Toast.LENGTH_SHORT).show()
+        AlertDialog.Builder(this).setView(dialogView).setPositiveButton("Save") { dialog, _ ->
+
+            if (name!!.isNotEmpty() && distance!!.isNotEmpty()) {
+                // Save the ride details
+                val routeName = buildString {
+                    append(name)
+                    append(" - ")
+                    append(distance)
                 }
-                dialog.dismiss()
-            }
-            .setNegativeButton("Cancel") { dialog, _ ->
-                // Resume the ride
+                saveRide(routeName, this.distance, getElapsedTime(startTime))
                 resetRide()
-                binding.bottomSheet.visibility = View.GONE
-                binding.startrideBtn.visibility = View.VISIBLE
-                dialog.dismiss()
+                googleMap.clear()
+                finish()
+            } else {
+                Toast.makeText(this, "Please enter a ride name", Toast.LENGTH_SHORT).show()
             }
-            .show()
+            dialog.dismiss()
+        }.setNegativeButton("Cancel") { dialog, _ ->
+            // Resume the ride
+            resetRide()
+            binding.bottomSheet.visibility = View.GONE
+            binding.startrideBtn.visibility = View.VISIBLE
+            dialog.dismiss()
+        }.show()
     }
 
 
@@ -305,11 +311,13 @@ class RidesActivity : AppCompatActivity(), OnMapReadyCallback {
         resetMap()
         positionMarker?.remove()
     }
+
     private fun resetMap() {
         googleMap.clear()
         polylineOptions = PolylineOptions().width(10f).color(Color.BLUE)
         zoomUpdated = false
     }
+
     private fun clearUI() {
         binding.trackrideDistance.text = "0"
         binding.tracktrideTime.text = "0"
@@ -343,9 +351,7 @@ class RidesActivity : AppCompatActivity(), OnMapReadyCallback {
         // ...
         saveRideToFirebase(rideName, distance, timeInSeconds)
         Toast.makeText(
-            this,
-            "Ride saved: Distance=$distance, Time=$timeInSeconds seconds",
-            Toast.LENGTH_SHORT
+            this, "Ride saved: Distance=$distance, Time=$timeInSeconds seconds", Toast.LENGTH_SHORT
         ).show()
     }
 
@@ -404,70 +410,51 @@ class RidesActivity : AppCompatActivity(), OnMapReadyCallback {
         // Save ride details (distance and elapsed time) to Firebase Database
 
         val uid = FirebaseAuth.getInstance().currentUser!!.uid
-        val databaseReference =
-            FirebaseDatabase.getInstance().reference.child("rides")
+        val databaseReference = FirebaseDatabase.getInstance().reference.child("rides")
         val userdbReference =
             FirebaseDatabase.getInstance().reference.child("users").child(uid).child("rides")
         val rideId = databaseReference.push().key
         val ride = Ride(uid, rideName, distance, elapsedTime, null)
 
         if (rideId != null) {
-            databaseReference.push().setValue(ride)
-                .addOnSuccessListener {
-                    Toast.makeText(this, "Ride saved to Firebase", Toast.LENGTH_SHORT).show()
-                }
-                .addOnFailureListener { exception ->
-                    Toast.makeText(
-                        this,
-                        "Failed to save ride: ${exception.message}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-        }
-
-        userdbReference.push().setValue(ride)
-            .addOnSuccessListener {
+            databaseReference.push().setValue(ride).addOnSuccessListener {
                 Toast.makeText(this, "Ride saved to Firebase", Toast.LENGTH_SHORT).show()
-            }
-            .addOnFailureListener { exception ->
+            }.addOnFailureListener { exception ->
                 Toast.makeText(
-                    this,
-                    "Failed to save ride: ${exception.message}",
-                    Toast.LENGTH_SHORT
+                    this, "Failed to save ride: ${exception.message}", Toast.LENGTH_SHORT
                 ).show()
             }
+        }
+
+        userdbReference.push().setValue(ride).addOnSuccessListener {
+            Toast.makeText(this, "Ride saved to Firebase", Toast.LENGTH_SHORT).show()
+        }.addOnFailureListener { exception ->
+            Toast.makeText(
+                this, "Failed to save ride: ${exception.message}", Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     private fun checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
+                this, Manifest.permission.ACCESS_FINE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(
-                    this,
-                    Manifest.permission.ACCESS_FINE_LOCATION
+                    this, Manifest.permission.ACCESS_FINE_LOCATION
                 )
             ) {
-                android.app.AlertDialog.Builder(this)
-                    .setTitle("give permission")
-                    .setMessage("give permission message")
-                    .setPositiveButton(
+                android.app.AlertDialog.Builder(this).setTitle("give permission")
+                    .setMessage("give permission message").setPositiveButton(
                         "OK"
                     ) { dialogInterface, i ->
                         ActivityCompat.requestPermissions(
-                            this,
-                            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                            1
+                            this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1
                         )
-                    }
-                    .create()
-                    .show()
+                    }.create().show()
             } else {
                 ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                    1
+                    this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1
                 )
             }
         }
@@ -503,10 +490,10 @@ class RidesActivity : AppCompatActivity(), OnMapReadyCallback {
 }
 
 data class Ride(
-    val uid: String?="",
-    val rideName: String?="",
+    val uid: String? = "",
+    val rideName: String? = "",
     val distance: Float = 0f,
     val elapsedTime: String? = "",
-    val username: String?=""
+    val username: String? = ""
 )
 

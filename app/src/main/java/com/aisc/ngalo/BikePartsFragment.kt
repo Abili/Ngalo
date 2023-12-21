@@ -10,6 +10,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aisc.ngalo.databinding.FragmentBikePartsBinding
 import com.aisc.ngalo.models.Bike
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import com.google.firebase.FirebaseApp
 import com.google.firebase.database.*
 import kotlinx.coroutines.Dispatchers
@@ -48,6 +50,13 @@ class BikePartsFragment : Fragment() {
                 this,
                 BikeViewModel.BikeViewModelFactory(repository)
             )[BikeViewModel::class.java]
+
+        MobileAds.initialize(requireContext()) { initiallized ->
+            if (initiallized.equals(true)) {
+                val adRequest = AdRequest.Builder().build()
+                binding.adView!!.loadAd(adRequest)
+            }
+        }
 
         lifecycleScope.launch(Dispatchers.IO) {
             bikeViewModel.fetchData()

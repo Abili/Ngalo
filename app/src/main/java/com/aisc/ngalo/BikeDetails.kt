@@ -36,7 +36,7 @@ class BikeDetails : AppCompatActivity() {
 
     // Access the CartViewModel using the CartRepository
     private val cartViewModel: CartViewModel by viewModels {
-        CartViewModelFactory(cartRepository)
+        CartViewModelFactory()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,6 +66,7 @@ class BikeDetails : AppCompatActivity() {
             val price = intent.getStringExtra("bikeprice")
             val img = intent.getStringExtra("bikeimage")
             val desc = intent.getStringExtra("bikedesc")
+            val category = intent.getStringExtra("category")
             if (intent != null) {
                 // Set the name, price, and image
                 binding.textBikeName.text = bikename
@@ -80,6 +81,7 @@ class BikeDetails : AppCompatActivity() {
                     binding.detailsDesc.visibility = View.GONE
                 }
                 binding.textViewDesc.text = desc
+
             }
 
 
@@ -102,7 +104,8 @@ class BikeDetails : AppCompatActivity() {
                             img!!,
                             1,
                             position++,
-                            desc
+                            desc,
+                            category
 
                         )
                     )
@@ -139,6 +142,7 @@ class BikeDetails : AppCompatActivity() {
                     intent.putExtra("price", price)
                     intent.putExtra("name", bikename)
                     intent.putExtra("image", img)
+                    intent.putExtra("category", category)
                     startActivity(intent)
                 }
             }

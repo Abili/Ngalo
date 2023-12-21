@@ -1,8 +1,25 @@
 {
     "logs": [
         {
-            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-98:/values-w600dp-v13/values-w600dp-v13.xml",
+            "outputFile": "com.aisc.ngalo.app-mergeDebugResources-103:/values-w600dp-v13/values-w600dp-v13.xml",
             "map": [
+                {
+                    "source": "/Users/user/Desktop/AndroidStudioProjects/Ngalo/app/src/main/res/values-w600dp/strings.xml",
+                    "from": {
+                        "startLines": "4,5,3,2,9,7,8,6",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "155,208,107,55,419,309,365,259",
+                        "endColumns": "52,50,47,51,57,55,53,49",
+                        "endOffsets": "203,254,150,102,472,360,414,304"
+                    },
+                    "to": {
+                        "startLines": "3,4,5,6,7,8,9,10",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "97,150,201,249,301,359,415,469",
+                        "endColumns": "52,50,47,51,57,55,53,49",
+                        "endOffsets": "145,196,244,296,354,410,464,514"
+                    }
+                },
                 {
                     "source": "/Users/user/Desktop/AndroidStudioProjects/Ngalo/app/src/main/res/values-w600dp/dimens.xml",
                     "from": {

@@ -17,16 +17,17 @@ class NgaloApplication : Application() {
 
         // Enable Firebase database persistence
         FirebaseDatabase.getInstance().setPersistenceEnabled(true)
+
     }
 
     // Lazy initialization of AppDatabase
-    val appDatabase: AppDatabase by lazy {
+    private val appDatabase: AppDatabase by lazy {
         AppDatabase.getDatabase(this)
     }
 
     // Lazy initialization of CartRepository
     val cartRepository: CartRepository by lazy {
-        CartRepository(appDatabase.cartItemDao())
+        CartRepository()
     }
 }
 

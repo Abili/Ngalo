@@ -24,7 +24,7 @@ class CartActivity : AppCompatActivity() {
 
     // Access the CartViewModel using the CartRepository
     private val viewModel: CartViewModel by viewModels {
-        CartViewModelFactory(cartRepository)
+        CartViewModelFactory()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +48,11 @@ class CartActivity : AppCompatActivity() {
 
         //     Update the total price
         viewModel.getTotal().observe(this) {
-            binding.checkout.text = "Check Out ( ${CurrencyUtil.formatCurrency(it, "UGX")})"
+            binding.checkout.text = buildString {
+        append("Check Out ( ")
+        append(CurrencyUtil.formatCurrency(it, "UGX"))
+        append(")")
+    }
         }
         binding.checkout.setOnClickListener {
             var totalprice = 0

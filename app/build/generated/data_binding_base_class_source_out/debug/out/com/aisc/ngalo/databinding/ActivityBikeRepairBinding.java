@@ -6,28 +6,50 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.aisc.ngalo.R;
+import com.google.android.gms.ads.AdView;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
 
 public final class ActivityBikeRepairBinding implements ViewBinding {
   @NonNull
-  private final FrameLayout rootView;
+  private final ScrollView rootView;
+
+  /**
+   * This binding is not available in all configurations.
+   * <p>
+   * Present:
+   * <ul>
+   *   <li>layout/</li>
+   *   <li>layout-land/</li>
+   * </ul>
+   *
+   * Absent:
+   * <ul>
+   *   <li>layout-sw600dp/</li>
+   * </ul>
+   */
+  @Nullable
+  public final AdView adView;
 
   @NonNull
   public final ImageView bikerepairImageView;
 
   @NonNull
   public final LinearLayout bottomSheet;
+
+  @NonNull
+  public final ProgressBar btmsheetloader;
 
   @NonNull
   public final TextView cancelRepairRequest;
@@ -44,14 +66,16 @@ public final class ActivityBikeRepairBinding implements ViewBinding {
   @NonNull
   public final TextView userLocationTextView;
 
-  private ActivityBikeRepairBinding(@NonNull FrameLayout rootView,
+  private ActivityBikeRepairBinding(@NonNull ScrollView rootView, @Nullable AdView adView,
       @NonNull ImageView bikerepairImageView, @NonNull LinearLayout bottomSheet,
-      @NonNull TextView cancelRepairRequest, @NonNull Button orderForRepair,
-      @NonNull EditText repairDescriptionEditText, @NonNull Button requestRepairButton,
-      @NonNull TextView userLocationTextView) {
+      @NonNull ProgressBar btmsheetloader, @NonNull TextView cancelRepairRequest,
+      @NonNull Button orderForRepair, @NonNull EditText repairDescriptionEditText,
+      @NonNull Button requestRepairButton, @NonNull TextView userLocationTextView) {
     this.rootView = rootView;
+    this.adView = adView;
     this.bikerepairImageView = bikerepairImageView;
     this.bottomSheet = bottomSheet;
+    this.btmsheetloader = btmsheetloader;
     this.cancelRepairRequest = cancelRepairRequest;
     this.orderForRepair = orderForRepair;
     this.repairDescriptionEditText = repairDescriptionEditText;
@@ -61,7 +85,7 @@ public final class ActivityBikeRepairBinding implements ViewBinding {
 
   @Override
   @NonNull
-  public FrameLayout getRoot() {
+  public ScrollView getRoot() {
     return rootView;
   }
 
@@ -86,6 +110,9 @@ public final class ActivityBikeRepairBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.adView;
+      AdView adView = ViewBindings.findChildViewById(rootView, id);
+
       id = R.id.bikerepairImageView;
       ImageView bikerepairImageView = ViewBindings.findChildViewById(rootView, id);
       if (bikerepairImageView == null) {
@@ -95,6 +122,12 @@ public final class ActivityBikeRepairBinding implements ViewBinding {
       id = R.id.bottomSheet;
       LinearLayout bottomSheet = ViewBindings.findChildViewById(rootView, id);
       if (bottomSheet == null) {
+        break missingId;
+      }
+
+      id = R.id.btmsheetloader;
+      ProgressBar btmsheetloader = ViewBindings.findChildViewById(rootView, id);
+      if (btmsheetloader == null) {
         break missingId;
       }
 
@@ -128,9 +161,9 @@ public final class ActivityBikeRepairBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityBikeRepairBinding((FrameLayout) rootView, bikerepairImageView, bottomSheet,
-          cancelRepairRequest, orderForRepair, repairDescriptionEditText, requestRepairButton,
-          userLocationTextView);
+      return new ActivityBikeRepairBinding((ScrollView) rootView, adView, bikerepairImageView,
+          bottomSheet, btmsheetloader, cancelRepairRequest, orderForRepair,
+          repairDescriptionEditText, requestRepairButton, userLocationTextView);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

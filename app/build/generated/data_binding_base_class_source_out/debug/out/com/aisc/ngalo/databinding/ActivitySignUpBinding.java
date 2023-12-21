@@ -8,62 +8,102 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.aisc.ngalo.R;
+import com.google.android.material.textfield.TextInputLayout;
+import com.hbb20.CountryCodePicker;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
 
 public final class ActivitySignUpBinding implements ViewBinding {
   @NonNull
-  private final LinearLayout rootView;
-
-  @NonNull
-  public final Button buttonLogIn;
+  private final ScrollView rootView;
 
   @NonNull
   public final Button buttonSignOut;
 
   @NonNull
-  public final Button buttonSignUp;
+  public final CountryCodePicker ccp;
 
   @NonNull
-  public final EditText editTextEmail;
+  public final EditText editTextPhone;
 
   @NonNull
-  public final EditText editTextPassword;
+  public final View googleSignIn;
 
   @NonNull
-  public final LinearLayout googleSignIn;
+  public final Button phoneAuth;
+
+  /**
+   * This binding is not available in all configurations.
+   * <p>
+   * Present:
+   * <ul>
+   *   <li>layout/</li>
+   * </ul>
+   *
+   * Absent:
+   * <ul>
+   *   <li>layout-land/</li>
+   *   <li>layout-sw600dp/</li>
+   * </ul>
+   */
+  @Nullable
+  public final LinearLayout phoneauthLayout;
 
   @NonNull
   public final ProgressBar signInProgress;
 
   @NonNull
+  public final TextInputLayout textInputLayoutPhone;
+
+  @NonNull
   public final TextView textViewStatus;
 
-  private ActivitySignUpBinding(@NonNull LinearLayout rootView, @NonNull Button buttonLogIn,
-      @NonNull Button buttonSignOut, @NonNull Button buttonSignUp, @NonNull EditText editTextEmail,
-      @NonNull EditText editTextPassword, @NonNull LinearLayout googleSignIn,
-      @NonNull ProgressBar signInProgress, @NonNull TextView textViewStatus) {
+  /**
+   * This binding is not available in all configurations.
+   * <p>
+   * Present:
+   * <ul>
+   *   <li>layout/</li>
+   * </ul>
+   *
+   * Absent:
+   * <ul>
+   *   <li>layout-land/</li>
+   *   <li>layout-sw600dp/</li>
+   * </ul>
+   */
+  @Nullable
+  public final Button verifyCode;
+
+  private ActivitySignUpBinding(@NonNull ScrollView rootView, @NonNull Button buttonSignOut,
+      @NonNull CountryCodePicker ccp, @NonNull EditText editTextPhone, @NonNull View googleSignIn,
+      @NonNull Button phoneAuth, @Nullable LinearLayout phoneauthLayout,
+      @NonNull ProgressBar signInProgress, @NonNull TextInputLayout textInputLayoutPhone,
+      @NonNull TextView textViewStatus, @Nullable Button verifyCode) {
     this.rootView = rootView;
-    this.buttonLogIn = buttonLogIn;
     this.buttonSignOut = buttonSignOut;
-    this.buttonSignUp = buttonSignUp;
-    this.editTextEmail = editTextEmail;
-    this.editTextPassword = editTextPassword;
+    this.ccp = ccp;
+    this.editTextPhone = editTextPhone;
     this.googleSignIn = googleSignIn;
+    this.phoneAuth = phoneAuth;
+    this.phoneauthLayout = phoneauthLayout;
     this.signInProgress = signInProgress;
+    this.textInputLayoutPhone = textInputLayoutPhone;
     this.textViewStatus = textViewStatus;
+    this.verifyCode = verifyCode;
   }
 
   @Override
   @NonNull
-  public LinearLayout getRoot() {
+  public ScrollView getRoot() {
     return rootView;
   }
 
@@ -88,45 +128,48 @@ public final class ActivitySignUpBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.buttonLogIn;
-      Button buttonLogIn = ViewBindings.findChildViewById(rootView, id);
-      if (buttonLogIn == null) {
-        break missingId;
-      }
-
       id = R.id.buttonSignOut;
       Button buttonSignOut = ViewBindings.findChildViewById(rootView, id);
       if (buttonSignOut == null) {
         break missingId;
       }
 
-      id = R.id.buttonSignUp;
-      Button buttonSignUp = ViewBindings.findChildViewById(rootView, id);
-      if (buttonSignUp == null) {
+      id = R.id.ccp;
+      CountryCodePicker ccp = ViewBindings.findChildViewById(rootView, id);
+      if (ccp == null) {
         break missingId;
       }
 
-      id = R.id.editTextEmail;
-      EditText editTextEmail = ViewBindings.findChildViewById(rootView, id);
-      if (editTextEmail == null) {
-        break missingId;
-      }
-
-      id = R.id.editTextPassword;
-      EditText editTextPassword = ViewBindings.findChildViewById(rootView, id);
-      if (editTextPassword == null) {
+      id = R.id.editTextPhone;
+      EditText editTextPhone = ViewBindings.findChildViewById(rootView, id);
+      if (editTextPhone == null) {
         break missingId;
       }
 
       id = R.id.google_sign_in;
-      LinearLayout googleSignIn = ViewBindings.findChildViewById(rootView, id);
+      View googleSignIn = ViewBindings.findChildViewById(rootView, id);
       if (googleSignIn == null) {
         break missingId;
       }
 
+      id = R.id.phoneAuth;
+      Button phoneAuth = ViewBindings.findChildViewById(rootView, id);
+      if (phoneAuth == null) {
+        break missingId;
+      }
+
+      id = R.id.phoneauthLayout;
+      LinearLayout phoneauthLayout = ViewBindings.findChildViewById(rootView, id);
+
       id = R.id.signInProgress;
       ProgressBar signInProgress = ViewBindings.findChildViewById(rootView, id);
       if (signInProgress == null) {
+        break missingId;
+      }
+
+      id = R.id.textInputLayoutPhone;
+      TextInputLayout textInputLayoutPhone = ViewBindings.findChildViewById(rootView, id);
+      if (textInputLayoutPhone == null) {
         break missingId;
       }
 
@@ -136,9 +179,12 @@ public final class ActivitySignUpBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivitySignUpBinding((LinearLayout) rootView, buttonLogIn, buttonSignOut,
-          buttonSignUp, editTextEmail, editTextPassword, googleSignIn, signInProgress,
-          textViewStatus);
+      id = R.id.verifyCode;
+      Button verifyCode = ViewBindings.findChildViewById(rootView, id);
+
+      return new ActivitySignUpBinding((ScrollView) rootView, buttonSignOut, ccp, editTextPhone,
+          googleSignIn, phoneAuth, phoneauthLayout, signInProgress, textInputLayoutPhone,
+          textViewStatus, verifyCode);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

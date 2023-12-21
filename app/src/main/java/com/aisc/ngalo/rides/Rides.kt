@@ -1,13 +1,14 @@
 package com.aisc.ngalo.rides
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aisc.ngalo.databinding.ActivityRides2Binding
 
 class Rides : AppCompatActivity() {
-    var ridesViewModel: RidesViewModel? = null
+    private var ridesViewModel: RidesViewModel? = null
     var binding: ActivityRides2Binding? = null
     private val allRidesAdapter = AllRidesAdapter()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +23,9 @@ class Rides : AppCompatActivity() {
         ridesViewModel = ViewModelProvider(this)[RidesViewModel::class.java]
         ridesViewModel!!.loadAllRides()
         ridesViewModel!!.rides.observe(this) {
+            if (it.isEmpty()) {
+                binding!!.nodataLayout.visibility = View.VISIBLE
+            }
             allRidesAdapter.add(it)
 
         }

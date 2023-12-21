@@ -63,17 +63,12 @@ import com.google.firebase.database.FirebaseDatabase
 
 class ConfirmationActivity : ComponentActivity() {
 
-    private val cartRepository: CartRepository
-        get() = (application as NgaloApplication).cartRepository
 
-    // Access the CartViewModel using the CartRepository
-    private val cartViewModel: CartViewModel by viewModels {
-        CartViewModelFactory(cartRepository)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val locationViewModel by viewModels<LocationViewModel>()
+        val cartViewModel by viewModels<CartViewModel>()
         setContent {
             NgaloTheme {
                 // A surface container using the 'background' color from the theme
