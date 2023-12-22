@@ -12,7 +12,6 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.aisc.ngalo.auth.VerifyPhone
 import com.aisc.ngalo.databinding.ActivityUserProfileBinding
 import com.aisc.ngalo.models.User
 import com.bumptech.glide.Glide
